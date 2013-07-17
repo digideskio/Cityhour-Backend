@@ -1,0 +1,54 @@
+{
+    "apiVersion": "1",
+    "swaggerVersion": null,
+    "apis": [
+        {
+            "path": "/resources/billing.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/folders.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/icons.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/invites.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/mockups.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/notifications.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/projects.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/push.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/tags.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/tags2mockups.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/uploads.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/user.{format}",
+            "description": null
+        }
+    ]
+}

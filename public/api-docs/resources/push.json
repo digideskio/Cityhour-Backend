@@ -1,0 +1,80 @@
+{
+    "basePath": "http://test.mockup.io/v1/",
+    "apiVersion": "1",
+    "resourcePath": "/push",
+    "apis": [
+        {
+            "path": "/push/",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Add push.",
+                    "nickname": "AddPush",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "push",
+                            "paramType": "body",
+                            "required": false
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete push.",
+                    "nickname": "DeletePush",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "pushDelete",
+                            "paramType": "body",
+                            "required": false
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "push": {
+            "id": "push",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "device": {
+                    "type": "string"
+                },
+                "debug": {
+                    "type": "string"
+                }
+            }
+        },
+        "pushDelete": {
+            "id": "pushDelete",
+            "properties": {
+                "device": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

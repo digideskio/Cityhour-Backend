@@ -1,0 +1,138 @@
+{
+    "basePath": "http://test.mockup.io/v1/",
+    "apiVersion": "1",
+    "resourcePath": "/projects",
+    "apis": [
+        {
+            "path": "/projects/",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get all user projects.",
+                    "nickname": "GetProjects",
+                    "responseClass": "void",
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "POST",
+                    "summary": "Create project.",
+                    "nickname": "CreateProject",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "projSent",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/projects/{id}",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get project.",
+                    "nickname": "GetProject",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "description": "id of project",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "path",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update project.",
+                    "nickname": "UpdateProject",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "description": "id of project",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "path",
+                            "required": true
+                        },
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "projSent",
+                            "paramType": "query",
+                            "required": false
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete project.",
+                    "nickname": "DeleteProject",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "id",
+                            "description": "id of project",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "path",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "projSent": {
+            "id": "projSent",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "is_public": {
+                    "type": "int"
+                }
+            }
+        }
+    }
+}

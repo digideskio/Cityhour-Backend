@@ -1,0 +1,26 @@
+/* TEAM */
+
+    Backend developer: Denis Bukashk0zzz
+    Skype: bukashk0z
+    Twitter: @bukashk0zzz
+    Location: Kiev, Ukraine
+
+    iOS Developer: Serg Krivoblotsky
+    Skype: serg.krivoblotsky
+    Twitter: @Krivoblotsky
+    Location: Kiev, Ukraine
+
+    Designer: Alex Kot
+    Skype: thisiskotki
+    Twitter: @kotki_says
+    Location: Kiev, Ukraine
+
+/* THANKS */
+
+    To our moms,dads,girlfriends, Ian MacKaye and other people who helped)
+
+/* API */
+    Last update: 2013/07/17
+    Standards: REST
+    Components: Zend Framework, Swagger
+    Software: phpStorm, git

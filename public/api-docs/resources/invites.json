@@ -1,0 +1,167 @@
+{
+    "basePath": "http://test.mockup.io/v1/",
+    "apiVersion": "1",
+    "resourcePath": "/invites",
+    "apis": [
+        {
+            "path": "/invites/",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Use Invite.",
+                    "nickname": "UseInvite",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "invite",
+                            "description": "invite id",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": true
+                        },
+                        {
+                            "name": "email",
+                            "description": "email",
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "GET",
+                    "summary": "Get sharing rights.",
+                    "nickname": "SharingRights",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "project",
+                            "description": "project id",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                },
+                {
+                    "httpMethod": "POST",
+                    "summary": "Add sharing rights.",
+                    "nickname": "AddSharingRights",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "createInvite",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/invites/ask",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Request access to project.",
+                    "nickname": "RequestAccess",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "pid",
+                            "description": "project id",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": true
+                        },
+                        {
+                            "name": "email",
+                            "description": "email",
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Project id not valid",
+                            "code": 410
+                        },
+                        {
+                            "reason": "Email not valid.",
+                            "code": 409
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "path": "/invites/{id}",
+            "operations": [
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Delete sharing rights.",
+                    "nickname": "DeleteSharingRights",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "invite",
+                            "description": "invite id",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "models": {
+        "createInvite": {
+            "id": "createInvite",
+            "properties": {
+                "project": {
+                    "type": "int",
+                    "description": "project id"
+                },
+                "sequence": {
+                    "type": "array()",
+                    "description": "Emails array"
+                }
+            }
+        }
+    }
+}
