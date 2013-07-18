@@ -19,6 +19,7 @@
           <dbTableFile dbTableName="Users"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
+        <modelFile modelName="Types"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="default">
