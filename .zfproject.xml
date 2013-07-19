@@ -17,9 +17,12 @@
       <modelsDirectory>
         <dbTableDirectory>
           <dbTableFile dbTableName="Users"/>
+          <dbTableFile dbTableName="UserContactsWait"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>
+        <modelFile modelName="Facebook"/>
+        <modelFile modelName="Linkedin"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="default">

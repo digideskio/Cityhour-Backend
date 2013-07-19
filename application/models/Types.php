@@ -10,5 +10,12 @@ class Application_Model_Types
         );
     }
 
+    public static function invited() {
+        return array(
+            0 => false,
+            1 => true
+        );
+    }
+
 }
 

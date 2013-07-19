@@ -5,10 +5,6 @@ use Swagger\Annotations as SWG;
  * @SWG\Resource(
  *  resourcePath="/auth"
  * )
- *
- * @SWG\Model(id="loginParams")
- * @SWG\Property(name="type",type="int"),
- * @SWG\Property(name="token",type="string")
  */
 
 class V1_AuthController extends Zend_Rest_Controller
@@ -22,6 +18,8 @@ class V1_AuthController extends Zend_Rest_Controller
     public function indexAction()
     {
         $this->getAction();
+        $db = new Application_Model_Facebook();
+        $db->storeInfo('CAADEWid8XmUBAEuQohPz6CgZCQyguci2y6tTiyRbueil81SnIZCDb1kV6SD471qSEQuAUa2QiHH6lpf9m8m4DpZB4j1loUsZC9WGUooKsVrPZB7lWF7ZADiMkKCr8bbZCGw8Dx39hQ8UfUJmZB557ZCgXnzfItAha2nFQXGgCXXaOyQBWjp6iKgLWNzy4lq4UNwxU530HCQUTl4BkjhcKZCHRP',11);
     }
 
     public function getAction()
@@ -29,15 +27,107 @@ class V1_AuthController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
     }
 
+
+    /**
+     *
+     * @SWG\Model(id="registerParams")
+     * @SWG\Property(name="name",type="string"),
+     * @SWG\Property(name="lastname",type="string"),
+     * @SWG\Property(name="email",type="string"),
+     * @SWG\Property(name="skype",type="string"),
+     * @SWG\Property(name="facebook_key",type="string"),
+     * @SWG\Property(name="linkedin_key",type="string")
+     *
+     *
+     * @SWG\Api(
+     *   path="/auth/",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       httpMethod="POST",
+     *       summary="Register.",
+     *       responseClass="void",
+     *       nickname="Register",
+     *       notes="",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params correct."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="registerParams"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+        if (isset($data['email'])) $email = $data['email']; else $email = false;
+        $valid_email = new Zend_Validate_EmailAddress();
+
+        if ($valid_email->isValid($email)) {
+            $db = new Application_Model_DbTable_Users();
+            if ($db->emailCheck($email)) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '300'
+                ));
+            }
+            else {
+                $filter = new Zend_Filter_StripTags();
+                $userData = array(
+                    'email' => $email,
+                    'private_key' => uniqid(sha1(time()), false)
+                );
+
+                if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
+                if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
+                if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
+                if (isset($data['facebook_key'])) $userData['facebook_key'] =  $filter->filter($data['facebook_key']);
+                if (isset($data['linkedin_key'])) $userData['linkedin_key'] = $filter->filter($data['linkedin_key']);
+
+
+                try {
+                    $id = $db->registerUser($userData);
+                    $res = $db->getUserId($id);
+
+                    $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '200'
+                    ));
+                }
+                catch (Exception $e) {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '500',
+                        'reason' => $e->getMessage()
+                    ));
+                }
+            }
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                'errorCode' => '400'
+            ));
+        }
     }
 
     public function putAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
         /**
+         *
+         * @SWG\Model(id="loginParams")
+         * @SWG\Property(name="type",type="int"),
+         * @SWG\Property(name="token",type="string")
+         *
          *
          * @SWG\Api(
          *   path="/auth/login/",
@@ -88,21 +178,12 @@ class V1_AuthController extends Zend_Rest_Controller
                 if($token) {
                     $db = new Application_Model_DbTable_Users();
                     if ($type == 1) {
-                        if ($db->facebookCheck($token)) {
-                            $this->_helper->json->sendJson($db->getUserFacebook($token,true,null));
-                        }
-                        else {
-                            $config = $this->getInvokeArg('bootstrap')->getOption('facebook');
-                            $this->_helper->json->sendJson($db->getUserFacebook($token,false,$config));
-                        }
+                        $res = $db->facebookLogin($token);
+                        $this->_helper->json->sendJson($res);
                     }
                     else if ($type == 2) {
-                        if ($db->linkedinCheck($token)) {
-                            $this->_helper->json->sendJson($db->getUserLinkedin($token,true,null));
-                        }
-                        else {
-                            $this->_helper->json->sendJson($db->getUserLinkedin($token,false));
-                        }
+                        $res = $db->linkedinLogin($token);
+                        $this->_helper->json->sendJson($res);
                     }
                 }
                 else {
