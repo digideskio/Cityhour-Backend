@@ -19,6 +19,8 @@
           <dbTableFile dbTableName="Users"/>
           <dbTableFile dbTableName="UserContactsWait"/>
           <dbTableFile dbTableName="Notifications"/>
+          <dbTableFile dbTableName="Push"/>
+          <dbTableFile dbTableName="Friends"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>

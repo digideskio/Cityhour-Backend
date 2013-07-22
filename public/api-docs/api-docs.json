@@ -7,6 +7,10 @@
             "description": null
         },
         {
+            "path": "/resources/friends.{format}",
+            "description": null
+        },
+        {
             "path": "/resources/inviteFriends.{format}",
             "description": null
         },
@@ -16,6 +20,10 @@
         },
         {
             "path": "/resources/people.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/push.{format}",
             "description": null
         }
     ]
