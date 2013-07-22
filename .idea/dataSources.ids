@@ -92,6 +92,8 @@
       <column name="to" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
       <column name="text" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_notifications_users1_idx" unique="false" columns="from"/>
       <index name="fk_notifications_users2_idx" unique="false" columns="to"/>
@@ -103,8 +105,14 @@
     </table>
     <table name="user_contacts_wait" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="email" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
+      <column name="facebook_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="linkedin_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="invited" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="photo" sqlType="VARCHAR" length="300" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_user_contacts_users1_idx" unique="false" columns="user_id"/>
     </table>
@@ -183,9 +191,12 @@
       <column name="address_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="rating" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="experience" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
-      <column name="facebook_key" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
-      <column name="linkedin_key" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
-      <column name="private_key" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="facebook_key" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
+      <column name="facebook_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="linkedin_key" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
+      <column name="linkedin_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="private_key" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
       <column name="update" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_Users_addresses1_idx" unique="false" columns="address_id"/>

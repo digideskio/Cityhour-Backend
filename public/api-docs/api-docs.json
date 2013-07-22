@@ -3,11 +3,19 @@
     "swaggerVersion": null,
     "apis": [
         {
-            "path": "/resources/InviteFriends.{format}",
+            "path": "/resources/auth.{format}",
             "description": null
         },
         {
-            "path": "/resources/auth.{format}",
+            "path": "/resources/inviteFriends.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/notifications.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/people.{format}",
             "description": null
         }
     ]

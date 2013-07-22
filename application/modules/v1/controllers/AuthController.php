@@ -18,8 +18,6 @@ class V1_AuthController extends Zend_Rest_Controller
     public function indexAction()
     {
         $this->getAction();
-        $db = new Application_Model_Facebook();
-        $db->storeInfo('CAADEWid8XmUBAEuQohPz6CgZCQyguci2y6tTiyRbueil81SnIZCDb1kV6SD471qSEQuAUa2QiHH6lpf9m8m4DpZB4j1loUsZC9WGUooKsVrPZB7lWF7ZADiMkKCr8bbZCGw8Dx39hQ8UfUJmZB557ZCgXnzfItAha2nFQXGgCXXaOyQBWjp6iKgLWNzy4lq4UNwxU530HCQUTl4BkjhcKZCHRP',11);
     }
 
     public function getAction()
@@ -92,7 +90,9 @@ class V1_AuthController extends Zend_Rest_Controller
                 if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
                 if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
                 if (isset($data['facebook_key'])) $userData['facebook_key'] =  $filter->filter($data['facebook_key']);
+                if (isset($data['facebook_id'])) $userData['facebook_id'] =  $filter->filter($data['facebook_id']);
                 if (isset($data['linkedin_key'])) $userData['linkedin_key'] = $filter->filter($data['linkedin_key']);
+                if (isset($data['linkedin_id'])) $userData['linkedin_id'] = $filter->filter($data['linkedin_id']);
 
 
                 try {

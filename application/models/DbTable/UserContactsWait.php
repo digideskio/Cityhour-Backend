@@ -10,14 +10,86 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         return true;
     }
 
-    public function getAll($id) {
-        $res = $this->fetchAll("user_id = $id");
-        if ($res != null) {
-            $res = $res->toArray();
+    public function updateFacebookData($data,$id, $user_id) {
+        $this->update($data,"facebook_id = '$id' and user_id = $user_id");
+        return true;
+    }
+
+    public function updateLinkedinData($data,$id, $user_id) {
+        $this->update($data,"linkedin_id = '$id' and user_id = $user_id");
+        return true;
+    }
+
+    public function getAll($user, $type) {
+        if ($type == 1) {
+            $facebook = new Application_Model_Facebook();
+            $facebook->storeInfo($user['facebook_key'],$user['id']);
+            $id = $user['id'];
+            $res = $this->_db->fetchAll("
+                select u.id, w.name, w.lastname, w.photo, w.status
+                from users u
+                left join user_contacts_wait w on u.facebook_id = w.facebook_id
+                where
+                  user_id = $id and type = 1
+            ");
+        }
+        else if ($type == 2) {
+            $facebook = new Application_Model_Linkedin();
+            $facebook->storeInfo($user['linkedin_key'],$user['id']);
+            $id = $user['id'];
+            $res = $this->_db->fetchAll("
+                select u.id, w.name, w.lastname, w.photo, w.status
+                from users u
+                left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
+                where
+                  user_id = $id and type = 2
+            ");
+        }
+        if (isset($res) && $res != null) {
             return $res;
         }
-        else
+        else {
+            return array();
+        }
+    }
+
+    public function invite($fid, $user) {
+        $invite = $this->_db->fetchRow("
+            select *
+            from users
+            where id = $fid
+        ");
+        if ($invite != null) {
+            $user_id = $user['id'];
+            $friend_id = $invite['id'];
+            $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
+                'table' => 'notifications',
+                'field' => 'from',
+                'exclude' => "`to` = $friend_id and type = 0"
+            ));
+
+            if ($validator_exist->isValid($user_id)) {
+                $this->_db->insert('notifications',array(
+                    'from' => $user_id,
+                    'to' => $friend_id,
+                    'type' => 0,
+                    'text' => 'Friend invite Хочешь не хочешь?'
+                ));
+
+                $facebook_id = $invite['facebook_id'];
+                $linkedin_id = $invite['linkedin_id'];
+                $this->update(array(
+                    'status' => 1
+                ),"user_id = $user_id and (facebook_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+        else {
             return false;
+        }
     }
 
 }

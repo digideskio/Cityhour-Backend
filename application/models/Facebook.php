@@ -51,19 +51,22 @@ class Application_Model_Facebook
 
         ));
         foreach ($friends as $row) {
-            if ($validator_exist->isValid($row['uid'])) {
-                $row = array(
-                    'name' => $row['first_name'],
-                    'lastname' => $row['last_name'],
-                    'facebook_id' => $row['uid'],
-                    'photo' => $row['pic'],
-                    'user_id' => $id
-                );
+            $row = array(
+                'name' => $row['first_name'],
+                'lastname' => $row['last_name'],
+                'facebook_id' => $row['uid'],
+                'photo' => $row['pic'],
+                'user_id' => $id,
+                'type' => 1
+            );
+            if ($validator_exist->isValid($row['facebook_id'])) {
                 $db->add($row);
+            }
+            else {
+                $db->updateFacebookData($row,$row['facebook_id'],$id);
             }
         }
         return true;
     }
-
 
 }

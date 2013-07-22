@@ -17,5 +17,11 @@ class Application_Model_Types
         );
     }
 
+    public static function notification() {
+        return array(
+            0 => 'Friend request'
+        );
+    }
+
 }
 
