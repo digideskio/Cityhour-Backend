@@ -7,7 +7,8 @@ class Application_Model_Status
         return array(
             0 => 'Not send',
             1 => 'Sent',
-            2 => 'Friend'
+            2 => 'Friend',
+            3 => 'Reject'
         );
     }
 
@@ -16,6 +17,15 @@ class Application_Model_Status
             0 => 'Friend request',
             1 => 'Friend',
             2 => 'Friend deleted'
+        );
+    }
+
+    public static function Notification() {
+        return array(
+            0 => 'Sent',
+            1 => 'Read',
+            2 => 'Accept',
+            3 => 'Reject'
         );
     }
 

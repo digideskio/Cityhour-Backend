@@ -8,7 +8,7 @@
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "summary": "Get user.",
+                    "summary": "Get user info.",
                     "nickname": "GetUser",
                     "responseClass": "void",
                     "parameters": [

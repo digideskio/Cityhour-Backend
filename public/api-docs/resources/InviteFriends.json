@@ -40,52 +40,8 @@
                         }
                     ],
                     "notes": ""
-                },
-                {
-                    "httpMethod": "POST",
-                    "summary": "Invite friend.",
-                    "nickname": "InviteFriend",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "json",
-                            "description": "json",
-                            "allowMultiple": false,
-                            "dataType": "inviteFriendParams",
-                            "paramType": "body",
-                            "required": true
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "Not all params correct.",
-                            "code": 400
-                        },
-                        {
-                            "reason": "Have no permissions.",
-                            "code": 401
-                        },
-                        {
-                            "reason": "Fid not found.",
-                            "code": 404
-                        }
-                    ],
-                    "notes": ""
                 }
             ]
         }
-    ],
-    "models": {
-        "inviteFriendParams": {
-            "id": "inviteFriendParams",
-            "properties": {
-                "id": {
-                    "type": "string"
-                },
-                "private_key": {
-                    "type": "string"
-                }
-            }
-        }
-    }
+    ]
 }

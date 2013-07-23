@@ -32,8 +32,48 @@
                         }
                     ],
                     "notes": ""
+                },
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Read notification.",
+                    "nickname": "ReadNotification",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "readNotificationParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        }
+                    ],
+                    "notes": ""
                 }
             ]
         }
-    ]
+    ],
+    "models": {
+        "readNotificationParams": {
+            "id": "readNotificationParams",
+            "properties": {
+                "id": {
+                    "type": "int"
+                },
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        }
+    }
 }

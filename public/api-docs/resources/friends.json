@@ -34,9 +34,71 @@
                     "notes": ""
                 },
                 {
+                    "httpMethod": "POST",
+                    "summary": "Add friend.",
+                    "nickname": "InviteFriend",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "addFriendParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "Id not found.",
+                            "code": 404
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Answer friend request.",
+                    "nickname": "AnswerFriend",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "AnswerFriendParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "Id not found.",
+                            "code": 404
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
                     "httpMethod": "DELETE",
-                    "summary": "Get Friends.",
-                    "nickname": "GetFriends",
+                    "summary": "Delete Friend.",
+                    "nickname": "DeleteFriend",
                     "responseClass": "void",
                     "parameters": [
                         {
@@ -70,5 +132,32 @@
                 }
             ]
         }
-    ]
+    ],
+    "models": {
+        "addFriendParams": {
+            "id": "addFriendParams",
+            "properties": {
+                "id": {
+                    "type": "string"
+                },
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "AnswerFriendParams": {
+            "id": "AnswerFriendParams",
+            "properties": {
+                "id": {
+                    "type": "int"
+                },
+                "status": {
+                    "type": "int"
+                },
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        }
+    }
 }

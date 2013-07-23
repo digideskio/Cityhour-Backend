@@ -63,43 +63,21 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         }
     }
 
-    public function invite($fid, $user) {
-        $invite = $this->_db->fetchRow("
-            select *
-            from users
-            where id = $fid
-        ");
-        if ($invite != null) {
-            $user_id = $user['id'];
-            $friend_id = $invite['id'];
-            $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
-                'table' => 'notifications',
-                'field' => 'from',
-                'exclude' => "`to` = $friend_id and type = 0"
-            ));
+    public function updateStatus($user, $user2, $status) {
+        $user_id =  $user2['id'];
+        $facebook_id =  $user['facebook_id'];
+        $linkedin_id =  $user['linkedin_id'];
+        $this->update(array(
+            'status' => $status
+        ),"user_id = $user_id and (facebook_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
 
-            if ($validator_exist->isValid($user_id)) {
-                $this->_db->insert('notifications',array(
-                    'from' => $user_id,
-                    'to' => $friend_id,
-                    'type' => 0,
-                    'text' => 'Friend invite Хочешь не хочешь?'
-                ));
-
-                $facebook_id = $invite['facebook_id'];
-                $linkedin_id = $invite['linkedin_id'];
-                $this->update(array(
-                    'status' => 1
-                ),"user_id = $user_id and (facebook_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
-                return true;
-            }
-            else {
-                return true;
-            }
-        }
-        else {
-            return false;
-        }
+        $user_id =  $user['id'];
+        $facebook_id =  $user2['facebook_id'];
+        $linkedin_id =  $user2['linkedin_id'];
+        $this->update(array(
+            'status' => $status
+        ),"user_id = $user_id and (facebook_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
+        return true;
     }
 
 }
