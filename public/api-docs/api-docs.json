@@ -29,6 +29,10 @@
         {
             "path": "/resources/push.{format}",
             "description": null
+        },
+        {
+            "path": "/resources/user.{format}",
+            "description": null
         }
     ]
 }

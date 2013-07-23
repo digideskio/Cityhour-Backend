@@ -2,20 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/models/DbTable/Map.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/MapController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/v1/controllers/MapControllerTest.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/v1/views/scripts/map/index.phtml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/api-docs/resources/map.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.zfproject.xml" afterPath="$PROJECT_DIR$/.zfproject.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Friends.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/InviteFriends.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/InviteFriends.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Users.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Users.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/api-docs.json" afterPath="$PROJECT_DIR$/public/api-docs/api-docs.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/friends.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/friends.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/php.log" afterPath="$PROJECT_DIR$/logs/php.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/user.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/user.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MeetRocket.iws" />
@@ -24,11 +14,11 @@
     <file path="/index.phtml" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374142212849" ignored="false" />
     <file path="/readme.md" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374053616685" ignored="false" />
     <file path="/IndexController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374054577890" ignored="false" />
-    <file path="/Dummy.txt" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374562020489" ignored="false" />
+    <file path="/Dummy.txt" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374562037398" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/configs/application.ini" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374056835977" ignored="false" />
     <file path="/AuthController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374389657547" ignored="false" />
     <file path="/Types.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374490254321" ignored="false" />
-    <file path="/Users.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374481320686" ignored="false" />
+    <file path="/Users.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374562526343" ignored="false" />
     <file path="/a.dummy" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374241889503" ignored="false" />
     <file path="/application.ini" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374068105115" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/v1/controllers/BillingController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374070582425" ignored="false" />
@@ -37,7 +27,7 @@
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/default/controllers/EmailController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374147073029" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/default/views/scripts/email/index.phtml" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374244510859" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/v1/controllers/UserController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374142640469" ignored="false" />
-    <file path="/UserController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374142627713" ignored="false" />
+    <file path="/UserController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374562427872" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/models/DbTable/Users.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374146414406" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/logs/application.log" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374148039362" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/logs/php.log" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374144674018" ignored="false" />
@@ -62,6 +52,9 @@
     <file path="/Push.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374496521707" ignored="false" />
     <file path="/MapController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374506369698" ignored="false" />
     <file path="/Map.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374561853541" ignored="false" />
+    <file path="db-console:/52752afc/3787aeb0-8471-41f2-8ea2-052a328b7183/" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374562081476" ignored="false" />
+    <file path="$PROJECT_DIR$/public/api-docs/resources/map.json" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374562569481" ignored="false" />
+    <file path="$PROJECT_DIR$/public/api-docs/resources/InviteFriends.json" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374562569481" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -85,7 +78,26 @@
     <favorites_list name="MeetRocket" />
   </component>
   <component name="FileEditorManager">
-    <leaf />
+    <leaf>
+      <file leaf-file-name="UserController.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/UserController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="29" column="35" selection-start="499" selection-end="499" vertical-scroll-proportion="0.36864406">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Users.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="42" selection-start="272" selection-end="272" vertical-scroll-proportion="-7.5">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -133,7 +145,6 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/application/models/Facebook.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
         <option value="$PROJECT_DIR$/application/models/Types.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" />
@@ -146,8 +157,9 @@
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/MapController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Map.php" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" />
         <option value="$PROJECT_DIR$/logs/php.log" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" />
       </list>
     </option>
   </component>
@@ -697,15 +709,20 @@
       <created>1374497485013</created>
       <updated>1374497485013</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="add map&#10;">
+      <created>1374562046880</created>
+      <updated>1374562046881</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1352" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1300716" sideWeight="0.67126626" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1300716" sideWeight="0.67045456" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -716,7 +733,7 @@
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.66314936" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14081146" sideWeight="0.67126626" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14081146" sideWeight="0.67045456" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32711038" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -769,7 +786,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="push..." />
+    <option name="LAST_COMMIT_MESSAGE" value="add map&#10;" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -784,6 +801,7 @@
     <option name="SHOW_FILE_HISTORY_AS_TREE" value="false" />
     <option name="FILE_HISTORY_SPLITTER_PROPORTION" value="0.6" />
     <MESSAGE value="push..." />
+    <MESSAGE value="add map&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -798,13 +816,6 @@
             <marker date="1373013648000" expanded="true" signature="-1:-1" placeholder="select id fr..push..." />
             <marker date="1373013648000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.22881356">
-          <folding />
         </state>
       </provider>
     </entry>
@@ -849,15 +860,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding>
-            <marker date="1374489635000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="24" selection-start="1537" selection-end="1537" vertical-scroll-proportion="-0.5254237">
@@ -888,22 +890,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Map.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="27" selection-start="811" selection-end="811" vertical-scroll-proportion="0.3940678">
-          <folding>
-            <marker date="1374561926000" expanded="true" signature="-1:-1" placeholder="SELECT m.use..map..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="8" selection-start="337" selection-end="337" vertical-scroll-proportion="0.22881356">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PushController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="0" selection-start="7" selection-end="94" vertical-scroll-proportion="0.025423728">
@@ -914,6 +900,36 @@
     <entry file="file://$PROJECT_DIR$/logs/php.log">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Map.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="18" column="29" selection-start="499" selection-end="499" vertical-scroll-proportion="0.22881356">
+          <folding>
+            <marker date="1374561926000" expanded="true" signature="-1:-1" placeholder="SELECT m.use..map..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="7" selection-end="94" vertical-scroll-proportion="0.025423728">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="42" selection-start="272" selection-end="272" vertical-scroll-proportion="-7.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="35" selection-start="499" selection-end="499" vertical-scroll-proportion="0.36864406">
           <folding />
         </state>
       </provider>

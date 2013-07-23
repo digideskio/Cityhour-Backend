@@ -1,5 +1,5 @@
 {
-    "basePath": "http://test.mockup.io/v1/",
+    "basePath": "http://192.168.1.150:8000/v1/",
     "apiVersion": "1",
     "resourcePath": "/user",
     "apis": [
@@ -7,38 +7,22 @@
             "path": "/user/",
             "operations": [
                 {
-                    "httpMethod": "POST",
-                    "summary": "Register User.",
-                    "nickname": "RegisterUser",
+                    "httpMethod": "GET",
+                    "summary": "Get user.",
+                    "nickname": "GetUser",
                     "responseClass": "void",
                     "parameters": [
                         {
-                            "name": "email",
-                            "description": "email",
+                            "name": "private_key",
+                            "description": "private_key",
                             "allowMultiple": false,
                             "dataType": "string",
                             "paramType": "query",
                             "required": true
                         },
                         {
-                            "name": "user_type",
-                            "description": "user type",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": false
-                        },
-                        {
-                            "name": "password_real",
-                            "description": "password real",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "password",
-                            "description": "password",
+                            "name": "id",
+                            "description": "id",
                             "allowMultiple": false,
                             "dataType": "string",
                             "paramType": "query",
@@ -47,264 +31,21 @@
                     ],
                     "errorResponses": [
                         {
-                            "reason": "Server error.",
-                            "code": 500
-                        },
-                        {
-                            "reason": "Bad email.",
-                            "code": 409
-                        },
-                        {
-                            "reason": "User exist.",
-                            "code": 417
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "path": "/user/email/",
-            "operations": [
-                {
-                    "httpMethod": "POST",
-                    "summary": "Change email.",
-                    "nickname": "ChangeEmail",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "email",
-                            "description": "email",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "User already registered with this email.",
-                            "code": 417
-                        },
-                        {
-                            "reason": "Not allowed to do this.",
+                            "reason": "Authentication failed.",
                             "code": 401
+                        },
+                        {
+                            "reason": "User not found).",
+                            "code": 404
                         },
                         {
                             "reason": "Not all params given.",
                             "code": 400
-                        },
-                        {
-                            "reason": "User exist.",
-                            "code": 417
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "path": "/user/forgot/",
-            "operations": [
-                {
-                    "httpMethod": "POST",
-                    "summary": "Forgot password.",
-                    "nickname": "ForgotPassword",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "email",
-                            "description": "email",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "path": "/user/login/",
-            "operations": [
-                {
-                    "httpMethod": "POST",
-                    "summary": "Login.",
-                    "nickname": "login",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "email",
-                            "description": "email",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "password",
-                            "description": "password",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
                         }
                     ],
-                    "errorResponses": [
-                        {
-                            "reason": "Invalid user login or password.",
-                            "code": 400
-                        },
-                        {
-                            "reason": "Bad email.",
-                            "code": 409
-                        },
-                        {
-                            "reason": "User not approved.",
-                            "code": 417
-                        },
-                        {
-                            "reason": "User not found.",
-                            "code": 404
-                        }
-                    ],
-                    "notes": "<b>Password send to server like md5hash.</b><br>For tests use online tool for converting string to md5hash  <a target='_blank' href='http://www.md5.cz/'>http://www.md5.cz/</a>"
-                }
-            ]
-        },
-        {
-            "path": "/user/logout/",
-            "operations": [
-                {
-                    "httpMethod": "GET",
-                    "summary": "Logout User.",
-                    "nickname": "logout",
-                    "responseClass": "void"
-                }
-            ]
-        },
-        {
-            "path": "/user/password/",
-            "operations": [
-                {
-                    "httpMethod": "POST",
-                    "summary": "Change password.",
-                    "nickname": "ChangePassword",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "password",
-                            "description": "password",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "key",
-                            "description": "key if restore pass",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": false
-                        },
-                        {
-                            "name": "password_real",
-                            "description": "password_real",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": false
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "path": "/user/restore/",
-            "operations": [
-                {
-                    "httpMethod": "GET",
-                    "summary": "Restore pass link from mail.",
-                    "nickname": "RestorePassLink",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "key",
-                            "description": "key",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "email",
-                            "description": "email",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        }
-                    ]
-                }
-            ]
-        },
-        {
-            "path": "/user/session/",
-            "operations": [
-                {
-                    "httpMethod": "GET",
-                    "summary": "Get User Session.",
-                    "nickname": "session",
-                    "responseClass": "Session"
+                    "notes": ""
                 }
             ]
         }
-    ],
-    "models": {
-        "Session": {
-            "id": "Session",
-            "properties": {
-                "user": {
-                    "type": "string",
-                    "description": "User id"
-                },
-                "logout": {
-                    "type": "string",
-                    "description": "Url logout"
-                },
-                "available": {
-                    "type": "int"
-                },
-                "amount": {
-                    "type": "int"
-                },
-                "type": {
-                    "type": "string"
-                },
-                "created_at": {
-                    "type": "datatime"
-                },
-                "num_projects": {
-                    "type": "int"
-                },
-                "size_used": {
-                    "type": "int"
-                },
-                "size_allow": {
-                    "type": "int"
-                },
-                "folders_count": {
-                    "type": "int"
-                },
-                "mockups_count": {
-                    "type": "int"
-                },
-                "mockups_limit": {
-                    "type": "int"
-                },
-                "key": {
-                    "type": "string"
-                }
-            }
-        }
-    }
+    ]
 }

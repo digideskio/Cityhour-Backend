@@ -9,6 +9,15 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         return $this->fetchAll()->toArray();
     }
 
+    public function getUser($id) {
+        $res = $this->fetchRow("id = $id");
+        if ($res != null) {
+            $res = $res->toArray();
+            return $res;
+        }
+        else
+            return false;
+    }
 
     public function registerUser($userData) {
         $id = $this->insert($userData);
