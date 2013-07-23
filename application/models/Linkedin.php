@@ -21,6 +21,25 @@ class Application_Model_Linkedin
         catch (Exception $e) {
             $user_profile = false;
         }
+
+
+
+        $url = 'https://api.linkedin.com/v1/people/~/picture-urls::(original)?' . http_build_query($params);
+        $context = stream_context_create(
+            array('http' =>
+            array('method' => 'GET',
+            )
+            )
+        );
+        try {
+            $picture = @file_get_contents($url, false, $context);
+            $picture = (array)json_decode($picture);
+        }
+        catch (Exception $e) {
+            $picture = null;
+        }
+
+        $user_profile['photo'] = $picture['values'][0];
         return $user_profile;
     }
 
@@ -37,7 +56,7 @@ class Application_Model_Linkedin
             )
         );
         try {
-            $friends = file_get_contents($url, false, $context);
+            $friends = @file_get_contents($url, false, $context);
             $friends = (array)json_decode($friends);
         }
         catch (Exception $e) {

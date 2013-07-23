@@ -33,7 +33,7 @@ class Application_Model_DbTable_Map extends Zend_Db_Table_Abstract
             $lng = $map['lng'];
             $lat = $map['lat'];
             $res = $this->_db->fetchAll("
-                    SELECT m.user_id, m.lat, m.lng, m.time, u.name, u.lastname, u.photo_id
+                    SELECT m.user_id, m.lat, m.lng, m.time, u.name, u.lastname, u.photo
                     FROM map m
                     left join users u on m.user_id = u.id
                     WHERE

@@ -23,8 +23,13 @@ class Application_Model_Facebook
         if (!$user) {
             return false;
         }
-
-        $user_profile = $facebook->api('/me', 'GET');
+        $fql = "SELECT uid, first_name, pic_big, last_name FROM user where uid = $user";
+        $user_profile = $facebook->api(array(
+            'method'       => 'fql.query',
+            'access_token' => $token,
+            'query'        => $fql,
+        ))[0];
+        $user_profile['email'] = $facebook->api('/me?fields=email', 'GET')['email'];
         return $user_profile;
     }
 
@@ -43,6 +48,7 @@ class Application_Model_Facebook
             'access_token' => $token,
             'query'        => $fql,
         ));
+
         $db = new Application_Model_DbTable_UserContactsWait();
         $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
             'table' => 'user_contacts_wait',

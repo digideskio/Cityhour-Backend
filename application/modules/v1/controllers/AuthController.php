@@ -90,6 +90,7 @@ class V1_AuthController extends Zend_Rest_Controller
                 if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
                 if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
                 if (isset($data['facebook_key'])) $userData['facebook_key'] =  $filter->filter($data['facebook_key']);
+                if (isset($data['photo_id'])) $userData['photo'] =  $filter->filter($data['photo_id']);
                 if (isset($data['facebook_id'])) $userData['facebook_id'] =  $filter->filter($data['facebook_id']);
                 if (isset($data['linkedin_key'])) $userData['linkedin_key'] = $filter->filter($data['linkedin_key']);
                 if (isset($data['linkedin_id'])) $userData['linkedin_id'] = $filter->filter($data['linkedin_id']);

@@ -22,6 +22,7 @@
           <dbTableFile dbTableName="Push"/>
           <dbTableFile dbTableName="Friends"/>
           <dbTableFile dbTableName="Map"/>
+          <dbTableFile dbTableName="UserPhotos"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>

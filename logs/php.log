@@ -1,0 +1,317 @@
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP Notice:  Undefined variable: ext in /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PhotoController.php on line 72
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   7. V1_PhotoController->postAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP Warning:  move_uploaded_file(/Users/denis/Dropbox/MeetRocket/application/../public/upload/mockups/137458079151ee7037d31b2.): failed to open stream: No such file or directory in /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PhotoController.php on line 73
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   7. V1_PhotoController->postAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   8. move_uploaded_file() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PhotoController.php:73
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP Warning:  move_uploaded_file(): Unable to move '/private/var/folders/34/_h2vzstj6tl360hk_4xx__6h0000gn/T/phpGNegP7' to '/Users/denis/Dropbox/MeetRocket/application/../public/upload/mockups/137458079151ee7037d31b2.' in /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PhotoController.php on line 73
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   7. V1_PhotoController->postAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 14:59:51 Europe/Kiev] PHP   8. move_uploaded_file() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PhotoController.php:73
+[23-Jul-2013 15:01:27 Europe/Kiev] PHP Parse error:  syntax error, unexpected '$this' (T_VARIABLE) in /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PhotoController.php on line 77
+[23-Jul-2013 15:01:27 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:01:27 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:01:27 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:01:27 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:01:27 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:01:27 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:01:27 Europe/Kiev] PHP   6. Zend_Controller_Dispatcher_Standard->loadClass() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:275
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 199
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:63
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 199
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   7. V1_FriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   8. V1_FriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:20
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:62
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 199
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:38:40 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:63
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 199
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:63
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 199
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   7. V1_FriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   8. V1_FriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:20
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:62
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 199
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:39:15 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:63
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 199
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   7. V1_FriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   8. V1_FriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:20
+[23-Jul-2013 15:39:55 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:62
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP Fatal error:  Using $this when not in object context in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 196
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:63
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP Fatal error:  Using $this when not in object context in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 196
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   7. V1_FriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   8. V1_FriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:20
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:62
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP Fatal error:  Using $this when not in object context in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 196
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   7. V1_FriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   8. V1_FriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:20
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:62
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP Fatal error:  Using $this when not in object context in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 196
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:42:59 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:63
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 150
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:63
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:199
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 150
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   7. V1_FriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   8. V1_FriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:20
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:62
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:199
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 150
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   7. V1_FriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   8. V1_FriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:20
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/FriendsController.php:62
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:199
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 150
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP   9. Application_Model_DbTable_Users::getUserData() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:63
+[23-Jul-2013 15:43:52 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:199
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP Warning:  Missing argument 1 for Application_Model_DbTable_Users::prepeareUsers(), called in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 22 and defined in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 8
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:65
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUsers() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:22
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP Notice:  Undefined variable: res in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 10
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:65
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUsers() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:22
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP Fatal error:  Call to a member function toArray() on a non-object in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 10
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:65
+[23-Jul-2013 15:49:24 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUsers() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:22
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP Parse error:  syntax error, unexpected ')' in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 12
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP   9. Zend_Loader_Autoloader::autoload() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:0
+[23-Jul-2013 15:49:42 Europe/Kiev] PHP  10. Zend_Loader_Autoloader_Resource->autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Loader/Autoloader.php:120
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP Parse error:  syntax error, unexpected ')' in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 12
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   8. Zend_Loader_Autoloader::autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:0
+[23-Jul-2013 15:49:58 Europe/Kiev] PHP   9. Zend_Loader_Autoloader_Resource->autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Loader/Autoloader.php:120
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP Notice:  Undefined index: photo in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 15
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:65
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUsers() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:25
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP Notice:  Undefined index: update in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 16
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   7. V1_PeopleController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   8. V1_PeopleController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:20
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/PeopleController.php:65
+[23-Jul-2013 15:50:10 Europe/Kiev] PHP  10. Application_Model_DbTable_Users->prepeareUsers() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:25
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP Warning:  file_get_contents(https://api.linkedin.com/v1/people/~/connections:(id,firstName,lastName,picture-url)?format=json): failed to open stream: HTTP request failed! HTTP/1.1 401 Unauthorized
+ in /Users/denis/Dropbox/MeetRocket/application/models/Linkedin.php on line 59
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   7. V1_InviteFriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   8. V1_InviteFriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/InvitefriendsController.php:22
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP   9. Application_Model_DbTable_UserContactsWait->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/InvitefriendsController.php:78
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP  10. Application_Model_Linkedin->storeInfo() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/UserContactsWait.php:38
+[23-Jul-2013 15:50:27 Europe/Kiev] PHP  11. file_get_contents() /Users/denis/Dropbox/MeetRocket/application/models/Linkedin.php:59
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP Warning:  file_get_contents(https://api.linkedin.com/v1/people/~/connections:(id,firstName,lastName,picture-url)?format=json): failed to open stream: HTTP request failed! HTTP/1.1 401 Unauthorized
+ in /Users/denis/Dropbox/MeetRocket/application/models/Linkedin.php on line 59
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP Stack trace:
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   7. V1_InviteFriendsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   8. V1_InviteFriendsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/InvitefriendsController.php:22
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP   9. Application_Model_DbTable_UserContactsWait->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/InvitefriendsController.php:78
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP  10. Application_Model_Linkedin->storeInfo() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/UserContactsWait.php:38
+[23-Jul-2013 15:54:41 Europe/Kiev] PHP  11. file_get_contents() /Users/denis/Dropbox/MeetRocket/application/models/Linkedin.php:59

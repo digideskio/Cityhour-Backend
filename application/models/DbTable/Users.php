@@ -5,23 +5,54 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     protected $_name = 'users';
 
-    public function getAll() {
-        return $this->fetchAll()->toArray();
+    public function prepeareUsers($res,$array = true) {
+        if ($array) {
+            $res = $res->toArray();
+        }
+        foreach ($res as $num => $row) {
+            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+            $url = $config->userPhoto->url;
+            if ($row['photo'] != '' && $row['photo'] != null) {
+                $row['photo'] = $url.$row['photo'];
+            }
+            else {
+                $row['photo'] = null;
+            }
+            $row['update'] = strtotime($row['update']);
+            $res[$num] = $row;
+        }
+
+        return $res;
     }
 
-    public function getUser($id) {
-        $res = $this->fetchRow("id = $id");
+    public function getAll() {
+        $res = $this->fetchAll();
         if ($res != null) {
-            $res = $res->toArray();
+            $res = $this->prepeareUsers($res);
             return $res;
         }
-        else
-            return false;
+        else {
+            return array();
+        }
+
     }
 
     public function registerUser($userData) {
-        $id = $this->insert($userData);
-
+        if (is_numeric($userData['photo'])) {
+            $photo_id = $userData['photo'];
+            $userData['photo'] = $this->_db->fetchOne("
+                select orig
+                from user_photos
+                where id = $photo_id
+            ");
+            $id = $this->insert($userData);
+            $this->_db->update('user_photos',array(
+                'user_id' => $id
+            ),"id = $photo_id");
+        }
+        else {
+            $id = $this->insert($userData);
+        }
 
         if (isset($userData['facebook_key'])) {
             $facebook = new Application_Model_Facebook();
@@ -36,24 +67,11 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         return $id;
     }
 
-    public function emailCheck($email)
-    {
-        $user = $this->fetchRow("email = '$email'");
-        if ($user != null) {
-            $user = $user->toArray();
-            $user['update'] = strtotime($user['update']);
-            return $user;
-        } else {
-            return false;
-        }
-    }
-
     public function facebookLogin($token)
     {
         $user = $this->fetchRow("facebook_key = '$token'");
         if ($user != null) {
-            $user = $user->toArray();
-            $user['update'] = strtotime($user['update']);
+            $user = $this->prepeareUser($user);
             return array(
                 'body' => $user,
                 'errorCode' => '200'
@@ -79,10 +97,11 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 else {
                     return array(
                         'body' => array(
-                            'name' => $user_profile['name'],
-                            'facebook_id' => $user_profile['id'],
-                            'lastname' => $user_profile['first_name'],
-                            'email' => $user_profile['email']
+                            'name' => $user_profile['first_name'],
+                            'facebook_id' => $user_profile['uid'],
+                            'lastname' => $user_profile['last_name'],
+                            'email' => $user_profile['email'],
+                            'photo' => $user_profile['pic_big']
                         ),
                         'errorCode' => '404'
                     );
@@ -99,8 +118,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
     {
         $user = $this->fetchRow("linkedin_key = '$token'");
         if ($user != null) {
-            $user = $user->toArray();
-            $user['update'] = strtotime($user['update']);
+            $user = $this->prepeareUser($user);
             return array(
                 'body' => $user,
                 'errorCode' => '200'
@@ -124,12 +142,14 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     );
                 }
                 else {
+                    if (!isset($user_profile['pictureUrl'])) $user_profile['pictureUrl'] = '';
                     return array(
                         'body' => array(
                             'name' => $user_profile['firstName'],
                             'linkedin_id' => $user_profile['id'],
                             'lastname' => $user_profile['lastName'],
-                            'email' => $user_profile['emailAddress']
+                            'email' => $user_profile['emailAddress'],
+                            'photo' => $user_profile['photo']
                         ),
                         'errorCode' => '404'
                     );
@@ -151,11 +171,46 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
     }
 
+    public function prepeareUser($res,$array = true) {
+        if ($array) {
+            $res = $res->toArray();
+        }
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        $url = $config->userPhoto->url;
+        if ($res['photo'] != '' && $res['photo'] != null) {
+            $res['photo'] = $url.$res['photo'];
+        }
+        else {
+            $row['photo'] = null;
+        }
+        return $res;
+    }
+
+    public function getUser($id) {
+        $res = $this->fetchRow("id = $id");
+        if ($res != null) {
+            $res = $this->prepeareUser($res);
+            return $res;
+        }
+        else
+            return false;
+    }
+
+    public function emailCheck($email)
+    {
+        $res = $this->fetchRow("email = '$email'");
+        if ($res != null) {
+            $res = $this->prepeareUser($res);
+            return $res;
+        } else {
+            return false;
+        }
+    }
+
     public function getUserId($id) {
         $res = $this->fetchRow("id = $id");
         if ($res != null) {
-            $res = $res->toArray();
-            $res['update'] = strtotime($res['update']);
+            $res = $this->prepeareUser($res);
             return $res;
         }
         else {
@@ -170,7 +225,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             where private_key = '$private_key'
         ");
         if ($res != null) {
-            $res['update'] = strtotime($res['update']);
+            $db = new Application_Model_DbTable_Users();
+            $res = $db->prepeareUser($res,false);
             return $res;
         }
         else {
