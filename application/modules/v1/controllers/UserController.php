@@ -16,6 +16,7 @@ class V1_UserController extends Zend_Rest_Controller
     public function getAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+
     }
 
     public function postAction()

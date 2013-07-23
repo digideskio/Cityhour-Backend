@@ -15,6 +15,10 @@
             "description": null
         },
         {
+            "path": "/resources/map.{format}",
+            "description": null
+        },
+        {
             "path": "/resources/notifications.{format}",
             "description": null
         },

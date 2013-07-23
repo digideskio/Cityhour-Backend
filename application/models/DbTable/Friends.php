@@ -23,4 +23,13 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
         }
     }
 
+    public function deleteFriends($user,$id) {
+        $user_id = $user['id'];
+        $data = array(
+            'status' => 2
+        );
+        $this->update($data,"(user_id = $user_id and friend_id = $id) or (user_id = $id and friend_id = $user_id)");
+        return true;
+    }
+
 }

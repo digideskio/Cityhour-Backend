@@ -21,6 +21,7 @@
           <dbTableFile dbTableName="Notifications"/>
           <dbTableFile dbTableName="Push"/>
           <dbTableFile dbTableName="Friends"/>
+          <dbTableFile dbTableName="Map"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>

@@ -115,6 +115,10 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *            code="400",
      *            reason="Not all params correct."
      *          ),
+     *           @SWG\ErrorResponse(
+     *            code="401",
+     *            reason="Have no permissions."
+     *          ),
      *          @SWG\ErrorResponse(
      *            code="404",
      *            reason="Fid not found."

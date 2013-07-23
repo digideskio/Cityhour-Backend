@@ -3,11 +3,11 @@
 use Swagger\Annotations as SWG;
 /**
  * @SWG\Resource(
- *  resourcePath="/friends"
+ *  resourcePath="/map"
  * )
  */
 
-class V1_FriendsController extends Zend_Rest_Controller
+class V1_MapController extends Zend_Rest_Controller
 {
 
     public function init()
@@ -24,18 +24,22 @@ class V1_FriendsController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Api(
-     *   path="/friends/",
+     *   path="/map/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="GET",
-     *       summary="Get Friends.",
+     *       summary="Get near users.",
      *       responseClass="void",
-     *       nickname="GetFriends",
+     *       nickname="GetNearUsers",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
      *            code="401",
      *            reason="Authentication failed."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="404",
+     *            reason="User nowhere)."
      *          ),
      *          @SWG\ErrorResponse(
      *            code="400",
@@ -61,12 +65,20 @@ class V1_FriendsController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Friends();
-                $res = $db->getAll($user);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
+                $db = new Application_Model_DbTable_Map();
+                $res = $db->getNear($user);
+                if ($res) {
+                    $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '200'
+                    ));
+                }
+                else {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '404'
+                    ));
+                }
+
             }
             else {
                 $this->_helper->json->sendJson(array(
@@ -79,7 +91,6 @@ class V1_FriendsController extends Zend_Rest_Controller
                 'errorCode' => '400'
             ));
         }
-
     }
 
     public function postAction()
@@ -87,66 +98,59 @@ class V1_FriendsController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
     }
 
-    public function putAction()
-    {
-        $this->getResponse()->setHttpResponseCode(200);
-    }
 
     /**
      *
+     * @SWG\Model(id="mapUpdate")
+     * @SWG\Property(name="private_key",type="string")
+     * @SWG\Property(name="lat",type="string")
+     * @SWG\Property(name="lng",type="string")
+     *
      * @SWG\Api(
-     *   path="/friends/",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       httpMethod="DELETE",
-     *       summary="Get Friends.",
+     *   path="/map/",
+     * @SWG\Operations(
+     * @SWG\Operation(
+     *       nickname="UpdateCoordinates",
+     *       summary="Update coordinates.",
+     *       httpMethod="PUT",
      *       responseClass="void",
-     *       nickname="GetFriends",
-     *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
      *            code="401",
-     *            reason="Authentication failed."
+     *            reason="Have no permissions"
      *          ),
      *          @SWG\ErrorResponse(
      *            code="400",
-     *            reason="Not all params given."
+     *            reason="Not all params correct."
      *          )
      *       ),
      * @SWG\Parameter(
-     *           name="private_key",
-     *           description="private_key",
-     *           paramType="query",
-     *           required="true",
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
+     *           required="false",
      *           allowMultiple="false",
-     *           dataType="string"
-     *         ),
-     * @SWG\Parameter(
-     *           name="id",
-     *           description="id",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="string"
+     *           dataType="mapUpdate"
      *         )
      *     )
      *   )
      * )
      */
-    public function deleteAction()
+    public function putAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-
-        $token = $this->getParam('private_key');
-        $id = $this->getParam('id');
-
-        if ($token && $token != null && $token != '' && is_numeric($id)) {
-            $db = new Application_Model_DbTable_Friends();
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
+        if (isset($data['lat'])) $lat = $data['lat']; else $lat = false;
+        if (isset($data['lng'])) $lng = $data['lng']; else $lng = false;
+        if ($token && $token != null && $token != '' && $lat && $lat != null && $lat != '' && $lng && $lng != null && $lng != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $res = $db->deleteFriends($user,$id);
+                $db = new Application_Model_DbTable_Map();
+                $db->updateMap($user,$lat,$lng);
                 $this->_helper->json->sendJson(array(
-                    'body' => $res,
+                    'body' => true,
                     'errorCode' => '200'
                 ));
             }
@@ -161,6 +165,11 @@ class V1_FriendsController extends Zend_Rest_Controller
                 'errorCode' => '400'
             ));
         }
+    }
+
+    public function deleteAction()
+    {
+        $this->getResponse()->setHttpResponseCode(200);
     }
 
     public function headAction()
