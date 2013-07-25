@@ -8,7 +8,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
 
     public function getAll($user) {
         $user_id = $user['id'];
-        $res = $this->fetchAll("`to` = $user_id");
+        $res = $this->fetchAll("`to` = $user_id and status = 0");
         if ($res != null) {
             $res = $res->toArray();
             return $res;

@@ -2,47 +2,70 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458080651ee70465e6b1.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458141751ee72a9eadba.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458159851ee735e354eb.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458161651ee7370521cc.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458173251ee73e43dae3.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458173951ee73ebdf7a0.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458174851ee73f447b32.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458203351ee7511b1c61.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458213351ee7575b575c.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458214451ee7580e4133.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458215651ee758c4e6ed.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458217151ee759b87865.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458237251ee76648dd48.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458250151ee76e504c96.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137458509651ee810815dca.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137466418851efb5fc99913.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137466420251efb60a24702.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137466577751efbc3187a0f.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137466661951efbf7b7c67b.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137466692851efc0b08426d.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137466696651efc0d6960fb.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_137466984751efcc17dbc58.jpeg" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/models/DbTable/Chat.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/v1/controllers/ChatControllerTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/SyncController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/v1/controllers/SynchControllerTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/models/DbTable/UserSettings.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/api-docs/resources/chat.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/v1/views/scripts/chat/index.phtml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/api-docs/resources/photo.json" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/chat/server.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/api-docs/resources/sync.json" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/auth/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/friends/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/index/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/invete-friends/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/map/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/notifications/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/people/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/photo/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/push/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/user/index.phtml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458080651ee70465e6b1.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458141751ee72a9eadba.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458159851ee735e354eb.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458173251ee73e43dae3.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458174851ee73f447b32.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458203351ee7511b1c61.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458213351ee7575b575c.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458214451ee7580e4133.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458215651ee758c4e6ed.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458217151ee759b87865.jpeg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458237251ee76648dd48.jpeg" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458161651ee7370521cc.jpeg" afterPath="$PROJECT_DIR$/public/upload/userPic_137466535951efba8f5a142.jpeg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458173951ee73ebdf7a0.jpeg" afterPath="$PROJECT_DIR$/public/upload/userPic_137466583451efbc6af1925.jpeg" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.zfproject.xml" afterPath="$PROJECT_DIR$/.zfproject.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Friends.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/InviteFriends.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/InviteFriends.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Notifications.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Notifications.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Status.php" afterPath="$PROJECT_DIR$/application/models/Status.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" afterPath="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Users.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Users.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/api-docs.json" afterPath="$PROJECT_DIR$/public/api-docs/api-docs.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/friends.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/friends.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/notifications.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/notifications.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/php.log" afterPath="$PROJECT_DIR$/logs/php.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cron/push_update.php" afterPath="$PROJECT_DIR$/cron/push_update.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/user.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/user.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MeetRocket.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/dummy.txt" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374580891769" ignored="false" />
+    <file path="/dummy.txt" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374674652320" ignored="false" />
     <file path="/index.phtml" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374142212849" ignored="false" />
     <file path="/readme.md" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374053616685" ignored="false" />
     <file path="/IndexController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374054577890" ignored="false" />
-    <file path="/Dummy.txt" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374586820952" ignored="false" />
+    <file path="/Dummy.txt" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374672021993" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/configs/application.ini" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374056835977" ignored="false" />
     <file path="/AuthController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374389657547" ignored="false" />
     <file path="/Types.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374490254321" ignored="false" />
-    <file path="/Users.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374584866699" ignored="false" />
-    <file path="/a.dummy" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374241889503" ignored="false" />
+    <file path="/Users.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374660070005" ignored="false" />
+    <file path="/a.dummy" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374660656793" ignored="false" />
     <file path="/application.ini" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374582177835" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/v1/controllers/BillingController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374070582425" ignored="false" />
     <file path="/index.html" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374070103805" ignored="false" />
@@ -50,7 +73,7 @@
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/default/controllers/EmailController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374147073029" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/default/views/scripts/email/index.phtml" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374244510859" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/v1/controllers/UserController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374142640469" ignored="false" />
-    <file path="/UserController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374562427872" ignored="false" />
+    <file path="/UserController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374665726283" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/models/DbTable/Users.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374146414406" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/logs/application.log" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374148039362" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/logs/php.log" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374144674018" ignored="false" />
@@ -70,7 +93,7 @@
     <file path="/NotificationsController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374589768768" ignored="false" />
     <file path="/Notifications.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374591642333" ignored="false" />
     <file path="/FriendsController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374589011341" ignored="false" />
-    <file path="/Friends.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374593914757" ignored="false" />
+    <file path="/Friends.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374668509192" ignored="false" />
     <file path="/PushController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374496766514" ignored="false" />
     <file path="/Push.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374496521707" ignored="false" />
     <file path="/MapController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374506369698" ignored="false" />
@@ -84,6 +107,11 @@
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/v1/controllers/MockupsController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374587339178" ignored="false" />
     <file path="/MockupsController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374587311050" ignored="false" />
     <file path="/Mockup.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374587806070" ignored="false" />
+    <file path="/SyncController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374661501998" ignored="false" />
+    <file path="/UserSettings.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374662140547" ignored="false" />
+    <file path="/server.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374736974527" ignored="false" />
+    <file path="/ChatController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374737301314" ignored="false" />
+    <file path="/Chat.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374737223333" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -107,53 +135,7 @@
     <favorites_list name="MeetRocket" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="FriendsController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="214" column="29" selection-start="6376" selection-end="6376" vertical-scroll-proportion="-107.291664">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Users.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="6" selection-start="13" selection-end="13" vertical-scroll-proportion="101.458336">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Friends.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/models/DbTable/Friends.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="88" column="33" selection-start="2680" selection-end="2680" vertical-scroll-proportion="0.6694915">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserContactsWait.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="65" column="20" selection-start="2201" selection-end="2237" vertical-scroll-proportion="-34.791668">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Status.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/Status.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="26" selection-start="181" selection-end="181" vertical-scroll-proportion="-5.625">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -162,9 +144,6 @@
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
-      <command text="zf create controller index 1 v1" />
-      <command text="zf create controller auth 1 v1" />
-      <command text="zf create controller user 1 v1" />
       <command text="zf create db-table users users" />
       <command text="zf create model Common" />
       <command text="zf create model types" />
@@ -186,6 +165,10 @@
       <command text="zf create db-table map map" />
       <command text="zf create controller photo 1 v1" />
       <command text="zf create db-table userPhotos user_photos" />
+      <command text="zf create controller synch 1 v1" />
+      <command text="zf create db-table userSettings user_settings" />
+      <command text="zf create db-table chat chat" />
+      <command text="zf create controller chat 1 v1" />
     </commandsHistory>
   </component>
   <component name="Git.Settings">
@@ -202,22 +185,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/logs/apns.log" />
-        <option value="$PROJECT_DIR$/logs/php.log" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/UserPhotos.php" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php" />
-        <option value="$PROJECT_DIR$/application/configs/application.ini" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php" />
-        <option value="$PROJECT_DIR$/application/models/Linkedin.php" />
-        <option value="$PROJECT_DIR$/application/models/Facebook.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Notifications.php" />
         <option value="$PROJECT_DIR$/application/models/Status.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Notifications.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/SynchController.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/SyncController.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/UserSettings.php" />
+        <option value="$PROJECT_DIR$/logs/php.log" />
+        <option value="$PROJECT_DIR$/chat/server.py" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
+        <option value="$PROJECT_DIR$/cron/push_update.php" />
+        <option value="$PROJECT_DIR$/chat/server.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Chat.php" />
       </list>
     </option>
   </component>
@@ -356,6 +339,20 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="chat" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="application" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -379,74 +376,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="v1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="scripts" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="index" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="application" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="modules" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="v1" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="views" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -657,9 +586,9 @@
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
-    <property name="options.lastSelected" value="SQL Dialects" />
+    <property name="options.lastSelected" value="fileTemplates" />
     <property name="recentsLimit" value="5" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../Mockup.io/doc/mysql_connector/mysql-connector-java-5.1.22-bin.jar" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/chat/server.php" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="FullScreen" value="false" />
     <property name="options.splitter.details.proportions" value="0.2" />
@@ -703,6 +632,7 @@
       <recent name="$PROJECT_DIR$/cron" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/chat" />
       <recent name="$PROJECT_DIR$/library/Linkedin" />
       <recent name="$PROJECT_DIR$/library" />
     </key>
@@ -710,7 +640,7 @@
   <component name="RestClientSettings">
     <option name="LAST_HOST" value="https://www.linkedin.com/uas/oauth2/accessToken?grant_type=authorization_code&amp;code=AQQqFPfYtpmO5HE9G-bMPFq32ps5JOH4fnrqtdLVysLYzmY2mdla4xfFs1wdi3CQhl726SYjN6_zZSWWz0fg9m7ToM7O2HZY31ywDy-dtr-C8bz3e80&amp;state=DCEEFWF45453sdffef4we&amp;redirect_uri='http://alterplay.com'&amp;client_id=tjlesjwgr5s5&amp;client_secret=O2w14sQzKzvPv9no" />
   </component>
-  <component name="RunManager" selected="PHP Built-in Web Server.Main">
+  <component name="RunManager" selected="PHP Script.Chat">
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
       <method />
@@ -735,8 +665,14 @@
       <ConfigurationWrapper RunnerId="PhpRunner" />
       <method />
     </configuration>
-    <list size="1">
+    <configuration default="false" name="Chat" type="PhpLocalRunConfigurationType" factoryName="PHP Console" path="$PROJECT_DIR$/chat/server.php">
+      <RunnerSettings RunnerId="PhpRunner" />
+      <ConfigurationWrapper RunnerId="PhpRunner" />
+      <method />
+    </configuration>
+    <list size="2">
       <item index="0" class="java.lang.String" itemvalue="PHP Built-in Web Server.Main" />
+      <item index="1" class="java.lang.String" itemvalue="PHP Script.Chat" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -775,32 +711,56 @@
       <created>1374585210723</created>
       <updated>1374585210723</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="add friend">
+      <created>1374594909324</created>
+      <updated>1374594909324</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
+  </component>
+  <component name="TodoView" selected-index="0">
+    <todo-panel id="selected-file">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
+    <todo-panel id="default-changelist">
+      <are-packages-shown value="false" />
+      <are-modules-shown value="false" />
+      <flatten-packages value="false" />
+      <is-autoscroll-to-source value="false" />
+    </todo-panel>
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1352" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16030231" sideWeight="0.6720779" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16030231" sideWeight="0.7528363" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3262987" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3638574" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14319809" sideWeight="0.6720779" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3262987" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32792208" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.159109" sideWeight="0.7528363" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2471637" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3273906" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.66314936" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -848,7 +808,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="add photos" />
+    <option name="LAST_COMMIT_MESSAGE" value="add friend" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -865,122 +825,107 @@
     <MESSAGE value="push..." />
     <MESSAGE value="add map&#10;" />
     <MESSAGE value="add photos" />
+    <MESSAGE value="add friend" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="14" />
+      <option name="time" value="16" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="9" selection-start="974" selection-end="983" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/Zend/Db/Table/Abstract.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1368" column="20" selection-start="45573" selection-end="45573" vertical-scroll-proportion="0.33983052">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="90" column="19" selection-start="2636" selection-end="2636" vertical-scroll-proportion="0.5423729">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="1" selection-start="150" selection-end="150" vertical-scroll-proportion="0.12711865">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Facebook.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="28" selection-start="1433" selection-end="1433" vertical-scroll-proportion="0.5169492">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Linkedin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="20" selection-start="1268" selection-end="1268" vertical-scroll-proportion="0.21949153">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Common.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="0" selection-start="298" selection-end="467" vertical-scroll-proportion="-3.2916667">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Types.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="21" column="33" selection-start="401" selection-end="401" vertical-scroll-proportion="0.26694915">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="47" selection-start="2145" selection-end="2145" vertical-scroll-proportion="0.5042373">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Notifications.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="28" selection-start="505" selection-end="505" vertical-scroll-proportion="0.27966103">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="123" column="10" selection-start="3282" selection-end="3282" vertical-scroll-proportion="0.32627118">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="214" column="29" selection-start="6376" selection-end="6376" vertical-scroll-proportion="-107.291664">
-          <folding />
-        </state>
+        <state line="10" column="23" selection-start="359" selection-end="359" vertical-scroll-proportion="0.12458472" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="6" selection-start="13" selection-end="13" vertical-scroll-proportion="101.458336">
-          <folding />
-        </state>
+        <state line="200" column="0" selection-start="6439" selection-end="6578" vertical-scroll-proportion="0.35932204" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Status.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/UserController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="26" selection-start="181" selection-end="181" vertical-scroll-proportion="-5.625">
-          <folding />
-        </state>
+        <state line="157" column="51" selection-start="4563" selection-end="4563" vertical-scroll-proportion="0.5042373" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/php.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="37" column="35" selection-start="689" selection-end="689" vertical-scroll-proportion="0.47033897" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="65" column="20" selection-start="2201" selection-end="2237" vertical-scroll-proportion="-34.791668">
-          <folding />
-        </state>
+        <state line="65" column="20" selection-start="2201" selection-end="2201" vertical-scroll-proportion="0.7076271" />
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DbTable/Friends.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="88" column="33" selection-start="2680" selection-end="2680" vertical-scroll-proportion="0.6694915">
+        <state line="55" column="57" selection-start="1749" selection-end="1749" vertical-scroll-proportion="0.6991525" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Status.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="136" column="32" selection-start="3860" selection-end="3860" vertical-scroll-proportion="0.44915253" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cron/push_update.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="0" selection-start="860" selection-end="877" vertical-scroll-proportion="0.57840616" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="24" selection-start="31" selection-end="1017" vertical-scroll-proportion="0.02538071">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/SyncController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="0" selection-start="7" selection-end="94" vertical-scroll-proportion="0.02538071">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserSettings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="0" selection-start="1008" selection-end="1243" vertical-scroll-proportion="0.44416243">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Chat.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="22" column="0" selection-start="462" selection-end="462" vertical-scroll-proportion="0.27918783">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="22" selection-start="605" selection-end="605" vertical-scroll-proportion="0.19035533">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/chat/server.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="42" selection-start="758" selection-end="758" vertical-scroll-proportion="0.30456853">
+          <folding>
+            <marker date="1374737186000" expanded="true" signature="-1:-1" placeholder="insert into ..." />
+            <marker date="1374737186000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
+            <marker date="1374737186000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
+          </folding>
         </state>
       </provider>
     </entry>

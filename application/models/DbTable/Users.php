@@ -5,10 +5,25 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     protected $_name = 'users';
 
-    public function prepeareUsers($res,$array = true) {
+    public function updateUser($user,$data) {
+        $user_id = $user['id'];
+        $this->update($data,"id = $user_id");
+        return true;
+    }
+
+    public function prepeareUsers($res,$array = true, $user) {
         if ($array) {
             $res = $res->toArray();
         }
+
+        $user_id = $user['id'];
+        $friends = $this->_db->fetchOne("
+                select group_concat(friend_id)
+                from user_friends
+                where user_id = $user_id
+                and status = 1
+            ");
+        $friends = explode(',', $friends);
         foreach ($res as $num => $row) {
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
             $url = $config->userPhoto->url;
@@ -18,17 +33,25 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             else {
                 $row['photo'] = null;
             }
+
             $row['update'] = strtotime($row['update']);
+            if (in_array($row['id'],$friends)) {
+                $row['friend'] = true;
+            }
+            else {
+                $row['friend'] = false;
+            }
+
             $res[$num] = $row;
         }
-
         return $res;
     }
 
-    public function getAll() {
-        $res = $this->fetchAll();
+    public function getAll($user) {
+        $user_id = $user['id'];
+        $res = $this->fetchAll("id != $user_id");
         if ($res != null) {
-            $res = $this->prepeareUsers($res);
+            $res = $this->prepeareUsers($res, true, $user);
             return $res;
         }
         else {
@@ -171,7 +194,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
     }
 
-    public function prepeareUser($res,$array = true) {
+    public function prepeareUser($res,$array = true, $user = false) {
         if ($array) {
             $res = $res->toArray();
         }
@@ -181,15 +204,32 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $res['photo'] = $url.$res['photo'];
         }
         else {
-            $row['photo'] = null;
+            $res['photo'] = null;
+        }
+        if ($user) {
+            $user_id = $user['id'];
+            $friend_id = $res['id'];
+            $friends = $this->_db->fetchOne("
+                select group_concat(friend_id)
+                from user_friends
+                where user_id = $user_id
+                and status = 1
+                and friend_id = $friend_id
+            ");
+            if ($friends) {
+                $res['friend'] = true;
+            }
+            else {
+                $res['friend'] = false;
+            }
         }
         return $res;
     }
 
-    public function getUser($id) {
+    public function getUser($id,$user) {
         $res = $this->fetchRow("id = $id");
         if ($res != null) {
-            $res = $this->prepeareUser($res);
+            $res = $this->prepeareUser($res,true,$user);
             return $res;
         }
         else

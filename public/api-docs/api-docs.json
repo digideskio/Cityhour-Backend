@@ -7,6 +7,10 @@
             "description": null
         },
         {
+            "path": "/resources/chat.{format}",
+            "description": null
+        },
+        {
             "path": "/resources/friends.{format}",
             "description": null
         },
@@ -32,6 +36,10 @@
         },
         {
             "path": "/resources/push.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/sync.{format}",
             "description": null
         },
         {

@@ -3,11 +3,11 @@
 use Swagger\Annotations as SWG;
 /**
  * @SWG\Resource(
- *  resourcePath="/user"
+ *  resourcePath="/sync"
  * )
  */
 
-class V1_UserController extends Zend_Rest_Controller
+class V1_SyncController extends Zend_Rest_Controller
 {
 
     public function init()
@@ -23,22 +23,18 @@ class V1_UserController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Api(
-     *   path="/user/",
+     *   path="/sync/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="GET",
-     *       summary="Get user info.",
+     *       summary="Get user settings.",
      *       responseClass="void",
-     *       nickname="GetUser",
+     *       nickname="GetUserSettings",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
      *            code="401",
      *            reason="Authentication failed."
-     *          ),
-     *          @SWG\ErrorResponse(
-     *            code="404",
-     *            reason="User not found)."
      *          ),
      *          @SWG\ErrorResponse(
      *            code="400",
@@ -48,14 +44,6 @@ class V1_UserController extends Zend_Rest_Controller
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="string"
-     *         ),
-     * @SWG\Parameter(
-     *           name="id",
-     *           description="id",
      *           paramType="query",
      *           required="true",
      *           allowMultiple="false",
@@ -70,23 +58,15 @@ class V1_UserController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
         $id = $this->_request->getParam('id');
-        if ($token && $token != null && $token != '' && is_numeric($id)) {
+        if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Users();
-                $res = $db->getUser($id,$user);
-                if ($res) {
-                    $this->_helper->json->sendJson(array(
-                        'body' => $res,
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '404'
-                    ));
-                }
-
+                $db = new Application_Model_DbTable_UserSettings();
+                $res = $db->getSettings($user);
+                $this->_helper->json->sendJson(array(
+                    'body' => $res,
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
@@ -108,19 +88,19 @@ class V1_UserController extends Zend_Rest_Controller
 
     /**
      *
-     * @SWG\Model(id="updateUserParams")
+     * @SWG\Model(id="syncUserSettingParams")
      * @SWG\Property(name="name",type="value")
      * @SWG\Property(name="private_key",type="string")
      *
      *
      * @SWG\Api(
-     *   path="/user/",
+     *   path="/sync/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="PUT",
-     *       summary="Update User.",
+     *       summary="Sync User settings.",
      *       responseClass="void",
-     *       nickname="updateUser",
+     *       nickname="SyncSettingsUser",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -138,7 +118,7 @@ class V1_UserController extends Zend_Rest_Controller
      *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="updateUserParams"
+     *           dataType="syncUserSettingParams"
      *         )
      *     )
      *   )
@@ -153,14 +133,9 @@ class V1_UserController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                if (isset($data['photo'])) {
-                    $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
-                    $url = $config->userPhoto->url;
-                    $data['photo'] = str_replace($url,'',$data['photo']);
-                }
-
-                $db = new Application_Model_DbTable_Users();
-                $db->updateUser($user,$data);
+                unset($data['private_key']);
+                $db = new Application_Model_DbTable_userSettings();
+                $db->updateSettings($user,$data);
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '200'
                 ));

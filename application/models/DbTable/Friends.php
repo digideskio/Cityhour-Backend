@@ -25,10 +25,11 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
 
     public function deleteFriends($user,$id) {
         $user_id = $user['id'];
-        $data = array(
-            'status' => 2
-        );
-        $this->update($data,"(user_id = $user_id and friend_id = $id) or (user_id = $id and friend_id = $user_id)");
+        $this->delete("(user_id = $user_id and friend_id = $id) or (user_id = $id and friend_id = $user_id)");
+
+        $db = new Application_Model_DbTable_UserContactsWait();
+        $db_user = new Application_Model_DbTable_Users();
+        $db->updateStatus($user, $db_user->getUserId($id), 0);
         return true;
     }
 
@@ -44,7 +45,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
             $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
                 'table' => 'notifications',
                 'field' => 'from',
-                'exclude' => "`to` = $friend_id and type = 0"
+                'exclude' => "`to` = $friend_id and type = 0 and status = 0"
             ));
 
             if ($validator_exist->isValid($user_id)) {
@@ -52,10 +53,10 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                     'from' => $user_id,
                     'to' => $friend_id,
                     'type' => 0,
-                    'text' => 'Friend invite Хочешь не хочешь?'
+                    'text' => 'Friend invite from '.$user['name']
                 ));
                 $db = new Application_Model_DbTable_UserContactsWait();
-                $db->updateStatus($user, $invite, 2);
+                $db->updateStatus($user, $invite, 1);
                 return true;
             }
             else {
@@ -71,32 +72,33 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
         $notification = $this->_db->fetchRow("
             select *
             from notifications
-            where id = $id and type = 0 and status = 1
+            where id = $id and type = 0 and status = 0
         ");
         if ($notification) {
-            $this->update(array(
-                'status' => $status
+            $this->_db->update('notifications',array(
+                'status' => 1
             ),"id = $id");
-
-            $user_id = $user['id'];
             $db = new Application_Model_DbTable_UserContactsWait();
             $db_user = new Application_Model_DbTable_Users();
-            $user2 = $db_user->getUserId($id);
+
+            $user_id = $user['id'];
+            $user_id2 = $notification['from'];
+            $user2 = $db_user->getUserId($user_id2);
             if ($status == 2) {
                 $this->insert(array(
-                    'user_id' => $id,
+                    'user_id' => $user_id2,
                     'friend_id' => $user_id,
                     'status' => 1
                 ));
                 $this->insert(array(
                     'user_id' => $user_id,
-                    'friend_id' => $id,
+                    'friend_id' => $user_id2,
                     'status' => 1
                 ));
                 $db->updateStatus($user, $user2, 2);
             }
             elseif ($status == 3) {
-                $db->updateStatus($user, $user2, 3);
+                $db->updateStatus($user, $user2, 0);
             }
 
             return true;

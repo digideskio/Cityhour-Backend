@@ -12,7 +12,7 @@ $result = mysql_query("
                        ");
 
 if (!$result) {
-    echo "Could not successfully run query ($sql) from DB: " . mysql_error();
+    echo "Could not successfully run query from DB: " . mysql_error();
     exit;
 }
 

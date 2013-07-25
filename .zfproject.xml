@@ -23,6 +23,8 @@
           <dbTableFile dbTableName="Friends"/>
           <dbTableFile dbTableName="Map"/>
           <dbTableFile dbTableName="UserPhotos"/>
+          <dbTableFile dbTableName="UserSettings"/>
+          <dbTableFile dbTableName="Chat"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>
