@@ -3,11 +3,11 @@
 use Swagger\Annotations as SWG;
 /**
  * @SWG\Resource(
- *  resourcePath="/friends"
+ *  resourcePath="/calendar"
  * )
  */
 
-class V1_FriendsController extends Zend_Rest_Controller
+class V1_CalendarController extends Zend_Rest_Controller
 {
 
     public function init()
@@ -20,17 +20,16 @@ class V1_FriendsController extends Zend_Rest_Controller
         $this->getAction();
     }
 
-
     /**
      *
      * @SWG\Api(
-     *   path="/friends/",
+     *   path="/calendar/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="GET",
-     *       summary="Get Friends.",
+     *       summary="Get calendar.",
      *       responseClass="void",
-     *       nickname="GetFriends",
+     *       nickname="GetCalendar",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -61,7 +60,7 @@ class V1_FriendsController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Friends();
+                $db = new Application_Model_DbTable_Calendar();
                 $res = $db->getAll($user);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
@@ -84,19 +83,23 @@ class V1_FriendsController extends Zend_Rest_Controller
 
     /**
      *
-     * @SWG\Model(id="addFriendParams")
-     * @SWG\Property(name="id",type="int")
+     * @SWG\Model(id="slotCalendarParams")
      * @SWG\Property(name="private_key",type="string")
+     * @SWG\Property(name="description",type="string")
+     * @SWG\Property(name="start_time",type="timestamp")
+     * @SWG\Property(name="end_time",type="timestamp")
+     * @SWG\Property(name="foursquare_id",type="int")
+     * @SWG\Property(name="goal",type="int")
      *
      *
      * @SWG\Api(
-     *   path="/friends/",
+     *   path="/calendar/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="POST",
-     *       summary="Add friend.",
+     *       summary="Add time slot to calendar.",
      *       responseClass="void",
-     *       nickname="InviteFriend",
+     *       nickname="slotCalendar",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -106,10 +109,6 @@ class V1_FriendsController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions."
-     *          ),
-     *          @SWG\ErrorResponse(
-     *            code="404",
-     *            reason="Id not found."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -118,7 +117,7 @@ class V1_FriendsController extends Zend_Rest_Controller
      *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="addFriendParams"
+     *           dataType="slotCalendarParams"
      *         )
      *     )
      *   )
@@ -133,17 +132,14 @@ class V1_FriendsController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '' && isset($data['id']) && is_numeric($data['id'])) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Friends();
-                if ($db->addFriend($data['id'],$user)) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '404'
-                    ));
-                }
+                $data['user_id'] = $user['id'];
+                $data['start_time'] = date('Y-m-d H:i:s',$data['start_time']);
+                $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
+                $db = new Application_Model_DbTable_Calendar();
+                $db->addSlot($user,$data);
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
@@ -158,36 +154,39 @@ class V1_FriendsController extends Zend_Rest_Controller
         }
     }
 
-
     /**
      *
-     * @SWG\Model(id="AnswerFriendParams")
-     * @SWG\Property(name="id",type="int")
-     * @SWG\Property(name="status",type="int")
+     * @SWG\Model(id="slotCalendarUpdateParams")
      * @SWG\Property(name="private_key",type="string")
+     * @SWG\Property(name="id",type="int")
+     * @SWG\Property(name="description",type="string")
+     * @SWG\Property(name="start_time",type="timestamp")
+     * @SWG\Property(name="end_time",type="timestamp")
+     * @SWG\Property(name="foursquare_id",type="int")
+     * @SWG\Property(name="goal",type="int")
      *
      *
      * @SWG\Api(
-     *   path="/friends/",
+     *   path="/calendar/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="PUT",
-     *       summary="Answer friend request.",
+     *       summary="Update time slot.",
      *       responseClass="void",
-     *       nickname="AnswerFriend",
+     *       nickname="UpdateCalendar",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params correct."
      *          ),
+     *          @SWG\ErrorResponse(
+     *            code="404",
+     *            reason="Slot not found."
+     *          ),
      *           @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions."
-     *          ),
-     *          @SWG\ErrorResponse(
-     *            code="404",
-     *            reason="Id not found."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -196,7 +195,7 @@ class V1_FriendsController extends Zend_Rest_Controller
      *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="AnswerFriendParams"
+     *           dataType="slotCalendarUpdateParams"
      *         )
      *     )
      *   )
@@ -208,20 +207,14 @@ class V1_FriendsController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && isset($data['id']) && is_numeric($data['id']) && isset($data['status']) && is_numeric($data['status'])) {
+        if ($token && $token != null && $token != '' && is_numeric($data['id'])) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Friends();
-                if ($db->answer($data['id'],$data['status'],$user)) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '404'
-                    ));
-                }
+                $db = new Application_Model_DbTable_Calendar();
+                $db->updateSlot($user,$data,$data['id']);
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
@@ -239,13 +232,13 @@ class V1_FriendsController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Api(
-     *   path="/friends/",
+     *   path="/calendar/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="DELETE",
-     *       summary="Delete Friend.",
+     *       summary="Delete time slot.",
      *       responseClass="void",
-     *       nickname="DeleteFriend",
+     *       nickname="DeleteTimeSlot",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -287,8 +280,8 @@ class V1_FriendsController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '' && is_numeric($id)) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Friends();
-                $res = $db->deleteFriends($user,$id);
+                $db = new Application_Model_DbTable_Calendar();
+                $res = $db->deleteSlot($user,$id);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
                     'errorCode' => '200'
@@ -319,3 +312,4 @@ class V1_FriendsController extends Zend_Rest_Controller
     }
 
 }
+

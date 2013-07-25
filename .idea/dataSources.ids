@@ -26,6 +26,11 @@
     <table name="calendar" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
+      <column name="description" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
+      <column name="start_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
+      <column name="end_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
+      <column name="time_create" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_calendar_users1_idx" unique="false" columns="user_id"/>
     </table>
@@ -35,6 +40,7 @@
       <column name="from" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="to" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="text" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1"/>
+      <column name="read" sqlType="BIT" length="0" precision="0" nullable="true" jdbcType="-7"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_chat_users1_idx" unique="false" columns="to"/>
       <index name="fk_chat_users2_idx" unique="false" columns="from"/>
@@ -176,6 +182,7 @@
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="orig" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_user_photos_Users1_idx" unique="false" columns="user_id"/>
     </table>

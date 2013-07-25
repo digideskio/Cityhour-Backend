@@ -7,11 +7,23 @@
             "description": null
         },
         {
+            "path": "/resources/calendar.{format}",
+            "description": null
+        },
+        {
             "path": "/resources/chat.{format}",
             "description": null
         },
         {
             "path": "/resources/friends.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/goals.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/industry.{format}",
             "description": null
         },
         {

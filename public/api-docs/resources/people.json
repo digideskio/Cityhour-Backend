@@ -19,6 +19,46 @@
                             "dataType": "string",
                             "paramType": "query",
                             "required": true
+                        },
+                        {
+                            "name": "data_from",
+                            "description": "Data from",
+                            "allowMultiple": false,
+                            "dataType": "timestamp",
+                            "paramType": "query",
+                            "required": false
+                        },
+                        {
+                            "name": "data_to",
+                            "description": "Data to",
+                            "allowMultiple": false,
+                            "dataType": "timestamp",
+                            "paramType": "query",
+                            "required": false
+                        },
+                        {
+                            "name": "city",
+                            "description": "City",
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": false
+                        },
+                        {
+                            "name": "industry",
+                            "description": "Industry",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": false
+                        },
+                        {
+                            "name": "goals",
+                            "description": "Goals",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": false
                         }
                     ],
                     "errorResponses": [

@@ -60,6 +60,19 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     }
 
+    public function getPeople($user,$data_from,$data_to,$city,$industry,$goals) {
+        $user_id = $user['id'];
+        $res = $this->fetchAll("id != $user_id");
+        if ($res != null) {
+            $res = $this->prepeareUsers($res, true, $user);
+            return $res;
+        }
+        else {
+            return array();
+        }
+
+    }
+
     public function registerUser($userData) {
         if (is_numeric($userData['photo'])) {
             $photo_id = $userData['photo'];

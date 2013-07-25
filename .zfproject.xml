@@ -25,6 +25,11 @@
           <dbTableFile dbTableName="UserPhotos"/>
           <dbTableFile dbTableName="UserSettings"/>
           <dbTableFile dbTableName="Chat"/>
+          <dbTableFile dbTableName="Calendar"/>
+          <dbTableFile dbTableName="UserGoals"/>
+          <dbTableFile dbTableName="UserHasGoals"/>
+          <dbTableFile dbTableName="Industries"/>
+          <dbTableFile dbTableName="UsersHasIndustries"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>

@@ -11,6 +11,9 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
         $res = $this->fetchAll("(`from` = $from and `to` = $user_id) or (`from` = $user_id and `to` = $from)");
         if ($res != null) {
             $res = $res->toArray();
+            foreach ($res as $num => $row) {
+                $res[$num]['when'] = strtotime($row['when']);
+            }
             return $res;
         }
         else {

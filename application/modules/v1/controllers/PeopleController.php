@@ -49,6 +49,46 @@ class V1_PeopleController extends Zend_Rest_Controller
      *           required="true",
      *           allowMultiple="false",
      *           dataType="string"
+     *         ),
+     * @SWG\Parameter(
+     *           name="data_from",
+     *           description="Data from",
+     *           paramType="query",
+     *           required="false",
+     *           allowMultiple="false",
+     *           dataType="timestamp"
+     *         ),
+     * @SWG\Parameter(
+     *           name="data_to",
+     *           description="Data to",
+     *           paramType="query",
+     *           required="false",
+     *           allowMultiple="false",
+     *           dataType="timestamp"
+     *         ),
+     * @SWG\Parameter(
+     *           name="city",
+     *           description="City",
+     *           paramType="query",
+     *           required="false",
+     *           allowMultiple="false",
+     *           dataType="int"
+     *         ),
+     * @SWG\Parameter(
+     *           name="industry",
+     *           description="Industry",
+     *           paramType="query",
+     *           required="false",
+     *           allowMultiple="false",
+     *           dataType="int"
+     *         ),
+     * @SWG\Parameter(
+     *           name="goals",
+     *           description="Goals",
+     *           paramType="query",
+     *           required="false",
+     *           allowMultiple="false",
+     *           dataType="int"
      *         )
      *     )
      *   )
@@ -58,11 +98,17 @@ class V1_PeopleController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
-        if ($token && $token != null && $token != '') {
+        $data_from = $this->_request->getParam('data_from');
+        $data_to = $this->_request->getParam('data_to');
+        $city = $this->_request->getParam('city');
+        if ($token && $token != null && $token != '' && is_numeric($data_from) && is_numeric($data_to) && is_numeric($city)) {
             $db = new Application_Model_DbTable_Users();
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $res = $db->getAll($user);
+                $industry = $this->_request->getParam('industry');
+                $goals = $this->_request->getParam('goals');
+
+                $res = $db->getPeople($user,$data_from,$data_to,$city,$industry,$goals);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
                     'errorCode' => '200'
