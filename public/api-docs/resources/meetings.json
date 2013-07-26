@@ -1,15 +1,15 @@
 {
     "basePath": "http://192.168.1.150:8000/v1/",
     "apiVersion": "1",
-    "resourcePath": "/calendar",
+    "resourcePath": "/meetings",
     "apis": [
         {
-            "path": "/calendar/",
+            "path": "/meetings/",
             "operations": [
                 {
                     "httpMethod": "GET",
-                    "summary": "Get calendar.",
-                    "nickname": "GetCalendar",
+                    "summary": "Get meetings.",
+                    "nickname": "GetMeetings",
                     "responseClass": "void",
                     "parameters": [
                         {
@@ -35,15 +35,15 @@
                 },
                 {
                     "httpMethod": "POST",
-                    "summary": "Add time slot to calendar.",
-                    "nickname": "slotCalendar",
+                    "summary": "Add meeting.",
+                    "nickname": "addMeeting",
                     "responseClass": "void",
                     "parameters": [
                         {
                             "name": "json",
                             "description": "json",
                             "allowMultiple": false,
-                            "dataType": "slotCalendarParams",
+                            "dataType": "meetingsParams",
                             "paramType": "body",
                             "required": true
                         }
@@ -62,15 +62,15 @@
                 },
                 {
                     "httpMethod": "PUT",
-                    "summary": "Update time slot.",
-                    "nickname": "UpdateCalendar",
+                    "summary": "Update meeting.",
+                    "nickname": "UpdateMeeting",
                     "responseClass": "void",
                     "parameters": [
                         {
                             "name": "json",
                             "description": "json",
                             "allowMultiple": false,
-                            "dataType": "slotCalendarUpdateParams",
+                            "dataType": "meetUpdateParams",
                             "paramType": "body",
                             "required": true
                         }
@@ -89,8 +89,8 @@
                 },
                 {
                     "httpMethod": "DELETE",
-                    "summary": "Delete time slot.",
-                    "nickname": "DeleteTimeSlot",
+                    "summary": "Delete meeting.",
+                    "nickname": "DeleteMeeting",
                     "responseClass": "void",
                     "parameters": [
                         {
@@ -126,31 +126,31 @@
         }
     ],
     "models": {
-        "slotCalendarParams": {
-            "id": "slotCalendarParams",
+        "meetingsParams": {
+            "id": "meetingsParams",
             "properties": {
                 "private_key": {
                     "type": "string"
                 },
-                "description": {
-                    "type": "string"
+                "user_id_second": {
+                    "type": "int"
                 },
-                "start_time": {
-                    "type": "timestamp"
+                "rating": {
+                    "type": "float"
                 },
-                "end_time": {
-                    "type": "timestamp"
+                "status": {
+                    "type": "int"
                 },
                 "foursquare_id": {
-                    "type": "int"
+                    "type": "string"
                 },
-                "goal": {
-                    "type": "int"
+                "when": {
+                    "type": "TIMESTAMP"
                 }
             }
         },
-        "slotCalendarUpdateParams": {
-            "id": "slotCalendarUpdateParams",
+        "meetUpdateParams": {
+            "id": "meetUpdateParams",
             "properties": {
                 "private_key": {
                     "type": "string"
@@ -158,20 +158,17 @@
                 "id": {
                     "type": "int"
                 },
-                "description": {
-                    "type": "string"
+                "rating": {
+                    "type": "float"
                 },
-                "start_time": {
-                    "type": "timestamp"
-                },
-                "end_time": {
-                    "type": "timestamp"
+                "status": {
+                    "type": "int"
                 },
                 "foursquare_id": {
-                    "type": "int"
+                    "type": "string"
                 },
-                "goal": {
-                    "type": "int"
+                "when": {
+                    "type": "TIMESTAMP"
                 }
             }
         }

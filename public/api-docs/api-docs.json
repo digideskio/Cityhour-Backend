@@ -15,6 +15,10 @@
             "description": null
         },
         {
+            "path": "/resources/complaints.{format}",
+            "description": null
+        },
+        {
             "path": "/resources/friends.{format}",
             "description": null
         },
@@ -32,6 +36,10 @@
         },
         {
             "path": "/resources/map.{format}",
+            "description": null
+        },
+        {
+            "path": "/resources/meetings.{format}",
             "description": null
         },
         {

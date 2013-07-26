@@ -113,7 +113,7 @@
                             "name": "id",
                             "description": "id",
                             "allowMultiple": false,
-                            "dataType": "string",
+                            "dataType": "int",
                             "paramType": "query",
                             "required": true
                         }

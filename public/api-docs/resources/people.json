@@ -40,7 +40,7 @@
                             "name": "city",
                             "description": "City",
                             "allowMultiple": false,
-                            "dataType": "string",
+                            "dataType": "int",
                             "paramType": "query",
                             "required": false
                         },
