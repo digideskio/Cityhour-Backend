@@ -1,5 +1,8 @@
 <?php
 
+//{ "type":"login", "private_key":"b4c43dd7e81870bfe42809cfc9ee686e551a51a751ee811062b7d" }
+//{ "type":"msg", "private_key":"b4c43dd7e81870bfe42809cfc9ee686e551a51a751ee811062b7d", "to":"31", "text":"Bla bla" }
+
 $socket = stream_socket_server("tcp://0.0.0.0:3000", $errno, $err) or die($err);
 $conns = array($socket);
 $conn_ids = array(0);

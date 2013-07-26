@@ -141,7 +141,7 @@ class V1_CalendarController extends Zend_Rest_Controller
                     $url = $config['url'].$data['city'];
                     $client = new Zend_Http_Client($url);
                     $req = json_decode($client->request()->getBody(), true);
-                    $data['city'] = $req['result']['address_components'][0]['short_name'];
+                    $data['city_name'] = $req['result']['address_components'][0]['short_name'];
                     $data['lat'] = $req['result']['geometry']['location']['lat'];
                     $data['lng'] = $req['result']['geometry']['location']['lat'];
                 }

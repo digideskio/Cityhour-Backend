@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/FoursquareController.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/v1/controllers/FoursquareControllerTest.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Calendar.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Calendar.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/FoursquareController.php" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Complaints.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Complaints.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Meetings.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Meetings.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/MeetingsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/MeetingsController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/configs/application.ini" afterPath="$PROJECT_DIR$/application/configs/application.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/php.log" afterPath="$PROJECT_DIR$/logs/php.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/chat/server.php" afterPath="$PROJECT_DIR$/chat/server.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -22,13 +15,13 @@
     <file path="/index.phtml" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374142212849" ignored="false" />
     <file path="/readme.md" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374053616685" ignored="false" />
     <file path="/IndexController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374054577890" ignored="false" />
-    <file path="/Dummy.txt" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374833109648" ignored="false" />
+    <file path="/Dummy.txt" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374843967011" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/configs/application.ini" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374056835977" ignored="false" />
     <file path="/AuthController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374389657547" ignored="false" />
     <file path="/Types.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374490254321" ignored="false" />
     <file path="/Users.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374752218263" ignored="false" />
     <file path="/a.dummy" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374821267282" ignored="false" />
-    <file path="/application.ini" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374841481822" ignored="false" />
+    <file path="/application.ini" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374850686932" ignored="false" />
     <file path="$PROJECT_DIR$/../Mockup.io/application/modules/v1/controllers/BillingController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374070582425" ignored="false" />
     <file path="/index.html" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374070103805" ignored="false" />
     <file path="/EmailController.php" changelist="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" time="1374144478993" ignored="false" />
@@ -108,19 +101,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="server.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="server.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/chat/server.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="206" column="41" selection-start="6976" selection-end="6976" vertical-scroll-proportion="0.5423729">
+            <state line="186" column="9" selection-start="5629" selection-end="5629" vertical-scroll-proportion="-11.5">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="FoursquareController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FoursquareController.php">
+      <file leaf-file-name="application.ini" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="33" selection-start="199" selection-end="199" vertical-scroll-proportion="-6.25">
+            <state line="57" column="0" selection-start="1961" selection-end="1961" vertical-scroll-proportion="0.7101329">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MeetingsController.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/MeetingsController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="233" column="27" selection-start="6991" selection-end="6991" vertical-scroll-proportion="-13.125">
               <folding />
             </state>
           </provider>
@@ -176,22 +178,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UsersIndustries.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserIndustries.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserPhotos.php" />
-        <option value="$PROJECT_DIR$/chat/server.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/CityController.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/FoursquareController.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php" />
-        <option value="$PROJECT_DIR$/application/configs/application.ini" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/MeetingsController.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Calendar.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Complaints.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Meetings.php" />
         <option value="$PROJECT_DIR$/logs/php.log" />
+        <option value="$PROJECT_DIR$/chat/server.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
+        <option value="$PROJECT_DIR$/application/configs/application.ini" />
       </list>
     </option>
   </component>
@@ -686,7 +688,11 @@
       <created>1374833114894</created>
       <updated>1374833114894</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="add city">
+      <created>1374843972585</created>
+      <updated>1374843972585</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -779,7 +785,7 @@
     <option name="WRAP_WHEN_TYPING_REACHES_RIGHT_MARGIN" value="false" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="new upload" />
+    <option name="LAST_COMMIT_MESSAGE" value="add city" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -801,6 +807,7 @@
     <MESSAGE value="chat work now" />
     <MESSAGE value="add complaints, meetings" />
     <MESSAGE value="new upload" />
+    <MESSAGE value="add city" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -815,20 +822,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="289" column="62" selection-start="8607" selection-end="8607" vertical-scroll-proportion="-26.041666">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PushController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserPhotos.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="32" selection-start="501" selection-end="501" vertical-scroll-proportion="0.19067797">
@@ -849,13 +842,6 @@
     <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="2" column="24" selection-start="31" selection-end="1017" vertical-scroll-proportion="0.025423728">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/MeetingsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="210" column="44" selection-start="6387" selection-end="6387" vertical-scroll-proportion="-0.06440678">
           <folding />
         </state>
       </provider>
@@ -888,30 +874,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="26" selection-start="444" selection-end="444" vertical-scroll-proportion="0.13983051">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="68" column="5" selection-start="1578" selection-end="1578" vertical-scroll-proportion="0.43305084">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="138" selection-start="1222" selection-end="1222" vertical-scroll-proportion="0.3986711">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FoursquareController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="33" selection-start="199" selection-end="199" vertical-scroll-proportion="-6.25">
           <folding />
         </state>
       </provider>
@@ -923,9 +888,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="62" column="20" selection-start="1696" selection-end="1696" vertical-scroll-proportion="0.33983052">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="97" column="5" selection-start="2555" selection-end="2555" vertical-scroll-proportion="0.30508474">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="137" column="67" selection-start="4079" selection-end="4079" vertical-scroll-proportion="0.52457625">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/MeetingsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="233" column="27" selection-start="6991" selection-end="6991" vertical-scroll-proportion="-13.125">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/chat/server.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="206" column="41" selection-start="6976" selection-end="6976" vertical-scroll-proportion="0.5423729">
+        <state line="186" column="9" selection-start="5629" selection-end="5629" vertical-scroll-proportion="-11.5">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="57" column="0" selection-start="1961" selection-end="1961" vertical-scroll-proportion="0.7101329">
           <folding />
         </state>
       </provider>

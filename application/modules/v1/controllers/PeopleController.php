@@ -101,7 +101,7 @@ class V1_PeopleController extends Zend_Rest_Controller
         $data_from = $this->_request->getParam('data_from');
         $data_to = $this->_request->getParam('data_to');
         $city = $this->_request->getParam('city');
-        if ($token && $token != null && $token != '' && is_numeric($data_from) && is_numeric($data_to) && is_numeric($city)) {
+        if ($token && $token != null && $token != '' && is_numeric($data_from) && is_numeric($data_to)) {
             $db = new Application_Model_DbTable_Users();
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
