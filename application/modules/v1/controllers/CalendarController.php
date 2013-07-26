@@ -90,6 +90,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      * @SWG\Property(name="end_time",type="timestamp")
      * @SWG\Property(name="foursquare_id",type="int")
      * @SWG\Property(name="goal",type="int")
+     * @SWG\Property(name="city",type="string")
      *
      *
      * @SWG\Api(
@@ -129,13 +130,23 @@ class V1_CalendarController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && isset($data['id']) && is_numeric($data['id'])) {
+        if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
                 $data['user_id'] = $user['id'];
                 $data['start_time'] = date('Y-m-d H:i:s',$data['start_time']);
                 $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
+                if (isset($data['city'])) {
+                    $config = $this->getInvokeArg('bootstrap')->getOption('google');
+                    $url = $config['url'].$data['city'];
+                    $client = new Zend_Http_Client($url);
+                    $req = json_decode($client->request()->getBody(), true);
+                    $data['city'] = $req['result']['address_components'][0]['short_name'];
+                    $data['lat'] = $req['result']['geometry']['location']['lat'];
+                    $data['lng'] = $req['result']['geometry']['location']['lat'];
+                }
                 $db = new Application_Model_DbTable_Calendar();
+                unset($data['private_key']);
                 $db->addSlot($data);
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '200'
@@ -212,6 +223,16 @@ class V1_CalendarController extends Zend_Rest_Controller
                 if (isset($data['end_time'])) {
                     $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
                 }
+                if (isset($data['city'])) {
+                    $config = $this->getInvokeArg('bootstrap')->getOption('google');
+                    $url = $config['url'].$data['city'];
+                    $client = new Zend_Http_Client($url);
+                    $req = json_decode($client->request()->getBody(), true);
+                    $data['city'] = $req['result']['address_components'][0]['short_name'];
+                    $data['lat'] = $req['result']['geometry']['location']['lat'];
+                    $data['lng'] = $req['result']['geometry']['location']['lat'];
+                }
+                unset($data['private_key']);
                 $db = new Application_Model_DbTable_Calendar();
                 $db->updateSlot($user,$data,$data['id']);
                 $this->_helper->json->sendJson(array(

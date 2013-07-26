@@ -8,6 +8,7 @@ class Application_Model_DbTable_Complaints extends Zend_Db_Table_Abstract
     public function getTo($id,$type) {
         $res = $this->fetchAll("`to` = $id and `type` = $type");
         if ($res != null) {
+            $res = $res->toArray();
             return $res;
         }
         else {

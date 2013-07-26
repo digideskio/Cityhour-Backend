@@ -18,6 +18,7 @@ class databaseClass {
         $config = parse_ini_file("../application/configs/application.ini");
         $this->conn = mysql_connect($config['resources.db.params.host'], $config['resources.db.params.username'], $config['resources.db.params.password']);
         $this->db = mysql_select_db($config['resources.db.params.dbname']);
+        mysql_set_charset($config['resources.db.params.charset'],$this->conn);
     }
 
     public function disconnect() {
@@ -135,11 +136,6 @@ while (true) {
                 if ($user_all) {
                     $user = $user_all['private_key'];
 
-                    // notify other users
-                    //foreach ($conns as $i => $c) {
-                    //    if ($i != 0) fwrite($c, "data: " . $user . " has joined.\n\n");
-                    //}
-
                     $conns[] = $conn;
                     $conn_ids[] = $user;
                     $conn_user[$user][] = $conn;
@@ -164,7 +160,7 @@ while (true) {
         } else {
             $data = fread($read, 1024);
             if ($data == "" or $data === false) {
-                // user/browser closed connection
+                // user closed connection
                 if ($data !== false) stream_socket_shutdown($read, STREAM_SHUT_RDWR);
                 $conn_id = array_search($read, $conns, true);
                 unset($conns[$conn_id]);
@@ -177,10 +173,6 @@ while (true) {
 
                 if (empty($conn_user[$user])) {
                     unset($conn_user[$user]);
-                    // notify other users
-//                    foreach ($conns as $i => $c) {
-//                        if ($i != 0) fwrite($c, "data: " . $user . " has left.\n\n");
-//                    }
                 }
             }
             else {

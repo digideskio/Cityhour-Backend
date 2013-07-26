@@ -134,6 +134,7 @@ class V1_MeetingsController extends Zend_Rest_Controller
             if ($user) {
                 $data['user_id'] = $user['id'];
                 $data['when'] = date('Y-m-d H:i:s',$data['when']);
+                unset($data['private_key']);
                 $db = new Application_Model_DbTable_Meetings();
                 $db->addMeet($data);
                 $this->_helper->json->sendJson(array(
@@ -207,7 +208,7 @@ class V1_MeetingsController extends Zend_Rest_Controller
                 if (isset($data['when'])) {
                     $data['when'] = date('Y-m-d H:i:s',$data['when']);
                 }
-
+                unset($data['private_key']);
                 $db = new Application_Model_DbTable_Meetings();
                 $db->updateMeet($user,$data,$data['id']);
                 $this->_helper->json->sendJson(array(

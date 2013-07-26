@@ -68,7 +68,8 @@ class V1_PhotoController extends Zend_Rest_Controller
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $folder_upload = APPLICATION_PATH.'/../public/upload/';
+        $config = $this->getInvokeArg('bootstrap')->getOption('userPhoto');
+        $folder_upload = $config['upload'];
         $upload = new Zend_File_Transfer_Adapter_Http();
         $upload->addValidator('IsImage', false);
         $upload->setDestination($folder_upload);
@@ -82,7 +83,6 @@ class V1_PhotoController extends Zend_Rest_Controller
                 move_uploaded_file($file['tmp_name'], $folder_upload.$filename);
 
                 $user_id = $this->_request->getParam('user_id');
-                $config = $this->getInvokeArg('bootstrap')->getOption('userPhoto');
                 $url = $config['url'];
                 $db = new Application_Model_DbTable_UserPhotos();
                 $id = $db->makePhoto($filename,$user_id);

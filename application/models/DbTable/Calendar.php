@@ -9,6 +9,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $user_id = $user['id'];
         $res = $this->fetchAll("user_id = $user_id");
         if ($res != null) {
+            $res = $res->toArray();
             return $res;
         }
         else {

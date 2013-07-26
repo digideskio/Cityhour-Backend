@@ -9,6 +9,7 @@ class Application_Model_DbTable_Meetings extends Zend_Db_Table_Abstract
         $user_id = $user['id'];
         $res = $this->fetchAll("user_id = $user_id or user_id_second = $user_id");
         if ($res != null) {
+            $res = $res->toArray();
             return $res;
         }
         else {

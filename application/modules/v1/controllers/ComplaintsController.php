@@ -149,6 +149,7 @@ class V1_ComplaintsController extends Zend_Rest_Controller
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
                 $data['from'] = $user['id'];
+                unset($data['private_key']);
                 $db = new Application_Model_DbTable_Complaints();
                 $db->addComplaint($data);
                 $this->_helper->json->sendJson(array(
@@ -217,6 +218,7 @@ class V1_ComplaintsController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '' && is_numeric(isset($data['id'])) && $dscr && $dscr != null && $dscr != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
+                unset($data['private_key']);
                 $db = new Application_Model_DbTable_Complaints();
                 $db->updateComplaint($data['id'],$dscr,$user['id']);
                 $this->_helper->json->sendJson(array(
