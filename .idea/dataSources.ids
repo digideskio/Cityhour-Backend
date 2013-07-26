@@ -26,10 +26,11 @@
     <table name="calendar" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
       <column name="description" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
       <column name="start_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
       <column name="end_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
+      <column name="foursquare_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="goal" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="time_create" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_calendar_users1_idx" unique="false" columns="user_id"/>
@@ -95,9 +96,9 @@
       <column name="user_id_second" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="rating" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
-      <column name="address_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="foursquare_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="when" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <index name="fk_meetings_addresses1_idx" unique="false" columns="address_id"/>
       <index name="fk_meetings_users1_idx" unique="false" columns="user_id_first"/>
       <index name="fk_meetings_users2_idx" unique="false" columns="user_id_second"/>
     </table>

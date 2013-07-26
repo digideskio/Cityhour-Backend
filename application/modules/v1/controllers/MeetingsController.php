@@ -3,11 +3,11 @@
 use Swagger\Annotations as SWG;
 /**
  * @SWG\Resource(
- *  resourcePath="/calendar"
+ *  resourcePath="/meetings"
  * )
  */
 
-class V1_CalendarController extends Zend_Rest_Controller
+class V1_MeetingsController extends Zend_Rest_Controller
 {
 
     public function init()
@@ -23,13 +23,13 @@ class V1_CalendarController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Api(
-     *   path="/calendar/",
+     *   path="/meetings/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="GET",
-     *       summary="Get calendar.",
+     *       summary="Get meetings.",
      *       responseClass="void",
-     *       nickname="GetCalendar",
+     *       nickname="GetMeetings",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -60,7 +60,7 @@ class V1_CalendarController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
+                $db = new Application_Model_DbTable_Meetings();
                 $res = $db->getAll($user);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
@@ -83,23 +83,23 @@ class V1_CalendarController extends Zend_Rest_Controller
 
     /**
      *
-     * @SWG\Model(id="slotCalendarParams")
+     * @SWG\Model(id="meetingsParams")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="description",type="string")
-     * @SWG\Property(name="start_time",type="timestamp")
-     * @SWG\Property(name="end_time",type="timestamp")
-     * @SWG\Property(name="foursquare_id",type="int")
-     * @SWG\Property(name="goal",type="int")
+     * @SWG\Property(name="user_id_second",type="int")
+     * @SWG\Property(name="rating",type="float")
+     * @SWG\Property(name="status",type="int")
+     * @SWG\Property(name="foursquare_id",type="string")
+     * @SWG\Property(name="when",type="TIMESTAMP")
      *
      *
      * @SWG\Api(
-     *   path="/calendar/",
+     *   path="/meetings/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="POST",
-     *       summary="Add time slot to calendar.",
+     *       summary="Add meeting.",
      *       responseClass="void",
-     *       nickname="slotCalendar",
+     *       nickname="addMeeting",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -117,7 +117,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="slotCalendarParams"
+     *           dataType="meetingsParams"
      *         )
      *     )
      *   )
@@ -129,14 +129,13 @@ class V1_CalendarController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && isset($data['id']) && is_numeric($data['id'])) {
+        if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
                 $data['user_id'] = $user['id'];
-                $data['start_time'] = date('Y-m-d H:i:s',$data['start_time']);
-                $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
-                $db = new Application_Model_DbTable_Calendar();
-                $db->addSlot($data);
+                $data['when'] = date('Y-m-d H:i:s',$data['when']);
+                $db = new Application_Model_DbTable_Meetings();
+                $db->addMeet($data);
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '200'
                 ));
@@ -156,24 +155,23 @@ class V1_CalendarController extends Zend_Rest_Controller
 
     /**
      *
-     * @SWG\Model(id="slotCalendarUpdateParams")
+     * @SWG\Model(id="meetUpdateParams")
      * @SWG\Property(name="private_key",type="string")
      * @SWG\Property(name="id",type="int")
-     * @SWG\Property(name="description",type="string")
-     * @SWG\Property(name="start_time",type="timestamp")
-     * @SWG\Property(name="end_time",type="timestamp")
-     * @SWG\Property(name="foursquare_id",type="int")
-     * @SWG\Property(name="goal",type="int")
+     * @SWG\Property(name="rating",type="float")
+     * @SWG\Property(name="status",type="int")
+     * @SWG\Property(name="foursquare_id",type="string")
+     * @SWG\Property(name="when",type="TIMESTAMP")
      *
      *
      * @SWG\Api(
-     *   path="/calendar/",
+     *   path="/meetings/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="PUT",
-     *       summary="Update time slot.",
+     *       summary="Update meeting.",
      *       responseClass="void",
-     *       nickname="UpdateCalendar",
+     *       nickname="UpdateMeeting",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -191,7 +189,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="slotCalendarUpdateParams"
+     *           dataType="meetUpdateParams"
      *         )
      *     )
      *   )
@@ -206,14 +204,12 @@ class V1_CalendarController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '' && is_numeric($data['id'])) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                if (isset($data['start_time'])) {
-                    $data['start_time'] = date('Y-m-d H:i:s',$data['start_time']);
+                if (isset($data['when'])) {
+                    $data['when'] = date('Y-m-d H:i:s',$data['when']);
                 }
-                if (isset($data['end_time'])) {
-                    $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
-                }
-                $db = new Application_Model_DbTable_Calendar();
-                $db->updateSlot($user,$data,$data['id']);
+
+                $db = new Application_Model_DbTable_Meetings();
+                $db->updateMeet($user,$data,$data['id']);
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '200'
                 ));
@@ -234,13 +230,13 @@ class V1_CalendarController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Api(
-     *   path="/calendar/",
+     *   path="/meetings/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="DELETE",
-     *       summary="Delete time slot.",
+     *       summary="Delete meeting.",
      *       responseClass="void",
-     *       nickname="DeleteTimeSlot",
+     *       nickname="DeleteMeeting",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -282,8 +278,8 @@ class V1_CalendarController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '' && is_numeric($id)) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
-                $res = $db->deleteSlot($user,$id);
+                $db = new Application_Model_DbTable_Meetings();
+                $res = $db->deleteMeet($user,$id);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
                     'errorCode' => '200'

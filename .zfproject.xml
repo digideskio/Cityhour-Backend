@@ -30,6 +30,8 @@
           <dbTableFile dbTableName="UserHasGoals"/>
           <dbTableFile dbTableName="Industries"/>
           <dbTableFile dbTableName="UsersHasIndustries"/>
+          <dbTableFile dbTableName="Meetings"/>
+          <dbTableFile dbTableName="Complaints"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>

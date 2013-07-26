@@ -3,11 +3,11 @@
 use Swagger\Annotations as SWG;
 /**
  * @SWG\Resource(
- *  resourcePath="/calendar"
+ *  resourcePath="/complaints"
  * )
  */
 
-class V1_CalendarController extends Zend_Rest_Controller
+class V1_ComplaintsController extends Zend_Rest_Controller
 {
 
     public function init()
@@ -23,13 +23,13 @@ class V1_CalendarController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Api(
-     *   path="/calendar/",
+     *   path="/complaints/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="GET",
-     *       summary="Get calendar.",
+     *       summary="Get complaints.",
      *       responseClass="void",
-     *       nickname="GetCalendar",
+     *       nickname="GetComplaints",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -48,6 +48,22 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           required="true",
      *           allowMultiple="false",
      *           dataType="string"
+     *         ),
+     * @SWG\Parameter(
+     *           name="type",
+     *           description="type",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="string"
+     *         ),
+     * @SWG\Parameter(
+     *           name="id",
+     *           description="item id",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="string"
      *         )
      *     )
      *   )
@@ -57,11 +73,13 @@ class V1_CalendarController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
-        if ($token && $token != null && $token != '') {
+        $type = $this->_request->getParam('type');
+        $id = $this->_request->getParam('id');
+        if ($token && $token != null && $token != '' && is_numeric($type) && is_numeric($id)) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
-                $res = $db->getAll($user);
+                $db = new Application_Model_DbTable_Complaints();
+                $res = $db->getTo($id,$type);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
                     'errorCode' => '200'
@@ -83,23 +101,21 @@ class V1_CalendarController extends Zend_Rest_Controller
 
     /**
      *
-     * @SWG\Model(id="slotCalendarParams")
+     * @SWG\Model(id="addComplaintParams")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="description",type="string")
-     * @SWG\Property(name="start_time",type="timestamp")
-     * @SWG\Property(name="end_time",type="timestamp")
-     * @SWG\Property(name="foursquare_id",type="int")
-     * @SWG\Property(name="goal",type="int")
+     * @SWG\Property(name="type",type="string")
+     * @SWG\Property(name="to",type="string")
+     * @SWG\Property(name="dscr",type="string")
      *
      *
      * @SWG\Api(
-     *   path="/calendar/",
+     *   path="/complaints/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="POST",
-     *       summary="Add time slot to calendar.",
+     *       summary="Add complaint.",
      *       responseClass="void",
-     *       nickname="slotCalendar",
+     *       nickname="addComplaint",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -117,7 +133,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="slotCalendarParams"
+     *           dataType="addComplaintParams"
      *         )
      *     )
      *   )
@@ -129,14 +145,12 @@ class V1_CalendarController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && isset($data['id']) && is_numeric($data['id'])) {
+        if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $data['user_id'] = $user['id'];
-                $data['start_time'] = date('Y-m-d H:i:s',$data['start_time']);
-                $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
-                $db = new Application_Model_DbTable_Calendar();
-                $db->addSlot($data);
+                $data['from'] = $user['id'];
+                $db = new Application_Model_DbTable_Complaints();
+                $db->addComplaint($data);
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '200'
                 ));
@@ -156,24 +170,20 @@ class V1_CalendarController extends Zend_Rest_Controller
 
     /**
      *
-     * @SWG\Model(id="slotCalendarUpdateParams")
+     * @SWG\Model(id="complaintsUpdateParams")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="id",type="int")
-     * @SWG\Property(name="description",type="string")
-     * @SWG\Property(name="start_time",type="timestamp")
-     * @SWG\Property(name="end_time",type="timestamp")
-     * @SWG\Property(name="foursquare_id",type="int")
-     * @SWG\Property(name="goal",type="int")
+     * @SWG\Property(name="dscr",type="string")
+     * @SWG\Property(name="id",type="string")
      *
      *
      * @SWG\Api(
-     *   path="/calendar/",
+     *   path="/complaints/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="PUT",
-     *       summary="Update time slot.",
+     *       summary="Update complaint.",
      *       responseClass="void",
-     *       nickname="UpdateCalendar",
+     *       nickname="UpdateComplaint",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -191,7 +201,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="slotCalendarUpdateParams"
+     *           dataType="complaintsUpdateParams"
      *         )
      *     )
      *   )
@@ -203,17 +213,12 @@ class V1_CalendarController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && is_numeric($data['id'])) {
+        if (isset($data['dscr'])) $dscr = $data['dscr']; else $dscr = false;
+        if ($token && $token != null && $token != '' && is_numeric(isset($data['id'])) && $dscr && $dscr != null && $dscr != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                if (isset($data['start_time'])) {
-                    $data['start_time'] = date('Y-m-d H:i:s',$data['start_time']);
-                }
-                if (isset($data['end_time'])) {
-                    $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
-                }
-                $db = new Application_Model_DbTable_Calendar();
-                $db->updateSlot($user,$data,$data['id']);
+                $db = new Application_Model_DbTable_Complaints();
+                $db->updateComplaint($data['id'],$dscr,$user['id']);
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '200'
                 ));
@@ -234,13 +239,13 @@ class V1_CalendarController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Api(
-     *   path="/calendar/",
+     *   path="/complaints/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="DELETE",
-     *       summary="Delete time slot.",
+     *       summary="Delete complaint.",
      *       responseClass="void",
-     *       nickname="DeleteTimeSlot",
+     *       nickname="DeleteComplaint",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -282,8 +287,8 @@ class V1_CalendarController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '' && is_numeric($id)) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
-                $res = $db->deleteSlot($user,$id);
+                $db = new Application_Model_DbTable_Complaints();
+                $res = $db->deleteComplaint($user['id'],$id);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
                     'errorCode' => '200'
