@@ -132,9 +132,6 @@
                 "private_key": {
                     "type": "string"
                 },
-                "description": {
-                    "type": "string"
-                },
                 "start_time": {
                     "type": "timestamp"
                 },
@@ -146,6 +143,9 @@
                 },
                 "goal": {
                     "type": "int"
+                },
+                "city": {
+                    "type": "string"
                 }
             }
         },
@@ -158,7 +158,7 @@
                 "id": {
                     "type": "int"
                 },
-                "description": {
+                "city": {
                     "type": "string"
                 },
                 "start_time": {

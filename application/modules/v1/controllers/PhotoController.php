@@ -51,15 +51,15 @@ class V1_PhotoController extends Zend_Rest_Controller
      *           paramType="query",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="mapUpdate"
+     *           dataType="int"
      *         ),
      * @SWG\Parameter(
-     *           name="user_id",
-     *           description="user_id",
+     *           name="private_key",
+     *           description="private_key",
      *           paramType="query",
      *           required="false",
      *           allowMultiple="false",
-     *           dataType="mapUpdate"
+     *           dataType="int"
      *         )
      *     )
      *   )
@@ -82,10 +82,10 @@ class V1_PhotoController extends Zend_Rest_Controller
                 $filename = 'userPic_'.$rrr.'.'.$ext['extension'];
                 move_uploaded_file($file['tmp_name'], $folder_upload.$filename);
 
-                $user_id = $this->_request->getParam('user_id');
+                $private_key = $this->_request->getParam('private_key');
                 $url = $config['url'];
                 $db = new Application_Model_DbTable_UserPhotos();
-                $id = $db->makePhoto($filename,$user_id);
+                $id = $db->makePhoto($filename,$private_key);
                 $this->_helper->json->sendJson(array(
                     'body' => array(
                         'id' => $id,

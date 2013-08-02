@@ -85,7 +85,6 @@ class V1_CalendarController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="slotCalendarParams")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="description",type="string")
      * @SWG\Property(name="start_time",type="timestamp")
      * @SWG\Property(name="end_time",type="timestamp")
      * @SWG\Property(name="foursquare_id",type="int")
@@ -136,15 +135,15 @@ class V1_CalendarController extends Zend_Rest_Controller
                 $data['user_id'] = $user['id'];
                 $data['start_time'] = date('Y-m-d H:i:s',$data['start_time']);
                 $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
-                if (isset($data['city'])) {
-                    $config = $this->getInvokeArg('bootstrap')->getOption('google');
-                    $url = $config['url'].$data['city'];
-                    $client = new Zend_Http_Client($url);
-                    $req = json_decode($client->request()->getBody(), true);
-                    $data['city_name'] = $req['result']['address_components'][0]['short_name'];
-                    $data['lat'] = $req['result']['geometry']['location']['lat'];
-                    $data['lng'] = $req['result']['geometry']['location']['lat'];
-                }
+//                if (isset($data['city'])) {
+//                    $config = $this->getInvokeArg('bootstrap')->getOption('google');
+//                    $url = $config['url'].$data['city'];
+//                    $client = new Zend_Http_Client($url);
+//                    $req = json_decode($client->request()->getBody(), true);
+//                    $data['city_name'] = $req['result']['address_components'][0]['short_name'];
+//                    $data['lat'] = $req['result']['geometry']['location']['lat'];
+//                    $data['lng'] = $req['result']['geometry']['location']['lat'];
+//                }
                 $db = new Application_Model_DbTable_Calendar();
                 unset($data['private_key']);
                 $db->addSlot($data);
@@ -170,7 +169,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      * @SWG\Model(id="slotCalendarUpdateParams")
      * @SWG\Property(name="private_key",type="string")
      * @SWG\Property(name="id",type="int")
-     * @SWG\Property(name="description",type="string")
+     * @SWG\Property(name="city",type="string")
      * @SWG\Property(name="start_time",type="timestamp")
      * @SWG\Property(name="end_time",type="timestamp")
      * @SWG\Property(name="foursquare_id",type="int")
@@ -223,15 +222,15 @@ class V1_CalendarController extends Zend_Rest_Controller
                 if (isset($data['end_time'])) {
                     $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
                 }
-                if (isset($data['city'])) {
-                    $config = $this->getInvokeArg('bootstrap')->getOption('google');
-                    $url = $config['url'].$data['city'];
-                    $client = new Zend_Http_Client($url);
-                    $req = json_decode($client->request()->getBody(), true);
-                    $data['city'] = $req['result']['address_components'][0]['short_name'];
-                    $data['lat'] = $req['result']['geometry']['location']['lat'];
-                    $data['lng'] = $req['result']['geometry']['location']['lat'];
-                }
+//                if (isset($data['city'])) {
+//                    $config = $this->getInvokeArg('bootstrap')->getOption('google');
+//                    $url = $config['url'].$data['city'];
+//                    $client = new Zend_Http_Client($url);
+//                    $req = json_decode($client->request()->getBody(), true);
+//                    $data['city'] = $req['result']['address_components'][0]['short_name'];
+//                    $data['lat'] = $req['result']['geometry']['location']['lat'];
+//                    $data['lng'] = $req['result']['geometry']['location']['lat'];
+//                }
                 unset($data['private_key']);
                 $db = new Application_Model_DbTable_Calendar();
                 $db->updateSlot($user,$data,$data['id']);

@@ -8,6 +8,14 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     public function getAll($user) {
         $user_id = $user['id'];
         $res = $this->fetchAll("user_id = $user_id");
+        foreach ($res as $num=>$row) {
+            $row['start_time'] = strtotime($row['start_time']);
+            $row['end_time'] = strtotime($row['end_time']);
+            $row['time_create'] = strtotime($row['time_create']);
+
+            $res[$num] = $row;
+        }
+
         if ($res != null) {
             $res = $res->toArray();
             return $res;

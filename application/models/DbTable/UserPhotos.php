@@ -5,8 +5,10 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
 
     protected $_name = 'user_photos';
 
-    public function makePhoto($filename,$user_id) {
-        if (is_numeric($user_id)) {
+    public function makePhoto($filename,$private_key) {
+        $private_key = Application_Model_DbTable_Users::getUserData($private_key);
+        if ($private_key) {
+            $user_id = $private_key['id'];
             $id = $this->fetchRow("user_id = $user_id");
             if ($id != null) {
                 $id = $id->toArray();

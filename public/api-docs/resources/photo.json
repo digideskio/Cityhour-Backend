@@ -16,9 +16,17 @@
                             "name": "file",
                             "description": "file",
                             "allowMultiple": false,
-                            "dataType": "mapUpdate",
+                            "dataType": "int",
                             "paramType": "query",
                             "required": true
+                        },
+                        {
+                            "name": "private_key",
+                            "description": "private_key",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": false
                         }
                     ],
                     "errorResponses": [
@@ -34,21 +42,5 @@
                 }
             ]
         }
-    ],
-    "models": {
-        "mapUpdate": {
-            "id": "mapUpdate",
-            "properties": {
-                "private_key": {
-                    "type": "string"
-                },
-                "lat": {
-                    "type": "string"
-                },
-                "lng": {
-                    "type": "string"
-                }
-            }
-        }
-    }
+    ]
 }
