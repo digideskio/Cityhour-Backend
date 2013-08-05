@@ -29,5 +29,14 @@ class Application_Model_Status
         );
     }
 
+    public static function Calendar() {
+        return array(
+            0 => 'Default',
+            1 => 'Meeting Request',
+            2 => 'Meeting Accepted',
+            3 => 'Meeting Rejected'
+        );
+    }
+
 }
 

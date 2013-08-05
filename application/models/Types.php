@@ -23,5 +23,13 @@ class Application_Model_Types
         );
     }
 
+    public static function calendar() {
+        return array(
+            0 => 'Busy time',
+            1 => 'Free time',
+            2 => 'Meeting'
+        );
+    }
+
 }
 

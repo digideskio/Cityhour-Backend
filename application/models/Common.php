@@ -3,6 +3,41 @@
 class Application_Model_Common
 {
 
+    public static function getCity($city) {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        $url = $config->google->url.(string)$city;
+
+        $client = new Zend_Http_Client($url);
+        $req = json_decode($client->request()->getBody(), true);
+        if ($req['status'] == 'OK') {
+            $data['city_name'] = $req['result']['address_components'][0]['short_name'];
+            $data['lat'] = $req['result']['geometry']['location']['lat'];
+            $data['lng'] = $req['result']['geometry']['location']['lng'];
+            return $data;
+        }
+        else {
+            return array();
+        }
+    }
+
+    public static function getPlace($place) {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        $url = $config->foursquare->url;
+        $token = $config->foursquare->token;
+
+        $client = new Zend_Http_Client($url.$place.$token);
+        $req = json_decode($client->request()->getBody(), true);
+        if ($req['meta']['code'] == '200') {
+            $data['place'] = $req['response']['venue']['name'];
+            $data['lat'] = $req['response']['venue']['location']['lat'];
+            $data['lng'] = $req['response']['venue']['location']['lng'];
+            return $data;
+        }
+        else {
+            return array();
+        }
+    }
+
     // send email
     public static function sendEmail($to, $subject, $bodyText, $cc=null, $bcc=null,
                                      $viewFileName=null, $options=null, $tags=null, $filename=null, $filedata=null, $script_path=null)

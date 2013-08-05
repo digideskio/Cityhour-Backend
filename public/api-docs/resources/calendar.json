@@ -132,20 +132,11 @@
                 "private_key": {
                     "type": "string"
                 },
-                "start_time": {
-                    "type": "timestamp"
-                },
-                "end_time": {
-                    "type": "timestamp"
-                },
-                "foursquare_id": {
-                    "type": "int"
-                },
-                "goal": {
-                    "type": "int"
-                },
-                "city": {
-                    "type": "string"
+                "slots": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "creteSlotParams"
+                    }
                 }
             }
         },
@@ -158,7 +149,7 @@
                 "id": {
                     "type": "int"
                 },
-                "city": {
+                "user_id_second": {
                     "type": "string"
                 },
                 "start_time": {
@@ -168,9 +159,50 @@
                     "type": "timestamp"
                 },
                 "foursquare_id": {
-                    "type": "int"
+                    "type": "string"
                 },
                 "goal": {
+                    "type": "int"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "int"
+                },
+                "rating": {
+                    "type": "float"
+                }
+            }
+        },
+        "creteSlotParams": {
+            "id": "creteSlotParams",
+            "properties": {
+                "user_id_second": {
+                    "type": "string"
+                },
+                "start_time": {
+                    "type": "timestamp"
+                },
+                "end_time": {
+                    "type": "timestamp"
+                },
+                "foursquare_id": {
+                    "type": "string"
+                },
+                "goal": {
+                    "type": "int"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "type": {
                     "type": "int"
                 }
             }
