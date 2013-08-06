@@ -73,21 +73,76 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     }
 
-    public function registerUser($userData) {
-        if (is_numeric($userData['photo'])) {
-            $photo_id = $userData['photo'];
-            $userData['photo'] = $this->_db->fetchOne("
-                select orig
-                from user_photos
-                where id = $photo_id
-            ");
-            $id = $this->insert($userData);
-            $this->_db->update('user_photos',array(
-                'user_id' => $id
-            ),"id = $photo_id");
+    public function registerUser($data) {
+        $filter = new Zend_Filter_StripTags();
+
+        //Important
+        $userData = array(
+            'email' => $data['email'],
+            'name' => $data['name'],
+            'lastname' => $data['lastname'],
+            'industry_id' => $data['industry_id'],
+            'private_key' => uniqid(sha1(time()), false)
+        );
+
+        //Not Important
+        if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
+        if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
+        if (isset($data['phone'])) $userData['phone'] = $filter->filter($data['phone']);
+        if (isset($data['business_email'])) $userData['business_email'] = $filter->filter($data['business_email']);
+
+        if (isset($data['facebook_key'])) $userData['facebook_key'] =  $filter->filter($data['facebook_key']);
+        if (isset($data['facebook_id'])) $userData['facebook_id'] =  $filter->filter($data['facebook_id']);
+        if (isset($data['linkedin_key'])) $userData['linkedin_key'] = $filter->filter($data['linkedin_key']);
+        if (isset($data['linkedin_id'])) $userData['linkedin_id'] = $filter->filter($data['linkedin_id']);
+
+
+        if (isset($data['city'])) {
+            $userData = array_merge($userData,Application_Model_Common::getCity($data['city']));
         }
-        else {
-            $id = $this->insert($userData);
+
+        $id = $this->insert($userData);
+
+        foreach($data['skills'] as $num=>$row) {
+            $this->_db->insert('user_skills',array(
+                'user_id' => $id,
+                'name' => $row,
+            ));
+        }
+
+        foreach($data['languages'] as $num=>$row) {
+            $this->_db->insert('user_languages',array(
+                'user_id' => $id,
+                'languages_id' => $row,
+            ));
+        }
+
+        $experience = 0;
+        foreach($data['jobs'] as $num=>$row) {
+            $this->_db->insert('user_jobs',array(
+                'user_id' => $id,
+                'name' => $row['name'],
+                'company' => $row['company'],
+                'current' => $row['current'],
+                'start_time' => $row['start_time'],
+                'end_time' => $row['end_time'],
+                'type' => 0
+            ));
+            $d1 = date_create($row['start_time']);
+            $d2 = date_create($row['end_time']);
+            $experience = $experience + $d1->diff($d2)->m;
+        }
+
+        foreach($data['education'] as $num=>$row) {
+            $this->_db->insert('user_jobs',array(
+                'user_id' => $id,
+                'name' => $row['name'],
+                'company' => $row['company'],
+                'current' => 0,
+                'start_time' => $row['start_time'],
+                'end_time' => $row['end_time'],
+                'type' => 1
+            ));
         }
 
         if (isset($userData['facebook_key'])) {
@@ -100,14 +155,33 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $facebook->storeInfo($userData['linkedin_key'],$id);
         }
 
+        $photo = null;
+        if (isset($data['photo_id']) && is_numeric($data['photo_id'])) {
+            $photo_id = $data['photo_id'];
+            $photo = $this->_db->fetchOne("
+                select orig
+                from user_photos
+                where id = $photo_id
+            ");
+            $this->_db->update('user_photos',array(
+                'user_id' => $id
+            ),"id = $photo_id");
+        }
+
+        $completeness = Application_Model_Common::UpdateCompleteness($id);
+        $this->update(array(
+            'experience' => $experience,
+            'completeness' => $completeness,
+            'photo' => $photo
+        ),"id = $id");
+
         return $id;
     }
 
     public function facebookLogin($token)
     {
-        $user = $this->fetchRow("facebook_key = '$token'");
+        $user = $this->getUser($token,false,'facebook_key',true,true);
         if ($user != null) {
-            $user = $this->prepeareUser($user);
             return array(
                 'body' => $user,
                 'errorCode' => '200'
@@ -116,9 +190,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $facebook = new Application_Model_Facebook();
             $user_profile = $facebook->getUser($token);
             if ($user_profile) {
-                $user = $this->emailCheck($user_profile['email']);
+                $user = $this->getUser($user_profile['email'],false,'email',true,true);
                 if ($user) {
-                    $user['update'] = strtotime($user['update']);
                     $id = $user['id'];
                     $this->update(array(
                         'facebook_key' => $token,
@@ -152,9 +225,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function linkedinLogin($token)
     {
-        $user = $this->fetchRow("linkedin_key = '$token'");
+        $user = $this->getUser($token,false,'linkedin_key',true,true);
         if ($user != null) {
-            $user = $this->prepeareUser($user);
             return array(
                 'body' => $user,
                 'errorCode' => '200'
@@ -163,9 +235,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $linkedin = new Application_Model_Linkedin();
             $user_profile = $linkedin->getUser($token);
             if ($user_profile) {
-                $user = $this->emailCheck($user_profile['emailAddress']);
+                $user = $this->getUser($user_profile['email'],false,'email',true,true);
                 if ($user) {
-                    $user['update'] = strtotime($user['update']);
                     $id = $user['id'];
                     $this->update(array(
                         'linkedin_key' => $token,
@@ -178,15 +249,9 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     );
                 }
                 else {
-                    if (!isset($user_profile['pictureUrl'])) $user_profile['pictureUrl'] = '';
+
                     return array(
-                        'body' => array(
-                            'name' => $user_profile['firstName'],
-                            'linkedin_id' => $user_profile['id'],
-                            'lastname' => $user_profile['lastName'],
-                            'email' => $user_profile['emailAddress'],
-                            'photo' => $user_profile['photo']
-                        ),
+                        'body' => $user_profile,
                         'errorCode' => '404'
                     );
                 }
@@ -198,19 +263,31 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
     }
 
-    public function userCheck($token)
-    {
-        if ($this->fetchRow("private_key = '$token'") != null) {
-            return true;
-        } else {
-            return false;
-        }
-    }
+    public function prepeareUser($res, $user = false) {
 
-    public function prepeareUser($res,$array = true, $user = false) {
-        if ($array) {
-            $res = $res->toArray();
+        //Prepare Languages,Skills
+        if ($res['skills'] != null && $res['skills'] != '') {
+            $res['skills'] = explode(',',$res['skills']);
         }
+        else {
+            $res['skills'] = array();
+        }
+        if ($res['languages'] != null && $res['languages'] != '') {
+            $res['languages'] = explode(',',$res['languages']);
+        }
+        else {
+            $res['languages'] = array();
+        }
+
+        $jobs = new Application_Model_DbTable_UserJobs();
+
+        //Get user education
+        $res['education'] = $jobs->getEducation($res['id']);
+
+        //Get UserJobs
+        $res['jobs'] = $jobs->getJobs($res['id']);
+
+        // Add photo
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->userPhoto->url;
         if ($res['photo'] != '' && $res['photo'] != null) {
@@ -219,56 +296,83 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         else {
             $res['photo'] = null;
         }
+
+        // Public?Private request
         if ($user) {
             $user_id = $user['id'];
             $friend_id = $res['id'];
+
+            // Friends ?
             $friends = $this->_db->fetchOne("
-                select group_concat(friend_id)
+                select id
                 from user_friends
                 where user_id = $user_id
                 and status = 1
                 and friend_id = $friend_id
+                limit 1
             ");
             if ($friends) {
                 $res['friend'] = true;
             }
             else {
+                unset($res['email']);
+                unset($res['business_email']);
+                unset($res['skype']);
+                unset($res['phone']);
                 $res['friend'] = false;
             }
+
+            // Meet ?
+            $meet = $this->_db->fetchOne("
+                select id
+                from calendar
+                where ( (user_id = $user_id and user_id_second = $friend_id) or (user_id = $friend_id and user_id_second = $user_id) )
+                and `type` = 2
+                and `status` = 2
+                limit 1
+            ");
+            if ($meet) {
+                $res['meet'] = true;
+            }
+            else {
+                $res['meet'] = false;
+            }
         }
+        else {
+            // Add user settings
+            $settings = new Application_Model_DbTable_UserSettings();
+            $user_settings = $settings->getSettings($res);
+            $res['settings'] = $user_settings;
+        }
+
         return $res;
     }
 
-    public function getUser($id,$user) {
-        $res = $this->fetchRow("id = $id");
-        if ($res != null) {
-            $res = $this->prepeareUser($res,true,$user);
+    public function getUser($id,$user,$by = 'id',$prepeare = true, $private = false) {
+        if ($private) {
+            $private = ', u.private_key';
+        }
+        else {
+            $private = '';
+        }
+        $res = $this->_db->fetchRow("
+            select u.id $private,u.name,u.lastname,u.email,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_succesfull, group_concat(DISTINCT s.name) as skills, group_concat(DISTINCT l.languages_id) as languages
+            from users u
+            left join user_skills s on u.id = s.user_id
+            left join user_languages l on u.id = l.user_id
+            where
+            u.$by = '$id'
+        ");
+
+        if (is_numeric($res['id'])) {
+            // Prepeare User
+            if ($prepeare) {
+                $res = $this->prepeareUser($res, $user);
+            }
             return $res;
         }
         else
             return false;
-    }
-
-    public function emailCheck($email)
-    {
-        $res = $this->fetchRow("email = '$email'");
-        if ($res != null) {
-            $res = $this->prepeareUser($res);
-            return $res;
-        } else {
-            return false;
-        }
-    }
-
-    public function getUserId($id) {
-        $res = $this->fetchRow("id = $id");
-        if ($res != null) {
-            $res = $this->prepeareUser($res);
-            return $res;
-        }
-        else {
-            return false;
-        }
     }
 
     public static function getUserData($private_key) {
@@ -278,8 +382,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             where private_key = '$private_key'
         ");
         if ($res != null) {
-            $db = new Application_Model_DbTable_Users();
-            $res = $db->prepeareUser($res,false);
             return $res;
         }
         else {

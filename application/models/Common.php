@@ -3,12 +3,17 @@
 class Application_Model_Common
 {
 
+    public static function UpdateCompleteness($id) {
+        return 0;
+    }
+
     public static function getCity($city) {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->google->url.(string)$city;
 
         $client = new Zend_Http_Client($url);
         $req = json_decode($client->request()->getBody(), true);
+
         if ($req['status'] == 'OK') {
             $data['city_name'] = $req['result']['address_components'][0]['short_name'];
             $data['lat'] = $req['result']['geometry']['location']['lat'];

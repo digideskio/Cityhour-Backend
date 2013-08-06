@@ -35,12 +35,12 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
     public function getSettings($user) {
         $user_id = $user['id'];
         $res = $this->fetchRow("user_id = $user_id");
-        if ($res != null) {
+        if ($res) {
             $res = $res->toArray();
             return $res;
         }
         else {
-            return false;
+            return array();
         }
     }
 

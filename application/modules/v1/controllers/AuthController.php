@@ -32,9 +32,36 @@ class V1_AuthController extends Zend_Rest_Controller
      * @SWG\Property(name="name",type="string"),
      * @SWG\Property(name="lastname",type="string"),
      * @SWG\Property(name="email",type="string"),
+     * @SWG\Property(name="industry_id",type="int"),
+     * @SWG\Property(name="summary",type="string"),
+     * @SWG\Property(name="photo_id",type="int"),
+     * @SWG\Property(name="phone",type="string"),
+     * @SWG\Property(name="business_email",type="string"),
      * @SWG\Property(name="skype",type="string"),
+     * @SWG\Property(name="city",type="string"),
      * @SWG\Property(name="facebook_key",type="string"),
-     * @SWG\Property(name="linkedin_key",type="string")
+     * @SWG\Property(name="facebook_id",type="string"),
+     * @SWG\Property(name="linkedin_id",type="string"),
+     * @SWG\Property(name="linkedin_key",type="string"),
+     * @SWG\Property(name="skills",type="Array()"),
+     * @SWG\Property(name="languages",type="Array()"),
+     * @SWG\Property(name="jobs",type="Array",items="$ref:jobsParams"),
+     * @SWG\Property(name="education",type="Array",items="$ref:educationParams")
+     *
+     *
+     * @SWG\Model(id="jobsParams")
+     * @SWG\Property(name="name",type="string"),
+     * @SWG\Property(name="company",type="string"),
+     * @SWG\Property(name="current",type="string"),
+     * @SWG\Property(name="start_time",type="string"),
+     * @SWG\Property(name="end_time",type="string")
+     *
+     *
+     * @SWG\Model(id="educationParams")
+     * @SWG\Property(name="name",type="string"),
+     * @SWG\Property(name="company",type="string"),
+     * @SWG\Property(name="start_time",type="string"),
+     * @SWG\Property(name="end_time",type="string")
      *
      *
      * @SWG\Api(
@@ -50,6 +77,10 @@ class V1_AuthController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params correct."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="300",
+     *            reason="User exist."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -74,31 +105,15 @@ class V1_AuthController extends Zend_Rest_Controller
 
         if ($valid_email->isValid($email)) {
             $db = new Application_Model_DbTable_Users();
-            if ($db->emailCheck($email)) {
+            if ($db->getUser($email,false,'email',false)) {
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '300'
                 ));
             }
             else {
-                $filter = new Zend_Filter_StripTags();
-                $userData = array(
-                    'email' => $email,
-                    'private_key' => uniqid(sha1(time()), false)
-                );
-
-                if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
-                if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
-                if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
-                if (isset($data['facebook_key'])) $userData['facebook_key'] =  $filter->filter($data['facebook_key']);
-                if (isset($data['photo_id'])) $userData['photo'] =  $filter->filter($data['photo_id']);
-                if (isset($data['facebook_id'])) $userData['facebook_id'] =  $filter->filter($data['facebook_id']);
-                if (isset($data['linkedin_key'])) $userData['linkedin_key'] = $filter->filter($data['linkedin_key']);
-                if (isset($data['linkedin_id'])) $userData['linkedin_id'] = $filter->filter($data['linkedin_id']);
-
-
                 try {
-                    $id = $db->registerUser($userData);
-                    $res = $db->getUserId($id);
+                    $id = $db->registerUser($data);
+                    $res = $db->getUser($id,false,'id',true,true);
 
                     $this->_helper->json->sendJson(array(
                         'body' => $res,

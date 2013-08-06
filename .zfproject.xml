@@ -32,6 +32,8 @@
           <dbTableFile dbTableName="UsersHasIndustries"/>
           <dbTableFile dbTableName="Meetings"/>
           <dbTableFile dbTableName="Complaints"/>
+          <dbTableFile dbTableName="UserJobs"/>
+          <dbTableFile dbTableName="Languages"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>

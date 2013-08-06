@@ -15,7 +15,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
             where f.user_id = $user_id
             and f.status = 1
         ");
-        if ($res != null) {
+        if ($res) {
             return $res;
         }
         else {
@@ -29,7 +29,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
 
         $db = new Application_Model_DbTable_UserContactsWait();
         $db_user = new Application_Model_DbTable_Users();
-        $db->updateStatus($user, $db_user->getUserId($id), 0);
+        $db->updateStatus($user, $db_user->getUser($id,false,'id',false), 0);
         return true;
     }
 
@@ -83,7 +83,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
 
             $user_id = $user['id'];
             $user_id2 = $notification['from'];
-            $user2 = $db_user->getUserId($user_id2);
+            $user2 = $db_user->getUser($user_id2,false,'id',false);
             if ($status == 2) {
                 $this->insert(array(
                     'user_id' => $user_id2,

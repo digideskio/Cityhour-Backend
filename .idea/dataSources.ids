@@ -22,13 +22,14 @@
       <column name="hash" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
       <column name="start_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
       <column name="end_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
-      <column name="foursquare_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="goal" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="time_create" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <column name="city" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
+      <column name="city_name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="foursquare_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="place" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
-      <column name="city_name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="rating" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="rating_second" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
@@ -110,13 +111,8 @@
       <column name="user_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
       <column name="deviceToken" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
       <column name="device" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
-      <column name="mtime" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="mtime" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <column name="debug" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
-      <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="skills" schema="" catalog="MeetRocket" type="TABLE">
-      <column name="id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
-      <column name="name" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="user_contacts_wait" schema="" catalog="MeetRocket" type="TABLE">
@@ -141,41 +137,29 @@
       <index name="fk_user_friends_users1_idx" unique="false" columns="user_id"/>
       <index name="fk_user_friends_users2_idx" unique="false" columns="friend_id"/>
     </table>
-    <table name="user_goals" schema="" catalog="MeetRocket" type="TABLE">
-      <column name="goals_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
-      <column name="users_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
-      <primary-key name="PRIMARY" columns="goals_id,users_id"/>
-      <index name="fk_goals_has_Users_Users1_idx" unique="false" columns="users_id"/>
-      <index name="fk_goals_has_Users_goals1_idx" unique="false" columns="goals_id"/>
-    </table>
-    <table name="user_industries" schema="" catalog="MeetRocket" type="TABLE">
-      <column name="users_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
-      <column name="industries_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
-      <primary-key name="PRIMARY" columns="users_id,industries_id"/>
-      <index name="fk_users_has_industries_industries1_idx" unique="false" columns="industries_id"/>
-      <index name="fk_users_has_industries_users1_idx" unique="false" columns="users_id"/>
-    </table>
     <table name="user_jobs" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <column name="name" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
-      <column name="description" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
-      <column name="users_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
+      <column name="name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="company" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="current" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" def="MA=="/>
+      <column name="start_time" sqlType="DATE" length="10" precision="0" nullable="true" jdbcType="91"/>
+      <column name="end_time" sqlType="DATE" length="10" precision="0" nullable="true" jdbcType="91"/>
+      <column name="type" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
-      <index name="fk_user_jobs_users1_idx" unique="false" columns="users_id"/>
     </table>
     <table name="user_languages" schema="" catalog="MeetRocket" type="TABLE">
       <column name="languages_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
-      <column name="users_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
-      <primary-key name="PRIMARY" columns="languages_id,users_id"/>
-      <index name="fk_languages_has_Users_Users1_idx" unique="false" columns="users_id"/>
+      <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5"/>
+      <primary-key name="PRIMARY" columns="languages_id,user_id"/>
+      <index name="fk_languages_has_Users_Users1_idx" unique="false" columns="user_id"/>
       <index name="fk_languages_has_Users_languages1_idx" unique="false" columns="languages_id"/>
     </table>
     <table name="user_photos" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="orig" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_user_photos_Users1_idx" unique="false" columns="user_id"/>
     </table>
@@ -188,10 +172,10 @@
     </table>
     <table name="user_skills" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="users_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="user_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
       <column name="name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <index name="ind_user_id" unique="false" columns="users_id"/>
+      <index name="ind_user_id" unique="false" columns="user_id"/>
     </table>
     <table name="users" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
@@ -201,20 +185,29 @@
       <column name="industry_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="summary" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
       <column name="photo" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
-      <column name="phone" sqlType="VARCHAR" length="16" precision="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" length="20" precision="0" nullable="true" jdbcType="12"/>
       <column name="business_email" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
+      <column name="city_name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="skype" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
-      <column name="rating" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
-      <column name="experience" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="rating" sqlType="FLOAT UNSIGNED" length="12" precision="0" nullable="false" jdbcType="7" def="MA=="/>
+      <column name="experience" sqlType="FLOAT UNSIGNED" length="12" precision="0" nullable="false" jdbcType="7" def="MA=="/>
+      <column name="completeness" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="contacts" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="meet_succesfull" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="meet_declined" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="facebook_key" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
       <column name="facebook_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="linkedin_key" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
       <column name="linkedin_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="private_key" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
-      <column name="update" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="update" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <index name="fk_users_industries1_idx" unique="false" columns="industry_id"/>
+      <index name="ind_email" unique="true" columns="email"/>
+      <index name="ind_private_key" unique="false" columns="private_key"/>
     </table>
   </data-source>
 </component>

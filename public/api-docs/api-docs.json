@@ -35,6 +35,10 @@
             "description": null
         },
         {
+            "path": "/resources/languages.{format}",
+            "description": null
+        },
+        {
             "path": "/resources/map.{format}",
             "description": null
         },

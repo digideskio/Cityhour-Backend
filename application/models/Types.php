@@ -5,7 +5,7 @@ class Application_Model_Types
 
     public static function getLogin() {
         return array(
-            1 => 'facebook',
+//            1 => 'facebook',
             2 => 'linkedin'
         );
     }
@@ -28,6 +28,13 @@ class Application_Model_Types
             0 => 'Busy time',
             1 => 'Free time',
             2 => 'Meeting'
+        );
+    }
+
+    public static function jobs() {
+        return array(
+            0 => 'Job',
+            1 => 'Education'
         );
     }
 
