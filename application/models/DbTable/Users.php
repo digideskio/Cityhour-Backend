@@ -8,6 +8,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
     public function updateUser($user,$data) {
         $user_id = $user['id'];
         $filter = new Zend_Filter_StripTags();
+        $userData = array();
 
         if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
         if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
@@ -108,7 +109,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             }
         }
 
-        if (isset($userData)) {
+        if ($userData) {
             $this->update($userData,"id = $user_id");
         }
 

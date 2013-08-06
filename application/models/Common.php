@@ -15,38 +15,70 @@ class Application_Model_Common
     }
 
     public static function getCity($city) {
-        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
-        $url = $config->google->url.(string)$city;
-
-        $client = new Zend_Http_Client($url);
-        $req = json_decode($client->request()->getBody(), true);
-
-        if ($req['status'] == 'OK') {
-            $data['city_name'] = $req['result']['address_components'][0]['short_name'];
-            $data['lat'] = $req['result']['geometry']['location']['lat'];
-            $data['lng'] = $req['result']['geometry']['location']['lng'];
+        $data = Zend_Db_Table::getDefaultAdapter()->fetchRow("
+            select city_name, lat, lng
+            from city
+            where city = '$city'
+        ");
+        if ($data) {
             return $data;
         }
         else {
-            return array();
+            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+            $url = $config->google->url.(string)$city;
+
+            $client = new Zend_Http_Client($url);
+            $req = json_decode($client->request()->getBody(), true);
+
+            if ($req['status'] == 'OK') {
+                $data['city_name'] = $req['result']['address_components'][0]['short_name'];
+                $data['lat'] = $req['result']['geometry']['location']['lat'];
+                $data['lng'] = $req['result']['geometry']['location']['lng'];
+                Zend_Db_Table::getDefaultAdapter()->insert('city',array(
+                    'city' => $city,
+                    'city_name' => $data['city_name'],
+                    'lat' => $data['lat'],
+                    'lng' => $data['lng'],
+                ));
+                return $data;
+            }
+            else {
+                return array();
+            }
         }
     }
 
     public static function getPlace($place) {
-        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
-        $url = $config->foursquare->url;
-        $token = $config->foursquare->token;
-
-        $client = new Zend_Http_Client($url.$place.$token);
-        $req = json_decode($client->request()->getBody(), true);
-        if ($req['meta']['code'] == '200') {
-            $data['place'] = $req['response']['venue']['name'];
-            $data['lat'] = $req['response']['venue']['location']['lat'];
-            $data['lng'] = $req['response']['venue']['location']['lng'];
+        $data = Zend_Db_Table::getDefaultAdapter()->fetchRow("
+            select place, lat, lng
+            from place
+            where foursquare_id = '$place'
+        ");
+        if ($data) {
             return $data;
         }
         else {
-            return array();
+            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+            $url = $config->foursquare->url;
+            $token = $config->foursquare->token;
+
+            $client = new Zend_Http_Client($url.$place.$token);
+            $req = json_decode($client->request()->getBody(), true);
+            if ($req['meta']['code'] == '200') {
+                $data['place'] = $req['response']['venue']['name'];
+                $data['lat'] = $req['response']['venue']['location']['lat'];
+                $data['lng'] = $req['response']['venue']['location']['lng'];
+                Zend_Db_Table::getDefaultAdapter()->insert('city',array(
+                    'foursquare_id' => $place,
+                    'place' => $data['place'],
+                    'lat' => $data['lat'],
+                    'lng' => $data['lng'],
+                ));
+                return $data;
+            }
+            else {
+                return array();
+            }
         }
     }
 

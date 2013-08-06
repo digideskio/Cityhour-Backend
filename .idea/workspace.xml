@@ -2,13 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="rebuild calendar&#10;">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Common.php" afterPath="$PROJECT_DIR$/application/models/Common.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Industries.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Industries.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Linkedin.php" afterPath="$PROJECT_DIR$/application/models/Linkedin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Users.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Users.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/php.log" afterPath="$PROJECT_DIR$/logs/php.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/user.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/user.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MeetRocket.iws" />
@@ -37,36 +35,30 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="UserController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/UserController.php">
+      <file leaf-file-name="Common.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/models/Common.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="124" column="36" selection-start="3654" selection-end="3663" vertical-scroll-proportion="13.958333" vertical-offset="2195" max-vertical-offset="3375">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Users.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="75" selection-start="3281" selection-end="3281" vertical-scroll-proportion="0.98971725" vertical-offset="15" max-vertical-offset="7560">
+            <state line="29" column="49" selection-start="842" selection-end="842" vertical-scroll-proportion="0.36864406" vertical-offset="0" max-vertical-offset="2460">
               <folding>
-                <marker date="1375799103000" expanded="true" signature="4860:4996" placeholder="select group..user_friends..." />
-                <marker date="1375799103000" expanded="true" signature="9606:9687" placeholder="select orig ..user_photos..." />
-                <marker date="1375799103000" expanded="true" signature="14324:14506" placeholder="select id fr..user_friends..." />
-                <marker date="1375799103000" expanded="true" signature="14920:15182" placeholder="select id fr..calendar..." />
-                <marker date="1375799103000" expanded="true" signature="15884:16357" placeholder="select u.id ..users..." />
-                <marker date="1375799103000" expanded="true" signature="16748:16826" placeholder="select * fro..users..." />
+                <marker date="1375801147000" expanded="true" signature="467:548" placeholder="select city_..city..." />
+                <marker date="1375801147000" expanded="true" signature="1721:1809" placeholder="select place..place..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Common.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/Common.php">
+      <file leaf-file-name="Users.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="12" column="56" selection-start="322" selection-end="322" vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="1980">
-              <folding />
+            <state line="86" column="76" selection-start="3594" selection-end="3594" vertical-scroll-proportion="-25.0" vertical-offset="690" max-vertical-offset="7575">
+              <folding>
+                <marker date="1375800886000" expanded="true" signature="4882:5018" placeholder="select group..user_friends..." />
+                <marker date="1375800886000" expanded="true" signature="9628:9709" placeholder="select orig ..user_photos..." />
+                <marker date="1375800886000" expanded="true" signature="14346:14528" placeholder="select id fr..user_friends..." />
+                <marker date="1375800886000" expanded="true" signature="14942:15204" placeholder="select id fr..calendar..." />
+                <marker date="1375800886000" expanded="true" signature="15906:16379" placeholder="select u.id ..users..." />
+                <marker date="1375800886000" expanded="true" signature="16770:16848" placeholder="select * fro..users..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -132,8 +124,8 @@
         <option value="$PROJECT_DIR$/application/models/DbTable/Industries.php" />
         <option value="$PROJECT_DIR$/application/models/Linkedin.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" />
-        <option value="$PROJECT_DIR$/application/models/Common.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
+        <option value="$PROJECT_DIR$/application/models/Common.php" />
       </list>
     </option>
   </component>
@@ -773,11 +765,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="85" column="34" selection-start="2157" selection-end="2157" vertical-scroll-proportion="0.2542373" vertical-offset="975" max-vertical-offset="5040" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/library/Zend/Db/Table/Abstract.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1417" column="20" selection-start="47236" selection-end="47236" vertical-scroll-proportion="0.33983052" vertical-offset="20569" max-vertical-offset="24015">
@@ -856,20 +843,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/UserController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="124" column="36" selection-start="3654" selection-end="3663" vertical-scroll-proportion="13.958333" vertical-offset="2195" max-vertical-offset="3375">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Common.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="12" column="56" selection-start="322" selection-end="322" vertical-scroll-proportion="-7.5" vertical-offset="0" max-vertical-offset="1980">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserJobs.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="7" column="20" selection-start="139" selection-end="139" vertical-scroll-proportion="0.08898305" vertical-offset="0" max-vertical-offset="1180">
@@ -877,16 +850,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="124" column="36" selection-start="3654" selection-end="3663" vertical-scroll-proportion="-0.2838983" vertical-offset="2195" max-vertical-offset="3375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Facebook.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1245">
+          <folding>
+            <marker date="1374584494000" expanded="true" signature="-1:-1" placeholder="SELECT uid, ..user..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="75" selection-start="3281" selection-end="3281" vertical-scroll-proportion="0.98971725" vertical-offset="15" max-vertical-offset="7560">
+        <state line="86" column="76" selection-start="3594" selection-end="3594" vertical-scroll-proportion="-25.0" vertical-offset="690" max-vertical-offset="7575">
           <folding>
-            <marker date="1375799103000" expanded="true" signature="4860:4996" placeholder="select group..user_friends..." />
-            <marker date="1375799103000" expanded="true" signature="9606:9687" placeholder="select orig ..user_photos..." />
-            <marker date="1375799103000" expanded="true" signature="14324:14506" placeholder="select id fr..user_friends..." />
-            <marker date="1375799103000" expanded="true" signature="14920:15182" placeholder="select id fr..calendar..." />
-            <marker date="1375799103000" expanded="true" signature="15884:16357" placeholder="select u.id ..users..." />
-            <marker date="1375799103000" expanded="true" signature="16748:16826" placeholder="select * fro..users..." />
+            <marker date="1375800886000" expanded="true" signature="4882:5018" placeholder="select group..user_friends..." />
+            <marker date="1375800886000" expanded="true" signature="9628:9709" placeholder="select orig ..user_photos..." />
+            <marker date="1375800886000" expanded="true" signature="14346:14528" placeholder="select id fr..user_friends..." />
+            <marker date="1375800886000" expanded="true" signature="14942:15204" placeholder="select id fr..calendar..." />
+            <marker date="1375800886000" expanded="true" signature="15906:16379" placeholder="select u.id ..users..." />
+            <marker date="1375800886000" expanded="true" signature="16770:16848" placeholder="select * fro..users..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Common.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="49" selection-start="842" selection-end="842" vertical-scroll-proportion="0.36864406" vertical-offset="0" max-vertical-offset="2460">
+          <folding>
+            <marker date="1375801147000" expanded="true" signature="467:548" placeholder="select city_..city..." />
+            <marker date="1375801147000" expanded="true" signature="1721:1809" placeholder="select place..place..." />
           </folding>
         </state>
       </provider>
