@@ -7,7 +7,115 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function updateUser($user,$data) {
         $user_id = $user['id'];
-        $this->update($data,"id = $user_id");
+        $filter = new Zend_Filter_StripTags();
+
+        if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
+        if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
+        if (isset($data['industry_id'])) $userData['industry_id'] = $filter->filter($data['industry_id']);
+        if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
+        if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
+        if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
+        if (isset($data['phone'])) $userData['phone'] = $filter->filter($data['phone']);
+        if (isset($data['business_email'])) $userData['business_email'] = $filter->filter($data['business_email']);
+
+
+        //Jobs
+        if (isset($data['jobs'])) {
+            foreach($data['jobs'] as $num=>$row) {
+                if ($row['id']) {
+                    $job_id = $row['id'];
+                    $this->_db->update('user_jobs',array(
+                        'name' => $row['name'],
+                        'company' => $row['company'],
+                        'current' => $row['current'],
+                        'start_time' => $row['start_time'],
+                        'end_time' => $row['end_time']
+                    ),"id = $job_id");
+                }
+                else {
+                    $this->_db->insert('user_jobs',array(
+                        'user_id' => $user_id,
+                        'name' => $row['name'],
+                        'company' => $row['company'],
+                        'current' => $row['current'],
+                        'start_time' => $row['start_time'],
+                        'end_time' => $row['end_time'],
+                        'type' => 0
+                    ));
+                }
+            }
+            $userData['experience'] = Application_Model_Common::UpdateExperience($user_id);
+        }
+
+
+        //Education
+        if (isset($data['education'])) {
+            foreach($data['education'] as $num=>$row) {
+                if ($row['id']) {
+                    $job_id = $row['id'];
+                    $this->_db->update('user_jobs',array(
+                        'name' => $row['name'],
+                        'company' => $row['company'],
+                        'start_time' => $row['start_time'],
+                        'end_time' => $row['end_time']
+                    ),"id = $job_id");
+                }
+                else {
+                    $this->_db->insert('user_jobs',array(
+                        'user_id' => $user_id,
+                        'name' => $row['name'],
+                        'company' => $row['company'],
+                        'start_time' => $row['start_time'],
+                        'end_time' => $row['end_time'],
+                        'type' => 1
+                    ));
+                }
+            }
+        }
+
+
+        //Photo
+        if (isset($data['photo_id'])) {
+            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+            $url = $config->userPhoto->url;
+            $userData['photo'] = str_replace($url,'',$data['photo_id']);
+        }
+
+        //City
+        if (isset($data['city'])) {
+            $userData = array_merge($userData,Application_Model_Common::getCity($data['city']));
+        }
+
+        //Skills
+        if (isset($data['skills'])) {
+            $this->_db->delete('user_skills',"user_id = $user_id");
+            foreach($data['skills'] as $num=>$row) {
+                $this->_db->insert('user_skills',array(
+                    'user_id' => $user_id,
+                    'name' => $row,
+                ));
+            }
+        }
+
+        //Languages
+        if (isset($data['languages'])) {
+            $this->_db->delete('user_languages',"user_id = $user_id");
+            foreach($data['languages'] as $num=>$row) {
+                $this->_db->insert('user_languages',array(
+                    'user_id' => $user_id,
+                    'languages_id' => $row,
+                ));
+            }
+        }
+
+        if (isset($userData)) {
+            $this->update($userData,"id = $user_id");
+        }
+
+        $completeness = Application_Model_Common::UpdateCompleteness($user_id);
+        $this->update(array(
+            'completeness' => $completeness
+        ),"id = $user_id");
         return true;
     }
 
@@ -117,7 +225,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             ));
         }
 
-        $experience = 0;
+
         foreach($data['jobs'] as $num=>$row) {
             $this->_db->insert('user_jobs',array(
                 'user_id' => $id,
@@ -128,9 +236,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 'end_time' => $row['end_time'],
                 'type' => 0
             ));
-            $d1 = date_create($row['start_time']);
-            $d2 = date_create($row['end_time']);
-            $experience = $experience + $d1->diff($d2)->m;
         }
 
         foreach($data['education'] as $num=>$row) {
@@ -169,6 +274,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
 
         $completeness = Application_Model_Common::UpdateCompleteness($id);
+        $experience = Application_Model_Common::UpdateExperience($id);
         $this->update(array(
             'experience' => $experience,
             'completeness' => $completeness,

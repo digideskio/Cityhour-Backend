@@ -62,7 +62,7 @@ class Application_Model_Linkedin
 
             //get Industry ID
             $industry = new Application_Model_DbTable_Industries();
-            $user_profile['industry'] = array_search($user_profile['industry'],$industry->getAll());
+            $user_profile['industry'] = $industry->getID($user_profile['industry']);
 
             //Get phone
             $phone = null;

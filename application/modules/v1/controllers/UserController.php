@@ -109,8 +109,37 @@ class V1_UserController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Model(id="updateUserParams")
-     * @SWG\Property(name="name",type="value")
-     * @SWG\Property(name="private_key",type="string")
+     * @SWG\Property(name="private_key",type="string"),
+     * @SWG\Property(name="name",type="string"),
+     * @SWG\Property(name="lastname",type="string"),
+     * @SWG\Property(name="industry_id",type="int"),
+     * @SWG\Property(name="summary",type="string"),
+     * @SWG\Property(name="photo_id",type="int"),
+     * @SWG\Property(name="phone",type="string"),
+     * @SWG\Property(name="business_email",type="string"),
+     * @SWG\Property(name="skype",type="string"),
+     * @SWG\Property(name="city",type="string"),
+     * @SWG\Property(name="skills",type="Array()"),
+     * @SWG\Property(name="languages",type="Array()"),
+     * @SWG\Property(name="jobs",type="Array",items="$ref:jobsParams"),
+     * @SWG\Property(name="education",type="Array",items="$ref:educationParams")
+     *
+     *
+     * @SWG\Model(id="jobsParams")
+     * @SWG\Property(name="name",type="string"),
+     * @SWG\Property(name="company",type="string"),
+     * @SWG\Property(name="current",type="string"),
+     * @SWG\Property(name="start_time",type="string"),
+     * @SWG\Property(name="end_time",type="string")
+     *
+     *
+     * @SWG\Model(id="educationParams")
+     * @SWG\Property(name="name",type="string"),
+     * @SWG\Property(name="company",type="string"),
+     * @SWG\Property(name="start_time",type="string"),
+     * @SWG\Property(name="end_time",type="string")
+     *
+     *
      *
      *
      * @SWG\Api(
@@ -153,12 +182,6 @@ class V1_UserController extends Zend_Rest_Controller
         if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                if (isset($data['photo'])) {
-                    $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
-                    $url = $config->userPhoto->url;
-                    $data['photo'] = str_replace($url,'',$data['photo']);
-                }
-
                 $db = new Application_Model_DbTable_Users();
                 $db->updateUser($user,$data);
                 $this->_helper->json->sendJson(array(

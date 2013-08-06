@@ -49,3 +49,357 @@
 [06-Aug-2013 14:49:56 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
 [06-Aug-2013 14:49:56 Europe/Kiev] PHP   8. Zend_Loader_Autoloader::autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:0
 [06-Aug-2013 14:49:56 Europe/Kiev] PHP   9. Zend_Loader_Autoloader_Resource->autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Loader/Autoloader.php:120
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   7. V1_GoalsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   8. V1_GoalsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/GoalsController.php:20
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP   9. Application_Model_DbTable_Goals->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/GoalsController.php:42
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP  10. Zend_Db_Table_Abstract->fetchAll() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Goals.php:9
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP  11. Zend_Db_Table_Abstract->_fetch() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Table/Abstract.php:1390
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP  12. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Table/Abstract.php:1575
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP  13. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP  15. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:31:06 Europe/Kiev] PHP  16. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:31:36 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   7. V1_IndustryController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   8. V1_IndustryController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/IndustryController.php:20
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP   9. Application_Model_DbTable_Industries->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/IndustryController.php:42
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP  10. Zend_Db_Table_Abstract->fetchAll() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Industries.php:9
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP  11. Zend_Db_Table_Abstract->_fetch() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Table/Abstract.php:1390
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP  12. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Table/Abstract.php:1575
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP  13. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP  15. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:32:06 Europe/Kiev] PHP  16. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   7. V1_IndustryController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   8. V1_IndustryController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/IndustryController.php:20
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP   9. Application_Model_DbTable_Industries->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/IndustryController.php:42
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP  10. Zend_Db_Table_Abstract->fetchAll() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Industries.php:9
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP  11. Zend_Db_Table_Abstract->_fetch() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Table/Abstract.php:1390
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP  12. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Table/Abstract.php:1575
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP  13. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP  15. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:32:37 Europe/Kiev] PHP  16. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   7. V1_GoalsController->indexAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   8. V1_GoalsController->getAction() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/GoalsController.php:20
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP   9. Application_Model_DbTable_Goals->getAll() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/GoalsController.php:42
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP  10. Zend_Db_Table_Abstract->fetchAll() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Goals.php:9
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP  11. Zend_Db_Table_Abstract->_fetch() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Table/Abstract.php:1390
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP  12. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Table/Abstract.php:1575
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP  13. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP  15. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:33:07 Europe/Kiev] PHP  16. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:33:37 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:07 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:20 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:21 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP Warning:  PDO::__construct(): php_network_getaddresses: getaddrinfo failed: nodename nor servname provided, or not known in /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php on line 129
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   8. Application_Model_DbTable_Users->linkedinLogin() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/AuthController.php:201
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP   9. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:228
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  10. Zend_Db_Adapter_Abstract->fetchRow() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:365
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  11. Zend_Db_Adapter_Pdo_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:755
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  12. Zend_Db_Adapter_Abstract->query() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:238
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  13. Zend_Db_Adapter_Pdo_Mysql->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Abstract.php:459
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  14. Zend_Db_Adapter_Pdo_Abstract->_connect() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Mysql.php:109
+[06-Aug-2013 15:34:22 Europe/Kiev] PHP  15. PDO->__construct() /Users/denis/Dropbox/MeetRocket/library/Zend/Db/Adapter/Pdo/Abstract.php:129
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP Parse error:  syntax error, unexpected ')' in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 28
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   8. Zend_Loader_Autoloader::autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:0
+[06-Aug-2013 17:10:09 Europe/Kiev] PHP   9. Zend_Loader_Autoloader_Resource->autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Loader/Autoloader.php:120
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP Parse error:  syntax error, unexpected ')' in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 28
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   8. Zend_Loader_Autoloader::autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:0
+[06-Aug-2013 17:10:11 Europe/Kiev] PHP   9. Zend_Loader_Autoloader_Resource->autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Loader/Autoloader.php:120
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP Parse error:  syntax error, unexpected ')' in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 28
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   8. Zend_Loader_Autoloader::autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:0
+[06-Aug-2013 17:10:19 Europe/Kiev] PHP   9. Zend_Loader_Autoloader_Resource->autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Loader/Autoloader.php:120
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP Parse error:  syntax error, unexpected ')' in /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php on line 28
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP Stack trace:
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:36
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/library/Zend/Application.php:366
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Application/Bootstrap/Bootstrap.php:97
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Front.php:954
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Dispatcher/Standard.php:308
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   7. V1_AuthController->putAction() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:516
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   8. Zend_Loader_Autoloader::autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Controller/Action.php:0
+[06-Aug-2013 17:10:21 Europe/Kiev] PHP   9. Zend_Loader_Autoloader_Resource->autoload() /Users/denis/Dropbox/MeetRocket/library/Zend/Loader/Autoloader.php:120

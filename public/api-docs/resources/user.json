@@ -79,10 +79,89 @@
         "updateUserParams": {
             "id": "updateUserParams",
             "properties": {
-                "name": {
-                    "type": "value"
-                },
                 "private_key": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "lastname": {
+                    "type": "string"
+                },
+                "industry_id": {
+                    "type": "int"
+                },
+                "summary": {
+                    "type": "string"
+                },
+                "photo_id": {
+                    "type": "int"
+                },
+                "phone": {
+                    "type": "string"
+                },
+                "business_email": {
+                    "type": "string"
+                },
+                "skype": {
+                    "type": "string"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "skills": {
+                    "type": "Array()"
+                },
+                "languages": {
+                    "type": "Array()"
+                },
+                "jobs": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "jobsParams"
+                    }
+                },
+                "education": {
+                    "type": "Array",
+                    "items": {
+                        "$ref": "educationParams"
+                    }
+                }
+            }
+        },
+        "jobsParams": {
+            "id": "jobsParams",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "current": {
+                    "type": "string"
+                },
+                "start_time": {
+                    "type": "string"
+                },
+                "end_time": {
+                    "type": "string"
+                }
+            }
+        },
+        "educationParams": {
+            "id": "educationParams",
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "company": {
+                    "type": "string"
+                },
+                "start_time": {
+                    "type": "string"
+                },
+                "end_time": {
                     "type": "string"
                 }
             }

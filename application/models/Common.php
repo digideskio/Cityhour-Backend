@@ -7,6 +7,13 @@ class Application_Model_Common
         return 0;
     }
 
+    public static function UpdateExperience($id) {
+//        $d1 = date_create($row['start_time']);
+//        $d2 = date_create($row['end_time']);
+//        $experience = $experience + $d1->diff($d2)->m;
+        return 0;
+    }
+
     public static function getCity($city) {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->google->url.(string)$city;
