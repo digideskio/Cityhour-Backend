@@ -8,15 +8,17 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
 
     public function getAll($user) {
         $user_id = $user['id'];
-        $res = $this->_db->fetchAll("
-            select u.*
+
+        $res = $this->_db->fetchOne("
+            select group_concat(distinct f.friend_id)
             from user_friends f
-            left join users u on f.friend_id = u.id
             where f.user_id = $user_id
             and f.status = 1
         ");
+
         if ($res) {
-            return $res;
+            $db = new Application_Model_DbTable_Users();
+            return $db->prepeareUsers($res,$user);
         }
         else {
             return array();

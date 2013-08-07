@@ -138,7 +138,7 @@ class Application_Model_Linkedin
         );
         try {
             $friends = @file_get_contents($url, false, $context);
-            $friends = (array)json_decode($friends);
+            $friends = json_decode($friends, true);
         }
         catch (Exception $e) {
             return false;
@@ -147,7 +147,7 @@ class Application_Model_Linkedin
         if ($friends == null) {
             return false;
         }
-        $friends = (array)$friends['values'];
+        $friends = $friends['values'];
         $db = new Application_Model_DbTable_UserContactsWait();
         $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
             'table' => 'user_contacts_wait',
@@ -155,8 +155,8 @@ class Application_Model_Linkedin
             'exclude' => "user_id = $id"
 
         ));
+
         foreach ($friends as $row) {
-            $row = (array)$row;
             if ($row['id'] != 'private') {
                 if (!isset($row['pictureUrl'])) $row['pictureUrl'] = '';
 

@@ -94,9 +94,6 @@
                 "summary": {
                     "type": "string"
                 },
-                "photo_id": {
-                    "type": "int"
-                },
                 "phone": {
                     "type": "string"
                 },

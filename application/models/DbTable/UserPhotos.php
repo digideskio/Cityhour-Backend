@@ -19,6 +19,9 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
                 $this->update(array(
                     'orig' => $filename
                 ),"id = $id");
+                $this->_db->update('users',array(
+                    'photo' => $filename
+                ),"id = $user_id");
                 return $id;
             }
         }

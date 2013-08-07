@@ -10,6 +10,14 @@ class Application_Model_Types
         );
     }
 
+    public static function getInvetes() {
+        return array(
+            1 => 'facebook',
+            2 => 'linkedin',
+            3 => 'email',
+        );
+    }
+
     public static function invited() {
         return array(
             0 => false,

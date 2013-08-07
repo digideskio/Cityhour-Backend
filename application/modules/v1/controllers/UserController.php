@@ -114,7 +114,6 @@ class V1_UserController extends Zend_Rest_Controller
      * @SWG\Property(name="lastname",type="string"),
      * @SWG\Property(name="industry_id",type="int"),
      * @SWG\Property(name="summary",type="string"),
-     * @SWG\Property(name="photo_id",type="int"),
      * @SWG\Property(name="phone",type="string"),
      * @SWG\Property(name="business_email",type="string"),
      * @SWG\Property(name="skype",type="string"),
@@ -183,10 +182,18 @@ class V1_UserController extends Zend_Rest_Controller
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
                 $db = new Application_Model_DbTable_Users();
-                $db->updateUser($user,$data);
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '200'
-                ));
+                $res = $db->updateUser($user,$data);
+                if ($res) {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '200'
+                    ));
+                }
+                else {
+                    $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '500'
+                    ));
+                }
             }
             else {
                 $this->_helper->json->sendJson(array(

@@ -10,6 +10,22 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         return true;
     }
 
+    public function userUpdateInfo($id,$user,$token,$type) {
+        if ($type == 1) {
+            $this->_db->update('users',array(
+                'facebook_id' => $user,
+                'facebook_key' => $token
+            ),"id = $id");
+        }
+        elseif ($type == 2) {
+            $this->_db->update('users',array(
+                'linkedin_id' => $user,
+                'linkedin_key' => $token
+            ),"id = $id");
+        }
+        return true;
+    }
+
     public function updateFacebookData($data,$id, $user_id) {
         $this->update($data,"facebook_id = '$id' and user_id = $user_id");
         return true;
@@ -20,41 +36,69 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         return true;
     }
 
-    public function getAll($user, $type) {
+    public function getAll($user, $type, $token) {
+        $id = $user['id'];
         if ($type == 1) {
-            if ($user['facebook_key'] && $user['facebook_key'] != null && $user['facebook_key'] != '') {
+            if ($token && $token != null && $token != '') {
                 $facebook = new Application_Model_Facebook();
-                $facebook->storeInfo($user['facebook_key'],$user['id']);
-                $id = $user['id'];
+                $facebook->storeInfo($token,$id);
                 $res = $this->_db->fetchAll("
                     select u.id, w.name, w.lastname, w.photo, w.status
                     from users u
-                    left join user_contacts_wait w on u.facebook_id = w.facebook_id
+                    left join user_contacts_wait w on u.facebook_id = w.linkedin_id
                     where
-                      user_id = $id and type = 1
+                      user_id = $id and w.type = 1
                 ");
             }
             else {
-                $res = array();
+                return array();
             }
         }
         else if ($type == 2) {
-            if ($user['linkedin_key'] && $user['linkedin_key'] != null && $user['linkedin_key'] != '') {
-                $linkedin = new Application_Model_Linkedin();
-                $linkedin->storeInfo($user['linkedin_key'],$user['id']);
-                $id = $user['id'];
-                $res = $this->_db->fetchAll("
-                    select u.id, w.name, w.lastname, w.photo, w.status
-                    from users u
-                    left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
-                    where
-                      user_id = $id and type = 2
-                ");
-            }
-            else {
-                $res = array();
-            }
+            $token =  $user['linkedin_key'];
+            $linkedin = new Application_Model_Linkedin();
+            $linkedin->storeInfo($token,$id);
+            $res = $this->_db->fetchAll("
+                select u.id, w.name, w.lastname, w.photo, w.status
+                from users u
+                left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
+                where
+                  user_id = $id and w.type = 2
+            ");
         }
+        else if ($type == 3) {
+            $token = @json_decode($token,true);
+            $emails = "'".implode("','",$token['emails'])."'";
+            $phones = "'".implode("','",$token['phones'])."'";
+            if (!$emails) $emails = 0;
+            if (!$phones) $phones = 0;
+            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+            $url = $config->userPhoto->url;
+
+            $res = $this->_db->fetchAll("
+                  select distinct(u.id), u.name, u.lastname, concat('$url',u.photo) as photo,
+                  CASE
+                  	when ( select distinct(f.id)
+                  	from user_friends f
+                  	where f.user_id = 31
+                  	and f.friend_id = u.id
+                  	and f.status = 0
+                  	) > 0 then 1
+                  	when ( select distinct(f.id)
+                  	from user_friends f
+                  	where f.user_id = 31
+                  	and f.friend_id = u.id
+                  	and f.status = 1
+                  	) > 0 then 2
+                 	else 0
+                  END as status
+                  from users u
+                  where
+                  ( u.phone in ($phones) or u.email in ($emails) or u.business_email in ($emails) )
+                  and u.id != $id
+            ");
+        }
+
         if (isset($res) && $res != null) {
             return $res;
         }

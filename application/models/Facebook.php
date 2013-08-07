@@ -40,7 +40,9 @@ class Application_Model_Facebook
         $user = $facebook->getUser();
         if (!$user) {
             return false;
+
         }
+
         $fql = "SELECT uid, first_name, pic, last_name FROM user "
             . "WHERE uid in (SELECT uid2 FROM friend where uid1 = $user)";
         $friends = $facebook->api(array(
@@ -52,24 +54,26 @@ class Application_Model_Facebook
         $db = new Application_Model_DbTable_UserContactsWait();
         $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
             'table' => 'user_contacts_wait',
-            'field' => 'facebook_id',
+            'field' => 'linkedin_id',
             'exclude' => "user_id = $id"
 
         ));
+        $db->userUpdateInfo($id,$user,$token,1);
+
         foreach ($friends as $row) {
             $row = array(
                 'name' => $row['first_name'],
                 'lastname' => $row['last_name'],
-                'facebook_id' => $row['uid'],
+                'linkedin_id' => $row['uid'],
                 'photo' => $row['pic'],
                 'user_id' => $id,
                 'type' => 1
             );
-            if ($validator_exist->isValid($row['facebook_id'])) {
+            if ($validator_exist->isValid($row['linkedin_id'])) {
                 $db->add($row);
             }
             else {
-                $db->updateFacebookData($row,$row['facebook_id'],$id);
+                $db->updateFacebookData($row,$row['linkedin_id'],$id);
             }
         }
         return true;

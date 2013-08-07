@@ -113,12 +113,20 @@ class V1_AuthController extends Zend_Rest_Controller
             else {
                 try {
                     $id = $db->registerUser($data);
-                    $res = $db->getUser($id,false,'id',true,true);
+                    if (is_numeric($id)) {
+                        $res = $db->getUser($id,false,'id',true,true);
+                        $this->_helper->json->sendJson(array(
+                            'body' => $res,
+                            'errorCode' => '200'
+                        ));
+                    }
+                    else {
+                        $this->_helper->json->sendJson(array(
+                            'body' => $id,
+                            'errorCode' => '500'
+                        ));
+                    }
 
-                    $this->_helper->json->sendJson(array(
-                        'body' => $res,
-                        'errorCode' => '200'
-                    ));
                 }
                 catch (Exception $e) {
                     $this->_helper->json->sendJson(array(

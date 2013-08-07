@@ -7,11 +7,19 @@
             "path": "/inviteFriends/",
             "operations": [
                 {
-                    "httpMethod": "GET",
+                    "httpMethod": "POST",
                     "summary": "Register.",
                     "nickname": "Register",
                     "responseClass": "void",
                     "parameters": [
+                        {
+                            "name": "token",
+                            "description": "token",
+                            "allowMultiple": false,
+                            "dataType": "string/json",
+                            "paramType": "query",
+                            "required": false
+                        },
                         {
                             "name": "private_key",
                             "description": "private_key",

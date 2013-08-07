@@ -9,164 +9,142 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $user_id = $user['id'];
         $filter = new Zend_Filter_StripTags();
         $userData = array();
+        $this->_db->beginTransaction();
+        try {
+            if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
+            if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
+            if (isset($data['industry_id'])) $userData['industry_id'] = $filter->filter($data['industry_id']);
+            if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
+            if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
+            if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
+            if (isset($data['phone'])) $userData['phone'] = $filter->filter($data['phone']);
+            if (isset($data['business_email'])) $userData['business_email'] = $filter->filter($data['business_email']);
 
-        if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
-        if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
-        if (isset($data['industry_id'])) $userData['industry_id'] = $filter->filter($data['industry_id']);
-        if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
-        if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
-        if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
-        if (isset($data['phone'])) $userData['phone'] = $filter->filter($data['phone']);
-        if (isset($data['business_email'])) $userData['business_email'] = $filter->filter($data['business_email']);
 
-
-        //Jobs
-        if (isset($data['jobs'])) {
-            foreach($data['jobs'] as $num=>$row) {
-                if ($row['id']) {
-                    $job_id = $row['id'];
-                    $this->_db->update('user_jobs',array(
-                        'name' => $row['name'],
-                        'company' => $row['company'],
-                        'current' => $row['current'],
-                        'start_time' => $row['start_time'],
-                        'end_time' => $row['end_time']
-                    ),"id = $job_id");
+            //Jobs
+            if (isset($data['jobs'])) {
+                foreach($data['jobs'] as $num=>$row) {
+                    if (!$row['current'] || is_numeric($row['current'])) {
+                        $row['current'] = 0;
+                    }
+                    if (!isset($row['end_time'])) {
+                        $row['end_time'] = $row['start_time'];
+                    }
+                    if ($row['id']) {
+                        $job_id = $row['id'];
+                        $this->_db->update('user_jobs',array(
+                            'name' => $row['name'],
+                            'company' => $row['company'],
+                            'current' => $row['current'],
+                            'start_time' => $row['start_time'],
+                            'end_time' => $row['end_time']
+                        ),"id = $job_id");
+                    }
+                    else {
+                        $this->_db->insert('user_jobs',array(
+                            'user_id' => $user_id,
+                            'name' => $row['name'],
+                            'company' => $row['company'],
+                            'current' => $row['current'],
+                            'start_time' => $row['start_time'],
+                            'end_time' => $row['end_time'],
+                            'type' => 0
+                        ));
+                    }
                 }
-                else {
-                    $this->_db->insert('user_jobs',array(
+                $userData['experience'] = Application_Model_Common::UpdateExperience($user_id);
+            }
+
+
+            //Education
+            if (isset($data['education'])) {
+                foreach($data['education'] as $num=>$row) {
+                    if ($row['id']) {
+                        $job_id = $row['id'];
+                        $this->_db->update('user_jobs',array(
+                            'name' => $row['name'],
+                            'company' => $row['company'],
+                            'start_time' => $row['start_time'],
+                            'end_time' => $row['end_time']
+                        ),"id = $job_id");
+                    }
+                    else {
+                        $this->_db->insert('user_jobs',array(
+                            'user_id' => $user_id,
+                            'name' => $row['name'],
+                            'company' => $row['company'],
+                            'start_time' => $row['start_time'],
+                            'end_time' => $row['end_time'],
+                            'type' => 1
+                        ));
+                    }
+                }
+            }
+
+            //City
+            if (isset($data['city'])) {
+                $userData = array_merge($userData,Application_Model_Common::getCity($data['city']));
+            }
+
+            //Skills
+            if (isset($data['skills'])) {
+                $this->_db->delete('user_skills',"user_id = $user_id");
+                foreach($data['skills'] as $num=>$row) {
+                    $this->_db->insert('user_skills',array(
                         'user_id' => $user_id,
-                        'name' => $row['name'],
-                        'company' => $row['company'],
-                        'current' => $row['current'],
-                        'start_time' => $row['start_time'],
-                        'end_time' => $row['end_time'],
-                        'type' => 0
+                        'name' => $row,
                     ));
                 }
             }
-            $userData['experience'] = Application_Model_Common::UpdateExperience($user_id);
-        }
 
-
-        //Education
-        if (isset($data['education'])) {
-            foreach($data['education'] as $num=>$row) {
-                if ($row['id']) {
-                    $job_id = $row['id'];
-                    $this->_db->update('user_jobs',array(
-                        'name' => $row['name'],
-                        'company' => $row['company'],
-                        'start_time' => $row['start_time'],
-                        'end_time' => $row['end_time']
-                    ),"id = $job_id");
-                }
-                else {
-                    $this->_db->insert('user_jobs',array(
+            //Languages
+            if (isset($data['languages'])) {
+                $this->_db->delete('user_languages',"user_id = $user_id");
+                foreach($data['languages'] as $num=>$row) {
+                    $this->_db->insert('user_languages',array(
                         'user_id' => $user_id,
-                        'name' => $row['name'],
-                        'company' => $row['company'],
-                        'start_time' => $row['start_time'],
-                        'end_time' => $row['end_time'],
-                        'type' => 1
+                        'languages_id' => $row,
                     ));
                 }
             }
-        }
 
-
-        //Photo
-        if (isset($data['photo_id'])) {
-            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
-            $url = $config->userPhoto->url;
-            $userData['photo'] = str_replace($url,'',$data['photo_id']);
-        }
-
-        //City
-        if (isset($data['city'])) {
-            $userData = array_merge($userData,Application_Model_Common::getCity($data['city']));
-        }
-
-        //Skills
-        if (isset($data['skills'])) {
-            $this->_db->delete('user_skills',"user_id = $user_id");
-            foreach($data['skills'] as $num=>$row) {
-                $this->_db->insert('user_skills',array(
-                    'user_id' => $user_id,
-                    'name' => $row,
-                ));
+            if ($userData) {
+                $this->update($userData,"id = $user_id");
             }
-        }
 
-        //Languages
-        if (isset($data['languages'])) {
-            $this->_db->delete('user_languages',"user_id = $user_id");
-            foreach($data['languages'] as $num=>$row) {
-                $this->_db->insert('user_languages',array(
-                    'user_id' => $user_id,
-                    'languages_id' => $row,
-                ));
-            }
+            $completeness = Application_Model_Common::UpdateCompleteness($user_id);
+            $this->update(array(
+                'completeness' => $completeness
+            ),"id = $user_id");
+            $this->_db->commit();
+            return true;
+        } catch (Exception $e){
+            $this->_db->rollBack();
+            return $e->getMessage();
         }
-
-        if ($userData) {
-            $this->update($userData,"id = $user_id");
-        }
-
-        $completeness = Application_Model_Common::UpdateCompleteness($user_id);
-        $this->update(array(
-            'completeness' => $completeness
-        ),"id = $user_id");
-        return true;
     }
 
-    public function prepeareUsers($res,$array = true, $user) {
-        if ($array) {
-            $res = $res->toArray();
-        }
 
-        $user_id = $user['id'];
-        $friends = $this->_db->fetchOne("
-                select group_concat(friend_id)
-                from user_friends
-                where user_id = $user_id
-                and status = 1
+    public function prepeareUsers($res, $user, $full = false) {
+        $answer = array();
+        if (!$full) {
+            $answer = $this->_db->fetchAll("
+                select distinct(u.id),u.name,u.lastname,u.industry_id,u.photo,u.phone,u.business_email,u.skype,u.rating,u.city_name,j.name as job_name, j.company as job_company
+                from users u
+                left join user_jobs j on u.id = j.user_id
+                where
+                j.type = 0 and j.current = 1
+                and u.id in ($res)
             ");
-        $friends = explode(',', $friends);
-        foreach ($res as $num => $row) {
-            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
-            $url = $config->userPhoto->url;
-            if ($row['photo'] != '' && $row['photo'] != null) {
-                $row['photo'] = $url.$row['photo'];
-            }
-            else {
-                $row['photo'] = null;
-            }
-
-            $row['update'] = strtotime($row['update']);
-            if (in_array($row['id'],$friends)) {
-                $row['friend'] = true;
-            }
-            else {
-                $row['friend'] = false;
-            }
-
-            $res[$num] = $row;
-        }
-        return $res;
-    }
-
-    public function getAll($user) {
-        $user_id = $user['id'];
-        $res = $this->fetchAll("id != $user_id");
-        if ($res != null) {
-            $res = $this->prepeareUsers($res, true, $user);
-            return $res;
         }
         else {
-            return array();
+            $res = explode(',', $res);
+            foreach ($res as $num=>$row) {
+                $answer[$num] = $this->getUser($row,$user);
+            }
         }
 
+        return $answer;
     }
 
     public function getPeople($user,$data_from,$data_to,$city,$industry,$goals) {
@@ -184,104 +162,112 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function registerUser($data) {
         $filter = new Zend_Filter_StripTags();
+        $this->_db->beginTransaction();
+        try {
+            //Important
+            $userData = array(
+                'email' => $data['email'],
+                'name' => $data['name'],
+                'lastname' => $data['lastname'],
+                'industry_id' => $data['industry_id'],
+                'private_key' => uniqid(sha1(time()), false)
+            );
 
-        //Important
-        $userData = array(
-            'email' => $data['email'],
-            'name' => $data['name'],
-            'lastname' => $data['lastname'],
-            'industry_id' => $data['industry_id'],
-            'private_key' => uniqid(sha1(time()), false)
-        );
+            //Not Important
+            if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
+            if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
+            if (isset($data['phone'])) $userData['phone'] = $filter->filter($data['phone']);
+            if (isset($data['business_email'])) $userData['business_email'] = $filter->filter($data['business_email']);
 
-        //Not Important
-        if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
-        if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
-        if (isset($data['phone'])) $userData['phone'] = $filter->filter($data['phone']);
-        if (isset($data['business_email'])) $userData['business_email'] = $filter->filter($data['business_email']);
-
-        if (isset($data['facebook_key'])) $userData['facebook_key'] =  $filter->filter($data['facebook_key']);
-        if (isset($data['facebook_id'])) $userData['facebook_id'] =  $filter->filter($data['facebook_id']);
-        if (isset($data['linkedin_key'])) $userData['linkedin_key'] = $filter->filter($data['linkedin_key']);
-        if (isset($data['linkedin_id'])) $userData['linkedin_id'] = $filter->filter($data['linkedin_id']);
+            if (isset($data['facebook_key'])) $userData['facebook_key'] =  $filter->filter($data['facebook_key']);
+            if (isset($data['facebook_id'])) $userData['facebook_id'] =  $filter->filter($data['facebook_id']);
+            if (isset($data['linkedin_key'])) $userData['linkedin_key'] = $filter->filter($data['linkedin_key']);
+            if (isset($data['linkedin_id'])) $userData['linkedin_id'] = $filter->filter($data['linkedin_id']);
 
 
-        if (isset($data['city'])) {
-            $userData = array_merge($userData,Application_Model_Common::getCity($data['city']));
+            if (isset($data['city'])) {
+                $userData = array_merge($userData,Application_Model_Common::getCity($data['city']));
+            }
+
+            $id = $this->insert($userData);
+
+            foreach($data['skills'] as $num=>$row) {
+                $this->_db->insert('user_skills',array(
+                    'user_id' => $id,
+                    'name' => $row,
+                ));
+            }
+
+            foreach($data['languages'] as $num=>$row) {
+                $this->_db->insert('user_languages',array(
+                    'user_id' => $id,
+                    'languages_id' => $row,
+                ));
+            }
+
+
+            foreach($data['jobs'] as $num=>$row) {
+                if (!$row['current'] || is_numeric($row['current'])) {
+                    $row['current'] = 0;
+                }
+                $this->_db->insert('user_jobs',array(
+                    'user_id' => $id,
+                    'name' => $row['name'],
+                    'company' => $row['company'],
+                    'current' => $row['current'],
+                    'start_time' => $row['start_time'],
+                    'end_time' => $row['end_time'],
+                    'type' => 0
+                ));
+            }
+
+            foreach($data['education'] as $num=>$row) {
+                $this->_db->insert('user_jobs',array(
+                    'user_id' => $id,
+                    'name' => $row['name'],
+                    'company' => $row['company'],
+                    'current' => 0,
+                    'start_time' => $row['start_time'],
+                    'end_time' => $row['end_time'],
+                    'type' => 1
+                ));
+            }
+
+            if (isset($userData['facebook_key'])) {
+                $facebook = new Application_Model_Facebook();
+                $facebook->storeInfo($userData['facebook_key'],$id);
+            }
+
+            if (isset($userData['linkedin_key'])) {
+                $facebook = new Application_Model_Linkedin();
+                $facebook->storeInfo($userData['linkedin_key'],$id);
+            }
+
+            $photo = null;
+            if (isset($data['photo_id']) && is_numeric($data['photo_id'])) {
+                $photo_id = $data['photo_id'];
+                $photo = $this->_db->fetchOne("
+                    select orig
+                    from user_photos
+                    where id = $photo_id
+                ");
+                $this->_db->update('user_photos',array(
+                    'user_id' => $id
+                ),"id = $photo_id");
+            }
+
+            $completeness = Application_Model_Common::UpdateCompleteness($id);
+            $experience = Application_Model_Common::UpdateExperience($id);
+            $this->update(array(
+                'experience' => $experience,
+                'completeness' => $completeness,
+                'photo' => $photo
+            ),"id = $id");
+            $this->_db->commit();
+        } catch (Exception $e){
+            $this->_db->rollBack();
+            return $e->getMessage();
         }
-
-        $id = $this->insert($userData);
-
-        foreach($data['skills'] as $num=>$row) {
-            $this->_db->insert('user_skills',array(
-                'user_id' => $id,
-                'name' => $row,
-            ));
-        }
-
-        foreach($data['languages'] as $num=>$row) {
-            $this->_db->insert('user_languages',array(
-                'user_id' => $id,
-                'languages_id' => $row,
-            ));
-        }
-
-
-        foreach($data['jobs'] as $num=>$row) {
-            $this->_db->insert('user_jobs',array(
-                'user_id' => $id,
-                'name' => $row['name'],
-                'company' => $row['company'],
-                'current' => $row['current'],
-                'start_time' => $row['start_time'],
-                'end_time' => $row['end_time'],
-                'type' => 0
-            ));
-        }
-
-        foreach($data['education'] as $num=>$row) {
-            $this->_db->insert('user_jobs',array(
-                'user_id' => $id,
-                'name' => $row['name'],
-                'company' => $row['company'],
-                'current' => 0,
-                'start_time' => $row['start_time'],
-                'end_time' => $row['end_time'],
-                'type' => 1
-            ));
-        }
-
-        if (isset($userData['facebook_key'])) {
-            $facebook = new Application_Model_Facebook();
-            $facebook->storeInfo($userData['facebook_key'],$id);
-        }
-
-        if (isset($userData['linkedin_key'])) {
-            $facebook = new Application_Model_Linkedin();
-            $facebook->storeInfo($userData['linkedin_key'],$id);
-        }
-
-        $photo = null;
-        if (isset($data['photo_id']) && is_numeric($data['photo_id'])) {
-            $photo_id = $data['photo_id'];
-            $photo = $this->_db->fetchOne("
-                select orig
-                from user_photos
-                where id = $photo_id
-            ");
-            $this->_db->update('user_photos',array(
-                'user_id' => $id
-            ),"id = $photo_id");
-        }
-
-        $completeness = Application_Model_Common::UpdateCompleteness($id);
-        $experience = Application_Model_Common::UpdateExperience($id);
-        $this->update(array(
-            'experience' => $experience,
-            'completeness' => $completeness,
-            'photo' => $photo
-        ),"id = $id");
-
         return $id;
     }
 
@@ -347,7 +333,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     $id = $user['id'];
                     $this->update(array(
                         'linkedin_key' => $token,
-                        'linkedin_id' => $user_profile['id']
+                        'linkedin_id' => $user_profile['linkedin_id']
                     ),"id = $id");
 
                     return array(
@@ -456,6 +442,11 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
     }
 
     public function getUser($id,$user,$by = 'id',$prepeare = true, $private = false) {
+        if ($id == $user['id']) {
+            $user = false;
+            $private = true;
+        }
+
         if ($private) {
             $private = ', u.private_key';
         }
@@ -463,7 +454,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $private = '';
         }
         $res = $this->_db->fetchRow("
-            select u.id $private,u.name,u.lastname,u.email,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_succesfull, group_concat(DISTINCT s.name) as skills, group_concat(DISTINCT l.languages_id) as languages
+            select u.id $private,u.name,u.lastname,u.email,u.city_name,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_declined, group_concat(DISTINCT s.name) as skills, group_concat(DISTINCT l.languages_id) as languages
             from users u
             left join user_skills s on u.id = s.user_id
             left join user_languages l on u.id = l.user_id

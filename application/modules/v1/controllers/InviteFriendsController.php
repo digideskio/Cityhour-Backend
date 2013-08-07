@@ -22,6 +22,11 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
         $this->getAction();
     }
 
+    public function getAction()
+    {
+        $this->getResponse()->setHttpResponseCode(200);
+    }
+
 
     /**
      *
@@ -29,7 +34,7 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *   path="/inviteFriends/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       httpMethod="POST",
      *       summary="Register.",
      *       responseClass="void",
      *       nickname="Register",
@@ -44,6 +49,14 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *            reason="Not all params given."
      *          )
      *       ),
+     * @SWG\Parameter(
+     *           name="token",
+     *           description="token",
+     *           paramType="query",
+     *           required="false",
+     *           allowMultiple="false",
+     *           dataType="string/json"
+     *         ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
@@ -64,18 +77,19 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *   )
      * )
      */
-    public function getAction()
+    public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $token = $this->_request->getParam('private_key');
+        $token = $this->_request->getParam('token');
+        $private_key = $this->_request->getParam('private_key');
         $type = $this->_request->getParam('type');
         $db_types = new Application_Model_Types();
-        $types = $db_types->getLogin();
-        if ($token && $token != null && $token != '' && array_key_exists($type, $types)) {
+        $types = $db_types->getInvetes();
+        if ($private_key && $private_key != null && $private_key != '' && array_key_exists($type, $types)) {
             $db = new Application_Model_DbTable_UserContactsWait();
-            $user = Application_Model_DbTable_Users::getUserData($token);
+            $user = Application_Model_DbTable_Users::getUserData($private_key);
             if ($user) {
-                $res = $db->getAll($user,$type);
+                $res = $db->getAll($user,$type,$token);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
                     'errorCode' => '200'
@@ -92,11 +106,6 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
                 'errorCode' => '400'
             ));
         }
-    }
-
-    public function postAction()
-    {
-        $this->getResponse()->setHttpResponseCode(200);
     }
 
     public function putAction()
