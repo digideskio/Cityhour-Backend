@@ -34,6 +34,7 @@
           <dbTableFile dbTableName="Complaints"/>
           <dbTableFile dbTableName="UserJobs"/>
           <dbTableFile dbTableName="Languages"/>
+          <dbTableFile dbTableName="PushMessages"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>

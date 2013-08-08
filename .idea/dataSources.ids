@@ -86,7 +86,7 @@
       <column name="lat" sqlType="FLOAT" length="20" precision="16" nullable="true" jdbcType="7"/>
       <column name="lng" sqlType="FLOAT" length="20" precision="16" nullable="true" jdbcType="7"/>
       <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
-      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="meetings" schema="" catalog="MeetRocket" type="TABLE">
@@ -109,7 +109,7 @@
       <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
       <column name="text" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
-      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_notifications_users1_idx" unique="false" columns="from"/>
       <index name="fk_notifications_users2_idx" unique="false" columns="to"/>
@@ -132,12 +132,20 @@
       <column name="debug" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
+    <table name="push_messages" schema="" catalog="MeetRocket" type="TABLE">
+      <column name="id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="user_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="type" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="true" jdbcType="-6"/>
+      <column name="alert" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="data" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1"/>
+      <column name="status" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
     <table name="user_contacts_wait" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
-      <column name="facebook_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
-      <column name="linkedin_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="linkedin_id" sqlType="VARCHAR" length="250" precision="0" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
       <column name="name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="lastname" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
@@ -176,7 +184,7 @@
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="orig" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_user_photos_Users1_idx" unique="false" columns="user_id"/>
     </table>
@@ -200,7 +208,7 @@
       <column name="name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="lastname" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="industry_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
-      <column name="summary" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
+      <column name="summary" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1"/>
       <column name="photo" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="phone" sqlType="VARCHAR" length="20" precision="0" nullable="true" jdbcType="12"/>
       <column name="business_email" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
@@ -210,8 +218,8 @@
       <column name="lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="skype" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="rating" sqlType="FLOAT UNSIGNED" length="12" precision="0" nullable="false" jdbcType="7" def="MA=="/>
-      <column name="experience" sqlType="FLOAT UNSIGNED" length="12" precision="0" nullable="false" jdbcType="7" def="MA=="/>
-      <column name="completeness" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="experience" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="completeness" sqlType="FLOAT UNSIGNED" length="12" precision="0" nullable="false" jdbcType="7" def="MA=="/>
       <column name="contacts" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="meet_succesfull" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="meet_declined" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
@@ -221,7 +229,6 @@
       <column name="linkedin_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="private_key" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
-      <column name="update" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="unq_email" unique="true" columns="email"/>
       <index name="unq_private" unique="true" columns="private_key"/>

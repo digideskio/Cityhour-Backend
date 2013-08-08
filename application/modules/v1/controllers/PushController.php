@@ -12,7 +12,6 @@ class V1_PushController extends Zend_Rest_Controller
 
     public function init()
     {
-        $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
     }
 
@@ -24,6 +23,25 @@ class V1_PushController extends Zend_Rest_Controller
     public function getAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $ids = $this->_request->getParam('ids');
+        if ($ids && $ids != '' && $ids != ',') {
+            $db = new Application_Model_DbTable_PushMessages();
+            $res = $db->sendAll($ids);
+        }
+        else {
+            $res = false;
+        }
+
+        if ($res) {
+            $this->_helper->json->sendJson(array(
+                'done' => true
+            ));
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                'done' => false
+            ));
+        }
     }
 
     /**

@@ -38,5 +38,12 @@ class Application_Model_Status
         );
     }
 
+    public static function pushMessages() {
+        return array(
+            0 => 'Not sent',
+            1 => 'Sent',
+        );
+    }
+
 }
 
