@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>MeetRocket admin panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Le styles -->
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="//netdna.bootstrapcdn.com/font-awesome/3.0.2/css/font-awesome.css" rel="stylesheet">
+    <link href="/css/admin.css" rel="stylesheet">
+    <style>
+        body {
+            padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
+        }
+    </style>
+
+    <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">MeetRocket</a>
+            <ul class="nav navbar-nav">
+                <li id="l_complaints"><a href="/admin/complaints/">Complaints</a></li>
+                <li id="l_users"><a href="/admin/users/">Users</a></li>
+            </ul>
+            <ul class="nav navbar-nav pull-right">
+                <li><a href="/admin/auth/logout">Logout</a></li>
+            </ul>
+        </div>
+</div>
+
+<div class="container">
+
+    <?php echo $this->layout()->content; ?>
+
+    <hr>
+    <footer>
+        <p class="pull-right">&copy; MeetRocket 2013</p>
+    </footer>
+</div>
+
+
+
+
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-rc1/js/bootstrap.min.js"></script>
+<script src="/js/admin.js"></script>
+
+
+</body>
+</html>

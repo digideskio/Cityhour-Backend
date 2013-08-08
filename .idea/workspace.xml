@@ -2,16 +2,39 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="rebuild calendar&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/models/DbTable/PushMessages.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cron/push_send.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/cron/push_send.sh" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/application/modules/v1/views/scripts/languages/index.phtml" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.ids" afterPath="$PROJECT_DIR$/.idea/dataSources.ids" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/models/DbTable/Admins.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/controllers/AuthControllerTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/admin/controllers/AuthControllerTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/admin/Bootstrap.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/admin/controllers/ComplaintsControllerTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/admin/controllers/IndexControllerTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/admin/forms/Login.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/admin/controllers/UsersControllerTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/css/admin.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/js/admin.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/admin/views/scripts/auth/login.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.zfproject.xml" afterPath="$PROJECT_DIR$/.zfproject.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Push.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Push.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/Bootstrap.php" afterPath="$PROJECT_DIR$/application/Bootstrap.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/GoalsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/GoalsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/IndexController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/IndexController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/IndustryController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/IndustryController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/LanguagesController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/LanguagesController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/MapController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/MapController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MeetRocket.iml" afterPath="$PROJECT_DIR$/.idea/MeetRocket.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Status.php" afterPath="$PROJECT_DIR$/application/models/Status.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/SyncController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/SyncController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/UserController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/configs/application.ini" afterPath="$PROJECT_DIR$/application/configs/application.ini" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/default/views/scripts/index/index.phtml" afterPath="$PROJECT_DIR$/application/modules/default/views/scripts/index/index.phtml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/php.log" afterPath="$PROJECT_DIR$/logs/php.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -40,17 +63,7 @@
     <favorites_list name="MeetRocket" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Push.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/models/DbTable/Push.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="23" column="9" selection-start="651" selection-end="651" vertical-scroll-proportion="0.29187816" vertical-offset="0" max-vertical-offset="1182">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -59,15 +72,6 @@
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
-      <command text="zf create controller photo 1 v1" />
-      <command text="zf create db-table userPhotos user_photos" />
-      <command text="zf create controller synch 1 v1" />
-      <command text="zf create db-table userSettings user_settings" />
-      <command text="zf create db-table chat chat" />
-      <command text="zf create controller chat 1 v1" />
-      <command text="zf create controller calendar null v1" />
-      <command text="zf create db-table calendar calendar" />
-      <command text="zf create controller industry null v1" />
       <command text="zf create controller goals null v1" />
       <command text="zf create db-table userGoals user_goals" />
       <command text="zf create db-table userHasGoals user_goals_has_goals" />
@@ -84,6 +88,15 @@
       <command text="zf create controller languages null v1" />
       <command text="zf create db-table languages languages" />
       <command text="zf create db-table pushMessages push_messages" />
+      <command text="zf create module admin" />
+      <command text="zf create controller auth" />
+      <command text="zf create controller auth 1 admin" />
+      <command text="zf create controller index 1 admin" />
+      <command text="zf create controller complaints 1 admin" />
+      <command text="zf create controller users 1 admin" />
+      <command text="zf enable layout" />
+      <command text="zf create form login admin" />
+      <command text="zf create db-table admins admins" />
     </commandsHistory>
   </component>
   <component name="Git.Settings">
@@ -100,22 +113,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/models/Facebook.php" />
-        <option value="$PROJECT_DIR$/application/models/Linkedin.php" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/IndustryController.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php" />
-        <option value="$PROJECT_DIR$/application/models/Types.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
-        <option value="$PROJECT_DIR$/application/models/Status.php" />
-        <option value="$PROJECT_DIR$/cron/push_send.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Push.php" />
-        <option value="$PROJECT_DIR$/logs/push_send.log" />
-        <option value="$PROJECT_DIR$/cron/push_send.sh" />
-        <option value="$PROJECT_DIR$/logs/php.log" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/PushMessages.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/GoalsController.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Admins.php" />
+        <option value="$PROJECT_DIR$/application/configs/application.ini" />
+        <option value="$PROJECT_DIR$/application/modules/admin/Bootstrap.php" />
+        <option value="$PROJECT_DIR$/application/modules/admin/views/scripts/auth/login.phtml" />
+        <option value="$PROJECT_DIR$/application/modules/admin/forms/Login.php" />
+        <option value="$PROJECT_DIR$/application/modules/admin/controllers/IndexController.php" />
+        <option value="$PROJECT_DIR$/application/modules/admin/controllers/AuthController.php" />
+        <option value="$PROJECT_DIR$/application/modules/admin/views/scripts/index/index.phtml" />
       </list>
     </option>
   </component>
@@ -179,35 +192,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="logs" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="cron" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="chat" />
+              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -283,6 +268,200 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="index" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="views" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layouts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="scripts" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="forms" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="modules" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="controllers" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="MeetRocket" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="application" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="models" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -337,7 +516,7 @@
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="settings.bitbucket" />
+    <property name="options.lastSelected" value="preferences.pluginManager" />
     <property name="restartRequiresConfirmation" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/cron" />
     <property name="FullScreen" value="false" />
@@ -382,6 +561,7 @@
       <recent name="$PROJECT_DIR$/cron" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/application/modules/default" />
       <recent name="$PROJECT_DIR$/cron" />
       <recent name="$PROJECT_DIR$/chat" />
       <recent name="$PROJECT_DIR$/library/Linkedin" />
@@ -426,7 +606,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHP Script.SendPush">
+  <component name="RunManager" selected="PHP Script.Chat">
     <configuration default="false" name="push_send.sh" type="BashConfigurationType" factoryName="Bash" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
@@ -442,17 +622,6 @@
     </configuration>
     <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
       <TestRunner />
-      <method />
-    </configuration>
-    <configuration default="true" type="BashConfigurationType" factoryName="Bash">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="INTERPRETER_PATH" value="/bin/bash" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs />
-      <module name="MeetRocket" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
       <method />
     </configuration>
     <configuration default="true" type="PhpBuiltInWebServerConfigurationType" factoryName="PHP Built-in Web Server">
@@ -488,17 +657,11 @@
       <ConfigurationWrapper RunnerId="PhpRunner" />
       <method />
     </configuration>
-    <list size="4">
-      <item index="0" class="java.lang.String" itemvalue="Bash.push_send.sh" />
-      <item index="1" class="java.lang.String" itemvalue="PHP Built-in Web Server.Main" />
-      <item index="2" class="java.lang.String" itemvalue="PHP Script.Chat" />
-      <item index="3" class="java.lang.String" itemvalue="PHP Script.SendPush" />
+    <list size="3">
+      <item index="0" class="java.lang.String" itemvalue="PHP Built-in Web Server.Main" />
+      <item index="1" class="java.lang.String" itemvalue="PHP Script.Chat" />
+      <item index="2" class="java.lang.String" itemvalue="PHP Script.SendPush" />
     </list>
-    <recent_temporary>
-      <list size="1">
-        <item index="0" class="java.lang.String" itemvalue="Bash.push_send.sh" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
   <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
@@ -593,11 +756,11 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1352" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14319809" sideWeight="0.72447324" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32873377" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21002387" sideWeight="0.67126626" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39935064" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3262987" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
@@ -605,9 +768,9 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15393795" sideWeight="0.72447324" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27552673" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32658023" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16666667" sideWeight="0.67126626" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27516234" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3262987" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -694,106 +857,114 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Friends.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="20" column="47" selection-start="520" selection-end="520" vertical-scroll-proportion="-0.64382404" vertical-offset="1061" max-vertical-offset="3015" />
+        <state line="15" column="56" selection-start="296" selection-end="296" vertical-scroll-proportion="0.19067797" vertical-offset="0" max-vertical-offset="5085">
+          <folding />
+        </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Notifications.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/GoalsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="29" column="1" selection-start="620" selection-end="620" vertical-scroll-proportion="0.3680203" vertical-offset="0" max-vertical-offset="1182" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="136" column="22" selection-start="3875" selection-end="3875" vertical-scroll-proportion="0.5812183" vertical-offset="1353" max-vertical-offset="2640" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cron/push_update.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="7" selection-end="317" vertical-scroll-proportion="0.07614213" vertical-offset="0" max-vertical-offset="1182" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="32" selection-start="661" selection-end="661" vertical-scroll-proportion="0.2192691" vertical-offset="57" max-vertical-offset="960" />
+        <state line="15" column="56" selection-start="292" selection-end="292" vertical-scroll-proportion="0.19067797" vertical-offset="0" max-vertical-offset="1230">
+          <folding />
+        </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/IndexController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="825" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/chat/server.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="122" column="0" selection-start="3252" selection-end="3266" vertical-scroll-proportion="1.1768826" vertical-offset="1158" max-vertical-offset="3675">
+        <state line="8" column="56" selection-start="202" selection-end="202" vertical-scroll-proportion="0.10169491" vertical-offset="0" max-vertical-offset="1180">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/IndustryController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="237" column="54" selection-start="9544" selection-end="9544" vertical-scroll-proportion="0.23781009" vertical-offset="3277" max-vertical-offset="7440">
+        <state line="35" column="10" selection-start="680" selection-end="680" vertical-scroll-proportion="0.44491526" vertical-offset="0" max-vertical-offset="1230">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Status.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="13" selection-start="913" selection-end="913" vertical-scroll-proportion="0.5456853" vertical-offset="0" max-vertical-offset="1182">
+        <state line="12" column="26" selection-start="178" selection-end="178" vertical-scroll-proportion="0.15254237" vertical-offset="0" max-vertical-offset="3735">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/cron/push_send.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="54" selection-start="1013" selection-end="1013" vertical-scroll-proportion="0.5076142" vertical-offset="0" max-vertical-offset="1182">
-          <folding>
-            <marker date="1375954502000" expanded="true" signature="-1:-1" placeholder="select group..push_messages..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/cron/push_send.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="34" selection-start="206" selection-end="206" vertical-scroll-proportion="0.17412935" vertical-offset="0" max-vertical-offset="1206">
+        <state line="15" column="56" selection-start="298" selection-end="298" vertical-scroll-proportion="0.19067797" vertical-offset="0" max-vertical-offset="5055">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logs/php.log">
+    <entry file="file://$PROJECT_DIR$/application/modules/admin/Bootstrap.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1206">
+        <state line="5" column="1" selection-start="75" selection-end="75" vertical-scroll-proportion="0.06355932" vertical-offset="0" max-vertical-offset="1180">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/logs/apns.log">
+    <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1206">
+        <state line="27" column="35" selection-start="1083" selection-end="1083" vertical-scroll-proportion="0.33637872" vertical-offset="0" max-vertical-offset="1204">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/PushMessages.php">
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Admins.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="28" selection-start="1195" selection-end="1195" vertical-scroll-proportion="0.39340103" vertical-offset="0" max-vertical-offset="1440">
-          <folding>
-            <marker date="1375960720000" expanded="true" signature="-1:-1" placeholder="select m.ale..push_messages..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PushController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="56" selection-start="241" selection-end="241" vertical-scroll-proportion="0.17766498" vertical-offset="0" max-vertical-offset="3405">
+        <state line="25" column="22" selection-start="919" selection-end="919" vertical-scroll-proportion="-15.625" vertical-offset="0" max-vertical-offset="600">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Push.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/admin/forms/Login.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="9" selection-start="651" selection-end="651" vertical-scroll-proportion="0.29187816" vertical-offset="0" max-vertical-offset="1182">
+        <state line="14" column="31" selection-start="391" selection-end="391" vertical-scroll-proportion="0.1779661" vertical-offset="0" max-vertical-offset="1180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/admin/controllers/UsersController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/admin/controllers/AuthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="13" column="0" selection-start="204" selection-end="204" vertical-scroll-proportion="0.16525424" vertical-offset="0" max-vertical-offset="1180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/admin/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="33" selection-start="265" selection-end="265" vertical-scroll-proportion="0.15254237" vertical-offset="0" max-vertical-offset="1180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/admin/layouts/scripts/layout.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="17" selection-start="1327" selection-end="1327" vertical-scroll-proportion="0.40677965" vertical-offset="0" max-vertical-offset="1180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/admin/views/scripts/index/index.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="55" selection-start="55" selection-end="55" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/admin/views/scripts/auth/login.phtml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="50" selection-start="1015" selection-end="1015" vertical-scroll-proportion="0.36864406" vertical-offset="0" max-vertical-offset="1180">
           <folding />
         </state>
       </provider>

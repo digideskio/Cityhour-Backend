@@ -3,6 +3,19 @@
 class Bootstrap extends Zend_Application_Bootstrap_Bootstrap
 {
 
+    protected function _initAutoload()
+    {
+        $autoloader = Zend_Loader_Autoloader::getInstance();
+        $autoloader->registerNamespace('Plugins_');
+    }
+
+    protected function _initPlugins()
+    {
+        // Access plugin
+        $front = Zend_Controller_Front::getInstance();
+        $front->registerPlugin(new Plugins_SelectLayout());
+    }
+
     protected function _initDefaultRoutes()
     {
         $frontController = Zend_Controller_Front::getInstance();

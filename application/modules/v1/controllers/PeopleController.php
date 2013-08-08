@@ -12,6 +12,7 @@ class V1_PeopleController extends Zend_Rest_Controller
 
     public function init()
     {
+        $this->_helper->layout->disableLayout();
         $this->_helper->viewRenderer->setNoRender(true);
     }
 
