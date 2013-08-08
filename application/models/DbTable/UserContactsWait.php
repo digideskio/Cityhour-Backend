@@ -80,16 +80,17 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   CASE
                   	when ( select distinct(f.id)
                   	from user_friends f
-                  	where f.user_id = 31
-                  	and f.friend_id = u.id
-                  	and f.status = 0
-                  	) > 0 then 1
-                  	when ( select distinct(f.id)
-                  	from user_friends f
-                  	where f.user_id = 31
+                  	where f.user_id = $id
                   	and f.friend_id = u.id
                   	and f.status = 1
                   	) > 0 then 2
+                  	when ( select distinct(n.id)
+                  	from notifications n
+                  	where n.from = $id
+                  	and n.to = u.id
+                  	and n.type = 0
+                  	and n.status in (0,1)
+                  	) > 0 then 1
                  	else 0
                   END as status
                   from users u
@@ -113,14 +114,14 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         $linkedin_id =  $user['linkedin_id'];
         $this->update(array(
             'status' => $status
-        ),"user_id = $user_id and (facebook_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
+        ),"user_id = $user_id and (linkedin_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
 
         $user_id =  $user['id'];
         $facebook_id =  $user2['facebook_id'];
         $linkedin_id =  $user2['linkedin_id'];
         $this->update(array(
             'status' => $status
-        ),"user_id = $user_id and (facebook_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
+        ),"user_id = $user_id and (linkedin_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
         return true;
     }
 

@@ -27,7 +27,10 @@ class Application_Model_Types
 
     public static function notification() {
         return array(
-            0 => 'Friend request'
+            0 => 'Friend request',
+            1 => 'Friends accept',
+            2 => 'Friends reject',
+            3 => 'Friends delete',
         );
     }
 
@@ -43,6 +46,13 @@ class Application_Model_Types
         return array(
             0 => 'Job',
             1 => 'Education'
+        );
+    }
+
+    public static function push() {
+        return array(
+            0 => 'Friend request',
+            1 => 'Friend delete',
         );
     }
 

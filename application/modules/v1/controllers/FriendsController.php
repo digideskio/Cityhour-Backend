@@ -255,6 +255,10 @@ class V1_FriendsController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="500",
+     *            reason="Server problem."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -289,10 +293,18 @@ class V1_FriendsController extends Zend_Rest_Controller
             if ($user) {
                 $db = new Application_Model_DbTable_Friends();
                 $res = $db->deleteFriends($user,$id);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
+                if ($res === true) {
+                    $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '200'
+                    ));
+                }
+                else {
+                    $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '500'
+                    ));
+                }
             }
             else {
                 $this->_helper->json->sendJson(array(

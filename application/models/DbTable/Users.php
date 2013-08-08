@@ -442,13 +442,13 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
     }
 
     public function getUser($id,$user,$by = 'id',$prepeare = true, $private = false) {
-        if ($id == $user['id']) {
+        if (isset($user['id']) && $id == $user['id']) {
             $user = false;
             $private = true;
         }
 
         if ($private) {
-            $private = ', u.private_key';
+            $private = ', u.private_key, u.facebook_key, u.facebook_id, u.linkedin_key, u.linkedin_id';
         }
         else {
             $private = '';
