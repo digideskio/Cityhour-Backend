@@ -79,6 +79,8 @@
           <controllersDirectory/>
           <formsDirectory>
             <formFile formName="Login"/>
+            <formFile formName="User"/>
+            <formFile formName="Search"/>
           </formsDirectory>
           <layoutsDirectory enabled="false"/>
           <modelsDirectory>

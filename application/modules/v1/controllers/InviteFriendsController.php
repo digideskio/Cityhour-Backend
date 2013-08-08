@@ -81,9 +81,13 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $token = $this->_request->getParam('token');
-        $private_key = $this->_request->getParam('private_key');
-        $type = $this->_request->getParam('type');
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+
+        if (isset($data['token'])) $token = $data['token']; else $token = false;
+        if (isset($data['private_key'])) $private_key = $data['private_key']; else $private_key = false;
+        if (isset($data['type'])) $type = $data['type']; else $type = false;
+
         $db_types = new Application_Model_Types();
         $types = $db_types->getInvetes();
         if ($private_key && $private_key != null && $private_key != '' && array_key_exists($type, $types)) {

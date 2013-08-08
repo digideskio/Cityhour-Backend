@@ -29,8 +29,7 @@ class Application_Model_Types
         return array(
             0 => 'Friend request',
             1 => 'Friends accept',
-            2 => 'Friends reject',
-            3 => 'Friends delete',
+            2 => 'Friends reject'
         );
     }
 
@@ -51,8 +50,13 @@ class Application_Model_Types
 
     public static function push() {
         return array(
-            0 => 'Friend request',
-            1 => 'Friend delete',
+            0 => 'Friend request'
+        );
+    }
+
+    public static function complaints() {
+        return array(
+            0 => 'User'
         );
     }
 

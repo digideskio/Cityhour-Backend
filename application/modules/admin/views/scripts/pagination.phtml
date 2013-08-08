@@ -1,0 +1,32 @@
+<?php if ($this->pageCount > 1): ?>
+    <ul class="pagination" >
+        <!-- Ссылка на предыдущую страницу -->
+        <?php if (isset($this->previous)): ?>
+            <li><a href="<?php echo $this->url(array('page' => $this->previous)); ?>">
+                    <i class="icon-hand-left"></i>
+                </a><li>
+        <?php else: ?>
+            <li class="disabled"><a href="<?php echo $this->url(array('page' => $this->previous)); ?>"><i class="icon-hand-left"></i></a></li>
+        <?php endif; ?>
+
+        <!-- Нумерованные ссылки на страницы -->
+        <?php foreach ($this->pagesInRange as $page): ?>
+            <?php if ($page != $this->current): ?>
+                <li><a href="<?php echo $this->url(array('page' => $page)); ?>">
+                        <?php echo $page; ?>
+                    </a></li>
+            <?php else: ?>
+                <li class="disabled"><a href="<?php echo $this->url(array('page' => $page)); ?>"><?php echo $page; ?></a></li>
+            <?php endif; ?>
+        <?php endforeach; ?>
+
+        <!-- Ссылка на следующую страницу -->
+        <?php if (isset($this->next)): ?>
+            <li><a href="<?php echo $this->url(array('page' => $this->next)); ?>">
+                    <i class="icon-hand-right"></i>
+                </a></li>
+        <?php else: ?>
+            <li class="disabled"><a href="<?php echo $this->url(array('page' => $this->next)); ?>"><i class="icon-hand-right"></i></a></li>
+        <?php endif; ?>
+    </ul>
+<?php endif; ?>

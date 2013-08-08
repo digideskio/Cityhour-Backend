@@ -4,6 +4,27 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 {
 
     protected $_name = 'users';
+    private $paginatorNumberPerPage = 50;
+
+    public function getList($data = false) {
+        if ($data) {
+            $email = $data['search'];
+            $rows =  $this->fetchAll("email like \"%$email%\" ",'id desc')->toArray();
+        }
+        else {
+            $rows =  $this->fetchAll(null,'id desc')->toArray();
+        }
+        $paginator = Zend_Paginator::factory($rows);
+        $paginator->setItemCountPerPage($this->paginatorNumberPerPage);
+        $cur_page = isset($data['page']) ? $data['page'] : 0;
+        $paginator->setCurrentPageNumber($cur_page);
+        return $paginator;
+    }
+
+    public function saveUser($data,$id) {
+        $this->update($data,"id = $id");
+        return true;
+    }
 
     public function updateUser($user,$data) {
         $user_id = $user['id'];
@@ -448,7 +469,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
 
         if ($private) {
-            $private = ', u.private_key, u.facebook_key, u.facebook_id, u.linkedin_key, u.linkedin_id';
+            $private = ', u.private_key, u.facebook_key, u.facebook_id, u.linkedin_key, u.linkedin_id, u.status';
         }
         else {
             $private = '';

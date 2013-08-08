@@ -62,6 +62,7 @@
       <column name="to" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="dscr" sqlType="VARCHAR" length="500" precision="0" nullable="true" jdbcType="12"/>
       <column name="create_at" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="status" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_complaints_users1_idx" unique="false" columns="from"/>
     </table>

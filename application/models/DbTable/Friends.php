@@ -37,21 +37,6 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 $db_user = new Application_Model_DbTable_Users();
                 $db->updateStatus($user, $db_user->getUser($id,false,'id',false,true), 0);
 
-                $text = $user['name'].' Тебя бросил! Ты ему больше не нужен((';
-                $push = new Application_Model_DbTable_Push();
-                $push->sendPush($id, array(
-                    'from' => $user_id,
-                    'to' => $id,
-                    'type' => 3,
-                ), 3, $text);
-
-                $this->_db->insert('notifications',array(
-                    'from' => $user_id,
-                    'to' => $id,
-                    'type' => 3,
-                    'text' => $text
-                ));
-
                 $this->_db->commit();
                 return true;
             } catch (Exception $e){

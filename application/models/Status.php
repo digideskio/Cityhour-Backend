@@ -45,5 +45,19 @@ class Application_Model_Status
         );
     }
 
+    public static function Users() {
+        return array(
+            0 => 'Active',
+            1 => 'Block',
+        );
+    }
+
+    public static function Complaints() {
+        return array(
+            0 => 'Not read',
+            1 => 'Read',
+        );
+    }
+
 }
 
