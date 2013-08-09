@@ -76,7 +76,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 if ($validator_exist->isValid($user_id)) {
                     $this->_db->beginTransaction();
                     try {
-                        $text = 'Friend invite from '.$user['name'];
+                        $text = $user['name'].' '.$user['lastname'].' хочет добавить вас в контакты';
                         $this->_db->insert('notifications',array(
                             'from' => $user_id,
                             'to' => $friend_id,
@@ -87,12 +87,6 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         $db = new Application_Model_DbTable_UserContactsWait();
                         $db->updateStatus($user, $invite, 1);
 
-                        $push = new Application_Model_DbTable_Push();
-                        $push->sendPush($friend_id, array(
-                            'from' => $user_id,
-                            'to' => $friend_id,
-                            'type' => 0,
-                        ), 0, 'Text alert');
                         $this->_db->commit();
                         return true;
                     } catch (Exception $e){
@@ -129,6 +123,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 $this->_db->update('notifications',array(
                     'status' => 1
                 ),"id = $id");
+
                 $db = new Application_Model_DbTable_UserContactsWait();
                 $db_user = new Application_Model_DbTable_Users();
 
@@ -137,6 +132,15 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 $user2 = $db_user->getUser($user_id2,false,'id',false,true);
 
                 if ($status == 2) {
+
+                    $text = $user['name'].' '.$user['lastname'].' подтвердил ваш запрос';
+                    $this->_db->insert('notifications',array(
+                        'from' => $user_id2,
+                        'to' => $user_id,
+                        'type' => 1,
+                        'text' => $text
+                    ));
+
                     $this->insert(array(
                         'user_id' => $user_id2,
                         'friend_id' => $user_id,

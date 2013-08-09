@@ -51,6 +51,7 @@ class V1_PushController extends Zend_Rest_Controller
      * @SWG\Property(name="token",type="string")
      * @SWG\Property(name="device",type="string")
      * @SWG\Property(name="debug",type="string")
+     * @SWG\Property(name="private_key",type="string")
      *
      * @SWG\Api(
      *   path="/push/",
@@ -137,6 +138,7 @@ class V1_PushController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="pushDelete")
      * @SWG\Property(name="device",type="string")
+     * @SWG\Property(name="private_key",type="string")
      *
      * @SWG\Api(
      *   path="/push/",
@@ -152,13 +154,22 @@ class V1_PushController extends Zend_Rest_Controller
      *            reason="Have no permissions"
      *          )
      *       ),
+     *
      * @SWG\Parameter(
-     *           name="json",
-     *           description="json",
-     *           paramType="body",
-     *           required="false",
+     *           name="private_key",
+     *           description="private_key",
+     *           paramType="query",
+     *           required="true",
      *           allowMultiple="false",
-     *           dataType="pushDelete"
+     *           dataType="string"
+     *         ),
+     * @SWG\Parameter(
+     *           name="device",
+     *           description="device",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="string"
      *         )
      *     )
      *   )
@@ -167,11 +178,8 @@ class V1_PushController extends Zend_Rest_Controller
     public function deleteAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $body = $this->getRequest()->getRawBody();
-        $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $private_key = $data['private_key']; else $private_key = false;
-        if (isset($data['device'])) $device = $data['device']; else $device = null;
-
+        $private_key = $this->_request->getParam('private_key');
+        $device = $this->_request->getParam('device');
         if ($private_key && $private_key != null && $private_key != '' && $device != null) {
             $user = Application_Model_DbTable_Users::getUserData($private_key);
             if ($user) {

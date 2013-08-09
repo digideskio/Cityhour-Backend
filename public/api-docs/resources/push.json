@@ -35,12 +35,20 @@
                     "responseClass": "void",
                     "parameters": [
                         {
-                            "name": "json",
-                            "description": "json",
+                            "name": "private_key",
+                            "description": "private_key",
                             "allowMultiple": false,
-                            "dataType": "pushDelete",
-                            "paramType": "body",
-                            "required": false
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": true
+                        },
+                        {
+                            "name": "device",
+                            "description": "device",
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": true
                         }
                     ],
                     "errorResponses": [
@@ -65,13 +73,8 @@
                 },
                 "debug": {
                     "type": "string"
-                }
-            }
-        },
-        "pushDelete": {
-            "id": "pushDelete",
-            "properties": {
-                "device": {
+                },
+                "private_key": {
                     "type": "string"
                 }
             }

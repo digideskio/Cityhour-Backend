@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="rebuild calendar&#10;">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Complaints.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Complaints.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/configs/development.pem" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/configs/production.pem" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Friends.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Map.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Map.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/MapController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/MapController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Push.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Push.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Users.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Users.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/configs/application.ini" afterPath="$PROJECT_DIR$/application/configs/application.ini" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/complaints.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/complaints.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/friends.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/friends.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/map.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/map.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/php.log" afterPath="$PROJECT_DIR$/logs/php.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/push.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/push.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MeetRocket.iws" />
@@ -83,22 +87,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/modules/admin/views/scripts/pagination.phtml" />
-        <option value="$PROJECT_DIR$/application/modules/admin/views/scripts/users/index.phtml" />
-        <option value="$PROJECT_DIR$/application/modules/admin/views/scripts/users/edit.phtml" />
-        <option value="$PROJECT_DIR$/application/modules/admin/layouts/scripts/layout.phtml" />
-        <option value="$PROJECT_DIR$/public/css/admin.css" />
-        <option value="$PROJECT_DIR$/application/modules/admin/forms/User.php" />
-        <option value="$PROJECT_DIR$/application/modules/admin/controllers/UsersController.php" />
         <option value="$PROJECT_DIR$/application/modules/admin/controllers/ComplaintsController.php" />
         <option value="$PROJECT_DIR$/application/models/Status.php" />
         <option value="$PROJECT_DIR$/application/models/Types.php" />
         <option value="$PROJECT_DIR$/application/modules/admin/views/scripts/complaints/index.phtml" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Complaints.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" />
         <option value="$PROJECT_DIR$/application/configs/application.ini" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/PushMessages.php" />
+        <option value="$PROJECT_DIR$/logs/php.log" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Push.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/MapController.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Map.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
       </list>
     </option>
   </component>
@@ -176,29 +180,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="css" />
+              <option name="myItemId" value="logs" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -635,16 +617,48 @@
       <recent name="$PROJECT_DIR$/cron" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/application/configs" />
       <recent name="$PROJECT_DIR$/application/modules/admin/views/scripts" />
       <recent name="$PROJECT_DIR$/application/modules/default" />
       <recent name="$PROJECT_DIR$/cron" />
       <recent name="$PROJECT_DIR$/chat" />
-      <recent name="$PROJECT_DIR$/library/Linkedin" />
     </key>
   </component>
   <component name="RestClientSettings">
     <option name="REQUEST_HISTORY">
       <list>
+        <RestClientRequest>
+          <option name="httpMethod" value="DELETE" />
+          <option name="urlBase" value="http://localhost:8000" />
+          <option name="urlPath" value="/v1/push/" />
+          <option name="headers">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="Accept" />
+                <option name="value" value="*/*" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="Cache-Control" />
+                <option name="value" value="no-cache" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parameters">
+            <list>
+              <KeyValuePair>
+                <option name="key" value="private_key" />
+                <option name="value" value="edc447546e0e8bd5eb3aa09e3119fd297838b1d9520216c4e4834" />
+              </KeyValuePair>
+              <KeyValuePair>
+                <option name="key" value="device" />
+                <option name="value" value="6BA9211D-CCC5-4985-9CC4-40111BF2EB56" />
+              </KeyValuePair>
+            </list>
+          </option>
+          <option name="parametersEnabled" value="true" />
+          <option name="textToSend" value="{ &quot;private_key&quot;: &quot;2d572bed54d6f47b807c57922ae8264cc2f2d12151f68f76193c9&quot;, &quot;to&quot;: &quot;34&quot;, &quot;type&quot;: &quot;0&quot;, &quot;dscr&quot;: &quot;test&quot; }" />
+          <option name="filesToSend" value="" />
+        </RestClientRequest>
         <RestClientRequest>
           <option name="httpMethod" value="GET" />
           <option name="urlBase" value="http://localhost:8000" />
@@ -875,7 +889,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="PHP Built-in Web Server.Main">
+  <component name="RunManager" selected="PHP Script.SendPush">
     <configuration default="false" name="push_send.sh" type="BashConfigurationType" factoryName="Bash" temporary="true">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="INTERPRETER_PATH" value="/bin/bash" />
@@ -1028,18 +1042,18 @@
     <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="true" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2557677" sideWeight="0.37037036" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16308671" sideWeight="0.70733654" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.39935064" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3262987" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3261563" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6296296" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.62918663" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.16587113" sideWeight="0.37037036" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.27414772" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.17581543" sideWeight="0.70733654" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.29266348" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1122,102 +1136,13 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="48" />
+      <option name="time" value="53" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Friends.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="38" column="0" selection-start="1173" selection-end="1173" vertical-scroll-proportion="-17.5" vertical-offset="150" max-vertical-offset="2790" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/admin/views/scripts/auth/login.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="36" selection-start="817" selection-end="817" vertical-scroll-proportion="0.31779662" vertical-offset="0" max-vertical-offset="1180" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/css/admin.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="1" selection-start="0" selection-end="191" vertical-scroll-proportion="0.19933555" vertical-offset="0" max-vertical-offset="1204" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/public/js/admin.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="3" selection-start="0" selection-end="632" vertical-scroll-proportion="0.22425249" vertical-offset="0" max-vertical-offset="1204" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/admin/forms/Login.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="33" selection-start="146" selection-end="146" vertical-scroll-proportion="0.08898305" vertical-offset="0" max-vertical-offset="1180" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/admin/views/scripts/pagination.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="1498" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1180" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/admin/layouts/scripts/layout.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="20" selection-start="1037" selection-end="1054" vertical-scroll-proportion="0.34322035" vertical-offset="0" max-vertical-offset="1180" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/admin/forms/Search.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="18" column="26" selection-start="552" selection-end="552" vertical-scroll-proportion="0.22881356" vertical-offset="0" max-vertical-offset="1180" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/admin/controllers/ComplaintsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="23" column="30" selection-start="659" selection-end="659" vertical-scroll-proportion="0.29237288" vertical-offset="0" max-vertical-offset="1180" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/admin/views/scripts/complaints/index.phtml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="24" column="10" selection-start="0" selection-end="991" vertical-scroll-proportion="0.30508474" vertical-offset="0" max-vertical-offset="1180" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Complaints.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="5" selection-start="1584" selection-end="1584" vertical-scroll-proportion="0.54460096" vertical-offset="177" max-vertical-offset="915">
-          <folding>
-            <marker date="1376041910000" expanded="true" signature="-1:-1" placeholder="select c.id,..complaints..." />
-            <marker date="1376041910000" expanded="true" signature="-1:-1" placeholder="select c.id,..complaints..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="86" column="11" selection-start="2588" selection-end="2588" vertical-scroll-proportion="0.5477308" vertical-offset="940" max-vertical-offset="2205">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="110" column="0" selection-start="3279" selection-end="3279" vertical-scroll-proportion="0.29692307" vertical-offset="1457" max-vertical-offset="2430">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="174" column="24" selection-start="6912" selection-end="6912" vertical-scroll-proportion="0.42857143" vertical-offset="2337" max-vertical-offset="7830">
-          <folding>
-            <marker date="1376043808000" expanded="true" signature="-1:-1" placeholder="select disti..users..." />
-            <marker date="1376043808000" expanded="true" signature="-1:-1" placeholder="select group..users..." />
-            <marker date="1376043808000" expanded="true" signature="-1:-1" placeholder="select orig ..user_photos..." />
-            <marker date="1376043808000" expanded="true" signature="-1:-1" placeholder="select id fr..user_friends..." />
-            <marker date="1376043808000" expanded="true" signature="-1:-1" placeholder="select id fr..calendar..." />
-            <marker date="1376043808000" expanded="true" signature="-1:-1" placeholder="select u.id ..users..." />
-            <marker date="1376043808000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Types.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="35" selection-start="860" selection-end="860" vertical-scroll-proportion="0.53660566" vertical-offset="0" max-vertical-offset="1202">
           <folding />
         </state>
       </provider>
@@ -1226,6 +1151,123 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="26" column="34" selection-start="1047" selection-end="1047" vertical-scroll-proportion="0.31810766" vertical-offset="0" max-vertical-offset="1226">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/PushMessages.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="66" column="50" selection-start="2799" selection-end="2799" vertical-scroll-proportion="0.62562394" vertical-offset="238" max-vertical-offset="1440">
+          <folding>
+            <marker date="1375960720000" expanded="true" signature="-1:-1" placeholder="select m.ale..push_messages..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Status.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1226">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PushController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="159" column="43" selection-start="4681" selection-end="4681" vertical-scroll-proportion="0.039101496" vertical-offset="2338" max-vertical-offset="3540">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Push.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="60" selection-start="232" selection-end="232" vertical-scroll-proportion="0.11231281" vertical-offset="0" max-vertical-offset="1202">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/UserController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="3495">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserSettings.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1226">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Map.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="29" column="99" selection-start="795" selection-end="795" vertical-scroll-proportion="0.36189684" vertical-offset="0" max-vertical-offset="1202">
+          <folding>
+            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="select user_..user_id..." />
+            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="SELECT m.use..map..." />
+            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="SELECT m.use..calendar..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/MapController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="73" column="23" selection-start="1797" selection-end="1797" vertical-scroll-proportion="0.43677205" vertical-offset="570" max-vertical-offset="2010">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/php.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="859">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/apns.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="859">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="48" column="44" selection-start="2079" selection-end="2079" vertical-scroll-proportion="0.50462574" vertical-offset="120" max-vertical-offset="7875">
+          <folding>
+            <marker date="1376058783000" expanded="true" signature="-1:-1" placeholder="select disti..users..." />
+            <marker date="1376058783000" expanded="true" signature="-1:-1" placeholder="select group..users..." />
+            <marker date="1376058783000" expanded="true" signature="-1:-1" placeholder="select orig ..user_photos..." />
+            <marker date="1376058783000" expanded="true" signature="-1:-1" placeholder="select id fr..user_friends..." />
+            <marker date="1376058783000" expanded="true" signature="-1:-1" placeholder="select id fr..calendar..." />
+            <marker date="1376058783000" expanded="true" signature="-1:-1" placeholder="select u.id ..users..." />
+            <marker date="1376058783000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/FriendsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="65" column="33" selection-start="1683" selection-end="1683" vertical-scroll-proportion="0.41181365" vertical-offset="480" max-vertical-offset="5085">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Types.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="30" column="34" selection-start="605" selection-end="605" vertical-scroll-proportion="0.37437603" vertical-offset="0" max-vertical-offset="1202">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Friends.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="135" column="76" selection-start="4345" selection-end="4345" vertical-scroll-proportion="0.9608985" vertical-offset="870" max-vertical-offset="2850">
+          <folding>
+            <marker date="1376060374000" expanded="true" signature="-1:-1" placeholder="select group..user_friends..." />
+            <marker date="1376060374000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
+            <marker date="1376060374000" expanded="true" signature="-1:-1" placeholder="select id fr..notifications..." />
+            <marker date="1376060374000" expanded="true" signature="-1:-1" placeholder="select * fro..notifications..." />
+          </folding>
         </state>
       </provider>
     </entry>

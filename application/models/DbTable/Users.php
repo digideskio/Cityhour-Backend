@@ -45,8 +45,11 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             //Jobs
             if (isset($data['jobs'])) {
                 foreach($data['jobs'] as $num=>$row) {
-                    if (!$row['current'] || is_numeric($row['current'])) {
+                    if (!$row['current'] || $row['current'] === false ) {
                         $row['current'] = 0;
+                    }
+                    elseif ($row['current'] === true) {
+                        $row['current'] = 1;
                     }
                     if (!isset($row['end_time'])) {
                         $row['end_time'] = $row['start_time'];
@@ -170,7 +173,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function getPeople($user,$data_from,$data_to,$city,$industry,$goals) {
         $user_id = $user['id'];
-        $res = $this->_db->fetchAll("
+        $res = $this->_db->fetchOne("
             select group_concat(u.id)
             from users u
             where

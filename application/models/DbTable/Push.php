@@ -26,7 +26,7 @@ class Application_Model_DbTable_Push extends Zend_Db_Table_Abstract
     }
 
     public function deletePush($id, $device) {
-        $this->delete("user_id = $id and device = $device");
+        $this->delete("user_id = $id and device = '$device'");
         return true;
     }
 

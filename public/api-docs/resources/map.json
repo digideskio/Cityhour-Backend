@@ -19,6 +19,22 @@
                             "dataType": "string",
                             "paramType": "query",
                             "required": true
+                        },
+                        {
+                            "name": "lat",
+                            "description": "lat",
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": true
+                        },
+                        {
+                            "name": "lng",
+                            "description": "lng",
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": true
                         }
                     ],
                     "errorResponses": [
@@ -27,59 +43,13 @@
                             "code": 401
                         },
                         {
-                            "reason": "User nowhere).",
-                            "code": 404
-                        },
-                        {
                             "reason": "Not all params given.",
                             "code": 400
                         }
                     ],
                     "notes": ""
-                },
-                {
-                    "httpMethod": "PUT",
-                    "summary": "Update coordinates.",
-                    "nickname": "UpdateCoordinates",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "json",
-                            "description": "json",
-                            "allowMultiple": false,
-                            "dataType": "mapUpdate",
-                            "paramType": "body",
-                            "required": false
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "Have no permissions",
-                            "code": 401
-                        },
-                        {
-                            "reason": "Not all params correct.",
-                            "code": 400
-                        }
-                    ]
                 }
             ]
         }
-    ],
-    "models": {
-        "mapUpdate": {
-            "id": "mapUpdate",
-            "properties": {
-                "private_key": {
-                    "type": "string"
-                },
-                "lat": {
-                    "type": "string"
-                },
-                "lng": {
-                    "type": "string"
-                }
-            }
-        }
-    }
+    ]
 }
