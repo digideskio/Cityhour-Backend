@@ -126,6 +126,10 @@
                         {
                             "reason": "Not all params given.",
                             "code": 400
+                        },
+                        {
+                            "reason": "Server problem.",
+                            "code": 500
                         }
                     ],
                     "notes": ""

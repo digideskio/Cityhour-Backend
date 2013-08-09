@@ -21,83 +21,9 @@ class V1_ComplaintsController extends Zend_Rest_Controller
         $this->getAction();
     }
 
-    /**
-     *
-     * @SWG\Api(
-     *   path="/complaints/",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       httpMethod="GET",
-     *       summary="Get complaints.",
-     *       responseClass="void",
-     *       nickname="GetComplaints",
-     *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
-     *            code="401",
-     *            reason="Authentication failed."
-     *          ),
-     *          @SWG\ErrorResponse(
-     *            code="400",
-     *            reason="Not all params given."
-     *          )
-     *       ),
-     * @SWG\Parameter(
-     *           name="private_key",
-     *           description="private_key",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="string"
-     *         ),
-     * @SWG\Parameter(
-     *           name="type",
-     *           description="type",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="string"
-     *         ),
-     * @SWG\Parameter(
-     *           name="id",
-     *           description="item id",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="string"
-     *         )
-     *     )
-     *   )
-     * )
-     */
     public function getAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $token = $this->_request->getParam('private_key');
-        $type = $this->_request->getParam('type');
-        $id = $this->_request->getParam('id');
-        if ($token && $token != null && $token != '' && is_numeric($type) && is_numeric($id)) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Complaints();
-                $res = $db->getTo($id,$type);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
-        }
-        else {
-            $this->_helper->json->sendJson(array(
-                'errorCode' => '400'
-            ));
-        }
-
     }
 
     /**
@@ -126,6 +52,10 @@ class V1_ComplaintsController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="403",
+     *            reason="Already make complaint to this user."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -144,18 +74,34 @@ class V1_ComplaintsController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
-        $data = Zend_Json::decode($body);
+        $data = @Zend_Json::decode($body);
         if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '') {
+        if ($token && $token != null && $token != '' && isset($data['type']) && is_numeric($data['type']) && isset($data['to']) && is_numeric($data['to'])) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $data['from'] = $user['id'];
-                unset($data['private_key']);
                 $db = new Application_Model_DbTable_Complaints();
-                $db->addComplaint($data);
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '200'
-                ));
+                $res = $db->addComplaint(array(
+                    'type' => $data['type'],
+                    'from' => $user['id'],
+                    'to' => $data['to'],
+                    'dscr' => $data['dscr']
+                ), $user['id'], $data['to']);
+                if ($res === true) {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '200'
+                    ));
+                }
+                elseif ($res === 403) {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '403'
+                    ));
+                }
+                else {
+                    $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '500'
+                    ));
+                }
             }
             else {
                 $this->_helper->json->sendJson(array(
@@ -170,144 +116,14 @@ class V1_ComplaintsController extends Zend_Rest_Controller
         }
     }
 
-    /**
-     *
-     * @SWG\Model(id="complaintsUpdateParams")
-     * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="dscr",type="string")
-     * @SWG\Property(name="id",type="string")
-     *
-     *
-     * @SWG\Api(
-     *   path="/complaints/",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       httpMethod="PUT",
-     *       summary="Update complaint.",
-     *       responseClass="void",
-     *       nickname="UpdateComplaint",
-     *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
-     *            code="400",
-     *            reason="Not all params correct."
-     *          ),
-     *           @SWG\ErrorResponse(
-     *            code="401",
-     *            reason="Have no permissions."
-     *          )
-     *       ),
-     * @SWG\Parameter(
-     *           name="json",
-     *           description="json",
-     *           paramType="body",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="complaintsUpdateParams"
-     *         )
-     *     )
-     *   )
-     * )
-     */
     public function putAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $body = $this->getRequest()->getRawBody();
-        $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if (isset($data['dscr'])) $dscr = $data['dscr']; else $dscr = false;
-        if ($token && $token != null && $token != '' && is_numeric(isset($data['id'])) && $dscr && $dscr != null && $dscr != '') {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                unset($data['private_key']);
-                $db = new Application_Model_DbTable_Complaints();
-                $db->updateComplaint($data['id'],$dscr,$user['id']);
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
-        }
-        else {
-            $this->_helper->json->sendJson(array(
-                'errorCode' => '400'
-            ));
-        }
     }
 
-    /**
-     *
-     * @SWG\Api(
-     *   path="/complaints/",
-     *   @SWG\Operations(
-     *     @SWG\Operation(
-     *       httpMethod="DELETE",
-     *       summary="Delete complaint.",
-     *       responseClass="void",
-     *       nickname="DeleteComplaint",
-     *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
-     *            code="401",
-     *            reason="Authentication failed."
-     *          ),
-     *          @SWG\ErrorResponse(
-     *            code="400",
-     *            reason="Not all params given."
-     *          )
-     *       ),
-     * @SWG\Parameter(
-     *           name="private_key",
-     *           description="private_key",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="string"
-     *         ),
-     * @SWG\Parameter(
-     *           name="id",
-     *           description="id",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="int"
-     *         )
-     *     )
-     *   )
-     * )
-     */
     public function deleteAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-
-        $token = $this->getParam('private_key');
-        $id = $this->getParam('id');
-
-        if ($token && $token != null && $token != '' && is_numeric($id)) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Complaints();
-                $res = $db->deleteComplaint($user['id'],$id);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
-        }
-        else {
-            $this->_helper->json->sendJson(array(
-                'errorCode' => '400'
-            ));
-        }
     }
 
     public function headAction()

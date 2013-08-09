@@ -170,9 +170,14 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function getPeople($user,$data_from,$data_to,$city,$industry,$goals) {
         $user_id = $user['id'];
-        $res = $this->fetchAll("id != $user_id");
+        $res = $this->_db->fetchAll("
+            select group_concat(u.id)
+            from users u
+            where
+            id != $user_id
+        ");
         if ($res != null) {
-            $res = $this->prepeareUsers($res, true, $user);
+            $res = $this->prepeareUsers($res, $user);
             return $res;
         }
         else {

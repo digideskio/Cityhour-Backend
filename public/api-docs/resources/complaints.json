@@ -7,49 +7,6 @@
             "path": "/complaints/",
             "operations": [
                 {
-                    "httpMethod": "GET",
-                    "summary": "Get complaints.",
-                    "nickname": "GetComplaints",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "private_key",
-                            "description": "private_key",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "type",
-                            "description": "type",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "id",
-                            "description": "item id",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "Authentication failed.",
-                            "code": 401
-                        },
-                        {
-                            "reason": "Not all params given.",
-                            "code": 400
-                        }
-                    ],
-                    "notes": ""
-                },
-                {
                     "httpMethod": "POST",
                     "summary": "Add complaint.",
                     "nickname": "addComplaint",
@@ -72,68 +29,10 @@
                         {
                             "reason": "Have no permissions.",
                             "code": 401
-                        }
-                    ],
-                    "notes": ""
-                },
-                {
-                    "httpMethod": "PUT",
-                    "summary": "Update complaint.",
-                    "nickname": "UpdateComplaint",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "json",
-                            "description": "json",
-                            "allowMultiple": false,
-                            "dataType": "complaintsUpdateParams",
-                            "paramType": "body",
-                            "required": true
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "Not all params correct.",
-                            "code": 400
                         },
                         {
-                            "reason": "Have no permissions.",
-                            "code": 401
-                        }
-                    ],
-                    "notes": ""
-                },
-                {
-                    "httpMethod": "DELETE",
-                    "summary": "Delete complaint.",
-                    "nickname": "DeleteComplaint",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "private_key",
-                            "description": "private_key",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "id",
-                            "description": "id",
-                            "allowMultiple": false,
-                            "dataType": "int",
-                            "paramType": "query",
-                            "required": true
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "Authentication failed.",
-                            "code": 401
-                        },
-                        {
-                            "reason": "Not all params given.",
-                            "code": 400
+                            "reason": "Already make complaint to this user.",
+                            "code": 403
                         }
                     ],
                     "notes": ""
@@ -155,20 +54,6 @@
                     "type": "string"
                 },
                 "dscr": {
-                    "type": "string"
-                }
-            }
-        },
-        "complaintsUpdateParams": {
-            "id": "complaintsUpdateParams",
-            "properties": {
-                "private_key": {
-                    "type": "string"
-                },
-                "dscr": {
-                    "type": "string"
-                },
-                "id": {
                     "type": "string"
                 }
             }
