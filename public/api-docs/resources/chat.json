@@ -40,8 +40,44 @@
                         }
                     ],
                     "notes": ""
+                },
+                {
+                    "httpMethod": "POST",
+                    "summary": "Get Chat Talks.",
+                    "nickname": "GetChatTalks",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "ChatTalks",
+                            "paramType": "body",
+                            "required": false
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Have no permissions",
+                            "code": 401
+                        },
+                        {
+                            "reason": "Not all params given.",
+                            "code": 400
+                        }
+                    ]
                 }
             ]
         }
-    ]
+    ],
+    "models": {
+        "ChatTalks": {
+            "id": "ChatTalks",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        }
+    }
 }

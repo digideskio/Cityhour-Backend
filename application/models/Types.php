@@ -14,7 +14,8 @@ class Application_Model_Types
         return array(
             1 => 'facebook',
             2 => 'linkedin',
-            3 => 'email',
+            3 => 'address book',
+            4 => 'register linkedin'
         );
     }
 
@@ -50,7 +51,10 @@ class Application_Model_Types
 
     public static function push() {
         return array(
-            0 => 'Friend request'
+            0 => 'Meeting request',
+            1 => 'Meeting canceled',
+            2 => 'Meeting request accepted',
+            3 => 'New message'
         );
     }
 

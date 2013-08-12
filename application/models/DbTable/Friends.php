@@ -33,10 +33,6 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
             try {
                 $this->delete("(user_id = $user_id and friend_id = $id) or (user_id = $id and friend_id = $user_id)");
 
-                $db = new Application_Model_DbTable_UserContactsWait();
-                $db_user = new Application_Model_DbTable_Users();
-                $db->updateStatus($user, $db_user->getUser($id,false,'id',false,true), 0);
-
                 $this->_db->commit();
                 return true;
             } catch (Exception $e){
@@ -84,9 +80,6 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                             'text' => $text
                         ));
 
-                        $db = new Application_Model_DbTable_UserContactsWait();
-                        $db->updateStatus($user, $invite, 1);
-
                         $this->_db->commit();
                         return true;
                     } catch (Exception $e){
@@ -124,15 +117,10 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                     'status' => 1
                 ),"id = $id");
 
-                $db = new Application_Model_DbTable_UserContactsWait();
-                $db_user = new Application_Model_DbTable_Users();
-
                 $user_id = $user['id'];
                 $user_id2 = $notification['from'];
-                $user2 = $db_user->getUser($user_id2,false,'id',false,true);
 
                 if ($status == 2) {
-
                     $text = $user['name'].' '.$user['lastname'].' подтвердил ваш запрос';
                     $this->_db->insert('notifications',array(
                         'from' => $user_id2,
@@ -151,8 +139,6 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         'friend_id' => $user_id2,
                         'status' => 1
                     ));
-
-                    $db->updateStatus($user, $user2, 2);
                     $this->_db->insert('notifications',array(
                         'from' => $user_id,
                         'to' => $user_id2,
@@ -161,7 +147,6 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                     ));
                 }
                 elseif ($status == 3) {
-                    $db->updateStatus($user, $user2, 0);
                     $this->_db->insert('notifications',array(
                         'from' => $user_id,
                         'to' => $user_id2,

@@ -90,9 +90,69 @@ class V1_ChatController extends Zend_Rest_Controller
         }
     }
 
+
+    /**
+     *
+     * @SWG\Model(id="ChatTalks")
+     * @SWG\Property(name="private_key",type="string")
+     *
+     * @SWG\Api(
+     *   path="/chat/",
+     * @SWG\Operations(
+     * @SWG\Operation(
+     *       nickname="GetChatTalks",
+     *       summary="Get Chat Talks.",
+     *       httpMethod="POST",
+     *       responseClass="void",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="401",
+     *            reason="Have no permissions"
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params given."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
+     *           required="false",
+     *           allowMultiple="false",
+     *           dataType="ChatTalks"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key'])) $private_key = $data['private_key']; else $private_key = false;
+        if ($private_key && $private_key != null && $private_key != '') {
+            $user = Application_Model_DbTable_Users::getUserData($private_key);
+            if ($user) {
+                $db = new Application_Model_DbTable_Chat();
+                $res = $db->getTalks($user);
+                $this->_helper->json->sendJson(array(
+                    'body' => $res,
+                    'errorCode' => '200'
+                ));
+            }
+            else {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '401'
+                ));
+            }
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                'errorCode' => '400'
+            ));
+        }
     }
 
     public function putAction()

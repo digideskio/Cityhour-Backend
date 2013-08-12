@@ -65,6 +65,10 @@ class V1_PushController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions"
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params given."
      *          )
      *       ),
      * @SWG\Parameter(

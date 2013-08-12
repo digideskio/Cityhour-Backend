@@ -37,13 +37,42 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
     }
 
     public function getAll($user, $type, $token) {
+
+        // If registration using linkedin
+        if ($type == 4 && $user == false) {
+            $linkedin = new Application_Model_Linkedin();
+            $res = $linkedin->getFriends($token);
+
+            if (isset($res) && $res != null) {
+                return $res;
+            }
+            else {
+                return array();
+            }
+        }
+
         $id = $user['id'];
         if ($type == 1) {
             if ($token && $token != null && $token != '') {
                 $facebook = new Application_Model_Facebook();
                 $facebook->storeInfo($token,$id);
                 $res = $this->_db->fetchAll("
-                    select u.id, w.name, w.lastname, w.photo, w.status
+                    select u.id, w.name, w.lastname, w.photo, CASE
+                        when ( select distinct(f.id)
+                        from user_friends f
+                        where f.user_id = $id
+                        and f.friend_id = u.id
+                        and f.status = 1
+                        ) > 0 then 2
+                        when ( select distinct(n.id)
+                        from notifications n
+                        where n.from = $id
+                        and n.to = u.id
+                        and n.type = 0
+                        and n.status in (0,1)
+                        ) > 0 then 1
+                        else 0
+                      END as status
                     from users u
                     left join user_contacts_wait w on u.facebook_id = w.linkedin_id
                     where
@@ -59,7 +88,22 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             $linkedin = new Application_Model_Linkedin();
             $linkedin->storeInfo($token,$id);
             $res = $this->_db->fetchAll("
-                select u.id, w.name, w.lastname, w.photo, w.status
+                select u.id, w.name, w.lastname, w.photo, CASE
+                  	when ( select distinct(f.id)
+                  	from user_friends f
+                  	where f.user_id = $id
+                  	and f.friend_id = u.id
+                  	and f.status = 1
+                  	) > 0 then 2
+                  	when ( select distinct(n.id)
+                  	from notifications n
+                  	where n.from = $id
+                  	and n.to = u.id
+                  	and n.type = 0
+                  	and n.status in (0,1)
+                  	) > 0 then 1
+                 	else 0
+                  END as status
                 from users u
                 left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
                 where
@@ -106,23 +150,6 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         else {
             return array();
         }
-    }
-
-    public function updateStatus($user, $user2, $status) {
-        $user_id =  $user2['id'];
-        $facebook_id =  $user['facebook_id'];
-        $linkedin_id =  $user['linkedin_id'];
-        $this->update(array(
-            'status' => $status
-        ),"user_id = $user_id and (linkedin_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
-
-        $user_id =  $user['id'];
-        $facebook_id =  $user2['facebook_id'];
-        $linkedin_id =  $user2['linkedin_id'];
-        $this->update(array(
-            'status' => $status
-        ),"user_id = $user_id and (linkedin_id = '$facebook_id' or linkedin_id = '$linkedin_id')");
-        return true;
     }
 
 }

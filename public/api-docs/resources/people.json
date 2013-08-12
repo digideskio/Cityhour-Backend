@@ -26,7 +26,7 @@
                             "allowMultiple": false,
                             "dataType": "timestamp",
                             "paramType": "query",
-                            "required": false
+                            "required": true
                         },
                         {
                             "name": "data_to",
@@ -34,7 +34,7 @@
                             "allowMultiple": false,
                             "dataType": "timestamp",
                             "paramType": "query",
-                            "required": false
+                            "required": true
                         },
                         {
                             "name": "city",
@@ -42,7 +42,7 @@
                             "allowMultiple": false,
                             "dataType": "int",
                             "paramType": "query",
-                            "required": false
+                            "required": true
                         },
                         {
                             "name": "industry",
@@ -55,6 +55,14 @@
                         {
                             "name": "goals",
                             "description": "Goals",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": false
+                        },
+                        {
+                            "name": "after",
+                            "description": "After whaAt?!",
                             "allowMultiple": false,
                             "dataType": "int",
                             "paramType": "query",

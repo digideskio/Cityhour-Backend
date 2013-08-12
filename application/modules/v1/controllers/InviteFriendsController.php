@@ -31,6 +31,12 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
 
     /**
      *
+     * @SWG\Model(id="inviteFriendsFind")
+     * @SWG\Property(name="token",type="string")
+     * @SWG\Property(name="type",type="int")
+     * @SWG\Property(name="private_key",type="string")
+     *
+     *
      * @SWG\Api(
      *   path="/inviteFriends/",
      *   @SWG\Operations(
@@ -51,28 +57,12 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *          )
      *       ),
      * @SWG\Parameter(
-     *           name="token",
-     *           description="token",
-     *           paramType="query",
-     *           required="false",
-     *           allowMultiple="false",
-     *           dataType="string/json"
-     *         ),
-     * @SWG\Parameter(
-     *           name="private_key",
-     *           description="private_key",
-     *           paramType="query",
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="string"
-     *         ),
-     *  @SWG\Parameter(
-     *           name="type",
-     *           description="type",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="int"
+     *           dataType="inviteFriendsFind"
      *         )
      *     )
      *   )
@@ -88,23 +78,38 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
         if (isset($data['private_key'])) $private_key = $data['private_key']; else $private_key = false;
         if (isset($data['type'])) $type = $data['type']; else $type = false;
 
-        $db_types = new Application_Model_Types();
-        $types = $db_types->getInvetes();
-        if ($private_key && $private_key != null && $private_key != '' && array_key_exists($type, $types)) {
-            $db = new Application_Model_DbTable_UserContactsWait();
-            $user = Application_Model_DbTable_Users::getUserData($private_key);
-            if ($user) {
-                $res = $db->getAll($user,$type,$token);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
+        if ($private_key && $private_key != null && $private_key != '') {
+            $db_types = new Application_Model_Types();
+            $types = $db_types->getInvetes();
+            if (array_key_exists($type, $types)) {
+                $db = new Application_Model_DbTable_UserContactsWait();
+                $user = Application_Model_DbTable_Users::getUserData($private_key);
+                if ($user) {
+                    $res = $db->getAll($user,$type,$token);
+                    $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '200'
+                    ));
+                }
+                else {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '401'
+                    ));
+                }
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'errorCode' => '400'
                 ));
             }
+        }
+        elseif ($token && $type == 4) {
+            $db = new Application_Model_DbTable_UserContactsWait();
+            $res = $db->getAll(false,$type,$token);
+            $this->_helper->json->sendJson(array(
+                'body' => $res,
+                'errorCode' => '200'
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(

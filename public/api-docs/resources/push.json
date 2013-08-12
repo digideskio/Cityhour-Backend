@@ -25,6 +25,10 @@
                         {
                             "reason": "Have no permissions",
                             "code": 401
+                        },
+                        {
+                            "reason": "Not all params given.",
+                            "code": 400
                         }
                     ]
                 },

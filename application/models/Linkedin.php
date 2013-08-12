@@ -179,5 +179,70 @@ class Application_Model_Linkedin
         return true;
     }
 
+    public function getFriends($token) {
+        $params = array('oauth2_access_token' => $token,
+            'format' => 'json',
+        );
+        $url = 'https://api.linkedin.com/v1/people/~/connections:(id,firstName,lastName,picture-url)?' . http_build_query($params);
+        $context = stream_context_create(
+            array('http' =>
+            array('method' => 'GET',
+            )
+            )
+        );
+        try {
+            $friends = @file_get_contents($url, false, $context);
+            $friends = json_decode($friends, true);
+        }
+        catch (Exception $e) {
+            return false;
+        }
+
+        if (isset($friends['values'])) {
+            $friends = $friends['values'];
+            $users_in = array();
+            $res = array();
+
+            foreach ($friends as $num=>$row) {
+                if ($row['id'] != 'private') {
+                    array_push($users_in,$row['id']);
+                }
+            }
+
+            $users_in = "'".implode("','",$users_in)."'";
+            $db = new Application_Model_DbTable_Users();
+            $users = $db->fetchAll("linkedin_id in ($users_in)")->toArray();
+            foreach ($friends as $num=>$row) {
+                $user_id = $this->findId($users, $row['id']);
+                if ($user_id) {
+                    $user_id = $users[$user_id]['id'];
+                    if (!isset($row['pictureUrl'])) $row['pictureUrl'] = '';
+
+                    array_push($res,array(
+                        'name' => $row['firstName'],
+                        'lastname' => $row['lastName'],
+                        'linkedin_id' => $row['id'],
+                        'user_id' => $user_id,
+                        'status' => 0,
+                        'photo' => $row['pictureUrl']
+                    ));
+                }
+            }
+        }
+        else {
+            $res = array();
+        }
+
+        return $res;
+    }
+
+    private function findId($users, $lid) {
+        foreach ($users as $num=>$row) {
+            if (in_array($lid, $row)) {
+                return $num;
+            }
+        }
+        return false;
+    }
 }
 

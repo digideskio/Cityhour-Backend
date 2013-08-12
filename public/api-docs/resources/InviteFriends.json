@@ -13,27 +13,11 @@
                     "responseClass": "void",
                     "parameters": [
                         {
-                            "name": "token",
-                            "description": "token",
+                            "name": "json",
+                            "description": "json",
                             "allowMultiple": false,
-                            "dataType": "string/json",
-                            "paramType": "query",
-                            "required": false
-                        },
-                        {
-                            "name": "private_key",
-                            "description": "private_key",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "type",
-                            "description": "type",
-                            "allowMultiple": false,
-                            "dataType": "int",
-                            "paramType": "query",
+                            "dataType": "inviteFriendsFind",
+                            "paramType": "body",
                             "required": true
                         }
                     ],
@@ -51,5 +35,21 @@
                 }
             ]
         }
-    ]
+    ],
+    "models": {
+        "inviteFriendsFind": {
+            "id": "inviteFriendsFind",
+            "properties": {
+                "token": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "int"
+                },
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        }
+    }
 }
