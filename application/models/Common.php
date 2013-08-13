@@ -66,7 +66,7 @@ class Application_Model_Common
 
     public static function getCity($city) {
         $data = Zend_Db_Table::getDefaultAdapter()->fetchRow("
-            select city_name, lat, lng
+            select city, city_name, lat, lng
             from city
             where city = '$city'
         ");
@@ -79,9 +79,9 @@ class Application_Model_Common
 
             $client = new Zend_Http_Client($url);
             $req = json_decode($client->request()->getBody(), true);
-
             if ($req['status'] == 'OK') {
-                $data['city_name'] = $req['result']['address_components'][0]['short_name'];
+                $data['city_name'] = $req['result']['formatted_address'];
+                $data['city'] = $city;
                 $data['lat'] = $req['result']['geometry']['location']['lat'];
                 $data['lng'] = $req['result']['geometry']['location']['lng'];
                 Zend_Db_Table::getDefaultAdapter()->insert('city',array(
@@ -100,7 +100,7 @@ class Application_Model_Common
 
     public static function getPlace($place) {
         $data = Zend_Db_Table::getDefaultAdapter()->fetchRow("
-            select place, lat, lng
+            select foursquare_id, place, lat, lng
             from place
             where foursquare_id = '$place'
         ");
@@ -118,6 +118,7 @@ class Application_Model_Common
                 $data['place'] = $req['response']['venue']['name'];
                 $data['lat'] = $req['response']['venue']['location']['lat'];
                 $data['lng'] = $req['response']['venue']['location']['lng'];
+                $data['foursquare_id'] = $place;
                 Zend_Db_Table::getDefaultAdapter()->insert('city',array(
                     'foursquare_id' => $place,
                     'place' => $data['place'],

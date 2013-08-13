@@ -51,6 +51,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             }
         }
 
+        // Facebook
         $id = $user['id'];
         if ($type == 1) {
             if ($token && $token != null && $token != '') {
@@ -83,6 +84,8 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 return array();
             }
         }
+
+        // Linkedin
         else if ($type == 2) {
             $token =  $user['linkedin_key'];
             $linkedin = new Application_Model_Linkedin();
@@ -110,6 +113,8 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   user_id = $id and w.type = 2
             ");
         }
+
+        //Address book
         else if ($type == 3) {
             $token = @json_decode($token,true);
             $emails = "'".implode("','",$token['emails'])."'";
@@ -142,6 +147,21 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   ( u.phone in ($phones) or u.email in ($emails) or u.business_email in ($emails) )
                   and u.id != $id
             ");
+        }
+        else if ($type == 5) {
+            $validator = new Zend_Validate_EmailAddress();
+            if (isset($token['email']) && isset($token['name']) && $validator->isValid($token['email'])) {
+                $options = array(
+                    'name' => $token['name'],
+                    'user_name' => $user['name'].' '.$user['lastname']
+                );
+                Application_Model_Common::sendEmail($token['email'], "Скачай приложение!", null, null, null, "invite_email.phtml", $options, 'invite');
+
+                $res = true;
+            }
+            else {
+                $res = false;
+            }
         }
 
         if (isset($res) && $res != null) {

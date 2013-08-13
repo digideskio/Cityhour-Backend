@@ -15,7 +15,8 @@ class Application_Model_Types
             1 => 'facebook',
             2 => 'linkedin',
             3 => 'address book',
-            4 => 'register linkedin'
+            4 => 'register linkedin',
+            5 => 'email'
         );
     }
 
