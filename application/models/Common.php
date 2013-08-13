@@ -4,14 +4,64 @@ class Application_Model_Common
 {
 
     public static function UpdateCompleteness($id) {
-        return 0;
+//        $first_name = 5;
+//        $last_name = 5;
+//        $job = 15;
+//        $city = 5;
+//        $industry = 10;
+
+        $answer = 40;
+
+        $res = Zend_Db_Table::getDefaultAdapter()->fetchRow("
+            select u.photo, u.phone, u.business_email, u.skype, u.summary,
+            ( select s.id from user_skills s where s.user_id = $id limit 1 ) as skills,
+            ( select l.languages_id from user_languages l where l.user_id = $id limit 1 ) as languages,
+            ( select j.id from user_jobs j where j.type = 1 and j.user_id = $id limit 1 ) as education
+            from users u
+            where u.id = $id
+        ");
+
+        $answer = $answer + ($res['photo'] != null ? 15 : 0);
+        $answer = $answer + ($res['phone'] != null ? 5 : 0);
+        $answer = $answer + ($res['business_email'] != null ? 5 : 0);
+        $answer = $answer + ($res['skype'] != null ? 5 : 0);
+        $answer = $answer + ($res['summary'] != null ? 10 : 0);
+        $answer = $answer + ($res['skills'] != null ? 10 : 0);
+        $answer = $answer + ($res['languages'] != null ? 5 : 0);
+        $answer = $answer + ($res['languages'] != null ? 5 : 0);
+
+        return $answer;
     }
 
     public static function UpdateExperience($id) {
-//        $d1 = date_create($row['start_time']);
-//        $d2 = date_create($row['end_time']);
-//        $experience = $experience + $d1->diff($d2)->m;
-        return 0;
+        $res = Zend_Db_Table::getDefaultAdapter()->fetchAll("
+            select j.id, j.user_id, j.name, j.company, j.current, j.start_time, j.end_time
+            from user_jobs j
+            where j.user_id = $id
+            and j.type = 0
+            order by j.start_time asc
+        ");
+
+        if ($res) {
+            $min = new DateTime($res[0]['start_time']);
+            $max = new DateTime(date('Y-m-d H:i:s',time()));
+            $end = $res[0]['end_time'];
+            $all = $max->diff($min);
+            $month = 0;
+            foreach ($res as $num => $row) {
+                if (strtotime($row['start_time']) > strtotime($end)) {
+                    $min = new DateTime($row['start_time']);
+                    $max = new DateTime($end);
+                    $diff = $max->diff($min);
+                    $month = $month + (int)$diff->format('%y')*12 + (int)$diff->format('%m');
+                }
+                if (strtotime($row['end_time']) > strtotime($end)) {
+                    $end = $row['end_time'];
+                }
+            }
+        }
+        $all = (int)$all->format('%y')*12 + (int)$all->format('%m') - $month;
+        return round($all/12);
     }
 
     public static function getCity($city) {

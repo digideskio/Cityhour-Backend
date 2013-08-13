@@ -1,28 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="rebuild calendar&#10;">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_13763031425208b826144b2.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_13763042475208bc774622d.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_13763043615208bce945eab.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_13763065555208c57b07d71.jpeg" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/upload/userPic_13763174535208f00df2149.jpeg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Chat.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Chat.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Friends.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/InviteFriends.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/InviteFriends.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" />
+    <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Common.php" afterPath="$PROJECT_DIR$/application/models/Common.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Linkedin.php" afterPath="$PROJECT_DIR$/application/models/Linkedin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MeetRocket.iml" afterPath="$PROJECT_DIR$/.idea/MeetRocket.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Types.php" afterPath="$PROJECT_DIR$/application/models/Types.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" afterPath="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Users.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Users.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/chat.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/chat.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/people.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/people.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/php.log" afterPath="$PROJECT_DIR$/logs/php.log" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/push.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/push.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MeetRocket.iws" />
@@ -51,38 +36,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="InviteFriendsController.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php">
+      <file leaf-file-name="Common.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/application/models/Common.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="78" column="76" selection-start="2048" selection-end="2048" vertical-scroll-proportion="0.49746192" vertical-offset="582" max-vertical-offset="2205">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Linkedin.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/Linkedin.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="200" column="40" selection-start="7243" selection-end="7243" vertical-scroll-proportion="-28.291666" vertical-offset="2321" max-vertical-offset="3810">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserContactsWait.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="43" column="38" selection-start="1264" selection-end="1264" vertical-scroll-proportion="-16.125" vertical-offset="258" max-vertical-offset="2400">
+            <state line="23" column="61" selection-start="799" selection-end="799" vertical-scroll-proportion="0.29237288" vertical-offset="0" max-vertical-offset="3210">
               <folding>
-                <marker date="1376318028000" expanded="true" signature="1734:2612" placeholder="select u.id,..users..." />
-                <marker date="1376318028000" expanded="true" signature="1812:2011" placeholder="select disti..user_friends..." />
-                <marker date="1376318028000" expanded="true" signature="2080:2314" placeholder="select disti..notifications..." />
-                <marker date="1376318028000" expanded="true" signature="2960:3747" placeholder="select u.id,..users..." />
-                <marker date="1376318028000" expanded="true" signature="3033:3212" placeholder="select disti..user_friends..." />
-                <marker date="1376318028000" expanded="true" signature="3271:3480" placeholder="select disti..notifications..." />
-                <marker date="1376318028000" expanded="true" signature="4266:5116" placeholder="select disti..users..." />
-                <marker date="1376318028000" expanded="true" signature="4391:4570" placeholder="select disti..user_friends..." />
-                <marker date="1376318028000" expanded="true" signature="4629:4838" placeholder="select disti..notifications..." />
+                <marker date="1376385580000" expanded="true" signature="313:724" placeholder="select u.pho..users..." />
+                <marker date="1376385580000" expanded="true" signature="390:450" placeholder="select s.id ..user_skills..." />
+                <marker date="1376385580000" expanded="true" signature="478:551" placeholder="select l.lan..user_languages..." />
+                <marker date="1376385580000" expanded="true" signature="582:655" placeholder="select j.id ..user_jobs..." />
+                <marker date="1376385580000" expanded="true" signature="1406:1612" placeholder="select j.id,..user_jobs..." />
+                <marker date="1376385580000" expanded="true" signature="2637:2718" placeholder="select city_..city..." />
+                <marker date="1376385580000" expanded="true" signature="3891:3979" placeholder="select place..place..." />
               </folding>
             </state>
           </provider>
@@ -135,22 +100,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/configs/application.ini" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/PushMessages.php" />
-        <option value="$PROJECT_DIR$/logs/php.log" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Push.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/MapController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Map.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/PushController.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Chat.php" />
         <option value="$PROJECT_DIR$/application/models/Types.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php" />
-        <option value="$PROJECT_DIR$/application/models/Linkedin.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
+        <option value="$PROJECT_DIR$/application/models/Linkedin.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
+        <option value="$PROJECT_DIR$/application/models/Common.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Goals.php" />
+        <option value="$PROJECT_DIR$/logs/php.log" />
       </list>
     </option>
   </component>
@@ -803,7 +768,11 @@
       <created>1375433495663</created>
       <updated>1375433495663</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add register find friends">
+      <created>1376318229372</created>
+      <updated>1376318229372</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -832,22 +801,22 @@
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33770883" sideWeight="0.3922559" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32901135" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.29315832" sideWeight="0.67126626" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3987034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3261563" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32548702" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12688942" sideWeight="0.6709887" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.6077441" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.12688942" sideWeight="0.67126626" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60714287" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.62918663" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
@@ -873,7 +842,8 @@
     <MESSAGE value="add city" />
     <MESSAGE value="add weekend" />
     <MESSAGE value="rebuild calendar&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="rebuild calendar&#10;" />
+    <MESSAGE value="add register find friends" />
+    <option name="LAST_COMMIT_MESSAGE" value="add register find friends" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -894,66 +864,20 @@
           <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="62" />
+      <option name="time" value="64" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/GoalsController.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1230">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/ComplaintsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="-0.5329949" vertical-offset="630" max-vertical-offset="2205">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PushController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="71" column="17" selection-start="1761" selection-end="1761" vertical-scroll-proportion="0.2715736" vertical-offset="744" max-vertical-offset="3600">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/ChatController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="29" selection-start="2929" selection-end="2929" vertical-scroll-proportion="0.36548224" vertical-offset="1188" max-vertical-offset="2760">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Chat.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="13" selection-start="980" selection-end="980" vertical-scroll-proportion="0.44416243" vertical-offset="0" max-vertical-offset="1182">
-          <folding>
-            <marker date="1376312894000" expanded="true" signature="-1:-1" placeholder="select max(t..from..." />
-            <marker date="1376312894000" expanded="true" signature="-1:-1" placeholder="select c.fro..chat..." />
-            <marker date="1376312894000" expanded="true" signature="-1:-1" placeholder="select c.to ..chat..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/logs/php.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="859">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="42" column="126" selection-start="1647" selection-end="1647" vertical-scroll-proportion="0.52238804" vertical-offset="0" max-vertical-offset="1206">
+        <state line="64" column="45" selection-start="1538" selection-end="1538" vertical-scroll-proportion="-15.75" vertical-offset="582" max-vertical-offset="2205">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/Types.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="12" selection-start="346" selection-end="346" vertical-scroll-proportion="0.21573605" vertical-offset="0" max-vertical-offset="1182">
+        <state line="17" column="12" selection-start="346" selection-end="346" vertical-scroll-proportion="0.21610169" vertical-offset="0" max-vertical-offset="1180">
           <folding />
         </state>
       </provider>
@@ -965,69 +889,124 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php">
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Calendar.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="120" column="35" selection-start="3675" selection-end="3675" vertical-scroll-proportion="0.8604061" vertical-offset="783" max-vertical-offset="2565">
+        <state line="45" column="80" selection-start="1367" selection-end="1410" vertical-scroll-proportion="0.5720339" vertical-offset="0" max-vertical-offset="1275">
+          <folding>
+            <marker date="1375687577000" expanded="true" signature="-1:-1" placeholder="select group..calendar..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Industries.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/NotificationsController.php">
+    <entry file="file://$PROJECT_DIR$/application/models/Linkedin.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="91" column="7" selection-start="2293" selection-end="2430" vertical-scroll-proportion="-8.75" vertical-offset="1155" max-vertical-offset="2655">
+        <state line="55" column="76" selection-start="2115" selection-end="2115" vertical-scroll-proportion="0.7069409" vertical-offset="0" max-vertical-offset="3810">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="209" column="46" selection-start="6992" selection-end="6992" vertical-scroll-proportion="0.7076271" vertical-offset="2300" max-vertical-offset="3735">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/Facebook.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="53" column="11" selection-start="1728" selection-end="1731" vertical-scroll-proportion="0.56852794" vertical-offset="123" max-vertical-offset="1305">
-          <folding>
-            <marker date="1375874562000" expanded="true" signature="-1:-1" placeholder="SELECT uid, ..user..." />
-          </folding>
+        <state line="75" column="35" selection-start="2528" selection-end="2528" vertical-scroll-proportion="0.84745765" vertical-offset="125" max-vertical-offset="1305">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Friends.php">
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="11" selection-start="394" selection-end="394" vertical-scroll-proportion="0.13113368" vertical-offset="85" max-vertical-offset="2625">
+        <state line="280" column="17" selection-start="10753" selection-end="10753" vertical-scroll-proportion="0.62982005" vertical-offset="3465" max-vertical-offset="8325">
           <folding>
-            <marker date="1376317773000" expanded="true" signature="-1:-1" placeholder="select group..user_friends..." />
-            <marker date="1376317773000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
-            <marker date="1376317773000" expanded="true" signature="-1:-1" placeholder="select id fr..notifications..." />
-            <marker date="1376317773000" expanded="true" signature="-1:-1" placeholder="select * fro..notifications..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select disti..users..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select disti..calendar..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select disti..user_friends..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select disti..calendar..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select orig ..user_photos..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select id fr..user_friends..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select id fr..calendar..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select u.id ..users..." />
+            <marker date="1376384083000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="38" selection-start="1264" selection-end="1264" vertical-scroll-proportion="-16.125" vertical-offset="258" max-vertical-offset="2400">
+        <state line="109" column="46" selection-start="3747" selection-end="3747" vertical-scroll-proportion="0.3516949" vertical-offset="1220" max-vertical-offset="2400">
           <folding>
-            <marker date="1376318028000" expanded="true" signature="1734:2612" placeholder="select u.id,..users..." />
-            <marker date="1376318028000" expanded="true" signature="1812:2011" placeholder="select disti..user_friends..." />
-            <marker date="1376318028000" expanded="true" signature="2080:2314" placeholder="select disti..notifications..." />
-            <marker date="1376318028000" expanded="true" signature="2960:3747" placeholder="select u.id,..users..." />
-            <marker date="1376318028000" expanded="true" signature="3033:3212" placeholder="select disti..user_friends..." />
-            <marker date="1376318028000" expanded="true" signature="3271:3480" placeholder="select disti..notifications..." />
-            <marker date="1376318028000" expanded="true" signature="4266:5116" placeholder="select disti..users..." />
-            <marker date="1376318028000" expanded="true" signature="4391:4570" placeholder="select disti..user_friends..." />
-            <marker date="1376318028000" expanded="true" signature="4629:4838" placeholder="select disti..notifications..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select u.id,..users..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select disti..user_friends..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select disti..notifications..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select u.id,..users..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select disti..user_friends..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select disti..notifications..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select disti..users..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select disti..user_friends..." />
+            <marker date="1376382282000" expanded="true" signature="-1:-1" placeholder="select disti..notifications..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Linkedin.php">
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Goals.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="200" column="40" selection-start="7243" selection-end="7243" vertical-scroll-proportion="-28.291666" vertical-offset="2321" max-vertical-offset="3810">
+        <state line="7" column="30" selection-start="142" selection-end="142" vertical-scroll-proportion="0.08898305" vertical-offset="0" max-vertical-offset="1180">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/InviteFriendsController.php">
+    <entry file="file://$PROJECT_DIR$/logs/php.log">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="78" column="76" selection-start="2048" selection-end="2048" vertical-scroll-proportion="0.49746192" vertical-offset="582" max-vertical-offset="2205">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="859">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/configs/development.pem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/configs/production.pem">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/Common.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="23" column="61" selection-start="799" selection-end="799" vertical-scroll-proportion="0.29237288" vertical-offset="0" max-vertical-offset="3210">
+          <folding>
+            <marker date="1376385580000" expanded="true" signature="313:724" placeholder="select u.pho..users..." />
+            <marker date="1376385580000" expanded="true" signature="390:450" placeholder="select s.id ..user_skills..." />
+            <marker date="1376385580000" expanded="true" signature="478:551" placeholder="select l.lan..user_languages..." />
+            <marker date="1376385580000" expanded="true" signature="582:655" placeholder="select j.id ..user_jobs..." />
+            <marker date="1376385580000" expanded="true" signature="1406:1612" placeholder="select j.id,..user_jobs..." />
+            <marker date="1376385580000" expanded="true" signature="2637:2718" placeholder="select city_..city..." />
+            <marker date="1376385580000" expanded="true" signature="3891:3979" placeholder="select place..place..." />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -54,7 +54,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     if (!isset($row['end_time'])) {
                         $row['end_time'] = $row['start_time'];
                     }
-                    if ($row['id']) {
+                    if (isset($row['id'])) {
                         $job_id = $row['id'];
                         $this->_db->update('user_jobs',array(
                             'name' => $row['name'],
@@ -83,7 +83,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             //Education
             if (isset($data['education'])) {
                 foreach($data['education'] as $num=>$row) {
-                    if ($row['id']) {
+                    if (isset($row['id'])) {
                         $job_id = $row['id'];
                         $this->_db->update('user_jobs',array(
                             'name' => $row['name'],
@@ -270,8 +270,14 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
 
             foreach($data['jobs'] as $num=>$row) {
-                if (!$row['current'] || is_numeric($row['current'])) {
+                if (!$row['current'] || $row['current'] === false ) {
                     $row['current'] = 0;
+                }
+                elseif ($row['current'] === true) {
+                    $row['current'] = 1;
+                }
+                if (!isset($row['end_time'])) {
+                    $row['end_time'] = $row['start_time'];
                 }
                 $this->_db->insert('user_jobs',array(
                     'user_id' => $id,
@@ -294,16 +300,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     'end_time' => $row['end_time'],
                     'type' => 1
                 ));
-            }
-
-            if (isset($userData['facebook_key'])) {
-                $facebook = new Application_Model_Facebook();
-                $facebook->storeInfo($userData['facebook_key'],$id);
-            }
-
-            if (isset($userData['linkedin_key'])) {
-                $facebook = new Application_Model_Linkedin();
-                $facebook->storeInfo($userData['linkedin_key'],$id);
             }
 
             $photo = null;

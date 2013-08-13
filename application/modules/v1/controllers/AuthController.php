@@ -178,7 +178,7 @@ class V1_AuthController extends Zend_Rest_Controller
          *          ),
          *          @SWG\ErrorResponse(
          *            code="405",
-         *            reason="User not found on Facebook."
+         *            reason="User not found socNetwork."
          *          )
          *       ),
          * @SWG\Parameter(

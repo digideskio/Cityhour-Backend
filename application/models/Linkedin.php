@@ -222,7 +222,7 @@ class Application_Model_Linkedin
                         'name' => $row['firstName'],
                         'lastname' => $row['lastName'],
                         'linkedin_id' => $row['id'],
-                        'user_id' => $user_id,
+                        'id' => $user_id,
                         'status' => 0,
                         'photo' => $row['pictureUrl']
                     ));

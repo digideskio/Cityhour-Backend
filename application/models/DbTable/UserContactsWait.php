@@ -27,7 +27,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
     }
 
     public function updateFacebookData($data,$id, $user_id) {
-        $this->update($data,"facebook_id = '$id' and user_id = $user_id");
+        $this->update($data,"linkedin_id = '$id' and user_id = $user_id");
         return true;
     }
 
