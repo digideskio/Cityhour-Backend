@@ -3,6 +3,17 @@
 class Application_Model_Common
 {
 
+    public static function updateContacts($id,$add) {
+        if ($add) {
+            Zend_Db_Table::getDefaultAdapter()->query("update users set contacts = (contacts + 1) where id in ($id)");
+        }
+        else {
+            Zend_Db_Table::getDefaultAdapter()->query("update users set contacts = (contacts - 1) where id in ($id)");
+        }
+        return true;
+    }
+
+
     public static function UpdateCompleteness($id) {
 //        $first_name = 5;
 //        $last_name = 5;

@@ -70,7 +70,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                         where n.from = $id
                         and n.to = u.id
                         and n.type = 0
-                        and n.status in (0,1)
+                        and n.status = 0
                         ) > 0 then 1
                         else 0
                       END as status
@@ -103,7 +103,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   	where n.from = $id
                   	and n.to = u.id
                   	and n.type = 0
-                  	and n.status in (0,1)
+                  	and n.status = 0
                   	) > 0 then 1
                  	else 0
                   END as status
@@ -116,9 +116,9 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
 
         //Address book
         else if ($type == 3) {
-            $token = @json_decode($token,true);
-            $emails = "'".implode("','",$token['emails'])."'";
-            $phones = "'".implode("','",$token['phones'])."'";
+            $phones = "u.phone like '%".implode("%' or u.phone like '%",$token['phones'])."%'";
+            $emails = "u.email like '%".implode("%' or u.email like '%",$token['emails'])."%'";
+            $business_emails = "u.business_email like '%".implode("%' or u.business_email like '%",$token['emails'])."%'";
             if (!$emails) $emails = 0;
             if (!$phones) $phones = 0;
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
@@ -138,24 +138,26 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   	where n.from = $id
                   	and n.to = u.id
                   	and n.type = 0
-                  	and n.status in (0,1)
+                  	and n.status = 0
                   	) > 0 then 1
                  	else 0
                   END as status
                   from users u
                   where
-                  ( u.phone in ($phones) or u.email in ($emails) or u.business_email in ($emails) )
+                  ( $phones or $emails or $business_emails )
                   and u.id != $id
             ");
         }
+
+        // Email
         else if ($type == 5) {
             $validator = new Zend_Validate_EmailAddress();
-            if (isset($token['email']) && isset($token['name']) && $validator->isValid($token['email'])) {
+            if (isset($token['emails'][0]) && isset($token['name']) && $validator->isValid($token['emails'][0])) {
                 $options = array(
                     'name' => $token['name'],
                     'user_name' => $user['name'].' '.$user['lastname']
                 );
-                Application_Model_Common::sendEmail($token['email'], "Скачай приложение!", null, null, null, "invite_email.phtml", $options, 'invite');
+                Application_Model_Common::sendEmail($token['emails'][0], "Скачай приложение!", null, null, null, "invite_email.phtml", $options, 'invite');
 
                 $res = true;
             }

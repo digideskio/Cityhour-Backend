@@ -69,11 +69,10 @@ class V1_PhotoController extends Zend_Rest_Controller
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $config = $this->getInvokeArg('bootstrap')->getOption('userPhoto');
-        $folder_upload = $config['upload'];
+
         $upload = new Zend_File_Transfer_Adapter_Http();
         $upload->addValidator('IsImage', false);
-        $upload->setDestination($folder_upload);
+
         $files = $upload->getFileInfo();
         if (isset($files['file'])) {
             $file = $files['file'];
@@ -81,16 +80,17 @@ class V1_PhotoController extends Zend_Rest_Controller
             if($upload->isValid('file')){
                 $ext = pathinfo($file['name']);
                 $filename = 'userPic_'.$rrr.'.'.$ext['extension'];
-                move_uploaded_file($file['tmp_name'], $folder_upload.$filename);
+
+                $config = $this->getInvokeArg('bootstrap')->getOption('userPhoto');
 
                 $private_key = $this->_request->getParam('private_key');
-                $url = $config['url'];
                 $db = new Application_Model_DbTable_UserPhotos();
-                $id = $db->makePhoto($filename,$private_key);
+                $id = $db->makePhoto($filename,$private_key,$config,$file['tmp_name']);
+
                 $this->_helper->json->sendJson(array(
                     'body' => array(
                         'id' => $id,
-                        'url' => $url.$filename
+                        'url' => $config['url'].$filename
                     ),
                     'errorCode' => '200'
                 ));

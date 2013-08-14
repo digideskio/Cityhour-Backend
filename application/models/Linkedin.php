@@ -40,29 +40,36 @@ class Application_Model_Linkedin
             catch (Exception $e) {
                 $picture = null;
             }
-            $user_profile['photo'] = $picture['values'][0];
+            $photo = $picture['values'][0];
+
 
             //get jobs
             $jobs = null;
-            foreach ($user_profile['positions']['values'] as $num=>$row) {
-                $jobs[$num] = array(
-                    'name' => $row['title'],
-                    'company' => $row['company']['name'],
-                    'current' => $row['isCurrent'],
-                    'start_time' => date('Y-m-d',mktime(0,0,0,(int)$row['startDate']['month'],1,(int)$row['startDate']['year']))
-                );
-                if ($row['isCurrent']) {
-                    $jobs[$num]['end_time'] = null;
-                    $user_profile['industry'] = $row['company']['industry'];
-                }
-                else {
-                    $jobs[$num]['end_time'] = date('Y-m-d',mktime(0,0,0,(int)$row['endDate']['month'],1,(int)$row['endDate']['year']));
+            $industry_id = 0;
+            if (isset($user_profile['positions']['values'])) {
+                foreach ($user_profile['positions']['values'] as $num=>$row) {
+                    $start_m =  (isset($row['startDate']['month'])) ? (int)$row['startDate']['month']:1;
+                    $end_m =  (isset($row['endDate']['month'])) ? (int)$row['endDate']['month']:1;
+
+                    $jobs[$num] = array(
+                        'name' => $row['title'],
+                        'company' => $row['company']['name'],
+                        'current' => $row['isCurrent'],
+                        'start_time' => date('Y-m-d',mktime(0,0,0,$start_m,1,(int)$row['startDate']['year']))
+                    );
+                    if ($row['isCurrent']) {
+                        $jobs[$num]['end_time'] = null;
+                        $industry_id = $row['company']['industry'];
+                    }
+                    else {
+                        $jobs[$num]['end_time'] = date('Y-m-d',mktime(0,0,0,$end_m,1,(int)$row['endDate']['year']));
+                    }
                 }
             }
 
             //get Industry ID
             $industry = new Application_Model_DbTable_Industries();
-            $user_profile['industry'] = $industry->getID($user_profile['industry']);
+            $industry_id = $industry->getID($industry_id);
 
             //Get phone
             $phone = null;
@@ -72,9 +79,11 @@ class Application_Model_Linkedin
 
             //Get skype
             $skype = null;
-            foreach ($user_profile['imAccounts']['values'] as $num=>$row) {
-                if ($row['imAccountType']) {
-                    $skype = $row['imAccountName'];
+            if (isset($user_profile['imAccounts']['values'])) {
+                foreach ($user_profile['imAccounts']['values'] as $num=>$row) {
+                    if ($row['imAccountType']) {
+                        $skype = $row['imAccountName'];
+                    }
                 }
             }
 
@@ -93,13 +102,27 @@ class Application_Model_Linkedin
 
             //Get education
             $education = array();
-            foreach ($user_profile['educations']['values'] as $num => $row) {
-                $education[$num] = array(
-                    'name' => $row['fieldOfStudy'],
-                    'company' => $row['schoolName'],
-                    'start_time' => date('Y-m-d',mktime(0,0,0,1,1,(int)$row['startDate']['year'])),
-                    'end_time' => date('Y-m-d',mktime(0,0,0,1,1,(int)$row['endDate']['year']))
-                );
+            if (isset($user_profile['educations']['values'])) {
+                foreach ($user_profile['educations']['values'] as $num => $row) {
+                    $education[$num] = array(
+                        'name' => $row['fieldOfStudy'],
+                        'company' => $row['schoolName'],
+                        'start_time' => date('Y-m-d',mktime(0,0,0,1,1,(int)$row['startDate']['year'])),
+                        'end_time' => date('Y-m-d',mktime(0,0,0,1,1,(int)$row['endDate']['year']))
+                    );
+                }
+            }
+
+            // City name
+            $city = null;
+            if (isset($user_profile['mainAddress'])) {
+                $city = $user_profile['mainAddress'];
+            }
+
+            // Summary
+            $summary = null;
+            if (isset($user_profile['summary'])) {
+                $summary = $user_profile['summary'];
             }
 
             return array(
@@ -107,15 +130,15 @@ class Application_Model_Linkedin
                 'linkedin_id' => $user_profile['id'],
                 'lastname' => $user_profile['lastName'],
                 'email' => $user_profile['emailAddress'],
-                'photo' => $user_profile['photo'],
-                'industry_id' => $user_profile['industry'],
+                'photo' => $photo,
+                'industry_id' => $industry_id,
                 'jobs' => $jobs,
-                'summary' => $user_profile['summary'],
+                'summary' => $summary,
                 'phone' => $phone,
                 'skype' => $skype,
                 'languages' => $languages,
                 'skills' => $skills,
-                'city' => $user_profile['mainAddress'],
+                'city' => $city,
                 'education' => $education
             );
         }

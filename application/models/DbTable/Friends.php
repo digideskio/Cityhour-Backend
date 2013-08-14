@@ -32,6 +32,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
 
             try {
                 $this->delete("(user_id = $user_id and friend_id = $id) or (user_id = $id and friend_id = $user_id)");
+                Application_Model_Common::updateContacts($user_id.','.$id,false);
 
                 $this->_db->commit();
                 return true;
@@ -139,6 +140,8 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         'friend_id' => $user_id2,
                         'status' => 1
                     ));
+
+                    Application_Model_Common::updateContacts($user_id.','.$user_id2,true);
                     $this->_db->insert('notifications',array(
                         'from' => $user_id,
                         'to' => $user_id2,
