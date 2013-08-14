@@ -254,18 +254,23 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
             $id = $this->insert($userData);
 
-            foreach($data['skills'] as $num=>$row) {
-                $this->_db->insert('user_skills',array(
-                    'user_id' => $id,
-                    'name' => $row,
-                ));
+
+            if (isset($data['skills']) && $data['skills'] && $data['skills'] != '' && $data['skills'] != null) {
+                foreach($data['skills'] as $num=>$row) {
+                    $this->_db->insert('user_skills',array(
+                        'user_id' => $id,
+                        'name' => $row,
+                    ));
+                }
             }
 
-            foreach($data['languages'] as $num=>$row) {
-                $this->_db->insert('user_languages',array(
-                    'user_id' => $id,
-                    'languages_id' => $row,
-                ));
+            if (isset($data['languages']) && $data['languages'] && $data['languages'] != '' && $data['languages'] != null) {
+                foreach($data['languages'] as $num=>$row) {
+                    $this->_db->insert('user_languages',array(
+                        'user_id' => $id,
+                        'languages_id' => $row,
+                    ));
+                }
             }
 
 
