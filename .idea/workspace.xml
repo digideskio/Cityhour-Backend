@@ -1,186 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="add default settings registration, add upload photo to amazon">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458250151ee76e504c96.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137458509651ee810815dca.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466418851efb5fc99913.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466420251efb60a24702.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466535951efba8f5a142.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466577751efbc3187a0f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466583451efbc6af1925.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466661951efbf7b7c67b.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466692851efc0b08426d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466696651efc0d6960fb.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137466984751efcc17dbc58.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137508879751f6309d0d5ce.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137508882751f630bb65f0a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137508925551f63267b3e0b.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137510557951f6722bf0a6b.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137511271751f68e0da3dbe.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137511307151f68f6fc103a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757782765200b5e46f62c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757784175200b671c79dc.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757785215200b6d9490a2.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757807855200bfb1811be.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757815135200c28943d8d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757818055200c3add629f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757820145200c47ee1eac.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757820575200c4a97a414.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757821425200c4fe17ed3.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757823745200c5e632c98.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757824955200c65f14f79.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757825725200c6acaad7f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757827355200c74fbc98b.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757827935200c789a3d26.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757829355200c8176f059.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757855715200d263cfb54.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757859765200d3f863a9c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757863895200d59524402.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757867425200d6f6c9b53.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757867875200d7236f0ac.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757868755200d77ba6c98.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757872145200d8ce88ecc.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757872865200d9169e109.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757874095200d9917fa9c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757875035200d9ef4ef93.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757875855200da4189bde.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757876375200da7555421.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757876535200da8599085.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757880475200dc0f26a73.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757882265200dcc24878c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757893565200e12c1d72d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757894255200e171d19aa.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757894455200e18536159.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757895065200e1c22fbb2.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757902035200e47ba8c7f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757902175200e489d2749.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757903715200e5237c4ac.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757909475200e7631acf9.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757909805200e784e7206.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757910405200e7c0c2b10.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757911015200e7fd70b4d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757911475200e82bce31e.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757912255200e8791387a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757913785200e912e9112.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757913975200e9258f875.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757915075200e993d2207.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757918525200eaec8d200.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757919915200eb77f1f74.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757946555200f5df3072a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757948335200f691b1dd5.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757948525200f6a4bc285.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757948705200f6b664591.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757949085200f6dce9fe9.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757950315200f7573c7bf.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757952175200f811b058f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757952715200f847ba7ae.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757953405200f88c4769d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757955385200f952b6eeb.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757955795200f97b1e34a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757956095200f999e9c2c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757956525200f9c448a42.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757957005200f9f4e67cd.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757957315200fa1311ea0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757959485200faecad3c5.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757960365200fb44a78cc.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757963795200fc9b46a80.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757964395200fcd7da784.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757966235200fd8f07ffb.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757970675200ff4b371b9.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757971575200ffa5ecd6d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757973255201004de8041.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757973585201006e08ae9.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375797468520100dce2df9.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375797505520101019e66d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757975585201013644045.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137579782952010245c5d2c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757980265201030a75e21.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375798228520103d409de9.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137579886752010653c937d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13757989325201069413e5a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375798964520106b4e7af7.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375799001520106d9345e3.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137579907252010720a80e7.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137580028352010bdb0f7d4.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137580032152010c015be9b.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137580066452010d5872fed.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137580116952010f51067f5.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758018715201120fa084f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137580222652011372ee7b1.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137580247152011467e5dfd.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758026515201151b8355e.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375802837520115d514ee6.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375802874520115fa244c5.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375802887520116070d7cf.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758601205201f5985db7b.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758602475201f6177ff58.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758622335201fdd9db47f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758623755201fe67ee17e.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758623915201fe7734c7a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758624125201fe8c82605.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586288652020066cd62d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375863284520201f41bc0d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758633075202020b3f9c5.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758638545202042ea9905.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758639475202048b18d0e.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375864011520204cb8e790.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375864131520205433c8f2.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758646115202072358f6f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758646905202077262670.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758649425202086e83441.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375865055520208df936cc.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758651375202093118382.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375865142520209368f498.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586536352020a13ac7ef.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586545952020a734cbb0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586549052020a9280af9.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586551552020aabb3386.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586562452020b18f3649.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586572752020b7f9294d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586595452020c62ae199.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586621752020d692f87c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586643252020e4020773.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375867055520210afe557a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758679685202144082aa7.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375868152520214f81210e.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137586816052021500c80d0.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375868354520215c237e15.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375868605520216bd0e222.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758690095202185160b28.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13758690545202187e0e45a.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375869265520219513b1ab.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375871487520221ff9a662.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375871571520222538d33c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1375871995520223fb5abfb.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_137587573052023292027dd.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13760573535204f809b4027.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13760573645204f81420e6b.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763031425208b826144b2.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763042475208bc774622d.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763043615208bce945eab.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763065555208c57b07d71.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763174535208f00df2149.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763189855208f609c5f28.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763191365208f6a002b2c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763192115208f6eba2e1e.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763192875208f73772525.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763193535208f779954aa.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763194875208f7ff3d5b2.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763197065208f8da2d65c.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763197535208f909dacb4.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763197835208f927ef28e.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763804455209e61d99892.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763841645209f4a4ee823.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763842945209f526d3cc6.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_13763844755209f5dbe52c2.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1376396914520a26726563f.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1376398870520a2e16903c1.jpeg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/public/upload/userPic_1376399186520a2f524e6bb.jpeg" afterPath="" />
+    <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="add logger&#10;">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/tests/application/modules/v1/controllers/LoggerControllerTest.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/logs/troubles.log" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Calendar.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Calendar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/Linkedin.php" afterPath="$PROJECT_DIR$/application/models/Linkedin.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/logs/php.log" afterPath="$PROJECT_DIR$/logs/php.log" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/api-docs.json" afterPath="$PROJECT_DIR$/public/api-docs/api-docs.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/auth.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/auth.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/public/api-docs/resources/calendar.json" afterPath="$PROJECT_DIR$/public/api-docs/resources/calendar.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MeetRocket.iws" />
@@ -208,30 +36,7 @@
     <favorites_list name="MeetRocket" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="Map.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/models/DbTable/Map.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="16" column="27" selection-start="440" selection-end="440" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1065">
-              <folding>
-                <marker date="1376057131000" expanded="true" signature="936:2203" placeholder="select user_..user_id..." />
-                <marker date="1376057131000" expanded="true" signature="1066:1544" placeholder="SELECT m.use..map..." />
-                <marker date="1376057131000" expanded="true" signature="1585:2146" placeholder="SELECT m.use..calendar..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Types.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/models/Types.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="37" column="39" selection-start="767" selection-end="767" vertical-scroll-proportion="0.47033897" vertical-offset="0" max-vertical-offset="1180">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -240,7 +45,6 @@
   </component>
   <component name="FrameworkCommandLineHistory">
     <commandsHistory>
-      <command text="zf create controller meetings 0 v1" />
       <command text="zf create controller meetings null v1" />
       <command text="zf create db-table meetings meetings" />
       <command text="zf create db-table complaints complaints" />
@@ -265,6 +69,7 @@
       <command text="zf create action edit users 1 admin" />
       <command text="zf create action edit Users 1 admin" />
       <command text="zf create action edit Users true admin" />
+      <command text="zf create controller logger 1 v1" />
     </commandsHistory>
   </component>
   <component name="Git.Settings">
@@ -275,12 +80,12 @@
       <MyDateState />
     </option>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="mock:///dummy.txt" root0="SKIP_INSPECTION" />
+  </component>
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/AuthController.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Goals.php" />
-        <option value="$PROJECT_DIR$/application/email_templates/invite_email.phtml" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
         <option value="$PROJECT_DIR$/application/models/Common.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" />
@@ -289,11 +94,14 @@
         <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
         <option value="$PROJECT_DIR$/application/configs/application.ini" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserPhotos.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Calendar.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
         <option value="$PROJECT_DIR$/logs/php.log" />
         <option value="$PROJECT_DIR$/application/models/Linkedin.php" />
         <option value="$PROJECT_DIR$/application/models/Types.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Calendar.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/PushMessages.php" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php" />
+        <option value="$PROJECT_DIR$/logs/troubles.log" />
       </list>
     </option>
   </component>
@@ -1046,7 +854,11 @@
       <created>1376468515590</created>
       <updated>1376468515590</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="fixes">
+      <created>1376482158046</created>
+      <updated>1376482158046</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1071,23 +883,24 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1352" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14757359" sideWeight="0.5551948" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14757359" sideWeight="0.67045456" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3987034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4448052" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4448052" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13365155" sideWeight="0.5551948" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13365155" sideWeight="0.67045456" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60714287" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32548702" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
       <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1095,7 +908,6 @@
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32621083" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1120,7 +932,9 @@
     <MESSAGE value="add complitness &amp;&amp; expirience" />
     <MESSAGE value="add invate email api" />
     <MESSAGE value="add default settings registration, add upload photo to amazon" />
-    <option name="LAST_COMMIT_MESSAGE" value="add default settings registration, add upload photo to amazon" />
+    <MESSAGE value="fixes" />
+    <MESSAGE value="add logger&#10;" />
+    <option name="LAST_COMMIT_MESSAGE" value="add logger&#10;" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1145,111 +959,10 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/cron/push_send.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="1" selection-start="1551" selection-end="1551" vertical-scroll-proportion="0.7881356" vertical-offset="0" max-vertical-offset="1180">
-          <folding>
-            <marker date="1375954502000" expanded="true" signature="-1:-1" placeholder="select group..push_messages..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/Zend/Mobile/Push/Apns.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="55" column="0" selection-start="1583" selection-end="1680" vertical-scroll-proportion="0.45762712" vertical-offset="0" max-vertical-offset="5640">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/PushMessages.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="28" selection-start="1195" selection-end="1195" vertical-scroll-proportion="0.3940678" vertical-offset="0" max-vertical-offset="1440">
-          <folding>
-            <marker date="1375960720000" expanded="true" signature="-1:-1" placeholder="select m.ale..push_messages..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserSettings.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="5" selection-start="965" selection-end="965" vertical-scroll-proportion="0.40677965" vertical-offset="0" max-vertical-offset="1180">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/UserPhotos.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="14" column="10" selection-start="576" selection-end="576" vertical-scroll-proportion="0.1779661" vertical-offset="0" max-vertical-offset="1180">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="87" column="32" selection-start="2358" selection-end="2358" vertical-scroll-proportion="0.3898305" vertical-offset="845" max-vertical-offset="2055">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/configs/application.ini">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="49" column="78" selection-start="1632" selection-end="1632" vertical-scroll-proportion="0.43936878" vertical-offset="206" max-vertical-offset="1410">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="310" column="40" selection-start="11926" selection-end="11926" vertical-scroll-proportion="0.53984576" vertical-offset="4020" max-vertical-offset="8505">
-          <folding>
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select disti..users..." />
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select disti..calendar..." />
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select disti..user_friends..." />
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select disti..calendar..." />
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select orig ..user_photos..." />
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select id fr..user_friends..." />
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select id fr..calendar..." />
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select u.id ..users..." />
-            <marker date="1376464530000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/readme.md">
-      <provider editor-type-id="MarkdownPreviewEditor">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="7" selection-start="336" selection-end="336" vertical-scroll-proportion="0.11469839" vertical-offset="0" max-vertical-offset="1177">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Calendar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="20" selection-start="721" selection-end="721" vertical-scroll-proportion="-16.375" vertical-offset="27" max-vertical-offset="1290">
-          <folding>
-            <marker date="1376473383000" expanded="true" signature="-1:-1" placeholder="select group..calendar..." />
-            <marker date="1376473383000" expanded="true" signature="-1:-1" placeholder="select group..calendar..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="92" column="56" selection-start="2508" selection-end="2508" vertical-scroll-proportion="0.11440678" vertical-offset="1245" max-vertical-offset="5070">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Map.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="16" column="27" selection-start="440" selection-end="440" vertical-scroll-proportion="-10.0" vertical-offset="0" max-vertical-offset="1065">
-          <folding>
-            <marker date="1376057131000" expanded="true" signature="936:2203" placeholder="select user_..user_id..." />
-            <marker date="1376057131000" expanded="true" signature="1066:1544" placeholder="SELECT m.use..map..." />
-            <marker date="1376057131000" expanded="true" signature="1585:2146" placeholder="SELECT m.use..calendar..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1277,6 +990,91 @@
     <entry file="file://$PROJECT_DIR$/application/models/Types.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="37" column="39" selection-start="767" selection-end="767" vertical-scroll-proportion="0.47033897" vertical-offset="0" max-vertical-offset="1180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="60" selection-start="3577" selection-end="3577" vertical-scroll-proportion="0.38135594" vertical-offset="1305" max-vertical-offset="2565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Calendar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="35" column="25" selection-start="969" selection-end="969" vertical-scroll-proportion="0.44491526" vertical-offset="0" max-vertical-offset="1275">
+          <folding>
+            <marker date="1376482389000" expanded="true" signature="-1:-1" placeholder="select group..calendar..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Map.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="41" selection-start="1512" selection-end="1512" vertical-scroll-proportion="0.5466102" vertical-offset="0" max-vertical-offset="1180">
+          <folding>
+            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="select user_..user_id..." />
+            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="SELECT m.use..map..." />
+            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="SELECT m.use..calendar..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/IndexController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="50" column="1" selection-start="0" selection-end="1066" vertical-scroll-proportion="0.63559324" vertical-offset="0" max-vertical-offset="1180">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Push.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/Zend/Log.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="435" column="23" selection-start="13507" selection-end="13507" vertical-scroll-proportion="0.5151515" vertical-offset="5660" max-vertical-offset="9330">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/PushMessages.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="46" column="70" selection-start="1940" selection-end="1940" vertical-scroll-proportion="0.58474576" vertical-offset="0" max-vertical-offset="1440">
+          <folding>
+            <marker date="1376484925000" expanded="true" signature="-1:-1" placeholder="select m.ale..push_messages..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/MapController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="45" column="22" selection-start="987" selection-end="987" vertical-scroll-proportion="0.097457625" vertical-offset="560" max-vertical-offset="2010">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/SyncController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="89" column="0" selection-start="2311" selection-end="3382" vertical-scroll-proportion="0.33050847" vertical-offset="945" max-vertical-offset="2670">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/troubles.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="27" column="0" selection-start="477" selection-end="477" vertical-scroll-proportion="0.34322035" vertical-offset="0" max-vertical-offset="1305">
           <folding />
         </state>
       </provider>

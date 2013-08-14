@@ -39,6 +39,10 @@
             "description": null
         },
         {
+            "path": "/resources/logger.{format}",
+            "description": null
+        },
+        {
             "path": "/resources/map.{format}",
             "description": null
         },

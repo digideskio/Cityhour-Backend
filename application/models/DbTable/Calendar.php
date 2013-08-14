@@ -56,8 +56,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     $this->insert($row);
                 }
             }
-
-            $old_slots = implode(',',$old_slots);
+            $old_slots = "'".implode("','",$old_slots)."'";
             if ($old_slots) {
                 $this->delete("user_id = $user_id and `hash` in ($old_slots)");
             }

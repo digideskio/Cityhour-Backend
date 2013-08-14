@@ -204,6 +204,9 @@
                 },
                 "type": {
                     "type": "int"
+                },
+                "status": {
+                    "type": "int"
                 }
             }
         }
