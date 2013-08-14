@@ -36,13 +36,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             from calendar
             where (user_id = $user_id or user_id_second = $user_id) and end_time >= NOW()
         ");
-            $old_slots = explode(',',$old_slots);
+            $che_slots = explode(',',$old_slots);
+            $old_slots = array();
             foreach ($slots as $num => $row ) {
-                $che = array_search($row['hash'],$old_slots);
-                if ($che || $che === 0) {
-                    unset($old_slots[$che]);
-                }
-                else {
+                if (!in_array($row['hash'],$che_slots) && !in_array($row['hash'],$old_slots)) {
                     $row['user_id'] = $user['id'];
                     $row['start_time'] = date('Y-m-d H:i:s',(int)$row['start_time']);
                     $row['end_time'] = date('Y-m-d H:i:s',(int)$row['end_time']);
@@ -55,10 +52,15 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     unset($row['private_key']);
                     $this->insert($row);
                 }
+
+                if (!in_array($row['hash'],$old_slots)) {
+                    array_push($old_slots,$row['hash']);
+                }
             }
+
             $old_slots = "'".implode("','",$old_slots)."'";
             if ($old_slots) {
-                $this->delete("user_id = $user_id and `hash` in ($old_slots)");
+                $this->delete("user_id = $user_id and `hash` not in ($old_slots)");
             }
         }
         return true;

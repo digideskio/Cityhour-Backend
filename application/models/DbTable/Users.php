@@ -295,17 +295,20 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 ));
             }
 
-            foreach($data['education'] as $num=>$row) {
-                $this->_db->insert('user_jobs',array(
-                    'user_id' => $id,
-                    'name' => $row['name'],
-                    'company' => $row['company'],
-                    'current' => 0,
-                    'start_time' => $row['start_time'],
-                    'end_time' => $row['end_time'],
-                    'type' => 1
-                ));
+            if (isset($data['education'][0])) {
+                foreach($data['education'] as $num=>$row) {
+                    $this->_db->insert('user_jobs',array(
+                        'user_id' => $id,
+                        'name' => $row['name'],
+                        'company' => $row['company'],
+                        'current' => 0,
+                        'start_time' => $row['start_time'],
+                        'end_time' => $row['end_time'],
+                        'type' => 1
+                    ));
+                }
             }
+
 
             $photo = null;
             if (isset($data['photo_id']) && is_numeric($data['photo_id'])) {

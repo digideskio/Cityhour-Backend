@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="">
+    <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="try">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/cron/utput" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Calendar.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Calendar.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php" afterPath="$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/MeetRocket.iml" afterPath="$PROJECT_DIR$/.idea/MeetRocket.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Users.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Users.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
@@ -30,36 +34,7 @@
     <favorites_list name="MeetRocket" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="CalendarController.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="111" column="33" selection-start="3178" selection-end="3178" vertical-scroll-proportion="-17.5" vertical-offset="1245" max-vertical-offset="5070">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Users.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="266" column="64" selection-start="10304" selection-end="10304" vertical-scroll-proportion="0.29562983" vertical-offset="3645" max-vertical-offset="8580">
-              <folding>
-                <marker date="1376486135000" expanded="true" signature="6245:6594" placeholder="select disti..users..." />
-                <marker date="1376486135000" expanded="true" signature="7008:8197" placeholder="select disti..calendar..." />
-                <marker date="1376486135000" expanded="true" signature="7236:7402" placeholder="select disti..user_friends..." />
-                <marker date="1376486135000" expanded="true" signature="7514:7731" placeholder="select disti..calendar..." />
-                <marker date="1376486135000" expanded="true" signature="12115:12204" placeholder="select orig ..user_photos..." />
-                <marker date="1376486135000" expanded="true" signature="17437:17619" placeholder="select id fr..user_friends..." />
-                <marker date="1376486135000" expanded="true" signature="18033:18295" placeholder="select id fr..calendar..." />
-                <marker date="1376486135000" expanded="true" signature="19192:19675" placeholder="select u.id ..users..." />
-                <marker date="1376486135000" expanded="true" signature="20066:20144" placeholder="select * fro..users..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -109,22 +84,22 @@
   <component name="IdeDocumentHistory">
     <option name="changedFiles">
       <list>
-        <option value="$PROJECT_DIR$/application/models/DbTable/Friends.php" />
         <option value="$PROJECT_DIR$/application/models/Common.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserContactsWait.php" />
         <option value="$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserSettings.php" />
         <option value="$PROJECT_DIR$/application/configs/application.ini" />
         <option value="$PROJECT_DIR$/application/models/DbTable/UserPhotos.php" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
-        <option value="$PROJECT_DIR$/logs/php.log" />
         <option value="$PROJECT_DIR$/application/models/Linkedin.php" />
         <option value="$PROJECT_DIR$/application/models/Types.php" />
-        <option value="$PROJECT_DIR$/application/models/DbTable/Calendar.php" />
         <option value="$PROJECT_DIR$/application/models/DbTable/PushMessages.php" />
-        <option value="$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php" />
-        <option value="$PROJECT_DIR$/logs/troubles.log" />
         <option value="$PROJECT_DIR$/application/models/DbTable/Users.php" />
+        <option value="$PROJECT_DIR$/cron/utput" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php" />
+        <option value="$PROJECT_DIR$/logs/php.log" />
+        <option value="$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php" />
+        <option value="$PROJECT_DIR$/application/models/DbTable/Calendar.php" />
+        <option value="$PROJECT_DIR$/logs/troubles.log" />
       </list>
     </option>
   </component>
@@ -176,20 +151,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="MeetRocket" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="public" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -897,7 +858,11 @@
       <created>1376486013295</created>
       <updated>1376486013295</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="try">
+      <created>1376486146430</created>
+      <updated>1376486146430</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -922,10 +887,39 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="2560" height="1352" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.14757359" sideWeight="0.67045456" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3987034" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4448052" sideWeight="0.5" order="14" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4448052" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13365155" sideWeight="0.39285713" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60714287" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32548702" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+    </layout>
+    <layout-to-restore>
+      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32854864" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14757359" sideWeight="0.67045456" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -937,17 +931,13 @@
       <window_info id="REST Client" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4448052" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32873377" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.13365155" sideWeight="0.67045456" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.60714287" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Command Line Tools Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32548702" sideWeight="0.5" order="13" side_tool="false" content_ui="tabs" />
-      <window_info id="Database Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32954547" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-    </layout>
+    </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
@@ -974,7 +964,8 @@
     <MESSAGE value="fixes" />
     <MESSAGE value="add logger&#10;" />
     <MESSAGE value="fix&#10;" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix&#10;" />
+    <MESSAGE value="try" />
+    <option name="LAST_COMMIT_MESSAGE" value="try" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -995,88 +986,10 @@
           <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="70" />
+      <option name="time" value="71" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/logs/php.log">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="859">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Linkedin.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="17" selection-start="1199" selection-end="1199" vertical-scroll-proportion="0.3898305" vertical-offset="65" max-vertical-offset="4335">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/Types.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="37" column="39" selection-start="767" selection-end="767" vertical-scroll-proportion="0.47033897" vertical-offset="0" max-vertical-offset="1180">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="117" column="60" selection-start="3577" selection-end="3577" vertical-scroll-proportion="0.38135594" vertical-offset="1305" max-vertical-offset="2565">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Calendar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="35" column="25" selection-start="969" selection-end="969" vertical-scroll-proportion="0.44491526" vertical-offset="0" max-vertical-offset="1275">
-          <folding>
-            <marker date="1376482389000" expanded="true" signature="-1:-1" placeholder="select group..calendar..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Map.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="43" column="41" selection-start="1512" selection-end="1512" vertical-scroll-proportion="0.5466102" vertical-offset="0" max-vertical-offset="1180">
-          <folding>
-            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="select user_..user_id..." />
-            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="SELECT m.use..map..." />
-            <marker date="1376057131000" expanded="true" signature="-1:-1" placeholder="SELECT m.use..calendar..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/IndexController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="50" column="1" selection-start="0" selection-end="1066" vertical-scroll-proportion="0.63559324" vertical-offset="0" max-vertical-offset="1180">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Push.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/library/Zend/Log.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="435" column="23" selection-start="13507" selection-end="13507" vertical-scroll-proportion="0.5151515" vertical-offset="5660" max-vertical-offset="9330">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/PushMessages.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="46" column="70" selection-start="1940" selection-end="1940" vertical-scroll-proportion="0.58474576" vertical-offset="0" max-vertical-offset="1440">
-          <folding>
-            <marker date="1376484925000" expanded="true" signature="-1:-1" placeholder="select m.ale..push_messages..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/MapController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="45" column="22" selection-start="987" selection-end="987" vertical-scroll-proportion="0.097457625" vertical-offset="560" max-vertical-offset="2010">
@@ -1084,9 +997,117 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/SyncController.php">
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="89" column="0" selection-start="2311" selection-end="3382" vertical-scroll-proportion="0.33050847" vertical-offset="945" max-vertical-offset="2670">
+        <state line="42" column="17" selection-start="959" selection-end="959" vertical-scroll-proportion="0.24152543" vertical-offset="345" max-vertical-offset="5070">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_4.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="230" column="9" selection-start="7908" selection-end="7908" vertical-scroll-proportion="0.33983052" vertical-offset="3049" max-vertical-offset="16320">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/library/Zend/Controller/Request/Abstract.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="78" column="31" selection-start="1898" selection-end="1898" vertical-scroll-proportion="-2.6101694" vertical-offset="3980" max-vertical-offset="5160">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PeopleController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="117" column="60" selection-start="3577" selection-end="3577" vertical-scroll-proportion="0.31355932" vertical-offset="1385" max-vertical-offset="2565">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PhotoController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2055">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/PushController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="8" selection-start="2172" selection-end="2214" vertical-scroll-proportion="0.41949153" vertical-offset="825" max-vertical-offset="3600">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="237" column="0" selection-start="8797" selection-end="8797" vertical-scroll-proportion="0.32133675" vertical-offset="3180" max-vertical-offset="8625">
+          <folding>
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select disti..users..." />
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select disti..calendar..." />
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select disti..user_friends..." />
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select disti..calendar..." />
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select orig ..user_photos..." />
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select id fr..user_friends..." />
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select id fr..calendar..." />
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select u.id ..users..." />
+            <marker date="1376486665000" expanded="true" signature="-1:-1" placeholder="select * fro..users..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="56" column="12" selection-start="1284" selection-end="1284" vertical-scroll-proportion="0.5466102" vertical-offset="195" max-vertical-offset="1440">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cron/push_send.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cron/push_send.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding>
+            <marker date="1375954502000" expanded="true" signature="-1:-1" placeholder="select group..push_messages..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/cron/push_update.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
+          <folding>
+            <marker date="1374669608000" expanded="true" signature="-1:-1" placeholder="select id fr..push..." />
+            <marker date="1374669608000" expanded="true" signature="-1:-1" placeholder="DELETE FROM ..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Calendar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="47" selection-start="1203" selection-end="1203" vertical-scroll-proportion="0.44067797" vertical-offset="80" max-vertical-offset="1305">
+          <folding>
+            <marker date="1376492323000" expanded="true" signature="-1:-1" placeholder="select group..calendar..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/php.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="859">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/logs/apns.log">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
           <folding />
         </state>
       </provider>
@@ -1095,37 +1116,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1204">
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/LoggerController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="27" column="0" selection-start="477" selection-end="477" vertical-scroll-proportion="0.34322035" vertical-offset="0" max-vertical-offset="1305">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/modules/v1/controllers/CalendarController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="111" column="33" selection-start="3178" selection-end="3178" vertical-scroll-proportion="-17.5" vertical-offset="1245" max-vertical-offset="5070">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="266" column="64" selection-start="10304" selection-end="10304" vertical-scroll-proportion="0.29562983" vertical-offset="3645" max-vertical-offset="8580">
-          <folding>
-            <marker date="1376486135000" expanded="true" signature="6245:6594" placeholder="select disti..users..." />
-            <marker date="1376486135000" expanded="true" signature="7008:8197" placeholder="select disti..calendar..." />
-            <marker date="1376486135000" expanded="true" signature="7236:7402" placeholder="select disti..user_friends..." />
-            <marker date="1376486135000" expanded="true" signature="7514:7731" placeholder="select disti..calendar..." />
-            <marker date="1376486135000" expanded="true" signature="12115:12204" placeholder="select orig ..user_photos..." />
-            <marker date="1376486135000" expanded="true" signature="17437:17619" placeholder="select id fr..user_friends..." />
-            <marker date="1376486135000" expanded="true" signature="18033:18295" placeholder="select id fr..calendar..." />
-            <marker date="1376486135000" expanded="true" signature="19192:19675" placeholder="select u.id ..users..." />
-            <marker date="1376486135000" expanded="true" signature="20066:20144" placeholder="select * fro..users..." />
-          </folding>
         </state>
       </provider>
     </entry>

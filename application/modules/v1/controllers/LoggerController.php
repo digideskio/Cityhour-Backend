@@ -39,8 +39,16 @@ class V1_LoggerController extends Zend_Rest_Controller
      *       nickname="LogError",
      *       notes="",
      * @SWG\Parameter(
-     *           name="data",
-     *           description="log data",
+     *           name="data_in",
+     *           description="log data in",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="void"
+     *         ),
+     * @SWG\Parameter(
+     *           name="data_out",
+     *           description="log data out",
      *           paramType="query",
      *           required="true",
      *           allowMultiple="false",
@@ -55,7 +63,8 @@ class V1_LoggerController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../logs/troubles.log');
         $logger = new Zend_Log($writer);
-        $logger->info(Zend_Debug::dump($this->_request->getParam('data')));
+        $logger->info(print_r($this->getRequest()->getRawBody(),true));
+        $logger->info(print_r(json_decode($this->getRequest()->getRawBody(),true),true));
     }
 
     public function putAction()
