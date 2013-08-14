@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="bd85d53f-bdb7-4683-b18b-c2c2349f93a6" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/models/DbTable/Users.php" afterPath="$PROJECT_DIR$/application/models/DbTable/Users.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="MeetRocket.iws" />
@@ -42,17 +43,17 @@
       <file leaf-file-name="Users.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="266" column="47" selection-start="10236" selection-end="10236" vertical-scroll-proportion="0.62982005" vertical-offset="3255" max-vertical-offset="8580">
+            <state line="266" column="64" selection-start="10304" selection-end="10304" vertical-scroll-proportion="0.29562983" vertical-offset="3645" max-vertical-offset="8580">
               <folding>
-                <marker date="1376485993000" expanded="true" signature="6245:6594" placeholder="select disti..users..." />
-                <marker date="1376485993000" expanded="true" signature="7008:8197" placeholder="select disti..calendar..." />
-                <marker date="1376485993000" expanded="true" signature="7236:7402" placeholder="select disti..user_friends..." />
-                <marker date="1376485993000" expanded="true" signature="7514:7731" placeholder="select disti..calendar..." />
-                <marker date="1376485993000" expanded="true" signature="12007:12096" placeholder="select orig ..user_photos..." />
-                <marker date="1376485993000" expanded="true" signature="17329:17511" placeholder="select id fr..user_friends..." />
-                <marker date="1376485993000" expanded="true" signature="17925:18187" placeholder="select id fr..calendar..." />
-                <marker date="1376485993000" expanded="true" signature="19084:19567" placeholder="select u.id ..users..." />
-                <marker date="1376485993000" expanded="true" signature="19958:20036" placeholder="select * fro..users..." />
+                <marker date="1376486135000" expanded="true" signature="6245:6594" placeholder="select disti..users..." />
+                <marker date="1376486135000" expanded="true" signature="7008:8197" placeholder="select disti..calendar..." />
+                <marker date="1376486135000" expanded="true" signature="7236:7402" placeholder="select disti..user_friends..." />
+                <marker date="1376486135000" expanded="true" signature="7514:7731" placeholder="select disti..calendar..." />
+                <marker date="1376486135000" expanded="true" signature="12115:12204" placeholder="select orig ..user_photos..." />
+                <marker date="1376486135000" expanded="true" signature="17437:17619" placeholder="select id fr..user_friends..." />
+                <marker date="1376486135000" expanded="true" signature="18033:18295" placeholder="select id fr..calendar..." />
+                <marker date="1376486135000" expanded="true" signature="19192:19675" placeholder="select u.id ..users..." />
+                <marker date="1376486135000" expanded="true" signature="20066:20144" placeholder="select * fro..users..." />
               </folding>
             </state>
           </provider>
@@ -892,7 +893,11 @@
       <created>1376486006186</created>
       <updated>1376486006186</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="fix&#10;">
+      <created>1376486013295</created>
+      <updated>1376486013295</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -1109,17 +1114,17 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/models/DbTable/Users.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="266" column="47" selection-start="10236" selection-end="10236" vertical-scroll-proportion="0.62982005" vertical-offset="3255" max-vertical-offset="8580">
+        <state line="266" column="64" selection-start="10304" selection-end="10304" vertical-scroll-proportion="0.29562983" vertical-offset="3645" max-vertical-offset="8580">
           <folding>
-            <marker date="1376485993000" expanded="true" signature="6245:6594" placeholder="select disti..users..." />
-            <marker date="1376485993000" expanded="true" signature="7008:8197" placeholder="select disti..calendar..." />
-            <marker date="1376485993000" expanded="true" signature="7236:7402" placeholder="select disti..user_friends..." />
-            <marker date="1376485993000" expanded="true" signature="7514:7731" placeholder="select disti..calendar..." />
-            <marker date="1376485993000" expanded="true" signature="12007:12096" placeholder="select orig ..user_photos..." />
-            <marker date="1376485993000" expanded="true" signature="17329:17511" placeholder="select id fr..user_friends..." />
-            <marker date="1376485993000" expanded="true" signature="17925:18187" placeholder="select id fr..calendar..." />
-            <marker date="1376485993000" expanded="true" signature="19084:19567" placeholder="select u.id ..users..." />
-            <marker date="1376485993000" expanded="true" signature="19958:20036" placeholder="select * fro..users..." />
+            <marker date="1376486135000" expanded="true" signature="6245:6594" placeholder="select disti..users..." />
+            <marker date="1376486135000" expanded="true" signature="7008:8197" placeholder="select disti..calendar..." />
+            <marker date="1376486135000" expanded="true" signature="7236:7402" placeholder="select disti..user_friends..." />
+            <marker date="1376486135000" expanded="true" signature="7514:7731" placeholder="select disti..calendar..." />
+            <marker date="1376486135000" expanded="true" signature="12115:12204" placeholder="select orig ..user_photos..." />
+            <marker date="1376486135000" expanded="true" signature="17437:17619" placeholder="select id fr..user_friends..." />
+            <marker date="1376486135000" expanded="true" signature="18033:18295" placeholder="select id fr..calendar..." />
+            <marker date="1376486135000" expanded="true" signature="19192:19675" placeholder="select u.id ..users..." />
+            <marker date="1376486135000" expanded="true" signature="20066:20144" placeholder="select * fro..users..." />
           </folding>
         </state>
       </provider>
