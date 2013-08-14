@@ -255,7 +255,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $id = $this->insert($userData);
 
 
-            if (isset($data['skills']) && $data['skills'] && $data['skills'] != '' && $data['skills'] != null) {
+            if (isset($data['skills'][0])) {
                 foreach($data['skills'] as $num=>$row) {
                     $this->_db->insert('user_skills',array(
                         'user_id' => $id,
@@ -264,7 +264,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 }
             }
 
-            if (isset($data['languages']) && $data['languages'] && $data['languages'] != '' && $data['languages'] != null) {
+            if (isset($data['languages'][0])) {
                 foreach($data['languages'] as $num=>$row) {
                     $this->_db->insert('user_languages',array(
                         'user_id' => $id,
