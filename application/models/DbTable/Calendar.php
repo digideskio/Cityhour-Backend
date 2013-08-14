@@ -27,40 +27,41 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function addSlots($data,$user) {
-        $slots = $data['slots'];
-        $user_id = $user['id'];
+        if (isset($data['slots'])) {
+            $slots = $data['slots'];
+            $user_id = $user['id'];
 
-        $old_slots = $this->_db->fetchOne("
+            $old_slots = $this->_db->fetchOne("
             select group_concat(`hash`)
             from calendar
             where (user_id = $user_id or user_id_second = $user_id) and end_time >= NOW()
         ");
-        $old_slots = explode(',',$old_slots);
-        foreach ($slots as $num => $row ) {
-            $che = array_search($row['hash'],$old_slots);
-            if ($che || $che === 0) {
-                unset($old_slots[$che]);
+            $old_slots = explode(',',$old_slots);
+            foreach ($slots as $num => $row ) {
+                $che = array_search($row['hash'],$old_slots);
+                if ($che || $che === 0) {
+                    unset($old_slots[$che]);
+                }
+                else {
+                    $row['user_id'] = $user['id'];
+                    $row['start_time'] = date('Y-m-d H:i:s',(int)$row['start_time']);
+                    $row['end_time'] = date('Y-m-d H:i:s',(int)$row['end_time']);
+                    if (isset($row['city'])) {
+                        $row = array_merge($row,Application_Model_Common::getCity($row['city']));
+                    }
+                    if (isset($row['foursquare_id'])) {
+                        $row = array_merge($row,Application_Model_Common::getPlace($row['foursquare_id']));
+                    }
+                    unset($row['private_key']);
+                    $this->insert($row);
+                }
             }
-            else {
-                $row['user_id'] = $user['id'];
-                $row['start_time'] = date('Y-m-d H:i:s',(int)$row['start_time']);
-                $row['end_time'] = date('Y-m-d H:i:s',(int)$row['end_time']);
-                if (isset($row['city'])) {
-                    $row = array_merge($row,Application_Model_Common::getCity($row['city']));
-                }
-                if (isset($row['foursquare_id'])) {
-                    $row = array_merge($row,Application_Model_Common::getPlace($row['foursquare_id']));
-                }
-                unset($row['private_key']);
-                $this->insert($row);
+
+            $old_slots = implode(',',$old_slots);
+            if ($old_slots) {
+                $this->delete("user_id = $user_id and `hash` in ($old_slots)");
             }
         }
-
-        $old_slots = implode(',',$old_slots);
-        if ($old_slots) {
-            $this->delete("user_id = $user_id and `hash` in ($old_slots)");
-        }
-
         return true;
     }
 

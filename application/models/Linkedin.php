@@ -42,10 +42,14 @@ class Application_Model_Linkedin
             }
             $photo = $picture['values'][0];
 
+            //Industry
+            $industry_id = false;
+            if (isset($user_profile['industry'])) {
+                $industry_id = $user_profile['industry'];
+            }
 
             //get jobs
             $jobs = null;
-            $industry_id = 0;
             if (isset($user_profile['positions']['values'])) {
                 foreach ($user_profile['positions']['values'] as $num=>$row) {
                     $start_m =  (isset($row['startDate']['month'])) ? (int)$row['startDate']['month']:1;
@@ -59,7 +63,9 @@ class Application_Model_Linkedin
                     );
                     if ($row['isCurrent']) {
                         $jobs[$num]['end_time'] = null;
-                        $industry_id = $row['company']['industry'];
+                        if (!$industry_id) {
+                            $industry_id = $row['company']['industry'];
+                        }
                     }
                     else {
                         $jobs[$num]['end_time'] = date('Y-m-d',mktime(0,0,0,$end_m,1,(int)$row['endDate']['year']));
@@ -89,16 +95,22 @@ class Application_Model_Linkedin
 
             //Get languages
             $languages = array();
-            $language = new Application_Model_DbTable_Languages();
-            foreach ($user_profile['languages']['values'] as $num => $row) {
-                $languages[$num] = $language->getID($row['language']['name']);
+            if (isset($user_profile['languages']['values'])) {
+                $language = new Application_Model_DbTable_Languages();
+                foreach ($user_profile['languages']['values'] as $num => $row) {
+                    $languages[$num] = $language->getID($row['language']['name']);
+                }
             }
+
 
             //Get skills
             $skills = array();
-            foreach ($user_profile['skills']['values'] as $num => $row) {
-                $skills[$num] = $row['skill']['name'];
+            if (isset($user_profile['skills']['values'])) {
+                foreach ($user_profile['skills']['values'] as $num => $row) {
+                    $skills[$num] = $row['skill']['name'];
+                }
             }
+
 
             //Get education
             $education = array();

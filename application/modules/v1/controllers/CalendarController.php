@@ -97,6 +97,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      * @SWG\Property(name="city",type="string")
      * @SWG\Property(name="hash",type="string")
      * @SWG\Property(name="type",type="int")
+     * @SWG\Property(name="status",type="int")
      *
      *
      * @SWG\Api(
