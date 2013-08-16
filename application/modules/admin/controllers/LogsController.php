@@ -29,5 +29,12 @@ class Admin_LogsController extends Zend_Controller_Action
         $this->view->search = $search;
     }
 
+    public function deleteAction()
+    {
+        $db = new Application_Model_DbTable_Logger();
+        $db->clearData();
+        $this->_helper->redirector('index', 'logs');
+    }
+
 }
 

@@ -95,12 +95,35 @@ class Application_Model_Common
                 $data['city'] = $city;
                 $data['lat'] = $req['result']['geometry']['location']['lat'];
                 $data['lng'] = $req['result']['geometry']['location']['lng'];
+
+                if (isset($req['result']['geometry']['viewport'])) {
+                    $data['n_lng'] = $req['result']['geometry']['viewport']['northeast']['lng'];
+                    $data['s_lng'] = $req['result']['geometry']['viewport']['southwest']['lng'];
+                    $data['n_lat'] = $req['result']['geometry']['viewport']['northeast']['lat'];
+                    $data['s_lat'] = $req['result']['geometry']['viewport']['southwest']['lat'];
+                }
+                else {
+                    $data['n_lng'] = (float)$data['lng']+0.1;
+                    $data['s_lng'] = (float)$data['lng']-0.1;
+                    $data['n_lat'] = (float)$data['lat']+0.1;
+                    $data['s_lat'] = (float)$data['lat']-0.1;
+                }
+
                 Zend_Db_Table::getDefaultAdapter()->insert('city',array(
                     'city' => $city,
                     'city_name' => $data['city_name'],
                     'lat' => $data['lat'],
                     'lng' => $data['lng'],
+                    's_lng' => $data['s_lng'],
+                    'n_lng' => $data['n_lng'],
+                    'n_lat' => $data['n_lat'],
+                    's_lat' => $data['s_lat'],
                 ));
+
+                unset($data['s_lng']);
+                unset($data['n_lng']);
+                unset($data['n_lat']);
+                unset($data['s_lat']);
                 return $data;
             }
             else {

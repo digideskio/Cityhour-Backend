@@ -7,9 +7,14 @@ class Application_Model_DbTable_Logger extends Zend_Db_Table_Abstract
     private $paginatorNumberPerPage = 50;
 
     public function saveData($data) {
+        $data['data_in'] = @json_encode($data['data_in'], JSON_PRETTY_PRINT);
         $this->insert($data);
     }
 
+    public function clearData() {
+        $this->_db->query("truncate table logger");
+        return true;
+    }
 
 
     public function getList($data = false) {

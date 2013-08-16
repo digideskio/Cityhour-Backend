@@ -59,6 +59,10 @@
       <column name="city_name" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
       <column name="lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="n_lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="n_lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="s_lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="s_lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="und_city" unique="true" columns="city"/>
     </table>
