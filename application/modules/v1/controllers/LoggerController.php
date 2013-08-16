@@ -29,6 +29,11 @@ class V1_LoggerController extends Zend_Rest_Controller
 
     /**
      *
+     * @SWG\Model(id="LogParams")
+     * @SWG\Property(name="data_in",type="string")
+     * @SWG\Property(name="data_out",type="string")
+     * @SWG\Property(name="url",type="string")
+     *
      * @SWG\Api(
      *   path="/logger/",
      *   @SWG\Operations(
@@ -39,20 +44,12 @@ class V1_LoggerController extends Zend_Rest_Controller
      *       nickname="LogError",
      *       notes="",
      * @SWG\Parameter(
-     *           name="data_in",
-     *           description="log data in",
-     *           paramType="query",
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="void"
-     *         ),
-     * @SWG\Parameter(
-     *           name="data_out",
-     *           description="log data out",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="void"
+     *           dataType="LogParams"
      *         )
      *     )
      *   )
@@ -61,10 +58,17 @@ class V1_LoggerController extends Zend_Rest_Controller
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../logs/troubles.log');
-        $logger = new Zend_Log($writer);
-        $logger->info(print_r($this->getRequest()->getRawBody(),true));
-        $logger->info(print_r(json_decode($this->getRequest()->getRawBody(),true),true));
+        $data = @json_decode($this->getRequest()->getRawBody(),true);
+
+        if ($data) {
+            $db = new Application_Model_DbTable_Logger();
+            $db->saveData($data);
+        }
+        else {
+            $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../logs/troubles.log');
+            $logger = new Zend_Log($writer);
+            $logger->info(print_r($this->getRequest()->getRawBody(),true));
+        }
     }
 
     public function putAction()

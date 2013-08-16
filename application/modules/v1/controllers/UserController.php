@@ -186,6 +186,7 @@ class V1_UserController extends Zend_Rest_Controller
                 $res = $db->updateUser($user,$data);
                 if ($res) {
                     $this->_helper->json->sendJson(array(
+                        'body' => $res,
                         'errorCode' => '200'
                     ));
                 }

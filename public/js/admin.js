@@ -1,6 +1,7 @@
 $(document).ready(function() {
     if (/\/complaints/.test(location.href)) $('#l_complaints').addClass('active');
     else if (/\/users/.test(location.href)) $('#l_users').addClass('active');
+    else if (/\/logs/.test(location.href)) $('#l_logs').addClass('active');
 
 
     $('.pagination a').click(function() {

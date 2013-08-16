@@ -141,10 +141,11 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 'completeness' => $completeness
             ),"id = $user_id");
             $this->_db->commit();
-            return true;
+
+            return $this->getUser($user_id,$user);
         } catch (Exception $e){
             $this->_db->rollBack();
-            return $e->getMessage();
+            return false;
         }
     }
 
@@ -173,54 +174,20 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function getPeople($user,$data_from,$data_to,$city,$industry,$goals,$after) {
         $user_id = $user['id'];
+        $now = time();
 
-
-
-        $res = $this->_db->fetchAll("
-            select distinct(u.id) as user_id, c.id as event_id, u.name,u.lastname, j.name as job_name, j.company, u.industry_id, u.city_name, u.rating, c.goal, c.foursquare_id, c.place, c.lat, c.lng,
-            CASE
-                when ( select distinct(f.id)
-                from user_friends f
-                where f.user_id = 58
-                and f.friend_id = u.id
-                and f.status = 1
-            ) > 0 then 1
-            else 0
-            END as friend,
-            CASE
-                when ( select distinct(m.id)
-                from calendar m
-                where
-                m.type = 2
-                and ((m.user_id = 58 and m.user_id_second = u.id) or (m.user_id = u.id and m.user_id_second = 58))
-            ) > 0 then 1
-            else 0
-            END as meet
-
-            from calendar c
-            left join users u on c.user_id = u.id
-            left join user_jobs j on u.id = j.user_id
-
-            where
-            c.user_id != 1
-            -- time
-            and j.type = 0 and j.current = 1
-            and c.city = 'string'
-
-            and u.industry_id = 1
-            and c.goal = 1
-
-            order by c.start_time
-            LIMIT 0,25
-        ");
-        if ($res != null) {
-
-            return $res;
-        }
-        else {
-            return array();
+        if ($data_from > $now && $data_to > $now){
+            $res = $this->_db->fetchAll("
+                select *
+                from users
+                where id != $user_id
+            ");
+            if ($res != null) {
+                return $res;
+            }
         }
 
+        return array();
     }
 
     public function registerUser($data) {

@@ -40,6 +40,7 @@
           <dbTableFile dbTableName="Languages"/>
           <dbTableFile dbTableName="PushMessages"/>
           <dbTableFile dbTableName="Admins"/>
+          <dbTableFile dbTableName="Logger"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>
