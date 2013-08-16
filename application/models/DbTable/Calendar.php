@@ -7,7 +7,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     public function getAll($user) {
         $user_id = $user['id'];
-        $res = $this->fetchAll("user_id = $user_id or user_id_second = $user_id");
+        $res = $this->fetchAll("user_id = $user_id");
 
         foreach ($res as $num=>$row) {
             $row['start_time'] = strtotime($row['start_time']);
@@ -34,7 +34,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $old_slots = $this->_db->fetchOne("
             select group_concat(`hash`)
             from calendar
-            where (user_id = $user_id or user_id_second = $user_id) and end_time >= NOW()
+            where user_id = $user_id
         ");
             $che_slots = explode(',',$old_slots);
             $old_slots = array();

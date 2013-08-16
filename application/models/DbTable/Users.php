@@ -177,11 +177,12 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $now = time();
 
         if ($data_from > $now && $data_to > $now){
-            $res = $this->_db->fetchAll("
-                select *
+            $res = $this->_db->fetchOne("
+                select group_concat(id)
                 from users
                 where id != $user_id
             ");
+            $res = $this->prepeareUsers($res,$user,true);
             if ($res != null) {
                 return $res;
             }
