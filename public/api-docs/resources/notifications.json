@@ -34,6 +34,33 @@
                     "notes": ""
                 },
                 {
+                    "httpMethod": "POST",
+                    "summary": "Notification counters.",
+                    "nickname": "CountNotification",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "counterNotificationParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
                     "httpMethod": "PUT",
                     "summary": "Read notification.",
                     "nickname": "ReadNotification",
@@ -64,6 +91,14 @@
         }
     ],
     "models": {
+        "counterNotificationParams": {
+            "id": "counterNotificationParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        },
         "readNotificationParams": {
             "id": "readNotificationParams",
             "properties": {

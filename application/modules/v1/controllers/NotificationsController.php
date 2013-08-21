@@ -81,9 +81,56 @@ class V1_NotificationsController extends Zend_Rest_Controller
         }
     }
 
+
+    /**
+     *
+     * @SWG\Model(id="counterNotificationParams")
+     * @SWG\Property(name="private_key",type="string")
+     *
+     *
+     * @SWG\Api(
+     *   path="/notifications/",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       httpMethod="POST",
+     *       summary="Notification counters.",
+     *       responseClass="void",
+     *       nickname="CountNotification",
+     *       notes="",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params correct."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="401",
+     *            reason="Have no permissions."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="counterNotificationParams"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $res = array(
+            'chat' => 2,
+            'requests' => 3,
+            'notification' => 1
+        );
+        $this->_helper->json->sendJson(array(
+            'body' => $res,
+            'errorCode' => '200'
+        ));
     }
 
 

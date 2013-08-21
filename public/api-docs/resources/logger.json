@@ -13,19 +13,11 @@
                     "responseClass": "void",
                     "parameters": [
                         {
-                            "name": "data_in",
-                            "description": "log data in",
+                            "name": "json",
+                            "description": "json",
                             "allowMultiple": false,
-                            "dataType": "void",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "data_out",
-                            "description": "log data out",
-                            "allowMultiple": false,
-                            "dataType": "void",
-                            "paramType": "query",
+                            "dataType": "LogParams",
+                            "paramType": "body",
                             "required": true
                         }
                     ],
@@ -33,5 +25,21 @@
                 }
             ]
         }
-    ]
+    ],
+    "models": {
+        "LogParams": {
+            "id": "LogParams",
+            "properties": {
+                "data_in": {
+                    "type": "string"
+                },
+                "data_out": {
+                    "type": "string"
+                },
+                "url": {
+                    "type": "string"
+                }
+            }
+        }
+    }
 }

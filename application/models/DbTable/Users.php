@@ -176,6 +176,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $user_id = $user['id'];
         $now = time();
 
+
         if ($data_from > $now && $data_to > $now){
             $res = $this->_db->fetchOne("
                 select group_concat(id)
@@ -189,6 +190,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
 
         return array();
+    }
+
+    public function findPeople () {
+        return $this->_db->fetchAll("");
     }
 
     public function registerUser($data) {

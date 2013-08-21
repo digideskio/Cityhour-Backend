@@ -3,6 +3,7 @@
 //{ "type":"login", "private_key":"b4c43dd7e81870bfe42809cfc9ee686e551a51a751ee811062b7d" }
 //{ "type":"msg", "private_key":"b4c43dd7e81870bfe42809cfc9ee686e551a51a751ee811062b7d", "to":"31", "text":"Bla bla" }
 
+date_default_timezone_set("UTC");
 $socket = stream_socket_server("tcp://0.0.0.0:3000", $errno, $err) or die($err);
 $conns = array($socket);
 $conn_ids = array(0);
@@ -33,7 +34,7 @@ class databaseClass {
         $this->connect();
     }
 
-    public function storeMSG($from,$to,$msg) {
+    public function storeMSG($when,$from,$to,$msg) {
         //auto reconnect if MySQL server has gone away
         while (!mysql_ping($this->conn)) {
             sleep(2);
@@ -43,8 +44,10 @@ class databaseClass {
         $msg = mysql_real_escape_string($msg);
         $to = mysql_real_escape_string($to);
         $from = mysql_real_escape_string($from);
-        $result = mysql_query("insert into chat (`to`,`from`,`text`) values ('$to','$from','$msg')");
+        $when = date("Y-m-d H:i:s", $when);
+        $result = mysql_query("insert into chat (`when`,`to`,`from`,`text`) values ('$when','$to','$from','$msg')");
 
+        echo mysql_error();
         if (!$result) {
             return false;
         }
@@ -191,14 +194,15 @@ while (true) {
                                 $target = $target_all['private_key'];
                                 echo ($user_all['email'].' sent '.$recv['text'].' to '.$target_all['email'])."\n";
 
-                                $id = $db_class->storeMSG($user_all['id'],$target_all['id'],$recv['text']);
+                                $when = time();
+                                $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text']);
                                 if ($id) {
                                     $msg_data = array(
                                         'from' => $user_all['id'],
                                         'id' => $id,
                                         'text' => $recv['text'],
                                         'to' => $target_all['id'],
-                                        'when' => time()
+                                        'when' => $when
                                     );
                                     if (isset($conn_user[$target])) {
                                         // send message to one user and to the originator

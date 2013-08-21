@@ -23,8 +23,12 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
 
     public function getTalks($user) {
         $user_id = $user['id'];
+
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        $url = $config->userPhoto->url;
+
         return $this->_db->fetchAll("
-            select max(t.id) as id, t.user_id, u.name, u.lastname, h.when, h.text
+            select max(t.id) as id, t.user_id, u.name, u.lastname, UNIX_TIMESTAMP(h.when) as 'when', h.text, 1 as 'count', concat('$url', u.photo) as photo
             from
             (
             (
