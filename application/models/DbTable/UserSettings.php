@@ -26,7 +26,7 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                     'name' => $num,
                     'value' => $row
                 );
-                $this->update($row,"user_id = $user_id");
+                $this->update($row,"user_id = $user_id and name = '$num' ");
             }
         }
         return true;
@@ -34,7 +34,7 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
 
     public function getSettings($user) {
         $user_id = $user['id'];
-        $res = $this->fetchRow("user_id = $user_id");
+        $res = $this->fetchAll("user_id = $user_id");
         if ($res) {
             $res = $res->toArray();
             return $res;

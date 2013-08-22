@@ -21,52 +21,12 @@
                             "required": true
                         },
                         {
-                            "name": "data_from",
-                            "description": "Data from",
+                            "name": "users",
+                            "description": "Users id separated by ',' ",
                             "allowMultiple": false,
                             "dataType": "timestamp",
                             "paramType": "query",
                             "required": true
-                        },
-                        {
-                            "name": "data_to",
-                            "description": "Data to",
-                            "allowMultiple": false,
-                            "dataType": "timestamp",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "city",
-                            "description": "City",
-                            "allowMultiple": false,
-                            "dataType": "int",
-                            "paramType": "query",
-                            "required": true
-                        },
-                        {
-                            "name": "industry",
-                            "description": "Industry",
-                            "allowMultiple": false,
-                            "dataType": "int",
-                            "paramType": "query",
-                            "required": false
-                        },
-                        {
-                            "name": "goals",
-                            "description": "Goals",
-                            "allowMultiple": false,
-                            "dataType": "int",
-                            "paramType": "query",
-                            "required": false
-                        },
-                        {
-                            "name": "after",
-                            "description": "After whaAt?!",
-                            "allowMultiple": false,
-                            "dataType": "int",
-                            "paramType": "query",
-                            "required": false
                         }
                     ],
                     "errorResponses": [

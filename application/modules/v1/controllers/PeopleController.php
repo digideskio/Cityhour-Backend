@@ -52,52 +52,12 @@ class V1_PeopleController extends Zend_Rest_Controller
      *           dataType="string"
      *         ),
      * @SWG\Parameter(
-     *           name="data_from",
-     *           description="Data from",
+     *           name="users",
+     *           description="Users id separated by ',' ",
      *           paramType="query",
      *           required="true",
      *           allowMultiple="false",
      *           dataType="timestamp"
-     *         ),
-     * @SWG\Parameter(
-     *           name="data_to",
-     *           description="Data to",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="timestamp"
-     *         ),
-     * @SWG\Parameter(
-     *           name="city",
-     *           description="City",
-     *           paramType="query",
-     *           required="true",
-     *           allowMultiple="false",
-     *           dataType="int"
-     *         ),
-     * @SWG\Parameter(
-     *           name="industry",
-     *           description="Industry",
-     *           paramType="query",
-     *           required="false",
-     *           allowMultiple="false",
-     *           dataType="int"
-     *         ),
-     * @SWG\Parameter(
-     *           name="goals",
-     *           description="Goals",
-     *           paramType="query",
-     *           required="false",
-     *           allowMultiple="false",
-     *           dataType="int"
-     *         ),
-     * @SWG\Parameter(
-     *           name="after",
-     *           description="After whaAt?!",
-     *           paramType="query",
-     *           required="false",
-     *           allowMultiple="false",
-     *           dataType="int"
      *         )
      *     )
      *   )
@@ -107,18 +67,13 @@ class V1_PeopleController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
-        $data_from = $this->_request->getParam('data_from');
-        $data_to = $this->_request->getParam('data_to');
-        $city = $this->_request->getParam('city');
-        if ($token && $token != null && $token != '' && is_numeric($data_from) && is_numeric($data_to) && $city && $city != null && $city != '') {
+        $users = $this->_request->getParam('users');
+        $users = "68,86,87,88";
+        if ($token && $token != null && $token != '' && $users && $users != null && $users != '') {
             $db = new Application_Model_DbTable_Users();
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
-                $industry = $this->_request->getParam('industry');
-                $goals = $this->_request->getParam('goals');
-                $after = $this->_request->getParam('after');
-
-                $res = $db->getPeople($user,$data_from,$data_to,$city,$industry,$goals,$after);
+                $res = $db->prepeareUsers($users,$user,true);
                 $this->_helper->json->sendJson(array(
                     'body' => $res,
                     'errorCode' => '200'

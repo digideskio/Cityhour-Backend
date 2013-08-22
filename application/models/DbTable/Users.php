@@ -152,9 +152,14 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function prepeareUsers($res, $user, $full = false) {
         $answer = array();
+
+
         if (!$full) {
+            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+            $url = $config->userPhoto->url;
+
             $answer = $this->_db->fetchAll("
-                select distinct(u.id),u.name,u.lastname,u.industry_id,u.photo,u.phone,u.business_email,u.skype,u.rating,u.city_name,j.name as job_name, j.company as job_company
+                select distinct(u.id),u.name,u.lastname,u.industry_id, concat ('$url', u.photo) as photo,u.phone,u.business_email,u.skype,u.rating,u.city_name,j.name as job_name, j.company as job_company
                 from users u
                 left join user_jobs j on u.id = j.user_id
                 where
@@ -170,26 +175,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
 
         return $answer;
-    }
-
-    public function getPeople($user,$data_from,$data_to,$city,$industry,$goals,$after) {
-        $user_id = $user['id'];
-        $now = time();
-
-
-        if ($data_from > $now && $data_to > $now){
-            $res = $this->_db->fetchOne("
-                select group_concat(id)
-                from users
-                where id != $user_id
-            ");
-            $res = $this->prepeareUsers($res,$user,true);
-            if ($res != null) {
-                return $res;
-            }
-        }
-
-        return array();
     }
 
     public function findPeople () {
