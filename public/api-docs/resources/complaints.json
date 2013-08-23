@@ -36,6 +36,33 @@
                         }
                     ],
                     "notes": ""
+                },
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Add feedback.",
+                    "nickname": "addFeedback",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "addFeedbackParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        }
+                    ],
+                    "notes": ""
                 }
             ]
         }
@@ -51,6 +78,17 @@
                     "type": "string"
                 },
                 "to": {
+                    "type": "string"
+                },
+                "dscr": {
+                    "type": "string"
+                }
+            }
+        },
+        "addFeedbackParams": {
+            "id": "addFeedbackParams",
+            "properties": {
+                "private_key": {
                     "type": "string"
                 },
                 "dscr": {

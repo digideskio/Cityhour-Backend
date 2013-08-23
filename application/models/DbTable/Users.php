@@ -177,10 +177,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         return $answer;
     }
 
-    public function findPeople () {
-        return $this->_db->fetchAll("");
-    }
-
     public function registerUser($data) {
         $filter = new Zend_Filter_StripTags();
         $this->_db->beginTransaction();
@@ -272,7 +268,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             if (isset($data['photo_id']) && is_numeric($data['photo_id'])) {
                 $photo_id = $data['photo_id'];
                 $photo = $this->_db->fetchOne("
-                    select orig
+                    select circle_260
                     from user_photos
                     where id = $photo_id
                 ");

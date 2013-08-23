@@ -51,5 +51,20 @@ class Application_Model_DbTable_Complaints extends Zend_Db_Table_Abstract
         }
     }
 
+    public function addFeedback($user,$dscr) {
+        try {
+            $options = array(
+                'name' => $user['name'].' '.$user['lastname'],
+                'email' => $user['email'],
+                'dscr' => $dscr
+            );
+            Application_Model_Common::sendEmail('bukashk0zzz@me.com', "ФидаБЕк", null, null, null, "feedback.phtml", $options, 'feedback');
+            return true;
+        } catch (Exception $e) {
+            return $e->getMessage();
+        }
+        return true;
+    }
+
 }
 

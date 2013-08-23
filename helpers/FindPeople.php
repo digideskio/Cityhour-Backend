@@ -2,8 +2,12 @@
 
 
 // Debug ?
-$debug = false;
-
+if (isset($_POST["debug"]) && $_POST["debug"]) {
+    $debug = true;
+}
+else {
+    $debug = false;
+}
 
 if ($debug) {
     $time = microtime();

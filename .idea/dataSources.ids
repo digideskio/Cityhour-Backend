@@ -24,13 +24,12 @@
     </table>
     <table name="calendar" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <column name="user_id_second" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="user_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="user_id_second" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
       <column name="hash" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="start_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
       <column name="end_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
-      <column name="goal" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
-      <column name="time_create" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
+      <column name="goal" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="city_name" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
       <column name="foursquare_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
@@ -38,10 +37,11 @@
       <column name="lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="rating" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
-      <column name="rating_second" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
-      <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
-      <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
+      <column name="type" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="status" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="time_create" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>
+      <index name="unq_hash" unique="true" columns="hash"/>
     </table>
     <table name="chat" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
@@ -80,6 +80,7 @@
     <table name="goals" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="name" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
+      <column name="in_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="industries" schema="" catalog="MeetRocket" type="TABLE">
@@ -105,7 +106,6 @@
       <column name="user_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
       <column name="lat" sqlType="FLOAT" length="20" precision="16" nullable="true" jdbcType="7"/>
       <column name="lng" sqlType="FLOAT" length="20" precision="16" nullable="true" jdbcType="7"/>
-      <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
       <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
@@ -201,7 +201,8 @@
     </table>
     <table name="user_photos" schema="" catalog="MeetRocket" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="orig" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="orig" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="circle_260" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA="/>
       <primary-key name="PRIMARY" columns="id"/>

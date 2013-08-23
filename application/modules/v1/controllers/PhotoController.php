@@ -85,7 +85,7 @@ class V1_PhotoController extends Zend_Rest_Controller
 
                 $private_key = $this->_request->getParam('private_key');
                 $db = new Application_Model_DbTable_UserPhotos();
-                $id = $db->makePhoto($filename,$private_key,$config,$file['tmp_name']);
+                $id = $db->makePhoto($rrr,$filename,$private_key,$config,$file['tmp_name']);
 
                 $this->_helper->json->sendJson(array(
                     'body' => array(

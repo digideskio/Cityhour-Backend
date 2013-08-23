@@ -40,6 +40,9 @@ class FindPeople {
     var $goal_fn;
     var $goal_f;
 
+    /** @var int $user_id Id of user */
+    var $user_id;
+
 
     public function __construct($debug,$map) {
         $this->debug = $debug;
@@ -69,7 +72,7 @@ class FindPeople {
 
     public function getUser($token) {
         $sql = "
-            select *
+            select id
             from users
             where private_key = '$token'
         ";
@@ -84,6 +87,7 @@ class FindPeople {
             die();
         }
         if (isset($result['id'])) {
+            $this->user_id = $result['id'];
             return $result;
         }
         else {
@@ -161,10 +165,61 @@ class FindPeople {
         }
     }
 
+    public function mapUpdate($user_id,$lat,$lng) {
+        $sql = "
+            select id
+            from `map`
+            where user_id = $user_id
+        ";
+
+        try {
+            $result = $this->mysql->query($sql);
+            $result = $result->fetch(PDO::FETCH_ASSOC);
+        }
+        catch(PDOException $e)
+        {
+            $this->answer($e->getMessage(),500);
+            die();
+        }
+
+        $time = date('Y-m-d H:i:s',time());
+        if (isset($result['id'])) {
+            $id = $result['id'];
+
+            $sql = "
+                    update `map` set `lat` = $lat, `lng` = $lng, `time` = '$time'
+                    where id = $id and user_id = $user_id
+                ";
+            try {
+                $this->mysql->query($sql);
+            }
+            catch(PDOException $e)
+            {
+                $this->answer($e->getMessage(),500);
+                die();
+            }
+        }
+        else {
+            $sql = "
+                    INSERT INTO `map` (`user_id`, `lat`, `lng`, `time`)
+                    VALUES
+	                ($user_id,$lat,$lng,'$time')
+                ";
+            try {
+                $this->mysql->query($sql);
+            }
+            catch(PDOException $e)
+            {
+                $this->answer($e->getMessage(),500);
+                die();
+            }
+        }
+    }
+
     public function getValues() {
         $this->temp_t = '`'.uniqid().'`';
 
-        if (!$this->debug && !$this->map) {
+        if (!$this->map) {
             $che = true;
 
             if (isset($_POST["private_key"])) $token = $_POST["private_key"]; else $che = false;
@@ -212,7 +267,7 @@ class FindPeople {
                 die();
             }
         }
-        elseif (!$this->debug && $this->map) {
+        else {
             $che = true;
 
             if (isset($_POST["private_key"])) $token = $_POST["private_key"]; else $che = false;
@@ -222,20 +277,27 @@ class FindPeople {
             if (isset($_POST["n_lng"])) $this->n_lng = $_POST["n_lng"]; else $che = false;
             if (isset($_POST["s_lng"])) $this->s_lng = $_POST["s_lng"]; else $che = false;
 
+            if (isset($_POST["lat"])) $lat = $_POST["lat"]; else $che = false;
+            if (isset($_POST["lng"])) $lng = $_POST["lng"]; else $che = false;
+
             if (!$che) {
                 $this->answer('Not all params given',400);
                 die();
             }
 
 
-            if ( $token != null && $token != '' && is_numeric($this->n_lat) && is_numeric($this->s_lat) && is_numeric($this->n_lng) && is_numeric($this->s_lng)) {
+            if ( $token != null && $token != '' && is_numeric($this->n_lat) && is_numeric($this->s_lat) && is_numeric($this->n_lng) && is_numeric($this->s_lng) && is_numeric($lat) && is_numeric($lng)) {
                 $user = $this->getUser($token);
                 if ($user) {
-                    $this->b_s = date("Y-m-d", $this->q_s).' 09:00:00';
-                    $this->b_e = date("Y-m-d", $this->q_e).' 18:00:00';
+                    $this->mapUpdate($user['id'],$lat,$lng);
 
-                    $this->q_s = date("Y-m-d H:i:s", time() );
-                    $this->q_e = date("Y-m-d H:i:s", strtotime("+2 hour"));
+                    $time = time();
+
+                    $this->q_s = date("Y-m-d H:i:s", $time );
+                    $this->q_e = date("Y-m-d H:i:s", $time+7200 );
+
+                    $this->b_s = date("Y-m-d", $time).' 09:00:00';
+                    $this->b_e = date("Y-m-d", $time).' 18:00:00';
                 }
                 else {
                     $this->answer('Authentication failed',401);
@@ -246,22 +308,6 @@ class FindPeople {
                 $this->answer('Not all params given',400);
                 die();
             }
-        }
-        else {
-            // Static business time
-            $this->b_s = '2013-08-14 09:00:00';
-            $this->b_e = '2013-08-14 18:00:00';
-
-            $this->q_s = '2013-08-14 10:00:00';
-            $this->q_e = '2013-08-14 19:00:00';
-
-            $this->goal = 2;
-            $this->industry = 4;
-
-            $this->n_lat = 50.590798;
-            $this->s_lat = 50.2133;
-            $this->n_lng = 30.825941;
-            $this->s_lng = 30.2394401;
         }
 
 
@@ -432,6 +478,9 @@ class FindPeople {
             from $this->temp_t t
             inner JOIN $this->temp_t mt on t.user_id = mt.user_id
             and mt.type = 2
+            and t.start_time <= mt.end_time
+            and t.end_time >= mt.start_time
+
             where t.type = 1
             order by t.id,mt.start_time
         ";
@@ -482,6 +531,8 @@ class FindPeople {
             inner JOIN rSult mt on t.user_id = mt.user_id
             and mt.type = 1
             and mt.is_free = 1
+            and t.start_time <= mt.end_time
+            and t.end_time >= mt.start_time
 
             where t.type = 0
             and t.is_free = 1
@@ -583,6 +634,8 @@ class FindPeople {
             select t.id, t.user_id, t.type, t.is_free, UNIX_TIMESTAMP(t.start_time) AS start_time, UNIX_TIMESTAMP(t.end_time) as end_time,  UNIX_TIMESTAMP(mt.start_time) AS second_start_time, UNIX_TIMESTAMP(mt.end_time) as second_end_time
             from $this->temp_t t
             inner JOIN xSult mt on t.user_id = mt.user_id
+            and t.start_time <= mt.end_time
+            and t.end_time >= mt.start_time
 
             where t.type = 3
             and t.is_free = 1
@@ -603,12 +656,61 @@ class FindPeople {
     }
 
     public function getResult() {
-        $sql = "
-            select user_id, start_time, end_time
-            from (select * from rSult order by start_time asc) as t
-            where (UNIX_TIMESTAMP(end_time) - UNIX_TIMESTAMP(start_time)) >= 3600
-            group by user_id
-        ";
+        if (!$this->map) {
+            $sql = "
+                select t.user_id, t.start_time, t.end_time,
+                    case
+                      when t.type = 1 then (select c.foursquare_id from calendar c where c.id = t.id)
+                      when t.type = 3 then (select s.value from user_settings s where s.name = 'foursquare_id' and s.user_id = t.user_id)
+                      else null
+                    end as foursquare_id,
+                    case
+                      when t.type = 1 then (select c.place from calendar c where c.id = t.id)
+                      when t.type = 3 then (select ci.place from user_settings s left join place ci on ci.foursquare_id = s.value where s.name = 'foursquare_id' and s.user_id = t.user_id)
+                      else null
+                    end as place
+                from (select * from rSult order by start_time asc) as t
+                where (UNIX_TIMESTAMP(t.end_time) - UNIX_TIMESTAMP(t.start_time)) >= 3600
+                and t.user_id != $this->user_id
+                group by t.user_id
+            ";
+        }
+        else {
+            $url = $this->config['userPhoto.url'];
+            $sql = "
+                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company
+                from (
+                    (
+                        SELECT m.user_id, m.lat, m.lng
+                        FROM map m
+                        WHERE
+                        m.time > now() - interval 10 MINUTE
+                        and m.lng BETWEEN $this->s_lng AND $this->n_lng AND m.lat BETWEEN $this->s_lat AND $this->n_lat
+                    )
+                    union
+                    (
+                        select r.user_id,
+                        case
+                          when r.type = 1 then (select c.lat from calendar c where c.id = r.id)
+                          when r.type = 3 then (select ci.lat from user_settings s left join city ci on ci.city = s.value where s.name = 'city' and s.user_id = r.user_id)
+                          else null
+                        end as lat,
+                        case
+                          when r.type = 1 then (select c.lng from calendar c where c.id = r.id)
+                          when r.type = 3 then (select ci.lng from user_settings s left join city ci on ci.city = s.value where s.name = 'city' and s.user_id = r.user_id)
+                          else null
+                        end as lng
+                        from rSult r
+                        where (UNIX_TIMESTAMP(r.end_time) - UNIX_TIMESTAMP(r.start_time)) >= 3600
+                    )
+                ) as t
+                left join users u on t.user_id = u.id
+                left join user_jobs j on t.user_id = j.user_id
+                WHERE t.user_id != $this->user_id
+                and j.current=1
+                group by t.user_id
+            ";
+        }
 
         try {
             $result = $this->mysql->query($sql);
@@ -680,9 +782,11 @@ class FindPeople {
 
     public function answer($result,$code) {
         if (!$this->debug) {
-            foreach ($result as $num => $row) {
-                $result[$num]['start_time'] = strtotime($row['start_time']);
-                $result[$num]['end_time'] = strtotime($row['end_time']);
+            if (!$this->map) {
+                foreach ($result as $num => $row) {
+                    $result[$num]['start_time'] = strtotime($row['start_time']);
+                    $result[$num]['end_time'] = strtotime($row['end_time']);
+                }
             }
 
             header('Content-Type: application/json');
@@ -792,47 +896,49 @@ class FindPeople {
             $last = $row;
         }
 
-        $t_res[0] = array(
-            'id' => $last['id'],
-            'user_id' => $last['user_id'],
-            'type' => $last['type'],
-            'is_free' => $last['is_free'],
-            'start_time' => $last['start_time'],
-            'end_time' => $last['end_time'],
-        );
+        if (isset($last['id'])) {
+            $t_res[0] = array(
+                'id' => $last['id'],
+                'user_id' => $last['user_id'],
+                'type' => $last['type'],
+                'is_free' => $last['is_free'],
+                'start_time' => $last['start_time'],
+                'end_time' => $last['end_time'],
+            );
 
-        foreach ($busy as $busy_s) {
-            $l_res = $t_res;
-            $t_res = array();
-            foreach ($l_res as $tt_res) {
-                // left side
-                if ($tt_res['start_time'] < $busy_s['second_start_time']) {
-                    $free = array(
-                        'id' => $tt_res['id'],
-                        'user_id' => $tt_res['user_id'],
-                        'type' => $tt_res['type'],
-                        'is_free' => $tt_res['is_free'],
-                        'start_time' => $tt_res['start_time'],
-                        'end_time' => min($busy_s['second_start_time'], $tt_res['end_time']),
-                    );
-                    array_push($t_res,$free);
-                }
+            foreach ($busy as $busy_s) {
+                $l_res = $t_res;
+                $t_res = array();
+                foreach ($l_res as $tt_res) {
+                    // left side
+                    if ($tt_res['start_time'] < $busy_s['second_start_time']) {
+                        $free = array(
+                            'id' => $tt_res['id'],
+                            'user_id' => $tt_res['user_id'],
+                            'type' => $tt_res['type'],
+                            'is_free' => $tt_res['is_free'],
+                            'start_time' => $tt_res['start_time'],
+                            'end_time' => min($busy_s['second_start_time'], $tt_res['end_time']),
+                        );
+                        array_push($t_res,$free);
+                    }
 
-                // right side
-                if ($tt_res['end_time'] > $busy_s['second_end_time']) {
-                    $free = array(
-                        'id' => $tt_res['id'],
-                        'user_id' => $tt_res['user_id'],
-                        'type' => $tt_res['type'],
-                        'is_free' => $tt_res['is_free'],
-                        'start_time' => max($busy_s['second_end_time'], $tt_res['start_time']),
-                        'end_time' => $tt_res['end_time'],
-                    );
-                    array_push($t_res,$free);
+                    // right side
+                    if ($tt_res['end_time'] > $busy_s['second_end_time']) {
+                        $free = array(
+                            'id' => $tt_res['id'],
+                            'user_id' => $tt_res['user_id'],
+                            'type' => $tt_res['type'],
+                            'is_free' => $tt_res['is_free'],
+                            'start_time' => max($busy_s['second_end_time'], $tt_res['start_time']),
+                            'end_time' => $tt_res['end_time'],
+                        );
+                        array_push($t_res,$free);
+                    }
                 }
             }
+            $res = array_merge($res,$t_res);
         }
-        $res = array_merge($res,$t_res);
 
         foreach ($res as $num => $row) {
             $res[$num]['start_time'] = date("Y-m-d H:i:s", $row['start_time']);
