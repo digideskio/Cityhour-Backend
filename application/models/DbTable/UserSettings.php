@@ -13,6 +13,14 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
             'exclude' => "user_id = $user_id"
         ));
         foreach ($data as $num => $row ) {
+            if ($num == 'city') {
+                Application_Model_Common::getCity($row);
+            }
+
+            if ($num == 'foursquare_id') {
+                Application_Model_Common::getPlace($row);
+            }
+
             if ($validator_exist->isValid($num)) {
                 $row = array(
                     'user_id' => $user_id,
@@ -37,6 +45,19 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
         $res = $this->fetchAll("user_id = $user_id");
         if ($res) {
             $res = $res->toArray();
+
+            foreach ($res as $num => $row) {
+                if ($row['name'] == 'city') {
+                    $city = $row['value'];
+                    $res[$num]['value'] = $this->_db->fetchOne("select city_name from city where city = '$city' ");
+                }
+
+                if ($row['name'] == 'foursquare_id') {
+                    $foursquare_id = $row['value'];
+                    $res[$num]['value'] = $this->_db->fetchOne("select place from place where foursquare_id = '$foursquare_id' ");
+                }
+            }
+
             return $res;
         }
         else {
@@ -45,4 +66,3 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
     }
 
 }
-

@@ -288,6 +288,28 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 'name' => 'free_time',
                 'value' => 1
             ));
+            $this->_db->insert('user_settings',array(
+                'user_id' => $id,
+                'name' => 'newMessageSync',
+                'value' => 1
+            ));
+            $this->_db->insert('user_settings',array(
+                'user_id' => $id,
+                'name' => 'incomingMeetingInviteSync',
+                'value' => 1
+            ));
+            $this->_db->insert('user_settings',array(
+                'user_id' => $id,
+                'name' => 'nativeCalendarSync',
+                'value' => 1
+            ));
+            $this->_db->insert('user_settings',array(
+                'user_id' => $id,
+                'name' => 'contactRequestSync',
+                'value' => 1
+            ));
+
+
 
             $completeness = Application_Model_Common::UpdateCompleteness($id);
             $experience = Application_Model_Common::UpdateExperience($id);

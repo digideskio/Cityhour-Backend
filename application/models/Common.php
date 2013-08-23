@@ -153,7 +153,7 @@ class Application_Model_Common
                 $data['lat'] = $req['response']['venue']['location']['lat'];
                 $data['lng'] = $req['response']['venue']['location']['lng'];
                 $data['foursquare_id'] = $place;
-                Zend_Db_Table::getDefaultAdapter()->insert('city',array(
+                Zend_Db_Table::getDefaultAdapter()->insert('place',array(
                     'foursquare_id' => $place,
                     'place' => $data['place'],
                     'lat' => $data['lat'],
