@@ -15,7 +15,7 @@
         </thead>
         <?php foreach ($this->items as $item) { ?>
             <tr>
-                <td><?php if ($item['photo']) {?><img class="img-thumbnail imgUser" src="<?php echo $this->photoUrl.$item['photo'];?>" alt=""/><?php } ?></td>
+                <td><?php if ($item['photo']) {?><img class="imgUser" src="<?php echo $this->photoUrl.$item['photo'];?>" alt=""/><?php } ?></td>
                 <td><?php echo $item['email'];?></td>
                 <td><?php echo $item['name'];?></td>
                 <td><?php echo $item['lastname'];?></td>
