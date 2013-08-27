@@ -12,6 +12,9 @@ class FindPeople {
     /** @var array $config Config */
     var $config;
 
+    /** @var array $data Income paramms */
+    var $data;
+
     /** @var string $temp_t name of temporary table for main select */
     /** @var string $b_s Bussines time start */
     /** @var string $b_e Bussines time end */
@@ -44,9 +47,10 @@ class FindPeople {
     var $user_id;
 
 
-    public function __construct($debug,$map) {
+    public function __construct($debug,$map,$data) {
         $this->debug = $debug;
         $this->map = $map;
+        $this->data = $data;
         $this->mainWork();
     }
 
@@ -218,19 +222,20 @@ class FindPeople {
 
     public function getValues() {
         $this->temp_t = '`'.uniqid().'`';
+        $data = $this->data;
 
         if (!$this->map) {
             $che = true;
 
-            if (isset($_POST["private_key"])) $token = $_POST["private_key"]; else $che = false;
+            if (isset($data["private_key"])) $token = $data["private_key"]; else $che = false;
 
-            if (isset($_POST["data_from"])) $this->q_s = $_POST["data_from"]; else $che = false;
-            if (isset($_POST["data_to"])) $this->q_e = $_POST["data_to"]; else $che = false;
+            if (isset($data["data_from"])) $this->q_s = $data["data_from"]; else $che = false;
+            if (isset($data["data_to"])) $this->q_e = $data["data_to"]; else $che = false;
 
-            if (isset($_POST["city"])) $city = $_POST["city"]; else $che = false;
+            if (isset($data["city"])) $city = $data["city"]; else $che = false;
 
-            if (isset($_POST["goal"])) $this->goal = $_POST["goal"];
-            if (isset($_POST["industry"])) $this->industry = $_POST["industry"];
+            if (isset($data["goal"])) $this->goal = $data["goal"];
+            if (isset($data["industry"])) $this->industry = $data["industry"];
 
             if (!$che) {
                 $this->answer('Not all params given',400);
@@ -270,15 +275,15 @@ class FindPeople {
         else {
             $che = true;
 
-            if (isset($_POST["private_key"])) $token = $_POST["private_key"]; else $che = false;
+            if (isset($data["private_key"])) $token = $data["private_key"]; else $che = false;
 
-            if (isset($_POST["n_lat"])) $this->n_lat = $_POST["n_lat"]; else $che = false;
-            if (isset($_POST["s_lat"])) $this->s_lat = $_POST["s_lat"]; else $che = false;
-            if (isset($_POST["n_lng"])) $this->n_lng = $_POST["n_lng"]; else $che = false;
-            if (isset($_POST["s_lng"])) $this->s_lng = $_POST["s_lng"]; else $che = false;
+            if (isset($data["n_lat"])) $this->n_lat = $data["n_lat"]; else $che = false;
+            if (isset($data["s_lat"])) $this->s_lat = $data["s_lat"]; else $che = false;
+            if (isset($data["n_lng"])) $this->n_lng = $data["n_lng"]; else $che = false;
+            if (isset($data["s_lng"])) $this->s_lng = $data["s_lng"]; else $che = false;
 
-            if (isset($_POST["lat"])) $lat = $_POST["lat"]; else $che = false;
-            if (isset($_POST["lng"])) $lng = $_POST["lng"]; else $che = false;
+            if (isset($data["lat"])) $lat = $data["lat"]; else $che = false;
+            if (isset($data["lng"])) $lng = $data["lng"]; else $che = false;
 
             if (!$che) {
                 $this->answer('Not all params given',400);

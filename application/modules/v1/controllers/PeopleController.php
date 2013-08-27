@@ -68,7 +68,6 @@ class V1_PeopleController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
         $users = $this->_request->getParam('users');
-        $users = "68,86,87,88";
         if ($token && $token != null && $token != '' && $users && $users != null && $users != '') {
             $db = new Application_Model_DbTable_Users();
             $user = Application_Model_DbTable_Users::getUserData($token);

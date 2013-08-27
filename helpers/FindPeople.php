@@ -1,8 +1,10 @@
 <?php
 
+$data = file_get_contents("php://input");
+$data = json_decode($data,true);
 
 // Debug ?
-if (isset($_POST["debug"]) && $_POST["debug"]) {
+if (isset($data["debug"]) && $data["debug"]) {
     $debug = true;
 }
 else {
@@ -21,11 +23,11 @@ else {
 
 include_once 'FindPeople.class.php';
 
-if (isset($_POST["map"]) && $_POST["map"]) {
-    new FindPeople($debug,true);
+if (isset($data["map"]) && $data["map"]) {
+    new FindPeople($debug,true,$data);
 }
 else {
-    new FindPeople($debug,false);
+    new FindPeople($debug,false,$data);
 }
 
 
