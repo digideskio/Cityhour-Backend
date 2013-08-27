@@ -1,5 +1,5 @@
 {
-    "basePath": "http://192.168.1.150:8000/v1/",
+    "basePath": "http://10.0.1.150:8000/v1/",
     "apiVersion": "1",
     "resourcePath": "/meetings",
     "apis": [
@@ -7,35 +7,8 @@
             "path": "/meetings/",
             "operations": [
                 {
-                    "httpMethod": "GET",
-                    "summary": "Get meetings.",
-                    "nickname": "GetMeetings",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "private_key",
-                            "description": "private_key",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "Authentication failed.",
-                            "code": 401
-                        },
-                        {
-                            "reason": "Not all params given.",
-                            "code": 400
-                        }
-                    ],
-                    "notes": ""
-                },
-                {
                     "httpMethod": "POST",
-                    "summary": "Add meeting.",
+                    "summary": "Add meeting or free slot.",
                     "nickname": "addMeeting",
                     "responseClass": "void",
                     "parameters": [
@@ -43,7 +16,7 @@
                             "name": "json",
                             "description": "json",
                             "allowMultiple": false,
-                            "dataType": "meetingsParams",
+                            "dataType": "addMeetingsParams",
                             "paramType": "body",
                             "required": true
                         }
@@ -56,68 +29,14 @@
                         {
                             "reason": "Have no permissions.",
                             "code": 401
-                        }
-                    ],
-                    "notes": ""
-                },
-                {
-                    "httpMethod": "PUT",
-                    "summary": "Update meeting.",
-                    "nickname": "UpdateMeeting",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "json",
-                            "description": "json",
-                            "allowMultiple": false,
-                            "dataType": "meetUpdateParams",
-                            "paramType": "body",
-                            "required": true
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "Not all params correct.",
-                            "code": 400
                         },
                         {
-                            "reason": "Have no permissions.",
-                            "code": 401
-                        }
-                    ],
-                    "notes": ""
-                },
-                {
-                    "httpMethod": "DELETE",
-                    "summary": "Delete meeting.",
-                    "nickname": "DeleteMeeting",
-                    "responseClass": "void",
-                    "parameters": [
-                        {
-                            "name": "private_key",
-                            "description": "private_key",
-                            "allowMultiple": false,
-                            "dataType": "string",
-                            "paramType": "query",
-                            "required": true
+                            "reason": "User for meet blocked.",
+                            "code": 408
                         },
                         {
-                            "name": "id",
-                            "description": "id",
-                            "allowMultiple": false,
-                            "dataType": "int",
-                            "paramType": "query",
-                            "required": true
-                        }
-                    ],
-                    "errorResponses": [
-                        {
-                            "reason": "Authentication failed.",
-                            "code": 401
-                        },
-                        {
-                            "reason": "Not all params given.",
-                            "code": 400
+                            "reason": "User blocked.",
+                            "code": 407
                         }
                     ],
                     "notes": ""
@@ -126,49 +45,35 @@
         }
     ],
     "models": {
-        "meetingsParams": {
-            "id": "meetingsParams",
+        "addMeetingsParams": {
+            "id": "addMeetingsParams",
             "properties": {
                 "private_key": {
                     "type": "string"
                 },
-                "user_id_second": {
-                    "type": "int"
+                "date_from": {
+                    "type": "timestamp"
                 },
-                "rating": {
-                    "type": "float"
+                "date_to": {
+                    "type": "timestamp"
                 },
-                "status": {
-                    "type": "int"
+                "city": {
+                    "type": "string"
                 },
                 "foursquare_id": {
                     "type": "string"
                 },
-                "when": {
-                    "type": "TIMESTAMP"
-                }
-            }
-        },
-        "meetUpdateParams": {
-            "id": "meetUpdateParams",
-            "properties": {
-                "private_key": {
+                "goal": {
                     "type": "string"
                 },
-                "id": {
-                    "type": "int"
-                },
-                "rating": {
-                    "type": "float"
-                },
-                "status": {
-                    "type": "int"
-                },
-                "foursquare_id": {
+                "person": {
                     "type": "string"
                 },
-                "when": {
-                    "type": "TIMESTAMP"
+                "person_value": {
+                    "type": "string"
+                },
+                "person_name": {
+                    "type": "string"
                 }
             }
         }

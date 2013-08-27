@@ -78,6 +78,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     left join user_contacts_wait w on u.facebook_id = w.linkedin_id
                     where
                       user_id = $id and w.type = 1
+                    having status != 2
                 ");
             }
             else {
@@ -111,6 +112,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
                 where
                   user_id = $id and w.type = 2
+                having status != 2
             ");
         }
 
@@ -146,6 +148,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   where
                   ( $phones or $emails or $business_emails )
                   and u.id != $id
+                  having status != 2
             ");
         }
 

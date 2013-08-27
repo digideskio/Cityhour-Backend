@@ -31,7 +31,10 @@ class Application_Model_Types
         return array(
             0 => 'Friend request',
             1 => 'Friends accept',
-            2 => 'Friends reject'
+            2 => 'Friends reject',
+            3 => 'Meeting request',
+            4 => 'Meeting accept',
+            5 => 'Meeting reject'
         );
     }
 
@@ -55,13 +58,22 @@ class Application_Model_Types
             0 => 'Meeting request',
             1 => 'Meeting canceled',
             2 => 'Meeting request accepted',
-            3 => 'New message'
+            3 => 'New message',
+            4 => 'Friend request'
         );
     }
 
     public static function complaints() {
         return array(
             0 => 'User'
+        );
+    }
+
+    public static function personType() {
+        return array(
+            0 => 'No',
+            1 => 'User_id',
+            2 => 'Email'
         );
     }
 

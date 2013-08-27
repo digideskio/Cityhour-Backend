@@ -43,6 +43,10 @@
             "description": null
         },
         {
+            "path": "/resources/meetings.{format}",
+            "description": null
+        },
+        {
             "path": "/resources/notifications.{format}",
             "description": null
         },

@@ -41,6 +41,7 @@
           <dbTableFile dbTableName="PushMessages"/>
           <dbTableFile dbTableName="Admins"/>
           <dbTableFile dbTableName="Logger"/>
+          <dbTableFile dbTableName="EmailUsers"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>
