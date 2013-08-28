@@ -40,6 +40,41 @@
                         }
                     ],
                     "notes": ""
+                },
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Get Free Slots.",
+                    "nickname": "getFreeSlots",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "getFreeSlotsParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "Request user blocked.",
+                            "code": 408
+                        },
+                        {
+                            "reason": "Current user blocked.",
+                            "code": 407
+                        }
+                    ],
+                    "notes": ""
                 }
             ]
         }
@@ -74,6 +109,17 @@
                 },
                 "person_name": {
                     "type": "string"
+                }
+            }
+        },
+        "getFreeSlotsParams": {
+            "id": "getFreeSlotsParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "user_id": {
+                    "type": "int"
                 }
             }
         }

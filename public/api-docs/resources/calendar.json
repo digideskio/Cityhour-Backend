@@ -35,7 +35,7 @@
                 },
                 {
                     "httpMethod": "POST",
-                    "summary": "Add time slot to calendar.",
+                    "summary": "Add busy time slot to calendar.",
                     "nickname": "slotCalendar",
                     "responseClass": "void",
                     "parameters": [
@@ -83,6 +83,18 @@
                         {
                             "reason": "Have no permissions.",
                             "code": 401
+                        },
+                        {
+                            "reason": "Slot not found or U have`n right to edit it.",
+                            "code": 404
+                        },
+                        {
+                            "reason": "User for meet blocked.",
+                            "code": 408
+                        },
+                        {
+                            "reason": "User blocked.",
+                            "code": 407
                         }
                     ],
                     "notes": ""
@@ -149,32 +161,32 @@
                 "id": {
                     "type": "int"
                 },
-                "user_id_second": {
+                "date_from": {
+                    "type": "timestamp"
+                },
+                "date_to": {
+                    "type": "timestamp"
+                },
+                "city": {
                     "type": "string"
-                },
-                "start_time": {
-                    "type": "timestamp"
-                },
-                "end_time": {
-                    "type": "timestamp"
                 },
                 "foursquare_id": {
                     "type": "string"
                 },
                 "goal": {
-                    "type": "int"
-                },
-                "city": {
                     "type": "string"
-                },
-                "hash": {
-                    "type": "string"
-                },
-                "type": {
-                    "type": "int"
                 },
                 "rating": {
-                    "type": "float"
+                    "type": "string"
+                },
+                "person": {
+                    "type": "string"
+                },
+                "person_value": {
+                    "type": "string"
+                },
+                "person_name": {
+                    "type": "string"
                 }
             }
         },

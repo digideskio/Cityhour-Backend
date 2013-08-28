@@ -65,6 +65,10 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="407",
      *            reason="User blocked."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="300",
+     *            reason="You have meeting on this time."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -118,9 +122,80 @@ class V1_MeetingsController extends Zend_Rest_Controller
         }
     }
 
+
+    /**
+     *
+     * @SWG\Model(id="getFreeSlotsParams")
+     * @SWG\Property(name="private_key",type="string")
+     * @SWG\Property(name="user_id",type="int")
+     *
+     *
+     * @SWG\Api(
+     *   path="/meetings/",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       httpMethod="PUT",
+     *       summary="Get Free Slots.",
+     *       responseClass="void",
+     *       nickname="getFreeSlots",
+     *       notes="",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params correct."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="401",
+     *            reason="Have no permissions."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="408",
+     *            reason="Request user blocked."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="Current user blocked."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="getFreeSlotsParams"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function putAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $body = $this->getRequest()->getRawBody();
+        $data = @Zend_Json::decode($body);
+        if (isset($data['private_key']) && $data['private_key'] != null && $data['private_key'] != '' && isset($data['user_id']) && is_numeric($data['user_id']) ) {
+            $user = Application_Model_DbTable_Users::getUserData($data['private_key']);
+            if ($user) {
+                $db = new Application_Model_DbTable_Calendar();
+                $res = $db->getFreeSlots($user,$data['user_id']);
+
+                $this->_helper->json->sendJson(array(
+                    'body' => $res['body'],
+                    'errorCode' => $res['code']
+                ));
+            }
+            else {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '401'
+                ));
+            }
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                'errorCode' => '400'
+            ));
+        }
     }
 
     public function deleteAction()

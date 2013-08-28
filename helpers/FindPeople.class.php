@@ -15,6 +15,9 @@ class FindPeople {
     /** @var array $data Income paramms */
     var $data;
 
+    /** @var array $free Free time of user who request */
+    var $free = array();
+
     /** @var string $temp_t name of temporary table for main select */
     /** @var string $b_s Bussines time start */
     /** @var string $b_e Bussines time end */
@@ -66,10 +69,13 @@ class FindPeople {
 
         try {
             $this->mysql = new PDO("mysql:host=$host;dbname=$dbname", "$username", "$password");
+            if ($this->debug) {
+                $this->mysql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            }
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
+            $this->answer($e,500);
             die();
         }
     }
@@ -85,9 +91,9 @@ class FindPeople {
             $result = $this->mysql->query($sql);
             $result = $result->fetch(PDO::FETCH_ASSOC);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
+            $this->answer($e,500);
             die();
         }
         if (isset($result['id'])) {
@@ -109,9 +115,9 @@ class FindPeople {
             $result = $this->mysql->query($sql);
             $result = $result->fetch(PDO::FETCH_ASSOC);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
+            $this->answer($e,500);
             die();
         }
 
@@ -155,9 +161,9 @@ class FindPeople {
                 try {
                     $this->mysql->query($sql);
                 }
-                catch(PDOException $e)
+                catch(Exception $e)
                 {
-                    $this->answer($e->getMessage(),500);
+                    $this->answer($e,500);
                     die();
                 }
 
@@ -180,9 +186,9 @@ class FindPeople {
             $result = $this->mysql->query($sql);
             $result = $result->fetch(PDO::FETCH_ASSOC);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
+            $this->answer($e,500);
             die();
         }
 
@@ -197,9 +203,9 @@ class FindPeople {
             try {
                 $this->mysql->query($sql);
             }
-            catch(PDOException $e)
+            catch(Exception $e)
             {
-                $this->answer($e->getMessage(),500);
+                $this->answer($e,500);
                 die();
             }
         }
@@ -212,12 +218,84 @@ class FindPeople {
             try {
                 $this->mysql->query($sql);
             }
-            catch(PDOException $e)
+            catch(Exception $e)
             {
-                $this->answer($e->getMessage(),500);
+                $this->answer($e,500);
                 die();
             }
         }
+    }
+
+    public function checkFree(){
+        try {
+            $this->mysql->query("
+                create temporary table uSult (`id` bigint(20) unsigned DEFAULT NULL,
+                `user_id` bigint(20) unsigned DEFAULT NULL,
+                `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
+                `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
+                `start_time` timestamp NULL DEFAULT NULL,
+                `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY
+            ");
+        }
+        catch(Exception $e)
+        {
+            $this->answer($e,500);
+            die();
+        }
+
+        try {
+            $this->mysql->query("
+                insert into uSult (id, user_id, `type`, is_free, start_time, end_time)
+                values (1, $this->user_id, 1, 0, '$this->q_s', '$this->q_e' )
+            ");
+        }
+        catch(Exception $e)
+        {
+            $this->answer($e,500);
+            die();
+        }
+
+        try {
+            $result = $this->mysql->query("
+                select t.id, t.user_id, t.type, 0 as is_free, UNIX_TIMESTAMP(t.start_time) AS start_time, UNIX_TIMESTAMP(t.end_time) as end_time,  UNIX_TIMESTAMP(mt.start_time) AS second_start_time, UNIX_TIMESTAMP(mt.end_time) as second_end_time
+                from uSult t
+                inner JOIN calendar mt on t.user_id = mt.user_id
+                and mt.type = 2
+                and mt.status = 2
+                and t.start_time <= mt.end_time
+                and t.end_time >= mt.start_time
+
+                order by t.id,mt.start_time
+            ");
+        }
+        catch(Exception $e)
+        {
+            $this->answer($e,500);
+            die();
+        }
+        if ($result->rowCount() > 0) {
+            $result = $this->getFreeArray($result);
+            $this->mysql->query("truncate table uSult");
+            $this->insertInto($result,'uSult');
+        }
+
+
+        try {
+            $result = $this->mysql->query("
+                select r.start_time, r.end_time
+                from uSult r
+                where (UNIX_TIMESTAMP(r.end_time) - UNIX_TIMESTAMP(r.start_time)) >= 3600
+            ");
+            $result = $result->fetchAll(PDO::FETCH_ASSOC);
+        }
+        catch(Exception $e)
+        {
+            $this->answer($e,500);
+            die();
+        }
+
+        $this->mysql->query("drop table uSult");
+        return $result;
     }
 
     public function getValues() {
@@ -226,7 +304,6 @@ class FindPeople {
 
         if (!$this->map) {
             $che = true;
-
             if (isset($data["private_key"])) $token = $data["private_key"]; else $che = false;
 
             if (isset($data["data_from"])) $this->q_s = $data["data_from"]; else $che = false;
@@ -251,6 +328,8 @@ class FindPeople {
 
                         $this->q_s = date("Y-m-d H:i:s", $this->q_s);
                         $this->q_e = date("Y-m-d H:i:s", $this->q_e);
+
+                        $this->free = $this->checkFree();
 
                         $this->n_lat = $city['n_lat'];
                         $this->s_lat = $city['s_lat'];
@@ -300,6 +379,8 @@ class FindPeople {
 
                     $this->q_s = date("Y-m-d H:i:s", $time );
                     $this->q_e = date("Y-m-d H:i:s", $time+7200 );
+
+                    $this->free = $this->checkFree();
 
                     $this->b_s = date("Y-m-d", $time).' 09:00:00';
                     $this->b_e = date("Y-m-d", $time).' 18:00:00';
@@ -469,10 +550,10 @@ class FindPeople {
             $stmt = $this->mysql->prepare($sql);
             $stmt->execute();
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
             $this->clearTempData();
+            $this->answer($e,500);
             die();
         }
     }
@@ -492,10 +573,10 @@ class FindPeople {
         try {
             $result = $this->mysql->query($sql);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
             $this->clearTempData();
+            $this->answer($e,500);
             die();
         }
         $result = $this->getFreeArray($result);
@@ -521,10 +602,10 @@ class FindPeople {
         try {
             $this->mysql->query($sql);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
             $this->clearTempData();
+            $this->answer($e,500);
             die();
         }
     }
@@ -547,10 +628,10 @@ class FindPeople {
         try {
             $result = $this->mysql->query($sql);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
             $this->clearTempData();
+            $this->answer($e,500);
             die();
         }
         $result = $this->getFreeArray($result);
@@ -602,9 +683,9 @@ class FindPeople {
             $stmt = $this->mysql->prepare($sql);
             $stmt->execute();
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
+            $this->answer($e,500);
             $this->clearTempData();
             die();
         }
@@ -626,10 +707,10 @@ class FindPeople {
         try {
             $this->mysql->query($sql);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
             $this->clearTempData();
+            $this->answer($e,500);
             die();
         }
     }
@@ -650,10 +731,10 @@ class FindPeople {
         try {
             $result = $this->mysql->query($sql);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
             $this->clearTempData();
+            $this->answer($e,500);
             die();
         }
         $result = $this->getFreeArray($result);
@@ -720,10 +801,10 @@ class FindPeople {
         try {
             $result = $this->mysql->query($sql);
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
             $this->clearTempData();
+            $this->answer($e,500);
             die();
         }
 
@@ -748,16 +829,79 @@ class FindPeople {
             $stmt = $this->mysql->prepare($sql);
             $stmt->execute();
         }
-        catch(PDOException $e)
+        catch(Exception $e)
         {
-            $this->answer($e->getMessage(),500);
+            $this->answer($e,500);
             die();
         }
+    }
+
+    public function insertM($data) {
+        if ($data) {
+            $sql = "insert into mSult (user_id, start_time, end_time, foursquare_id, place) VALUES ";
+
+            $first = true;
+            foreach ($data as $row) {
+                if (!$first) {
+                    $sql .= ',';
+                };
+                $first = false;
+                $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['foursquare_id']."','".$row['place']."')";
+            }
+
+            try {
+                $this->mysql->query($sql);
+            }
+            catch(Exception $e)
+            {
+                $this->mysql->query('drop table mSult');
+                $this->answer($e,500);
+                die();
+            }
+        }
+        return true;
     }
 
     public function mainWork() {
         $this->connect();
         $this->getValues();
+
+        if ((int)count($this->free) === 1) {
+            $this->q_s = $this->free[0]['start_time'];
+            $this->q_e = $this->free[0]['end_time'];
+            $result = $this->find();
+            $this->answer($result,200);
+        }
+        elseif ((int)count($this->free) === 0) {
+            $this->answer('You have`n free time. for request period',404);
+        }
+        else {
+            $this->mysql->query("
+                create temporary table mSult (
+                `user_id` bigint(20) unsigned DEFAULT NULL,
+                `start_time` timestamp NULL DEFAULT NULL,
+                `end_time` timestamp NULL DEFAULT NULL,
+                `foursquare_id` varchar(255) NULL DEFAULT NULL,
+                `place` varchar(255) NULL DEFAULT NULL) ENGINE=MEMORY;
+            ");
+            foreach ($this->free as $row) {
+                $this->q_s = $row['start_time'];
+                $this->q_e = $row['end_time'];
+                $this->insertM($this->find());
+            }
+            $answer = $this->mysql->query("
+                select user_id, start_time, end_time, foursquare_id, place
+                from mSult
+                group by user_id
+            ");
+            $answer = $answer->fetchAll(PDO::FETCH_ASSOC);
+            $this->mysql->query('drop table mSult');
+
+            $this->answer($answer,200);
+        }
+    }
+
+    public function find() {
         $this->createT();
 
         // Case A
@@ -779,13 +923,12 @@ class FindPeople {
         // Get Result and Drop temporary data
         $result = $this->getResult();
         $this->clearTempData();
-        $this->mysql = null;
 
-        // Finish!!!
-        $this->answer($result,200);
+        return $result;
     }
 
     public function answer($result,$code) {
+        $this->mysql = null;
         if (!$this->debug) {
             if (!$this->map) {
                 foreach ($result as $num => $row) {
@@ -821,10 +964,10 @@ class FindPeople {
             try {
                 $this->mysql->query($sql);
             }
-            catch(PDOException $e)
+            catch(Exception $e)
             {
-                $this->answer($e->getMessage(),500);
                 $this->clearTempData();
+                $this->answer($e,500);
                 die();
             }
         }

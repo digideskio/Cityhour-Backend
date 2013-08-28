@@ -105,7 +105,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="POST",
-     *       summary="Add time slot to calendar.",
+     *       summary="Add busy time slot to calendar.",
      *       responseClass="void",
      *       nickname="slotCalendar",
      *       notes="",
@@ -164,15 +164,15 @@ class V1_CalendarController extends Zend_Rest_Controller
      * @SWG\Model(id="slotCalendarUpdateParams")
      * @SWG\Property(name="private_key",type="string")
      * @SWG\Property(name="id",type="int")
-     * @SWG\Property(name="user_id_second",type="string")
-     * @SWG\Property(name="start_time",type="timestamp")
-     * @SWG\Property(name="end_time",type="timestamp")
-     * @SWG\Property(name="foursquare_id",type="string")
-     * @SWG\Property(name="goal",type="int")
+     * @SWG\Property(name="date_from",type="timestamp")
+     * @SWG\Property(name="date_to",type="timestamp")
      * @SWG\Property(name="city",type="string")
-     * @SWG\Property(name="hash",type="string")
-     * @SWG\Property(name="type",type="int")
-     * @SWG\Property(name="rating",type="float")
+     * @SWG\Property(name="foursquare_id",type="string")
+     * @SWG\Property(name="goal",type="string")
+     * @SWG\Property(name="rating",type="string")
+     * @SWG\Property(name="person",type="string")
+     * @SWG\Property(name="person_value",type="string")
+     * @SWG\Property(name="person_name",type="string")
      *
      *
      * @SWG\Api(
@@ -192,6 +192,18 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="404",
+     *            reason="Slot not found or U have`n right to edit it."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="408",
+     *            reason="User for meet blocked."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="User blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -211,27 +223,30 @@ class V1_CalendarController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && is_numeric($data['id'])) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
+        if (isset($data['private_key']) && $data['private_key'] != null && $data['private_key'] != '' && isset($data['id']) && is_numeric($data['id']) ) {
+            $user = Application_Model_DbTable_Users::getUserData($data['private_key']);
             if ($user) {
                 $db = new Application_Model_DbTable_Calendar();
+                $res = $db->getSlot($data['id'],$user['id']);
 
-                if (isset($data['start_time'])) {
-                    $data['start_time'] = date('Y-m-d H:i:s',$data['start_time']);
+                if ($res) {
+                    $res = $db->updateSlot($data,$res,$user);
+                    if (is_numeric($res)) {
+                        $this->_helper->json->sendJson(array(
+                            'errorCode' => $res
+                        ));
+                    }
+                    else {
+                        $this->_helper->json->sendJson(array(
+                            'errorCode' => '400'
+                        ));
+                    }
                 }
-                if (isset($data['end_time'])) {
-                    $data['end_time'] = date('Y-m-d H:i:s',$data['end_time']);
+                else {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '404'
+                    ));
                 }
-                if (isset($data['city'])) {
-                    $data = array_merge($data,Application_Model_Common::getCity($data['city']));
-                }
-                unset($data['private_key']);
-
-                $db->updateSlot($user,$data,$data['id']);
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '200'
-                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
