@@ -34,7 +34,8 @@ class Application_Model_Status
             0 => 'Default',
             1 => 'Meeting Request',
             2 => 'Meeting Accepted',
-            3 => 'Meeting Rejected'
+            3 => 'Meeting Rejected',
+            4 => 'Meeting Canceled',
         );
     }
 

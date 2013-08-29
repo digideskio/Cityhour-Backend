@@ -204,6 +204,10 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="407",
      *            reason="User blocked."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="300",
+     *            reason="Request user busy."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -268,9 +272,9 @@ class V1_CalendarController extends Zend_Rest_Controller
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="DELETE",
-     *       summary="Delete time slot.",
+     *       summary="Cancel time slot.",
      *       responseClass="void",
-     *       nickname="DeleteTimeSlot",
+     *       nickname="CancelTimeSlot",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -280,6 +284,10 @@ class V1_CalendarController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="404",
+     *            reason="Not found slot that you can cancel."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -315,8 +323,7 @@ class V1_CalendarController extends Zend_Rest_Controller
                 $db = new Application_Model_DbTable_Calendar();
                 $res = $db->deleteSlot($user,$id);
                 $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
+                    'errorCode' => $res
                 ));
             }
             else {

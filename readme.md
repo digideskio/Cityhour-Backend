@@ -5,7 +5,8 @@ Good new Soc thing.
 Additional doc you can find in doc/ folder ;)
 Generate API doc with this command
 ```cd library/swagger-php/ && php swagger.phar -p ../../application/ -o ../../public/api-docs/ --default-base-path "http://127.0.0.1/v1/" --default-api-version=1 && cd ../../```
-
+Generate Helpers doc with this command
+```cd library/swagger-php/ && php swagger.phar -p ../../helpers/ -o ../../public/helpers-docs/ --default-base-path "http://127.0.0.1:5555/" --default-api-version=1 && cd ../../```
 
 ## Used
 

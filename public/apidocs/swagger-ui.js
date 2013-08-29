@@ -1328,14 +1328,14 @@ templates['status_code'] = template(function (Handlebars,depth0,helpers,partials
 
     HeaderView.prototype.showPetStore = function(e) {
       return this.trigger('update-swagger-ui', {
-        discoveryUrl: "http://petstore.swagger.wordnik.com/api/api-docs.json",
+        discoveryUrl: "/api-docs/api-docs.json",
         apiKey: "special-key"
       });
     };
 
     HeaderView.prototype.showWordnikDev = function(e) {
       return this.trigger('update-swagger-ui', {
-        discoveryUrl: "http://api.wordnik.com/v4/resources.json",
+        discoveryUrl: "/helpers-docs/api-docs.json",
         apiKey: ""
       });
     };

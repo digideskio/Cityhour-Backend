@@ -34,7 +34,8 @@ class Application_Model_Types
             2 => 'Friends reject',
             3 => 'Meeting request',
             4 => 'Meeting accept',
-            5 => 'Meeting reject'
+            5 => 'Meeting reject',
+            6 => 'Meeting canceled'
         );
     }
 

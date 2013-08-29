@@ -1,24 +1,76 @@
 <?php
 
-class FindPeople {
-    var $debug;
+use Swagger\Annotations as SWG;
+/**
+ * @SWG\Resource(
+ *  resourcePath="/helpers"
+ * )
+ */
 
-    /** @var resource $mysqli DB connector */
-    var $mysql;
+include_once 'Common.class.php';
 
-    /** @var boolean $map Map request or no */
-    var $map;
 
-    /** @var array $config Config */
-    var $config;
-
-    /** @var array $data Income paramms */
-    var $data;
+/**
+ *
+ * @SWG\Model(id="FindPeopleParams")
+ * @SWG\Property(name="private_key",type="string")
+ * @SWG\Property(name="debug",type="boolean")
+ *
+ * @SWG\Property(name="data_from",type="timestamp")
+ * @SWG\Property(name="data_to",type="timestamp") *
+ * @SWG\Property(name="city",type="string")
+ * @SWG\Property(name="goal",type="int")
+ * @SWG\Property(name="industry",type="int")
+ *
+ * @SWG\Property(name="s_lat",type="float")
+ * @SWG\Property(name="n_lat",type="float")
+ * @SWG\Property(name="s_lng",type="float")
+ * @SWG\Property(name="n_lng",type="float")
+ * @SWG\Property(name="lat",type="float")
+ * @SWG\Property(name="lng",type="float")
+ *
+ *
+ *
+ * @SWG\Api(
+ *   path="/FindPeople.php",
+ *   @SWG\Operations(
+ *     @SWG\Operation(
+ *       httpMethod="POST",
+ *       summary="Find People.",
+ *       responseClass="void",
+ *       nickname="FindPeople",
+ *       notes="",
+ *       @SWG\ErrorResponses(
+ *          @SWG\ErrorResponse(
+ *            code="400",
+ *            reason="Not all params correct."
+ *          ),
+ *           @SWG\ErrorResponse(
+ *            code="401",
+ *            reason="Have no permissions."
+ *          ),
+ *           @SWG\ErrorResponse(
+ *            code="407",
+ *            reason="Current user blocked."
+ *          )
+ *       ),
+ * @SWG\Parameter(
+ *           name="json",
+ *           description="json",
+ *           paramType="body",
+ *           required="true",
+ *           allowMultiple="false",
+ *           dataType="FindPeopleParams"
+ *         )
+ *     )
+ *   )
+ * )
+ */
+class FindPeople extends Common {
 
     /** @var array $free Free time of user who request */
     var $free = array();
 
-    /** @var string $temp_t name of temporary table for main select */
     /** @var string $b_s Bussines time start */
     /** @var string $b_e Bussines time end */
     /** @var string $q_s Query time start */
@@ -29,7 +81,6 @@ class FindPeople {
     /** @var float $s_lat Query city square */
     /** @var float $n_lng Query city square */
     /** @var float $s_lng Query city square */
-    var $temp_t;
     var $b_s;
     var $b_e;
     var $q_s;
@@ -46,8 +97,7 @@ class FindPeople {
     var $goal_fn;
     var $goal_f;
 
-    /** @var int $user_id Id of user */
-    var $user_id;
+
 
 
     public function __construct($debug,$map,$data) {
@@ -57,70 +107,14 @@ class FindPeople {
         $this->mainWork();
     }
 
-    public function connect() {
-        /**
-         * Connect to DB
-         */
-        $this->config = parse_ini_file("../application/configs/application.ini");
-        $host = $this->config['resources.db.params.host'];
-        $username = $this->config['resources.db.params.username'];
-        $password = $this->config['resources.db.params.password'];
-        $dbname = $this->config['resources.db.params.dbname'];
-
-        try {
-            $this->mysql = new PDO("mysql:host=$host;dbname=$dbname", "$username", "$password");
-            if ($this->debug) {
-                $this->mysql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            }
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
-    }
-
-    public function getUser($token) {
-        $sql = "
-            select id
-            from users
-            where private_key = '$token'
-        ";
-
-        try {
-            $result = $this->mysql->query($sql);
-            $result = $result->fetch(PDO::FETCH_ASSOC);
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
-        if (isset($result['id'])) {
-            $this->user_id = $result['id'];
-            return $result;
-        }
-        else {
-            return false;
-        }
-    }
-
     public function getCity($city) {
         $sql = "
             select city, n_lat, n_lng, s_lat, s_lng
             from city
             where city = '$city'
         ";
-        try {
-            $result = $this->mysql->query($sql);
-            $result = $result->fetch(PDO::FETCH_ASSOC);
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
 
+        $result = $this->query($sql,true);
 
         if (isset($result['city'])) {
             return $result;
@@ -158,14 +152,7 @@ class FindPeople {
                     VALUES
 	                ('$city', '$name', $lat, $lng, $n_lat, $n_lng, $s_lat, $s_lng)
                 ";
-                try {
-                    $this->mysql->query($sql);
-                }
-                catch(Exception $e)
-                {
-                    $this->answer($e,500);
-                    die();
-                }
+                $this->query($sql);
 
                 return $data;
             }
@@ -182,15 +169,7 @@ class FindPeople {
             where user_id = $user_id
         ";
 
-        try {
-            $result = $this->mysql->query($sql);
-            $result = $result->fetch(PDO::FETCH_ASSOC);
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
+        $result = $this->query($sql,true);
 
         $time = date('Y-m-d H:i:s',time());
         if (isset($result['id'])) {
@@ -200,14 +179,7 @@ class FindPeople {
                     update `map` set `lat` = $lat, `lng` = $lng, `time` = '$time'
                     where id = $id and user_id = $user_id
                 ";
-            try {
-                $this->mysql->query($sql);
-            }
-            catch(Exception $e)
-            {
-                $this->answer($e,500);
-                die();
-            }
+            $this->query($sql);
         }
         else {
             $sql = "
@@ -215,48 +187,28 @@ class FindPeople {
                     VALUES
 	                ($user_id,$lat,$lng,'$time')
                 ";
-            try {
-                $this->mysql->query($sql);
-            }
-            catch(Exception $e)
-            {
-                $this->answer($e,500);
-                die();
-            }
+            $this->query($sql);
         }
     }
 
     public function checkFree(){
-        try {
-            $this->mysql->query("
+        $sql = "
                 create temporary table uSult (`id` bigint(20) unsigned DEFAULT NULL,
                 `user_id` bigint(20) unsigned DEFAULT NULL,
                 `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
                 `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
                 `start_time` timestamp NULL DEFAULT NULL,
                 `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY
-            ");
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
+            ";
+        $this->query($sql);
 
-        try {
-            $this->mysql->query("
+        $sql = "
                 insert into uSult (id, user_id, `type`, is_free, start_time, end_time)
                 values (1, $this->user_id, 1, 0, '$this->q_s', '$this->q_e' )
-            ");
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
+            ";
+        $this->query($sql);
 
-        try {
-            $result = $this->mysql->query("
+        $sql = "
                 select t.id, t.user_id, t.type, 0 as is_free, UNIX_TIMESTAMP(t.start_time) AS start_time, UNIX_TIMESTAMP(t.end_time) as end_time,  UNIX_TIMESTAMP(mt.start_time) AS second_start_time, UNIX_TIMESTAMP(mt.end_time) as second_end_time
                 from uSult t
                 inner JOIN calendar mt on t.user_id = mt.user_id
@@ -266,35 +218,24 @@ class FindPeople {
                 and t.end_time >= mt.start_time
 
                 order by t.id,mt.start_time
-            ");
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
+            ";
+        $result = $this->query($sql);
+
         if ($result->rowCount() > 0) {
             $result = $this->getFreeArray($result);
-            $this->mysql->query("truncate table uSult");
+            $this->query("truncate table uSult");
             $this->insertInto($result,'uSult');
         }
 
 
-        try {
-            $result = $this->mysql->query("
+        $sql = "
                 select r.start_time, r.end_time
                 from uSult r
                 where (UNIX_TIMESTAMP(r.end_time) - UNIX_TIMESTAMP(r.start_time)) >= 3600
-            ");
-            $result = $result->fetchAll(PDO::FETCH_ASSOC);
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
+            ";
+        $result = $this->query($sql,false,true);
 
-        $this->mysql->query("drop table uSult");
+        $this->query("drop table uSult");
         return $result;
     }
 
@@ -319,30 +260,24 @@ class FindPeople {
                 die();
             }
             if ( $token != null && $token != '' && is_numeric($this->q_s) && is_numeric($this->q_e) &&  $city != null && $city != '') {
-                $user = $this->getUser($token);
-                if ($user) {
-                    $city = $this->getCity($city);
-                    if ($city) {
-                        $this->b_s = date("Y-m-d", $this->q_s).' 09:00:00';
-                        $this->b_e = date("Y-m-d", $this->q_e).' 18:00:00';
+                $this->getUser($token);
+                $city = $this->getCity($city);
+                if ($city) {
+                    $this->b_s = date("Y-m-d", $this->q_s).' 09:00:00';
+                    $this->b_e = date("Y-m-d", $this->q_e).' 18:00:00';
 
-                        $this->q_s = date("Y-m-d H:i:s", $this->q_s);
-                        $this->q_e = date("Y-m-d H:i:s", $this->q_e);
+                    $this->q_s = date("Y-m-d H:i:s", $this->q_s);
+                    $this->q_e = date("Y-m-d H:i:s", $this->q_e);
 
-                        $this->free = $this->checkFree();
+                    $this->free = $this->checkFree();
 
-                        $this->n_lat = $city['n_lat'];
-                        $this->s_lat = $city['s_lat'];
-                        $this->n_lng = $city['n_lng'];
-                        $this->s_lng = $city['s_lng'];
-                    }
-                    else {
-                        $this->answer('Bad city',400);
-                        die();
-                    }
+                    $this->n_lat = $city['n_lat'];
+                    $this->s_lat = $city['s_lat'];
+                    $this->n_lng = $city['n_lng'];
+                    $this->s_lng = $city['s_lng'];
                 }
                 else {
-                    $this->answer('Authentication failed',401);
+                    $this->answer('Bad city',400);
                     die();
                 }
             }
@@ -570,15 +505,7 @@ class FindPeople {
             where t.type = 1
             order by t.id,mt.start_time
         ";
-        try {
-            $result = $this->mysql->query($sql);
-        }
-        catch(Exception $e)
-        {
-            $this->clearTempData();
-            $this->answer($e,500);
-            die();
-        }
+        $result = $this->query($sql);
         $result = $this->getFreeArray($result);
         $this->insertInto($result,'rSult');
     }
@@ -598,16 +525,7 @@ class FindPeople {
             and t.is_free = 1
             and ft.id is null
         ";
-
-        try {
-            $this->mysql->query($sql);
-        }
-        catch(Exception $e)
-        {
-            $this->clearTempData();
-            $this->answer($e,500);
-            die();
-        }
+        $this->query($sql);
     }
 
     public function BusyRCross() {
@@ -625,15 +543,7 @@ class FindPeople {
             order by t.id,mt.start_time
         ";
 
-        try {
-            $result = $this->mysql->query($sql);
-        }
-        catch(Exception $e)
-        {
-            $this->clearTempData();
-            $this->answer($e,500);
-            die();
-        }
+        $result = $this->query($sql);
         $result = $this->getFreeArray($result);
         $this->insertInto($result,'zSult');
     }
@@ -704,15 +614,7 @@ class FindPeople {
             and t.is_free = 1
             and ft.id is null
         ";
-        try {
-            $this->mysql->query($sql);
-        }
-        catch(Exception $e)
-        {
-            $this->clearTempData();
-            $this->answer($e,500);
-            die();
-        }
+        $this->query($sql);
     }
 
     public function SetXCross() {
@@ -728,15 +630,7 @@ class FindPeople {
             order by t.id,mt.start_time
         ";
 
-        try {
-            $result = $this->mysql->query($sql);
-        }
-        catch(Exception $e)
-        {
-            $this->clearTempData();
-            $this->answer($e,500);
-            die();
-        }
+        $result = $this->query($sql);
         $result = $this->getFreeArray($result);
         $this->insertInto($result,'rSult');
     }
@@ -798,42 +692,9 @@ class FindPeople {
             ";
         }
 
-        try {
-            $result = $this->mysql->query($sql);
-        }
-        catch(Exception $e)
-        {
-            $this->clearTempData();
-            $this->answer($e,500);
-            die();
-        }
-
-        if (!$result) {
-            return array();
-        }
-
-        $res = $result->fetchAll(PDO::FETCH_ASSOC);
+        $res = $this->query($sql,false,true);
 
         return $res;
-    }
-
-    public function clearTempData() {
-
-        $sql = "
-            drop table $this->temp_t;
-            drop table rSult;
-            drop table zSult;
-            drop table xSult;
-        ";
-        try {
-            $stmt = $this->mysql->prepare($sql);
-            $stmt->execute();
-        }
-        catch(Exception $e)
-        {
-            $this->answer($e,500);
-            die();
-        }
     }
 
     public function insertM($data) {
@@ -849,15 +710,7 @@ class FindPeople {
                 $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['foursquare_id']."','".$row['place']."')";
             }
 
-            try {
-                $this->mysql->query($sql);
-            }
-            catch(Exception $e)
-            {
-                $this->mysql->query('drop table mSult');
-                $this->answer($e,500);
-                die();
-            }
+            $this->query($sql);
         }
         return true;
     }
@@ -876,26 +729,26 @@ class FindPeople {
             $this->answer('You have`n free time. for request period',404);
         }
         else {
-            $this->mysql->query("
+            $sql = "
                 create temporary table mSult (
                 `user_id` bigint(20) unsigned DEFAULT NULL,
                 `start_time` timestamp NULL DEFAULT NULL,
                 `end_time` timestamp NULL DEFAULT NULL,
                 `foursquare_id` varchar(255) NULL DEFAULT NULL,
                 `place` varchar(255) NULL DEFAULT NULL) ENGINE=MEMORY;
-            ");
+            ";
+            $this->query($sql);
             foreach ($this->free as $row) {
                 $this->q_s = $row['start_time'];
                 $this->q_e = $row['end_time'];
                 $this->insertM($this->find());
             }
-            $answer = $this->mysql->query("
+            $answer = $this->query("
                 select user_id, start_time, end_time, foursquare_id, place
                 from mSult
                 group by user_id
-            ");
-            $answer = $answer->fetchAll(PDO::FETCH_ASSOC);
-            $this->mysql->query('drop table mSult');
+            ",false,true);
+            $this->query('drop table mSult');
 
             $this->answer($answer,200);
         }
@@ -925,174 +778,5 @@ class FindPeople {
         $this->clearTempData();
 
         return $result;
-    }
-
-    public function answer($result,$code) {
-        $this->mysql = null;
-        if (!$this->debug) {
-            if (!$this->map) {
-                foreach ($result as $num => $row) {
-                    $result[$num]['start_time'] = strtotime($row['start_time']);
-                    $result[$num]['end_time'] = strtotime($row['end_time']);
-                }
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode(array(
-                'body' => $result,
-                'errorCode' => $code
-            ));
-        }
-        else {
-            var_dump($result);
-        }
-    }
-
-    public function insertInto($result, $db) {
-        if ($result) {
-            $sql = "insert into $db (id, user_id, `type`, is_free, start_time, end_time) VALUES ";
-
-            $first = true;
-            foreach ($result as $row) {
-                if (!$first) {
-                    $sql .= ',';
-                };
-                $first = false;
-                $sql .= "(".$row['id'].",".$row['user_id'].",".$row['type'].",".$row['is_free'].",'".$row['start_time']."','".$row['end_time']."')";
-            }
-
-            try {
-                $this->mysql->query($sql);
-            }
-            catch(Exception $e)
-            {
-                $this->clearTempData();
-                $this->answer($e,500);
-                die();
-            }
-        }
-        return true;
-    }
-
-    public function getFreeArray($result) {
-        if (!$result) {
-            return array();
-        }
-
-        $last = array();
-        $t_res = array();
-        $res = array();
-        $busy = array();
-        while ($row = $result->fetch(PDO::FETCH_ASSOC)) {
-            if (!$last) {
-                array_push($busy,$row);
-            }
-            else {
-                if ($last['id'] != $row['id']) {
-
-                    $t_res[0] = array(
-                        'id' => $last['id'],
-                        'user_id' => $last['user_id'],
-                        'type' => $last['type'],
-                        'is_free' => $last['is_free'],
-                        'start_time' => $last['start_time'],
-                        'end_time' => $last['end_time'],
-                    );
-
-                    foreach ($busy as $busy_s) {
-                        $l_res = $t_res;
-                        $t_res = array();
-                        foreach ($l_res as $tt_res) {
-                            // left side
-                            if ($tt_res['start_time'] <= $busy_s['second_start_time']) {
-                                $free = array(
-                                    'id' => $tt_res['id'],
-                                    'user_id' => $tt_res['user_id'],
-                                    'type' => $tt_res['type'],
-                                    'is_free' => $tt_res['is_free'],
-                                    'start_time' => $tt_res['start_time'],
-                                    'end_time' => min($busy_s['second_start_time'], $tt_res['end_time']),
-                                );
-                                array_push($t_res,$free);
-                            }
-
-                            // right side
-                            if ($tt_res['end_time'] >= $busy_s['second_end_time']) {
-                                $free = array(
-                                    'id' => $tt_res['id'],
-                                    'user_id' => $tt_res['user_id'],
-                                    'type' => $tt_res['type'],
-                                    'is_free' => $tt_res['is_free'],
-                                    'start_time' => max($busy_s['second_end_time'], $tt_res['start_time']),
-                                    'end_time' => $tt_res['end_time'],
-                                );
-                                array_push($t_res,$free);
-                            }
-                        }
-                    }
-
-                    $busy = array();
-                    array_push($busy,$row);
-
-                    $res = array_merge($res,$t_res);
-                    $t_res = array();
-                }
-                else {
-                    array_push($busy,$row);
-                }
-            }
-            $last = $row;
-        }
-
-        if (isset($last['id'])) {
-            $t_res[0] = array(
-                'id' => $last['id'],
-                'user_id' => $last['user_id'],
-                'type' => $last['type'],
-                'is_free' => $last['is_free'],
-                'start_time' => $last['start_time'],
-                'end_time' => $last['end_time'],
-            );
-
-            foreach ($busy as $busy_s) {
-                $l_res = $t_res;
-                $t_res = array();
-                foreach ($l_res as $tt_res) {
-                    // left side
-                    if ($tt_res['start_time'] < $busy_s['second_start_time']) {
-                        $free = array(
-                            'id' => $tt_res['id'],
-                            'user_id' => $tt_res['user_id'],
-                            'type' => $tt_res['type'],
-                            'is_free' => $tt_res['is_free'],
-                            'start_time' => $tt_res['start_time'],
-                            'end_time' => min($busy_s['second_start_time'], $tt_res['end_time']),
-                        );
-                        array_push($t_res,$free);
-                    }
-
-                    // right side
-                    if ($tt_res['end_time'] > $busy_s['second_end_time']) {
-                        $free = array(
-                            'id' => $tt_res['id'],
-                            'user_id' => $tt_res['user_id'],
-                            'type' => $tt_res['type'],
-                            'is_free' => $tt_res['is_free'],
-                            'start_time' => max($busy_s['second_end_time'], $tt_res['start_time']),
-                            'end_time' => $tt_res['end_time'],
-                        );
-                        array_push($t_res,$free);
-                    }
-                }
-            }
-            $res = array_merge($res,$t_res);
-        }
-
-        foreach ($res as $num => $row) {
-            $res[$num]['start_time'] = date("Y-m-d H:i:s", $row['start_time']);
-            $res[$num]['end_time'] = date("Y-m-d H:i:s", $row['end_time']);
-        }
-
-        return $res;
     }
 }

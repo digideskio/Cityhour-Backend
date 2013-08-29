@@ -95,14 +95,18 @@
                         {
                             "reason": "User blocked.",
                             "code": 407
+                        },
+                        {
+                            "reason": "Request user busy.",
+                            "code": 300
                         }
                     ],
                     "notes": ""
                 },
                 {
                     "httpMethod": "DELETE",
-                    "summary": "Delete time slot.",
-                    "nickname": "DeleteTimeSlot",
+                    "summary": "Cancel time slot.",
+                    "nickname": "CancelTimeSlot",
                     "responseClass": "void",
                     "parameters": [
                         {
@@ -130,6 +134,10 @@
                         {
                             "reason": "Not all params given.",
                             "code": 400
+                        },
+                        {
+                            "reason": "Not found slot that you can cancel.",
+                            "code": 404
                         }
                     ],
                     "notes": ""

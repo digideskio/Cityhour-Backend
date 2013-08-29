@@ -534,8 +534,25 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             from users
             where private_key = '$private_key'
         ");
-        if ($res != null) {
+        if ($res != null && $res['status'] == 0) {
             return $res;
+        }
+        elseif ($res != null && $res['status'] != 0) {
+            return 'blocked';
+        }
+        else {
+            return false;
+        }
+    }
+
+    public static function isValidUser($id) {
+        $res = Zend_Db_Table::getDefaultAdapter()->fetchRow("
+            select id,`status`
+            from users
+            where id = $id
+        ");
+        if ($res != null && $res['status'] == 0) {
+            return true;
         }
         else {
             return false;

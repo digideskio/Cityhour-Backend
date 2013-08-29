@@ -1,0 +1,10 @@
+{
+    "apiVersion": "1",
+    "swaggerVersion": null,
+    "apis": [
+        {
+            "path": "/resources/helpers.{format}",
+            "description": null
+        }
+    ]
+}
