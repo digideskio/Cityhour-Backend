@@ -246,10 +246,10 @@ class Application_Model_Linkedin
 
             $users_in = "'".implode("','",$users_in)."'";
             $db = new Application_Model_DbTable_Users();
-            $users = $db->fetchAll("linkedin_id in ($users_in)")->toArray();
+            $users = $db->getLinkedinUsers($users_in);
             foreach ($friends as $num=>$row) {
                 $user_id = $this->findId($users, $row['id']);
-                if ($user_id) {
+                if (is_numeric($user_id)) {
                     $user_id = $users[$user_id]['id'];
                     if (!isset($row['pictureUrl'])) $row['pictureUrl'] = '';
 
@@ -273,7 +273,7 @@ class Application_Model_Linkedin
 
     private function findId($users, $lid) {
         foreach ($users as $num=>$row) {
-            if (in_array($lid, $row)) {
+            if ($lid == $row['linkedin_id']) {
                 return $num;
             }
         }

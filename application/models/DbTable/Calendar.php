@@ -7,23 +7,22 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     public function getAll($user) {
         $user_id = $user['id'];
-        $res = $this->fetchAll("user_id = $user_id");
+        $start = date('Y-m-d H:i:s',time()-86400);
+
+        $res = $this->fetchAll("
+        user_id = $user_id and (
+        (`status` = 2 and type = 2) or end_time > '$start'
+        )
+        ")->toArray();
 
         foreach ($res as $num=>$row) {
             $row['start_time'] = strtotime($row['start_time']);
             $row['end_time'] = strtotime($row['end_time']);
             $row['time_create'] = strtotime($row['time_create']);
-
             $res[$num] = $row;
         }
 
-        if ($res != null) {
-            $res = $res->toArray();
-            return $res;
-        }
-        else {
-            return array();
-        }
+        return $res;
     }
 
     public function getSlot($sid, $user_id, $meet_notStart = false) {

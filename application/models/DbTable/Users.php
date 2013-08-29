@@ -26,6 +26,15 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         return true;
     }
 
+    public function getLinkedinUsers($users_in) {
+        return $this->_db->fetchAll("
+            select id, linkedin_id
+            from users
+            where linkedin_id in ($users_in)
+            group by id
+        ");
+    }
+
     public function updateUser($user,$data) {
         $user_id = $user['id'];
         $filter = new Zend_Filter_StripTags();
