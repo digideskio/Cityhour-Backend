@@ -96,7 +96,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      * @SWG\Property(name="goal",type="int")
      * @SWG\Property(name="city",type="string")
      * @SWG\Property(name="hash",type="string")
-     * @SWG\Property(name="type",type="int")
+     * @SWG\Property(name="calendar_name",type="string")
      * @SWG\Property(name="status",type="int")
      *
      *
@@ -137,14 +137,21 @@ class V1_CalendarController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '') {
+        if ($token && $token != null && $token != '' && isset($data['calendars']) && isset($data['slots'])) {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
                 $db = new Application_Model_DbTable_Calendar();
-                $db->addSlots($data,$user);
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '200'
-                ));
+                $res = $db->addSlots($data,$user);
+                if ($res) {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '200'
+                    ));
+                }
+                else {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '400'
+                    ));
+                }
             }
             else {
                 $this->_helper->json->sendJson(array(

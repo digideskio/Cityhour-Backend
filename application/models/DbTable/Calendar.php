@@ -371,15 +371,24 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
 
     public function addSlots($data,$user) {
-        if (isset($data['slots'])) {
-            $slots = $data['slots'];
-            $user_id = $user['id'];
+        $slots = $data['slots'];
+        $user_id = $user['id'];
+        $calendars = @json_decode($data['calendars'],true);
 
+        if ($calendars) {
+            $filter = new Zend_Filter_Alnum(true);
+            foreach ($calendars as $num => $row) {
+                $calendars[$num] = $filter->filter($row);
+            }
+            $calendars = "'".implode("','",$calendars)."'";
+            // Fetch busy slots of user specified calendar
             $old_slots = $this->_db->fetchOne("
-                select group_concat(`hash`)
-                from calendar
-                where user_id = $user_id
-            ");
+            select group_concat(`hash`)
+            from calendar
+            where user_id = $user_id
+            and `type` = 0
+            and calendar_name in ($calendars)
+        ");
             $che_slots = explode(',',$old_slots);
             $old_slots = array();
             foreach ($slots as $num => $row ) {
@@ -388,7 +397,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     $row['start_time'] = date('Y-m-d H:i:s',(int)$row['start_time']);
                     $row['end_time'] = date('Y-m-d H:i:s',(int)$row['end_time']);
                     unset($row['private_key']);
-
+                    $row['type'] = 0;
                     $this->insert($row);
                 }
 
@@ -401,8 +410,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             if ($old_slots) {
                 $this->delete("user_id = $user_id and `hash` not in ($old_slots)");
             }
+            return true;
         }
-        return true;
+        return false;
     }
 
 
