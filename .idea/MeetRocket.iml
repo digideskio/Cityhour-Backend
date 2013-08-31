@@ -1,18 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="WEB_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/doctrine/common" />
+      <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/simukti/zf1" />
+      <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/symfony/finder" />
+      <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/symfony/process" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/facebook/php-sdk" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/simukti/zf1" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/zircote/swagger-php" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
-          <root url="phar://$MODULE_DIR$/library/swagger-php/swagger.phar" />
           <root url="phar://$MODULE_DIR$/library/Zend/Service/WindowsAzure/CommandLine/Scaffolders/DefaultScaffolder.phar" />
+          <root url="phar://$MODULE_DIR$/vendor/simukti/zf1/Zend/Service/WindowsAzure/CommandLine/Scaffolders/DefaultScaffolder.phar" />
+          <root url="phar://$MODULE_DIR$/vendor/zircote/swagger-php/swagger.phar" />
+          <root url="phar://$MODULE_DIR$/library/swagger-php/swagger.phar" />
         </CLASSES>
         <SOURCES>
-          <root url="phar://$MODULE_DIR$/library/swagger-php/swagger.phar" />
           <root url="phar://$MODULE_DIR$/library/Zend/Service/WindowsAzure/CommandLine/Scaffolders/DefaultScaffolder.phar" />
+          <root url="phar://$MODULE_DIR$/vendor/simukti/zf1/Zend/Service/WindowsAzure/CommandLine/Scaffolders/DefaultScaffolder.phar" />
+          <root url="phar://$MODULE_DIR$/vendor/zircote/swagger-php/swagger.phar" />
+          <root url="phar://$MODULE_DIR$/library/swagger-php/swagger.phar" />
+        </SOURCES>
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library name="Composer Vendors">
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/vendor/simukti/zf1" />
+          <root url="file://$MODULE_DIR$/vendor/zircote/swagger-php" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/common" />
+          <root url="file://$MODULE_DIR$/vendor/facebook/php-sdk" />
+        </CLASSES>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/vendor/simukti/zf1" />
+          <root url="file://$MODULE_DIR$/vendor/zircote/swagger-php" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/common" />
+          <root url="file://$MODULE_DIR$/vendor/facebook/php-sdk" />
         </SOURCES>
       </library>
     </orderEntry>

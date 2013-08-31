@@ -1,6 +1,6 @@
 <?php
 
-require_once(APPLICATION_PATH . '/../library/Facebook/facebook.php');
+require_once(APPLICATION_PATH.'/../vendor/facebook/php-sdk/src/facebook.php');
 
 class Application_Model_Facebook
 {

@@ -1,0 +1,216 @@
+[
+    {
+        "name": "simukti/zf1",
+        "version": "1.12.0",
+        "version_normalized": "1.12.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://bitbucket.org/simukti/zf1.git",
+            "reference": "792b008c83dba6ace69eae0926e57f61defe032a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://bitbucket.org/simukti/zf1/get/792b008c83dba6ace69eae0926e57f61defe032a.zip",
+            "reference": "792b008c83dba6ace69eae0926e57f61defe032a",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2.10"
+        },
+        "time": "2012-09-05 07:39:18",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Zend_": ""
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "include-path": [
+            ""
+        ],
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "description": "Zend Framework 1 library only, without tests, demos, bin, etc.",
+        "homepage": "https://bitbucket.org/simukti/zf1",
+        "keywords": [
+            "ZF1",
+            "zend framework 1"
+        ]
+    },
+    {
+        "name": "doctrine/common",
+        "version": "2.3.0",
+        "version_normalized": "2.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/doctrine/common.git",
+            "reference": "d1c7d4334e38cad603a5c863d4c7b91bb04ec6b2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/doctrine/common/zipball/d1c7d4334e38cad603a5c863d4c7b91bb04ec6b2",
+            "reference": "d1c7d4334e38cad603a5c863d4c7b91bb04ec6b2",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.2"
+        },
+        "time": "2012-09-20 05:55:18",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "2.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Doctrine\\Common": "lib/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Jonathan Wage",
+                "email": "jonwage@gmail.com",
+                "homepage": "http://www.jwage.com/"
+            },
+            {
+                "name": "Guilherme Blanco",
+                "email": "guilhermeblanco@gmail.com",
+                "homepage": "http://www.instaclick.com"
+            },
+            {
+                "name": "Roman Borschel",
+                "email": "roman@code-factory.org"
+            },
+            {
+                "name": "Benjamin Eberlei",
+                "email": "kontakt@beberlei.de"
+            },
+            {
+                "name": "Johannes Schmitt",
+                "email": "schmittjoh@gmail.com",
+                "homepage": "http://jmsyst.com",
+                "role": "Developer of wrapped JMSSerializerBundle"
+            }
+        ],
+        "description": "Common Library for Doctrine projects",
+        "homepage": "http://www.doctrine-project.org",
+        "keywords": [
+            "annotations",
+            "collections",
+            "eventmanager",
+            "persistence",
+            "spl"
+        ]
+    },
+    {
+        "name": "zircote/swagger-php",
+        "version": "0.8.x-dev",
+        "version_normalized": "0.8.9999999.9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/zircote/swagger-php.git",
+            "reference": "35d47118ca2a3bec6891c97792ae436c214fa0e2"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/zircote/swagger-php/zipball/35d47118ca2a3bec6891c97792ae436c214fa0e2",
+            "reference": "35d47118ca2a3bec6891c97792ae436c214fa0e2",
+            "shasum": ""
+        },
+        "require": {
+            "doctrine/common": "*",
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "symfony/finder": "*",
+            "symfony/process": "*"
+        },
+        "time": "2013-08-30 01:24:56",
+        "bin": [
+            "bin/swagger"
+        ],
+        "type": "library",
+        "installation-source": "source",
+        "autoload": {
+            "psr-0": {
+                "Swagger": "library"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache2"
+        ],
+        "authors": [
+            {
+                "name": "Robert Allen",
+                "email": "zircote@gmail.com",
+                "homepage": "http://www.zircote.com"
+            },
+            {
+                "name": "Bob Fanger",
+                "email": "bfanger@gmail.com",
+                "homepage": "http://bfanger.nl"
+            }
+        ],
+        "description": "Swagger-PHP library implementing the swagger.wordnik.com specification to describe web services, operations/actions and models enabling a uniform means of producing, consuming, and visualizing RESTful web services.",
+        "homepage": "https://github.com/zircote/swagger-php/",
+        "keywords": [
+            "api",
+            "json",
+            "service discovery"
+        ]
+    },
+    {
+        "name": "facebook/php-sdk",
+        "version": "v3.2.2",
+        "version_normalized": "3.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/facebook/facebook-php-sdk.git",
+            "reference": "bf99924386be074da30a8e9d6bbcb49d3333da12"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/facebook/facebook-php-sdk/zipball/bf99924386be074da30a8e9d6bbcb49d3333da12",
+            "reference": "bf99924386be074da30a8e9d6bbcb49d3333da12",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "ext-json": "*",
+            "php": ">=5.2.0"
+        },
+        "time": "2013-01-15 21:37:15",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "classmap": [
+                "src"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Apache2"
+        ],
+        "authors": [
+            {
+                "name": "Facebook",
+                "homepage": "https://github.com/facebook/facebook-php-sdk/contributors"
+            }
+        ],
+        "description": "Facebook PHP SDK",
+        "homepage": "https://github.com/facebook/facebook-php-sdk",
+        "keywords": [
+            "facebook",
+            "sdk"
+        ]
+    }
+]

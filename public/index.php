@@ -21,7 +21,8 @@ defined('APPLICATION_ENV')
 
 // Ensure library/ is on include_path
 set_include_path(implode(PATH_SEPARATOR, array(
-    realpath(APPLICATION_PATH . '/../library'),
+    realpath(APPLICATION_PATH . '/../vendor/simukti/zf1/'),
+    realpath(APPLICATION_PATH . '/../vendor/simukti/zf1/'),
     get_include_path(),
 )));
 
