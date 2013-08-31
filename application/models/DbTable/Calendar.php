@@ -458,6 +458,15 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $this->update(array(
                 'rating' => $data['rating']
             ),"id = $sid");
+
+            if ((int)$data['rating'] < 2) {
+                $user_id = $slot['user_id_second'];
+                $this->update(array(
+                    'meet_declined' => '`meet_declined`+1',
+                    'meet_succesfull' => '`meet_succesfull`-1'
+                ),"id = $user_id");
+            }
+
             return 200;
         }
         elseif ($slot['type'] === true && isset($data['person']) && is_numeric($data['person'])) {
