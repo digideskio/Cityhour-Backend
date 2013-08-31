@@ -424,13 +424,13 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
         //Prepare Languages,Skills
         if ($res['skills'] != null && $res['skills'] != '') {
-            $res['skills'] = explode(',',$res['skills']);
+            $res['skills'] = explode('$$$$$',$res['skills']);
         }
         else {
             $res['skills'] = array();
         }
         if ($res['languages'] != null && $res['languages'] != '') {
-            $res['languages'] = explode(',',$res['languages']);
+            $res['languages'] = explode('$$$$$',$res['languages']);
         }
         else {
             $res['languages'] = array();
@@ -519,7 +519,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $private = '';
         }
         $res = $this->_db->fetchRow("
-            select u.id $private,u.name,u.lastname,u.email,u.city_name,u.city,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_declined, group_concat(DISTINCT s.name) as skills, group_concat(DISTINCT l.languages_id) as languages
+            select u.id $private,u.name,u.lastname,u.email,u.city_name,u.city,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_declined, group_concat(DISTINCT s.name SEPARATOR '$$$$$') as skills, group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') as languages
             from users u
             left join user_skills s on u.id = s.user_id
             left join user_languages l on u.id = l.user_id
