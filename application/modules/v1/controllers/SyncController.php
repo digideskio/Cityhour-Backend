@@ -58,7 +58,6 @@ class V1_SyncController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
-        $id = $this->_request->getParam('id');
         if ($token && $token != null && $token != '') {
             $user = Application_Model_DbTable_Users::getUserData($token);
             if ($user) {
