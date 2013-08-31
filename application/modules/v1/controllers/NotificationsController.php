@@ -28,9 +28,9 @@ class V1_NotificationsController extends Zend_Rest_Controller
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="GET",
-     *       summary="Get People.",
+     *       summary="Get Notifications.",
      *       responseClass="void",
-     *       nickname="GetPeople",
+     *       nickname="GetNotifications",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(

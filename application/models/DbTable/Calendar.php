@@ -25,8 +25,170 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return $res;
     }
 
-    public function getSlot($sid, $user_id, $meet_notStart = false) {
-        $res = $this->fetchRow("id = $sid and user_id = $user_id");
+    public function answerMeetingEmail($user,$slot_id,$status) {
+        if ($status == 5) {
+            $this->update(array(
+                'status' => 3
+            ),"id = $slot_id");
+            return 200;
+        }
+        elseif ($status == 4) {
+            if (!$slot = $this->getSlot($slot_id,$user['id'],true,true)) {
+                return 404;
+            }
+
+            if (!Application_Model_DbTable_Users::isValidUser($slot['user_id'])) {
+                return 408;
+            }
+
+            if ($this->userBusyOrFree(strtotime($slot['start_time']),strtotime($slot['end_time']),$slot['user_id'])) {
+                return 301;
+            }
+
+            $this->_db->beginTransaction();
+            try {
+                $this->update(array(
+                    'status' => 2
+                ),"id = $slot_id");
+
+                $text = $user['name'].' принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
+                $push = new Application_Model_DbTable_Push();
+                $push->sendPush($slot['user_id'],$text,2,array(
+                    'from' => $user['id'],
+                    'to' => $slot['user_id'],
+                    'type' => 2
+                ));
+
+                $this->_db->insert('notifications',array(
+                    'from' => $user['id'],
+                    'to' => $slot['user_id'],
+                    'type' => 4,
+                    'item' => $slot['id'],
+                    'text' => $text
+                ));
+
+                $this->_db->commit();
+            }
+            catch (Exception $e) {
+                $this->_db->rollBack();
+                return 500;
+            }
+
+            return 200;
+        }
+
+        return 400;
+    }
+
+    public function answerMeeting($user,$id,$status,$foursqure_id) {
+        if (!$slot_id = $this->_db->fetchOne("select `item` from notifications where id = $id and type = 3")) {
+            return 400;
+        }
+
+        // If meeting reject
+        if ($status == 5) {
+            $this->_db->beginTransaction();
+            try {
+                $this->_db->update('notifications',array(
+                    'status' => 1
+                ),"id = $id");
+                $this->update(array(
+                    'status' => 3
+                ),"id = $slot_id");
+                $this->_db->commit();
+                return 200;
+            }
+            catch (Exception $e) {
+                $this->_db->rollBack();
+                return 500;
+            }
+        }
+
+        // If meeting accept
+        elseif ($status == 4) {
+            if (!$slot = $this->getSlot($slot_id,$user['id'],true,true)) {
+                return 404;
+            }
+
+            if ($this->userBusyOrFree(strtotime($slot['start_time']),strtotime($slot['end_time']),$user['id'])) {
+                return 300;
+            }
+
+            if (!Application_Model_DbTable_Users::isValidUser($slot['user_id'])) {
+                return 408;
+            }
+
+            if ($this->userBusyOrFree(strtotime($slot['start_time']),strtotime($slot['end_time']),$slot['user_id'])) {
+                return 301;
+            }
+
+            $this->_db->beginTransaction();
+            try {
+                if ($foursqure_id) {
+                    $foursqure_id = Application_Model_Common::getPlace($foursqure_id);
+                    unset($foursqure_id['lat']);
+                    unset($foursqure_id['lng']);
+
+                    $foursqure_id['status'] = 2;
+                    $this->update($foursqure_id,"id = $slot_id");
+                    $slot = array_merge($slot,$foursqure_id);
+                }
+                else {
+                    if (!$slot['foursquare_id'] || empty($slot['foursquare_id'])) {
+                        $this->_db->rollBack();
+                        return 400;
+                    }
+                    $this->update(array(
+                        'status' => 2
+                    ),"id = $slot_id");
+                }
+
+                $this->_db->update('notifications',array(
+                    'status' => 1
+                ),"id = $id");
+
+                $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
+                $push = new Application_Model_DbTable_Push();
+                $push->sendPush($slot['user_id'],$text,2,array(
+                    'from' => $user['id'],
+                    'to' => $slot['user_id'],
+                    'type' => 2
+                ));
+
+                $this->_db->insert('notifications',array(
+                    'from' => $user['id'],
+                    'to' => $slot['user_id'],
+                    'type' => 4,
+                    'item' => $slot['id'],
+                    'text' => $text
+                ));
+
+                unset($slot['id']);
+                $slot['user_id_second'] = $slot['user_id'];
+                $slot['user_id'] = $user['id'];
+                $slot['status'] = 2;
+                $slot['type'] = 2;
+                $this->insert($slot);
+
+                $this->_db->commit();
+            }
+            catch (Exception $e) {
+                $this->_db->rollBack();
+                return 500;
+            }
+
+            return 200;
+        }
+        return 400;
+    }
+
+    public function getSlot($sid, $user_id, $meet_notStart = false, $second_user = false) {
+        if (!$second_user) {
+            $res = $this->fetchRow("id = $sid and user_id = $user_id");
+        }
+        else {
+            $res = $this->fetchRow("id = $sid and user_id_second = $user_id");
+        }
         if ($res) {
             $res = $res->toArray();
 
@@ -54,6 +216,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         if (isset($data['foursquare_id']) && $data['foursquare_id']) {
             $place = Application_Model_Common::getPlace($data['foursquare_id']);
             $res = array_merge($res,$place);
+        }
+        elseif ($email) {
+            return false;
         }
 
         if (isset($data['goal']) && is_numeric($data['goal'])) {
@@ -100,8 +265,12 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         try {
             $this->_db->beginTransaction();
             $data = $this->prepeareSlotCreate($user,$data,2,1,$user_second,true);
-            $this->insert($data);
+            if (!$data) {
+                $this->_db->rollBack();
+                return 400;
+            }
 
+            $id = $this->insert($data);
 
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
             $url = $config->email->url;
@@ -117,8 +286,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'lastname' => substr($user['lastname'], 0, 1),
                 'time' => $data['start_time'],
                 'place' => $place,
-                'url_ok' => $url.'meetings/?answer=4&key='.$key,
-                'url_nok' => $url.'meetings/?answer=5&key='.$key
+                'url_ok' => $url.'meetings/?answer=4&sid='.$id.'&key='.$key,
+                'url_nok' => $url.'meetings/?answer=5&sid='.$id.'&key='.$key
             );
             Application_Model_Common::sendEmail($email, "Реквест Митинг!", null, null, null, "meeting_request.phtml", $options, 'meeting_request');
 
@@ -133,12 +302,12 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function createFreeSlot($user,$data) {
+        $this->_db->beginTransaction();
         try {
             $data = $this->prepeareSlotCreate($user,$data,1);
             if ($this->haveFreeSlot($data['start_time'],$data['end_time'],$user['id'])){
                 return 300;
             }
-            $this->_db->beginTransaction();
             $this->insert($data);
             $this->_db->commit();
             return 200;
@@ -154,7 +323,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             select c.id
             from calendar c
             where
-            (unix_timestamp(c.start_time) between $q_in and $q_out or unix_timestamp(c.end_time) between $q_in and $q_out or (unix_timestamp(c.start_time) >= $q_in and unix_timestamp(c.end_time) >= $q_out) )
+            (c.start_time between '$q_in' and '$q_out' or c.end_time between '$q_in' and '$q_out' or (c.start_time >= '$q_in' and c.end_time >= '$q_out') )
             and c.user_id = $user_id
             and c.type = 1
             and c.status = 0
@@ -190,7 +359,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     public function createMeeting($user,$data) {
 
 
-        if (isset($data['person_value']) && is_numeric($data['person_value']) && !Application_Model_DbTable_Users::isValidUser($data['person_value'])) {
+        if (isset($data['person_value']) && is_numeric($data['person_value']) && Application_Model_DbTable_Users::isValidUser($data['person_value'])) {
             $user_second = $data['person_value'];
         }
         else {
@@ -208,7 +377,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         try {
             $this->_db->beginTransaction();
             $data = $this->prepeareSlotCreate($user,$data,2,1,$user_second);
-            $this->insert($data);
+            $id = $this->insert($data);
 
             if (isset($data['place'])) {
                 $place = ' в '.$data['place'];
@@ -222,6 +391,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'from' => $user['id'],
                 'to' => $user_second,
                 'type' => 3,
+                'item' => $id,
                 'text' => $text
             ));
 
