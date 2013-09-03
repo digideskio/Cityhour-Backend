@@ -3,7 +3,18 @@
 class Application_Model_Linkedin
 {
 
-    public function makePost($token) {
+    public function makePost($token,$id) {
+        if (!$slot = (new Application_Model_DbTable_Calendar())->getSlotID($id)) {
+            return 404;
+        }
+
+        if ($slot['type'] == 1) {
+
+        }
+        elseif ($slot['type'] == 2) {
+
+        }
+
         $params = http_build_query(array(
             'oauth2_access_token' => $token,
             'format' => 'json',

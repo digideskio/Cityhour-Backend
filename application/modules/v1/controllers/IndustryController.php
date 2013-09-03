@@ -39,10 +39,8 @@ class V1_IndustryController extends Zend_Rest_Controller
     public function getAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $db = new Application_Model_DbTable_Industries();
-        $res = $db->getAll();
         $this->_helper->json->sendJson(array(
-            'body' => $res,
+            'body' => (new Application_Model_DbTable_Industries())->getAll(),
             'errorCode' => '200'
         ));
 

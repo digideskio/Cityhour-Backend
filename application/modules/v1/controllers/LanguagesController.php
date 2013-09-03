@@ -39,10 +39,8 @@ class V1_LanguagesController extends Zend_Rest_Controller
     public function getAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $db = new Application_Model_DbTable_Languages();
-        $res = $db->getAll();
         $this->_helper->json->sendJson(array(
-            'body' => $res,
+            'body' => (new Application_Model_DbTable_Languages())->getAll(),
             'errorCode' => '200'
         ));
 

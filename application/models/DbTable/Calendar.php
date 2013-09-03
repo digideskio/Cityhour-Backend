@@ -18,6 +18,23 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return $res;
     }
 
+    public function getSocial($id,$uid) {
+        if (!$slot = $this->getSlotID($id)) {
+            return 404;
+        }
+
+        $db = new Application_Model_DbTable_Users();
+        if (!$user = $db->getUser($uid,false,'id',true,false)) {
+            return 400;
+        }
+
+        return array(
+            'user' => $user,
+            'slot' => $slot,
+            'second_user' => $db->getUser($slot['user_id_second'],false,'id',true,false)
+        );
+    }
+
     public function getAll($user) {
         $user_id = $user['id'];
         $start = date('Y-m-d H:i:s',time()-86400);

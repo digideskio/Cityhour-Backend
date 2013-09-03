@@ -21,9 +21,72 @@ class V1_SocialController extends Zend_Rest_Controller
         $this->getAction();
     }
 
+    /**
+     *
+     * @SWG\Api(
+     *   path="/social/",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       httpMethod="GET",
+     *       summary="Get share.",
+     *       responseClass="void",
+     *       nickname="GetSocial",
+     *       notes="",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="404",
+     *            reason="Time Slot not found)."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params given."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="uid",
+     *           description="Id of user",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="string"
+     *         ),
+     * @SWG\Parameter(
+     *           name="id",
+     *           description="Slot id",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="string"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function getAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $id = $this->_request->getParam('id');
+        $uid = $this->_request->getParam('uid');
+        if (is_numeric($id) && is_numeric($uid)) {
+            $res = (new Application_Model_DbTable_Calendar())->getSocial($id,$uid);
+            if (isset($res['user'])) {
+                $this->_helper->json->sendJson(array(
+                    'body' => $res,
+                    'errorCode' => 200
+                ));
+            }
+            else {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => $res
+                ));
+            }
+
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                'errorCode' => 400
+            ));
+        }
     }
 
     /**
@@ -50,6 +113,10 @@ class V1_SocialController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="404",
+     *            reason="Not found slot to share."
      *          ),
      *          @SWG\ErrorResponse(
      *            code="407",
@@ -82,7 +149,7 @@ class V1_SocialController extends Zend_Rest_Controller
         }
         else {
             $this->_helper->json->sendJson(array(
-                'errorCode' => '400'
+                'errorCode' => 400
             ));
         }
     }

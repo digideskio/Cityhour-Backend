@@ -39,10 +39,8 @@ class V1_GoalsController extends Zend_Rest_Controller
     public function getAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $db = new Application_Model_DbTable_Goals();
-        $res = $db->getAll();
         $this->_helper->json->sendJson(array(
-            'body' => $res,
+            'body' => (new Application_Model_DbTable_Goals())->getAll(),
             'errorCode' => '200'
         ));
 
