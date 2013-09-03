@@ -412,6 +412,7 @@ class FindPeople extends Common {
             ))
 
             and (s.value is null or s.value = '0')
+            and u.status = 0
             having start_time != end_time;
 
 
@@ -444,6 +445,7 @@ class FindPeople extends Common {
             or ( c.type = 0 and c.status = 0)
             )
 
+            and u.status = 0
             and s.value = '1'
             and ct.lng BETWEEN $this->s_lng AND $this->n_lng AND ct.lat BETWEEN $this->s_lat AND $this->n_lat
             $this->industry_q
@@ -462,6 +464,7 @@ class FindPeople extends Common {
 
             where
             s.value = '1'
+            and u.status = 0
             and ct.lng BETWEEN $this->s_lng AND $this->n_lng AND ct.lat BETWEEN $this->s_lat AND $this->n_lat
             $this->industry_q
             $this->goal_fn
