@@ -34,18 +34,33 @@ class databaseClass {
         $this->connect();
     }
 
-    public function storeMSG($when,$from,$to,$msg) {
+    public function storeMSG($when,$from,$to,$msg,$status,$user_all = false) {
         //auto reconnect if MySQL server has gone away
         while (!mysql_ping($this->conn)) {
             sleep(2);
             $this->reconnect();
         }
 
+        if ($status === 0) {
+            $text = "Написал в чат типок ".mysql_real_escape_string($user_all['name']).' '.mysql_real_escape_string($user_all['lastname']);
+            $data = json_encode(array(
+                'from' => $from,
+                'to' => $to,
+                'type' => 5
+            ));
+            $result = mysql_query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$to','5','$text','$data')");
+
+            echo mysql_error();
+            if (!$result) {
+                return false;
+            }
+        }
+
         $msg = mysql_real_escape_string($msg);
         $to = mysql_real_escape_string($to);
         $from = mysql_real_escape_string($from);
         $when = date("Y-m-d H:i:s", $when);
-        $result = mysql_query("insert into chat (`when`,`to`,`from`,`text`) values ('$when','$to','$from','$msg')");
+        $result = mysql_query("insert into chat (`when`,`to`,`from`,`text`,`status`) values ('$when','$to','$from','$msg','$status')");
 
         echo mysql_error();
         if (!$result) {
@@ -195,7 +210,12 @@ while (true) {
                                 echo ($user_all['email'].' sent '.$recv['text'].' to '.$target_all['email'])."\n";
 
                                 $when = time();
-                                $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text']);
+                                if (isset($conn_user[$target])) {
+                                    $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text'],1);
+                                }
+                                else {
+                                    $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text'],0,$user_all);
+                                }
                                 if ($id) {
                                     $msg_data = array(
                                         'from' => $user_all['id'],

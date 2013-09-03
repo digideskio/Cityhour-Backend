@@ -8,9 +8,10 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
 
     public function getMessages($user,$from) {
         $user_id = $user['id'];
-        $res = $this->fetchAll("(`from` = $from and `to` = $user_id) or (`from` = $user_id and `to` = $from)");
-        if ($res != null) {
-            $res = $res->toArray();
+        if ($res = $this->fetchAll("(`from` = $from and `to` = $user_id) or (`from` = $user_id and `to` = $from)")->toArray()) {
+            $this->update(array(
+                'status' => 1
+            ),"`from` = $from and `to` = $user_id");
             foreach ($res as $num => $row) {
                 $res[$num]['when'] = strtotime($row['when']);
             }
@@ -28,7 +29,7 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
         $url = $config->userPhoto->url;
 
         return $this->_db->fetchAll("
-            select max(t.id) as id, t.user_id, u.name, u.lastname, UNIX_TIMESTAMP(h.when) as 'when', h.text, 1 as 'count', concat('$url', u.photo) as photo
+            select max(t.id) as id, t.user_id, u.name, u.lastname, UNIX_TIMESTAMP(h.when) as 'when', h.text, (select count(k.id) from chat k where k.status = 0 and k.to = $user_id and k.from = t.user_id) as 'count', concat('$url', u.photo) as photo
             from
             (
             (

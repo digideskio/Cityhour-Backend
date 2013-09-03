@@ -60,7 +60,8 @@ class Application_Model_Types
             1 => 'Meeting canceled',
             2 => 'Meeting request accepted',
             3 => 'New message',
-            4 => 'Friend request'
+            4 => 'Friend request',
+            5 => 'Chat message',
         );
     }
 

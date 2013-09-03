@@ -121,15 +121,21 @@ class V1_NotificationsController extends Zend_Rest_Controller
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $res = array(
-            'chat' => 2,
-            'requests' => 3,
-            'notification' => 1
-        );
-        $this->_helper->json->sendJson(array(
-            'body' => $res,
-            'errorCode' => '200'
-        ));
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key']) && $data['private_key']) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+
+            $this->_helper->json->sendJson(array(
+                'body' => (new Application_Model_DbTable_Notifications())->getCounters($user),
+                'errorCode' => '200'
+            ));
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                'errorCode' => '400'
+            ));
+        }
     }
 
 
