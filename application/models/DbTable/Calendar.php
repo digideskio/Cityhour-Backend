@@ -5,6 +5,19 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     protected $_name = 'calendar';
 
+    public function getSlotID($id) {
+        $res = $this->fetchRow("id = $id");
+        if ($res) {
+            $res = $res->toArray();
+            $res['start_time'] = strtotime($res['start_time']);
+            $res['end_time'] = strtotime($res['end_time']);
+            $res['time_create'] = strtotime($res['time_create']);
+        }
+        else
+            $res = array();
+        return $res;
+    }
+
     public function getAll($user) {
         $user_id = $user['id'];
         $start = date('Y-m-d H:i:s',time()-86400);
@@ -293,7 +306,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
 
             $this->_db->commit();
-            return 200;
+            return $this->getSlotID($id);
         }
         catch (Exception $e) {
             $this->_db->rollBack();
@@ -308,9 +321,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             if ($this->haveFreeSlot($data['start_time'],$data['end_time'],$user['id'])){
                 return 300;
             }
-            $this->insert($data);
+            $id = $this->insert($data);
             $this->_db->commit();
-            return 200;
+            return $this->getSlotID($id);
         }
         catch (Exception $e) {
             $this->_db->rollBack();
@@ -403,7 +416,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             ));
 
             $this->_db->commit();
-            return 200;
+            return $this->getSlotID($id);
         }
         catch (Exception $e) {
             $this->_db->rollBack();
@@ -467,7 +480,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 ),"id = $user_id");
             }
 
-            return 200;
+            return $this->getSlotID($sid);
         }
         elseif ($slot['type'] === true && isset($data['person']) && is_numeric($data['person'])) {
             $res = 400;
@@ -478,7 +491,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 if ($data) {
                     $this->update($data,"id = $sid");
                 }
-                return 200;
+                return $this->getSlotID($sid);
             }
             elseif ($data['person'] == 1) {
                 $data = $this->prepeareUpdate($data,$slot);
@@ -489,14 +502,14 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $res = $this->createMeetingEmail($user,$data);
             }
 
-            if ($res == 200) {
+            if (isset($res['id'])) {
                 $this->delete("id = $sid");
             }
 
             return $res;
         }
 
-        return false;
+        return 400;
     }
 
     public function cancelMeeting($user,$slot) {
@@ -559,37 +572,54 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             foreach ($calendars as $num => $row) {
                 $calendars[$num] = $filter->filter($row);
             }
-            $calendars = "'".implode("','",$calendars)."'";
-            // Fetch busy slots of user specified calendar
-            $old_slots = $this->_db->fetchOne("
-            select group_concat(`hash`)
-            from calendar
-            where user_id = $user_id
-            and `type` = 0
-            and calendar_name in ($calendars)
-        ");
-            $che_slots = explode(',',$old_slots);
-            $old_slots = array();
-            foreach ($slots as $num => $row ) {
-                if (!in_array($row['hash'],$che_slots) && !in_array($row['hash'],$old_slots)) {
-                    $row['user_id'] = $user['id'];
-                    $row['start_time'] = date('Y-m-d H:i:s',(int)$row['start_time']);
-                    $row['end_time'] = date('Y-m-d H:i:s',(int)$row['end_time']);
-                    unset($row['private_key']);
-                    $row['type'] = 0;
-                    $this->insert($row);
+            if ($calendars) {
+                $calendars = "'".implode("','",$calendars)."'";
+
+                // Fetch busy slots of user specified calendar
+                $old_slots = $this->_db->fetchOne("
+                    select group_concat(`hash`)
+                    from calendar
+                    where user_id = $user_id
+                    and `type` = 0
+                    and calendar_name in ($calendars)
+                ");
+                $che_slots = explode(',',$old_slots);
+                $old_slots = array();
+
+                foreach ($slots as $num => $row ) {
+                    $validators = array(
+                        '*' => array('NotEmpty')
+                    );
+                    $filters = array(
+                        'calendar_name' => array('StringTrim','HtmlEntities',$filter),
+                        'hash' => array('StringTrim','HtmlEntities',$filter),
+                        'start_time' => array('StringTrim','HtmlEntities','Int'),
+                        'end_time' => array('StringTrim','HtmlEntities','Int'),
+                    );
+                    $input = new Zend_Filter_Input($filters, $validators, $row);
+
+                    if ($input->getEscaped('hash') && !in_array($input->getEscaped('hash'),$che_slots) && !in_array($input->getEscaped('hash'),$old_slots)) {
+                        $row = array();
+                        $row['user_id'] = $user['id'];
+                        $row['hash'] = $input->getEscaped('hash');
+                        $row['calendar_name'] = $input->getEscaped('calendar_name');
+                        $row['start_time'] = date('Y-m-d H:i:s',(int)$input->getEscaped('start_time'));
+                        $row['end_time'] = date('Y-m-d H:i:s',(int)$input->getEscaped('end_time'));
+                        $row['type'] = 0;
+                        $this->insert($row);
+                    }
+
+                    if ($input->getEscaped('hash') && !in_array($row['hash'],$old_slots)) {
+                        array_push($old_slots,$input->getEscaped('hash'));
+                    }
                 }
 
-                if (!in_array($row['hash'],$old_slots)) {
-                    array_push($old_slots,$row['hash']);
+                $old_slots = "'".implode("','",$old_slots)."'";
+                if ($old_slots) {
+                    $this->delete("user_id = $user_id and `hash` not in ($old_slots)");
                 }
+                return true;
             }
-
-            $old_slots = "'".implode("','",$old_slots)."'";
-            if ($old_slots) {
-                $this->delete("user_id = $user_id and `hash` not in ($old_slots)");
-            }
-            return true;
         }
         return false;
     }

@@ -41,6 +41,10 @@ class V1_FriendsController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -59,21 +63,11 @@ class V1_FriendsController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
-        if ($token && $token != null && $token != '') {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Friends();
-                $res = $db->getAll($user);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+        if ($user = Application_Model_DbTable_Users::authorize($token)) {
+            $this->_helper->json->sendJson(array(
+                'body' => (new Application_Model_DbTable_Friends())->getAll($user),
+                'errorCode' => '200'
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(
@@ -111,6 +105,10 @@ class V1_FriendsController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="404",
      *            reason="Id not found."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -130,25 +128,17 @@ class V1_FriendsController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && isset($data['id']) && is_numeric($data['id'])) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Friends();
-                if ($db->addFriend($data['id'],$user)) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '404'
-                    ));
-                }
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id'])) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+            $db = new Application_Model_DbTable_Friends();
+            if ($db->addFriend($data['id'],$user)) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'errorCode' => '404'
                 ));
             }
         }
@@ -189,6 +179,10 @@ class V1_FriendsController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="404",
      *            reason="Id not found."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -208,25 +202,17 @@ class V1_FriendsController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && isset($data['id']) && is_numeric($data['id']) && isset($data['status']) && is_numeric($data['status'])) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Friends();
-                if ($db->answer($data['id'],$data['status'],$user)) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '404'
-                    ));
-                }
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id']) && isset($data['status']) && is_numeric($data['status'])) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+            $db = new Application_Model_DbTable_Friends();
+            if ($db->answer($data['id'],$data['status'],$user)) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'errorCode' => '404'
                 ));
             }
         }
@@ -260,6 +246,10 @@ class V1_FriendsController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="500",
      *            reason="Server problem."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -289,27 +279,20 @@ class V1_FriendsController extends Zend_Rest_Controller
         $token = $this->getParam('private_key');
         $id = $this->getParam('id');
 
-        if ($token && $token != null && $token != '' && is_numeric($id)) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Friends();
-                $res = $db->deleteFriends($user,$id);
-                if ($res === true) {
-                    $this->_helper->json->sendJson(array(
-                        'body' => $res,
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'body' => $res,
-                        'errorCode' => '500'
-                    ));
-                }
+        if ($token && is_numeric($id)) {
+            $user = Application_Model_DbTable_Users::authorize($token);
+
+            $res = (new Application_Model_DbTable_Friends())->deleteFriends($user,$id);
+            if ($res === true) {
+                $this->_helper->json->sendJson(array(
+                    'body' => $res,
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'body' => $res,
+                    'errorCode' => '500'
                 ));
             }
         }

@@ -12,7 +12,14 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
             'field' => 'name',
             'exclude' => "user_id = $user_id"
         ));
+
+        $filter = new Zend_Filter_HtmlEntities();
         foreach ($data as $num => $row ) {
+            $num = trim($filter->filter($num));
+            $row = trim($filter->filter($row));
+            $row = $this->_db->quote($row);
+            $num = $this->_db->quote($num);
+
             if ($num == 'city') {
                 Application_Model_Common::getCity($row);
             }

@@ -32,8 +32,7 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
             )
         );
 
-        $private_key = Application_Model_DbTable_Users::getUserData($private_key);
-        if ($private_key) {
+        if ($private_key = Application_Model_DbTable_Users::getUserData($private_key)) {
             $user_id = $private_key['id'];
             $id = $this->fetchRow("user_id = $user_id");
             if ($id != null) {

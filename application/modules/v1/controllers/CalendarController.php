@@ -38,8 +38,8 @@ class V1_CalendarController extends Zend_Rest_Controller
      *            reason="Authentication failed."
      *          ),
      *          @SWG\ErrorResponse(
-     *            code="400",
-     *            reason="Not all params given."
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -57,28 +57,12 @@ class V1_CalendarController extends Zend_Rest_Controller
     public function getAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $token = $this->_request->getParam('private_key');
-        if ($token && $token != null && $token != '') {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
-                $res = $db->getAll($user);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
-        }
-        else {
-            $this->_helper->json->sendJson(array(
-                'errorCode' => '400'
-            ));
-        }
+        $user = Application_Model_DbTable_Users::authorize($this->_request->getParam('private_key'));
+
+        $this->_helper->json->sendJson(array(
+            'body' => (new Application_Model_DbTable_Calendar())->getAll($user),
+            'errorCode' => '200'
+        ));
 
     }
 
@@ -87,17 +71,13 @@ class V1_CalendarController extends Zend_Rest_Controller
      * @SWG\Model(id="slotCalendarParams")
      * @SWG\Property(name="private_key",type="string")
      * @SWG\Property(name="slots",type="Array",items="$ref:creteSlotParams")
+     * @SWG\Property(name="calendars",type="json")
      *
      * @SWG\Model(id="creteSlotParams")
-     * @SWG\Property(name="user_id_second",type="string")
      * @SWG\Property(name="start_time",type="timestamp")
      * @SWG\Property(name="end_time",type="timestamp")
-     * @SWG\Property(name="foursquare_id",type="string")
-     * @SWG\Property(name="goal",type="int")
-     * @SWG\Property(name="city",type="string")
      * @SWG\Property(name="hash",type="string")
      * @SWG\Property(name="calendar_name",type="string")
-     * @SWG\Property(name="status",type="int")
      *
      *
      * @SWG\Api(
@@ -117,6 +97,10 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -136,26 +120,17 @@ class V1_CalendarController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && isset($data['calendars']) && isset($data['slots'])) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
-                $res = $db->addSlots($data,$user);
-                if ($res) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '400'
-                    ));
-                }
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['calendars']) && isset($data['slots'])) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+            $db = new Application_Model_DbTable_Calendar();
+            if ($db->addSlots($data,$user)) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'errorCode' => '400'
                 ));
             }
         }
@@ -234,34 +209,51 @@ class V1_CalendarController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key']) && $data['private_key'] != null && $data['private_key'] != '' && isset($data['id']) && is_numeric($data['id']) ) {
-            $user = Application_Model_DbTable_Users::getUserData($data['private_key']);
-            if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
-                $res = $db->getSlot($data['id'],$user['id']);
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id']) && isset($data['date_from']) && is_numeric($data['date_from']) && isset($data['date_to']) && is_numeric($data['date_to']) && isset($data['person']) && is_numeric($data['person'])) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 
-                if ($res) {
-                    $res = $db->updateSlot($data,$res,$user);
-                    if (is_numeric($res)) {
-                        $this->_helper->json->sendJson(array(
-                            'errorCode' => $res
-                        ));
-                    }
-                    else {
-                        $this->_helper->json->sendJson(array(
-                            'errorCode' => '400'
-                        ));
-                    }
+            $db = new Application_Model_DbTable_Calendar();
+            if ($res = $db->getSlot($data['id'],$user['id'])) {
+                $validators = array(
+                    '*' => array()
+                );
+                $filters = array(
+                    'goal' => array('StringTrim','HtmlEntities','Int'),
+                    'foursquare_id' => array('StringTrim','HtmlEntities'),
+                    'city' => array('StringTrim','HtmlEntities'),
+                    'person_value' => array('StringTrim','HtmlEntities'),
+                    'person_name' => array('StringTrim','HtmlEntities'),
+                );
+                $input = new Zend_Filter_Input($filters, $validators, $data);
+
+                $userData = array(
+                    'id' => $data['id'],
+                    'date_from' => $data['date_from'],
+                    'date_to' => $data['date_to'],
+                    'person' => $data['person'],
+                    'goal' => $input->getEscaped('goal'),
+                    'foursquare_id' => $input->getEscaped('foursquare_id'),
+                    'city' => $input->getEscaped('city'),
+                    'person_value' => $input->getEscaped('person_value'),
+                    'person_name' => $input->getEscaped('person_name'),
+                );
+
+                $res = $db->updateSlot($userData,$res,$user);
+                if (isset($res['id'])) {
+                    $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => 200
+                    ));
                 }
                 else {
                     $this->_helper->json->sendJson(array(
-                        'errorCode' => '404'
+                        'errorCode' => $res
                     ));
                 }
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'errorCode' => '404'
                 ));
             }
         }
@@ -295,6 +287,10 @@ class V1_CalendarController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="404",
      *            reason="Not found slot that you can cancel."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -320,24 +316,13 @@ class V1_CalendarController extends Zend_Rest_Controller
     public function deleteAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-
-        $token = $this->getParam('private_key');
-        $id = $this->getParam('id');
-
-        if ($token && $token != null && $token != '' && is_numeric($id)) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
-                $res = $db->deleteSlot($user,$id);
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => $res
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+        $token = $this->_request->getParam('private_key');
+        $id = $this->_request->getParam('id');
+        if ($token && is_numeric($id)) {
+            $user = Application_Model_DbTable_Users::authorize($token);
+            $this->_helper->json->sendJson(array(
+                'errorCode' => (new Application_Model_DbTable_Calendar())->deleteSlot($user,$id)
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(

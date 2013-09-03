@@ -37,23 +37,57 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function updateUser($user,$data) {
         $user_id = $user['id'];
-        $filter = new Zend_Filter_StripTags();
+
         $userData = array();
+        $validators = array(
+            '*' => array(),
+            'business_email' => new Zend_Validate_EmailAddress(),
+        );
+        $filter_alnum = new Zend_Filter_Alnum(true);
+        $filters = array(
+            'name' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'lastname' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'summary' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'skype' => array('StringTrim','HtmlEntities'),
+            'phone' => array('StringTrim','HtmlEntities'),
+            'industry_id' => array('StringTrim','HtmlEntities','Int'),
+            'business_email' => array('StringTrim','HtmlEntities'),
+            'city' => array('StringTrim','HtmlEntities'),
+        );
+        $input = new Zend_Filter_Input($filters, $validators, $data);
         $this->_db->beginTransaction();
         try {
-            if (isset($data['name'])) $userData['name'] = $filter->filter($data['name']);
-            if (isset($data['lastname'])) $userData['lastname'] = $filter->filter($data['lastname']);
-            if (isset($data['industry_id'])) $userData['industry_id'] = $filter->filter($data['industry_id']);
-            if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
-            if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
-            if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
-            if (isset($data['phone'])) $userData['phone'] = $filter->filter($data['phone']);
-            if (isset($data['business_email'])) $userData['business_email'] = $filter->filter($data['business_email']);
+            if ($input->getEscaped('name')) $userData['name'] = $input->getEscaped('name');
+            if ($input->getEscaped('lastname')) $userData['lastname'] = $input->getEscaped('lastname');
+            if ($input->getEscaped('summary')) $userData['summary'] = $input->getEscaped('summary');
+            if ($input->getEscaped('skype')) $userData['skype'] = $input->getEscaped('skype');
+            if ($input->getEscaped('phone')) $userData['phone'] = $input->getEscaped('phone');
+            if ($input->getEscaped('industry_id')) $userData['industry_id'] = $input->getEscaped('industry_id');
+            if ($input->getEscaped('business_email')) $userData['business_email'] = $input->getEscaped('business_email');
 
+
+            //City
+            if ($input->getEscaped('city')) {
+                $userData = array_merge($userData,Application_Model_Common::getCity($input->getEscaped('city')));
+            }
 
             //Jobs
             if (isset($data['jobs'])) {
+                $validators = array(
+                    '*' => array()
+                );
+                $filter_alnum = new Zend_Filter_Alnum(true);
+                $filters = array(
+                    'name' => array('StringTrim','HtmlEntities',$filter_alnum),
+                    'company' => array('StringTrim','HtmlEntities',$filter_alnum),
+                    'current' => array('StringTrim','HtmlEntities','Int'),
+                    'start_time' => array('StringTrim','HtmlEntities'),
+                    'end_time' => array('StringTrim','HtmlEntities'),
+                );
+
                 foreach($data['jobs'] as $num=>$row) {
+                    $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
+
                     if (!$row['current'] || $row['current'] === false ) {
                         $row['current'] = 0;
                     }
@@ -63,24 +97,24 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     if (!isset($row['end_time'])) {
                         $row['end_time'] = $row['start_time'];
                     }
-                    if (isset($row['id'])) {
+                    if (isset($row['id']) && is_numeric($row['id'])) {
                         $job_id = $row['id'];
                         $this->_db->update('user_jobs',array(
-                            'name' => $row['name'],
-                            'company' => $row['company'],
-                            'current' => $row['current'],
-                            'start_time' => $row['start_time'],
-                            'end_time' => $row['end_time']
+                            'name' => $jobs_input->getEscaped('name'),
+                            'company' => $jobs_input->getEscaped('company'),
+                            'current' => $jobs_input->getEscaped('current'),
+                            'start_time' => $jobs_input->getEscaped('start_time'),
+                            'end_time' => $jobs_input->getEscaped('end_time')
                         ),"id = $job_id");
                     }
                     else {
                         $this->_db->insert('user_jobs',array(
                             'user_id' => $user_id,
-                            'name' => $row['name'],
-                            'company' => $row['company'],
-                            'current' => $row['current'],
-                            'start_time' => $row['start_time'],
-                            'end_time' => $row['end_time'],
+                            'name' => $jobs_input->getEscaped('name'),
+                            'company' => $jobs_input->getEscaped('company'),
+                            'current' => $jobs_input->getEscaped('current'),
+                            'start_time' => $jobs_input->getEscaped('start_time'),
+                            'end_time' => $jobs_input->getEscaped('end_time'),
                             'type' => 0
                         ));
                     }
@@ -91,32 +125,41 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
             //Education
             if (isset($data['education'])) {
+                $validators = array(
+                    '*' => array()
+                );
+                $filter_alnum = new Zend_Filter_Alnum(true);
+                $filters = array(
+                    'name' => array('StringTrim','HtmlEntities',$filter_alnum),
+                    'company' => array('StringTrim','HtmlEntities',$filter_alnum),
+                    'current' => array('StringTrim','HtmlEntities','Int'),
+                    'start_time' => array('StringTrim','HtmlEntities'),
+                    'end_time' => array('StringTrim','HtmlEntities'),
+                );
+
                 foreach($data['education'] as $num=>$row) {
-                    if (isset($row['id'])) {
+                    $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
+
+                    if (isset($row['id']) && is_numeric($row['id'])) {
                         $job_id = $row['id'];
                         $this->_db->update('user_jobs',array(
-                            'name' => $row['name'],
-                            'company' => $row['company'],
-                            'start_time' => $row['start_time'],
-                            'end_time' => $row['end_time']
+                            'name' => $jobs_input->getEscaped('name'),
+                            'company' => $jobs_input->getEscaped('company'),
+                            'start_time' => $jobs_input->getEscaped('start_time'),
+                            'end_time' => $jobs_input->getEscaped('end_time')
                         ),"id = $job_id");
                     }
                     else {
                         $this->_db->insert('user_jobs',array(
                             'user_id' => $user_id,
-                            'name' => $row['name'],
-                            'company' => $row['company'],
-                            'start_time' => $row['start_time'],
-                            'end_time' => $row['end_time'],
+                            'name' => $jobs_input->getEscaped('name'),
+                            'company' => $jobs_input->getEscaped('company'),
+                            'start_time' => $jobs_input->getEscaped('start_time'),
+                            'end_time' => $jobs_input->getEscaped('end_time'),
                             'type' => 1
                         ));
                     }
                 }
-            }
-
-            //City
-            if (isset($data['city'])) {
-                $userData = array_merge($userData,Application_Model_Common::getCity($data['city']));
             }
 
             //Skills
@@ -125,7 +168,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 foreach($data['skills'] as $num=>$row) {
                     $this->_db->insert('user_skills',array(
                         'user_id' => $user_id,
-                        'name' => $row,
+                        'name' => $filter_alnum->filter($row),
                     ));
                 }
             }
@@ -136,7 +179,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 foreach($data['languages'] as $num=>$row) {
                     $this->_db->insert('user_languages',array(
                         'user_id' => $user_id,
-                        'languages_id' => $row,
+                        'languages_id' => $filter_alnum->filter($row),
                     ));
                 }
             }
@@ -173,13 +216,16 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 left join user_jobs j on u.id = j.user_id
                 where
                 j.type = 0 and j.current = 1
+                and u.status = 0
                 and u.id in ($res)
             ");
         }
         else {
             $res = explode(',', $res);
             foreach ($res as $num=>$row) {
-                $answer[$num] = $this->getUser($row,$user);
+                if (is_numeric($row)) {
+                    $answer[$num] = $this->getUser($row,$user);
+                }
             }
         }
 
@@ -187,32 +233,49 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
     }
 
     public function registerUser($data) {
-        $filter = new Zend_Filter_StripTags();
+        $validators = array(
+            '*' => array(),
+            'business_email' => new Zend_Validate_EmailAddress(),
+            'email' => new Zend_Validate_EmailAddress(),
+        );
+        $filter_alnum = new Zend_Filter_Alnum(true);
+        $filters = array(
+            'name' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'lastname' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'summary' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'skype' => array('StringTrim','HtmlEntities'),
+            'phone' => array('StringTrim','HtmlEntities'),
+            'industry_id' => array('StringTrim','HtmlEntities','Int'),
+            'city' => array('StringTrim','HtmlEntities'),
+            'facebook_key' => array('StringTrim','HtmlEntities'),
+            'facebook_id' => array('StringTrim','HtmlEntities'),
+            'linkedin_key' => array('StringTrim','HtmlEntities'),
+            'linkedin_id' => array('StringTrim','HtmlEntities'),
+        );
+        $input = new Zend_Filter_Input($filters, $validators, $data);
         $this->_db->beginTransaction();
+
         try {
             //Important
-            $userData = array(
-                'email' => $data['email'],
-                'name' => $data['name'],
-                'lastname' => $data['lastname'],
-                'industry_id' => $data['industry_id'],
-                'private_key' => uniqid(sha1(time()), false)
-            );
+            if ($input->getEscaped('email')) $userData['email'] = $input->getEscaped('email');
+            if ($input->getEscaped('name')) $userData['name'] = $input->getEscaped('name');
+            if ($input->getEscaped('lastname')) $userData['lastname'] = $input->getEscaped('lastname');
+            if ($input->getEscaped('industry_id')) $userData['industry_id'] = $input->getEscaped('industry_id');
+            $userData['private_key'] = uniqid(sha1(time()), false);
 
             //Not Important
-            if (isset($data['skype'])) $userData['skype'] = $filter->filter($data['skype']);
-            if (isset($data['summary'])) $userData['summary'] = $filter->filter($data['summary']);
-            if (isset($data['phone'])) $userData['phone'] = $filter->filter($data['phone']);
-            if (isset($data['business_email'])) $userData['business_email'] = $filter->filter($data['business_email']);
+            if ($input->getEscaped('summary')) $userData['summary'] = $input->getEscaped('summary');
+            if ($input->getEscaped('skype')) $userData['skype'] = $input->getEscaped('skype');
+            if ($input->getEscaped('phone')) $userData['phone'] = $input->getEscaped('phone');
+            if ($input->getEscaped('business_email')) $userData['business_email'] = $input->getEscaped('business_email');
+            if ($input->getEscaped('facebook_key')) $userData['facebook_key'] = $input->getEscaped('facebook_key');
+            if ($input->getEscaped('facebook_id')) $userData['facebook_id'] = $input->getEscaped('facebook_id');
+            if ($input->getEscaped('linkedin_key')) $userData['linkedin_key'] = $input->getEscaped('linkedin_key');
+            if ($input->getEscaped('linkedin_id')) $userData['linkedin_id'] = $input->getEscaped('linkedin_id');
 
-            if (isset($data['facebook_key'])) $userData['facebook_key'] =  $filter->filter($data['facebook_key']);
-            if (isset($data['facebook_id'])) $userData['facebook_id'] =  $filter->filter($data['facebook_id']);
-            if (isset($data['linkedin_key'])) $userData['linkedin_key'] = $filter->filter($data['linkedin_key']);
-            if (isset($data['linkedin_id'])) $userData['linkedin_id'] = $filter->filter($data['linkedin_id']);
 
-
-            if (isset($data['city'])) {
-                $userData = array_merge($userData,Application_Model_Common::getCity($data['city']));
+            if ($input->getEscaped('city')) {
+                $userData = array_merge($userData,Application_Model_Common::getCity($input->getEscaped('city')));
             }
 
             $id = $this->insert($userData);
@@ -222,7 +285,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 foreach($data['skills'] as $num=>$row) {
                     $this->_db->insert('user_skills',array(
                         'user_id' => $id,
-                        'name' => $row,
+                        'name' => $filter_alnum->filter($row),
                     ));
                 }
             }
@@ -231,42 +294,68 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 foreach($data['languages'] as $num=>$row) {
                     $this->_db->insert('user_languages',array(
                         'user_id' => $id,
-                        'languages_id' => $row,
+                        'languages_id' => $filter_alnum->filter($row),
                     ));
                 }
             }
 
+            if (isset($data['jobs'][0])) {
+                $validators = array(
+                    '*' => array()
+                );
+                $filter_alnum = new Zend_Filter_Alnum(true);
+                $filters = array(
+                    'name' => array('StringTrim','HtmlEntities',$filter_alnum),
+                    'company' => array('StringTrim','HtmlEntities',$filter_alnum),
+                    'current' => array('StringTrim','HtmlEntities','Int'),
+                    'start_time' => array('StringTrim','HtmlEntities'),
+                    'end_time' => array('StringTrim','HtmlEntities'),
+                );
+                foreach($data['jobs'] as $num=>$row) {
+                    $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
 
-            foreach($data['jobs'] as $num=>$row) {
-                if (!$row['current'] || $row['current'] === false ) {
-                    $row['current'] = 0;
+                    if (!$row['current'] || $row['current'] === false ) {
+                        $row['current'] = 0;
+                    }
+                    elseif ($row['current'] === true) {
+                        $row['current'] = 1;
+                    }
+                    if (!isset($row['end_time'])) {
+                        $row['end_time'] = $row['start_time'];
+                    }
+                    $this->_db->insert('user_jobs',array(
+                        'user_id' => $id,
+                        'name' => $jobs_input->getEscaped('name'),
+                        'company' => $jobs_input->getEscaped('company'),
+                        'current' => $jobs_input->getEscaped('current'),
+                        'start_time' => $jobs_input->getEscaped('start_time'),
+                        'end_time' => $jobs_input->getEscaped('end_time'),
+                        'type' => 0
+                    ));
                 }
-                elseif ($row['current'] === true) {
-                    $row['current'] = 1;
-                }
-                if (!isset($row['end_time'])) {
-                    $row['end_time'] = $row['start_time'];
-                }
-                $this->_db->insert('user_jobs',array(
-                    'user_id' => $id,
-                    'name' => $row['name'],
-                    'company' => $row['company'],
-                    'current' => $row['current'],
-                    'start_time' => $row['start_time'],
-                    'end_time' => $row['end_time'],
-                    'type' => 0
-                ));
             }
 
             if (isset($data['education'][0])) {
+                $validators = array(
+                    '*' => array()
+                );
+                $filter_alnum = new Zend_Filter_Alnum(true);
+                $filters = array(
+                    'name' => array('StringTrim','HtmlEntities',$filter_alnum),
+                    'company' => array('StringTrim','HtmlEntities',$filter_alnum),
+                    'current' => array('StringTrim','HtmlEntities','Int'),
+                    'start_time' => array('StringTrim','HtmlEntities'),
+                    'end_time' => array('StringTrim','HtmlEntities'),
+                );
                 foreach($data['education'] as $num=>$row) {
+                    $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
                     $this->_db->insert('user_jobs',array(
                         'user_id' => $id,
-                        'name' => $row['name'],
-                        'company' => $row['company'],
+                        'name' => $jobs_input->getEscaped('name'),
+                        'company' => $jobs_input->getEscaped('company'),
                         'current' => 0,
-                        'start_time' => $row['start_time'],
-                        'end_time' => $row['end_time'],
+                        'start_time' => $jobs_input->getEscaped('start_time'),
+                        'end_time' => $jobs_input->getEscaped('end_time'),
                         'type' => 1
                     ));
                 }
@@ -337,12 +426,20 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function facebookLogin($token)
     {
+        $token = $this->_db->quote($token);
         $user = $this->getUser($token,false,'facebook_key',true,true);
-        if ($user != null) {
-            return array(
-                'body' => $user,
-                'errorCode' => '200'
-            );
+        if ($user) {
+            if ($user['status'] == 0) {
+                return array(
+                    'body' => $user,
+                    'errorCode' => '200'
+                );
+            }
+            else {
+                return array(
+                    'errorCode' => '407'
+                );
+            }
         } else {
             $facebook = new Application_Model_Facebook();
             $user_profile = $facebook->getUser($token);
@@ -355,10 +452,17 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         'facebook_id' => $user_profile['id']
                     ),"id = $id");
 
-                    return array(
-                        'body' => $user,
-                        'errorCode' => '200'
-                    );
+                    if ($user['status'] == 0) {
+                        return array(
+                            'body' => $user,
+                            'errorCode' => '200'
+                        );
+                    }
+                    else {
+                        return array(
+                            'errorCode' => '407'
+                        );
+                    }
                 }
                 else {
                     return array(
@@ -382,12 +486,20 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function linkedinLogin($token)
     {
+        $token = $this->_db->quote($token);
         $user = $this->getUser($token,false,'linkedin_key',true,true);
-        if ($user != null) {
-            return array(
-                'body' => $user,
-                'errorCode' => '200'
-            );
+        if ($user) {
+            if ($user['status'] == 0) {
+                return array(
+                    'body' => $user,
+                    'errorCode' => '200'
+                );
+            }
+            else {
+                return array(
+                    'errorCode' => '407'
+                );
+            }
         } else {
             $linkedin = new Application_Model_Linkedin();
             $user_profile = $linkedin->getUser($token);
@@ -400,10 +512,17 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         'linkedin_id' => $user_profile['linkedin_id']
                     ),"id = $id");
 
-                    return array(
-                        'body' => $user,
-                        'errorCode' => '200'
-                    );
+                    if ($user['status'] == 0) {
+                        return array(
+                            'body' => $user,
+                            'errorCode' => '200'
+                        );
+                    }
+                    else {
+                        return array(
+                            'errorCode' => '407'
+                        );
+                    }
                 }
                 else {
 
@@ -519,7 +638,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $private = '';
         }
         $res = $this->_db->fetchRow("
-            select u.id $private,u.name,u.lastname,u.email,u.city_name,u.city,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_declined, group_concat(DISTINCT s.name SEPARATOR '$$$$$') as skills, group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') as languages
+            select u.id $private, u.name, u.lastname, u.status, u.email,u.city_name,u.city,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_declined, group_concat(DISTINCT s.name SEPARATOR '$$$$$') as skills, group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') as languages
             from users u
             left join user_skills s on u.id = s.user_id
             left join user_languages l on u.id = l.user_id
@@ -527,7 +646,15 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             u.$by = '$id'
         ");
 
-        if (is_numeric($res['id'])) {
+        if (isset($res['id'])) {
+            //Blocked
+            if ($res['status'] != 0) {
+                return array(
+                    'user_data' => $res,
+                    'blocked' => true
+                );
+            }
+
             // Prepeare User
             if ($prepeare) {
                 $res = $this->prepeareUser($res, $user);
@@ -547,12 +674,37 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         if ($res != null && $res['status'] == 0) {
             return $res;
         }
-        elseif ($res != null && $res['status'] != 0) {
-            return 'blocked';
-        }
         else {
             return false;
         }
+    }
+
+    public static function authorize($private_key) {
+        if ($private_key) {
+            $filter = new Zend_Filter_Alnum();
+            $private_key = $filter->filter($private_key);
+            $res = Zend_Db_Table::getDefaultAdapter()->fetchRow("
+            select *
+            from users
+            where private_key = '$private_key'
+        ");
+            if ($res && $res['status'] == 0) {
+                return $res;
+            }
+            elseif ($res && $res['status'] != 0) {
+                Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
+                    'errorCode' => '407'
+                ));
+            }
+            else {
+                Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
+                    'errorCode' => '401'
+                ));
+            }
+        }
+        Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
+            'errorCode' => '401'
+        ));
     }
 
     public static function isValidUser($id) {
@@ -561,7 +713,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             from users
             where id = $id
         ");
-        if ($res != null && $res['status'] == 0) {
+        if ($res && $res['status'] == 0) {
             return true;
         }
         else {

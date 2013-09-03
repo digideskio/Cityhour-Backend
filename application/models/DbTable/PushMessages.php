@@ -6,6 +6,7 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
     protected $_name = 'push_messages';
 
     public function sendAll($ids) {
+        $ids = $this->_db->quote($ids);
         $tokens = $this->_db->fetchAll("
             select m.alert, m.data, p.debug, p.deviceToken, p.id, m.id as mid
             from push_messages m

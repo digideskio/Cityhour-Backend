@@ -3,12 +3,42 @@
 class Application_Model_Linkedin
 {
 
-    public function makePost() {
+    public function makePost($token) {
+        $params = http_build_query(array(
+            'oauth2_access_token' => $token,
+            'format' => 'json',
+        ));
+        $data = "
+            <share>
+              <comment>Hello Linkedin</comment>
+              <content>
+                <title>Test share API</title>
+                <description>Test description</description>
+                <submitted-url>http://google.com</submitted-url>
+                <submitted-image-url>http://toplogos.ru/images/logo-chrome.png</submitted-image-url>
+              </content>
+              <visibility>
+                <code>anyone</code>
+              </visibility>
+            </share>
+        ";
+        $config = array(
+            'adapter' => 'Zend_Http_Client_Adapter_Curl',
+            'curloptions' => array(CURLOPT_SSL_VERIFYPEER => false),
+        );
+
+        $client = new Zend_Http_Client('https://api.linkedin.com/v1/people/~/shares?'.$params,$config);
+        $client->setRawData($data,'text/xml');
+        $client->setHeaders('Content-Type', 'text/xml');
+        $response = $client->request('POST');
+        var_dump($response->getBody());
+
         return 200;
     }
 
     public function getUser($token) {
-        $params = array('oauth2_access_token' => $token,
+        $params = array(
+            'oauth2_access_token' => $token,
             'format' => 'json',
         );
         $url = 'https://api.linkedin.com/v1/people/~:(id,firstName,lastName,email-address,skills,industry,summary,positions,languages,phone-numbers,im-accounts,educations,main-address)?' . http_build_query($params);

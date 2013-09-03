@@ -40,6 +40,10 @@ class V1_SyncController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -58,21 +62,12 @@ class V1_SyncController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
-        if ($token && $token != null && $token != '') {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_UserSettings();
-                $res = $db->getSettings($user);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+        if ($token) {
+            $user = Application_Model_DbTable_Users::authorize($token);
+            $this->_helper->json->sendJson(array(
+                'body' => (new Application_Model_DbTable_UserSettings())->getSettings($user),
+                'errorCode' => '200'
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(
@@ -110,6 +105,10 @@ class V1_SyncController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -129,22 +128,15 @@ class V1_SyncController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '') {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                unset($data['private_key']);
-                $db = new Application_Model_DbTable_userSettings();
-                $db->updateSettings($user,$data);
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+        if (isset($data['private_key']) && $data['private_key']) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+
+            unset($data['private_key']);
+            (new Application_Model_DbTable_userSettings())->updateSettings($user,$data);
+
+            $this->_helper->json->sendJson(array(
+                'errorCode' => '200'
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(

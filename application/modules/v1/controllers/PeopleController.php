@@ -41,6 +41,10 @@ class V1_PeopleController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -68,21 +72,13 @@ class V1_PeopleController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
         $users = $this->_request->getParam('users');
-        if ($token && $token != null && $token != '' && $users && $users != null && $users != '') {
-            $db = new Application_Model_DbTable_Users();
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $res = $db->prepeareUsers($users,$user,true);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+        if ($token && $users) {
+            $user = Application_Model_DbTable_Users::authorize($token);
+
+            $this->_helper->json->sendJson(array(
+                'body' => (new Application_Model_DbTable_Users())->prepeareUsers($users,$user,true),
+                'errorCode' => '200'
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(

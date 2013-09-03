@@ -40,6 +40,10 @@ class V1_ChatController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -67,21 +71,13 @@ class V1_ChatController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
         $from = $this->_request->getParam('from');
-        if ($token && $token != null && $token != '' && is_numeric($from)) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Chat();
-                $res = $db->getMessages($user,$from);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+        if ($token && is_numeric($from)) {
+            $user = Application_Model_DbTable_Users::authorize($token);
+
+            $this->_helper->json->sendJson(array(
+                'body' => (new Application_Model_DbTable_Chat())->getMessages($user,$from),
+                'errorCode' => '200'
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(
@@ -112,6 +108,10 @@ class V1_ChatController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -131,22 +131,13 @@ class V1_ChatController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $private_key = $data['private_key']; else $private_key = false;
-        if ($private_key && $private_key != null && $private_key != '') {
-            $user = Application_Model_DbTable_Users::getUserData($private_key);
-            if ($user) {
-                $db = new Application_Model_DbTable_Chat();
-                $res = $db->getTalks($user);
-                $this->_helper->json->sendJson(array(
-                    'body' => $res,
-                    'errorCode' => '200'
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+        if (isset($data['private_key']) && $data['private_key']) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+
+            $this->_helper->json->sendJson(array(
+                'body' => (new Application_Model_DbTable_Chat())->getTalks($user),
+                'errorCode' => '200'
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(

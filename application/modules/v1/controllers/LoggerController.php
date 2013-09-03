@@ -58,16 +58,19 @@ class V1_LoggerController extends Zend_Rest_Controller
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $data = @json_decode($this->getRequest()->getRawBody(),true);
 
-        if ($data) {
-            $db = new Application_Model_DbTable_Logger();
-            $db->saveData($data);
-        }
-        else {
-            $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../logs/troubles.log');
-            $logger = new Zend_Log($writer);
-            $logger->info(print_r($this->getRequest()->getRawBody(),true));
+        if (APPLICATION_ENV == 'development') {
+            $data = Zend_Json::decode($this->getRequest()->getRawBody(),true);
+
+            if ($data) {
+                $db = new Application_Model_DbTable_Logger();
+                $db->saveData($data);
+            }
+            else {
+                $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../logs/troubles.log');
+                $logger = new Zend_Log($writer);
+                $logger->info(print_r($this->getRequest()->getRawBody(),true));
+            }
         }
     }
 

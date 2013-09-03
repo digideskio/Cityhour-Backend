@@ -83,12 +83,10 @@ class V1_MeetingsController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $data = $this->_request->getParams();
-        if (isset($data['key']) && $data['key'] != null && $data['key'] != '' && isset($data['sid']) && is_numeric($data['sid']) && isset($data['answer']) && is_numeric($data['answer']) ) {
-            $user = Application_Model_DbTable_EmailUsers::getUser($data['key']);
-            if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
+        if (isset($data['key']) && $data['key'] && isset($data['sid']) && is_numeric($data['sid']) && isset($data['answer']) && is_numeric($data['answer']) ) {
+            if ($user = Application_Model_DbTable_EmailUsers::getUser($data['key'])) {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => $db->answerMeetingEmail($user,$data['sid'],$data['answer'])
+                    'errorCode' => (new Application_Model_DbTable_Calendar())->answerMeetingEmail($user,$data['sid'],$data['answer'])
                 ));
             }
             else {
@@ -165,40 +163,57 @@ class V1_MeetingsController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
-        $data = @Zend_Json::decode($body);
-        if (isset($data['private_key']) && $data['private_key'] != null && $data['private_key'] != '' && isset($data['person']) && is_numeric($data['person']) && isset($data['city']) && $data['city'] != null && $data['city'] != '' && isset($data['date_from']) && is_numeric($data['date_from']) && isset($data['date_to']) && is_numeric($data['date_to'])) {
-            $user = Application_Model_DbTable_Users::getUserData($data['private_key']);
-            if ($user) {
-                $db = new Application_Model_DbTable_Calendar();
-                if ($data['person'] == 0) {
-                    $res = $db->createFreeSlot($user,$data);
-                }
-                elseif ($data['person'] == 1) {
-                    $res = $db->createMeeting($user,$data);
-                }
-                elseif ($data['person'] == 2) {
-                    $res = $db->createMeetingEmail($user,$data);
-                }
-                else {
-                    $res = 400;
-                }
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['person']) && is_numeric($data['person']) && isset($data['city']) && $data['city'] && isset($data['date_from']) && is_numeric($data['date_from']) && isset($data['date_to']) && is_numeric($data['date_to'])) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 
-                if ($res == 200) {
-                    $res = $db->getAll($user);
-                    $this->_helper->json->sendJson(array(
-                        'body' => $res,
-                        'errorCode' => 200
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => $res
-                    ));
-                }
+            $validators = array(
+                '*' => array()
+            );
+            $filters = array(
+                'goal' => array('StringTrim','HtmlEntities','Int'),
+                'foursquare_id' => array('StringTrim','HtmlEntities'),
+                'city' => array('StringTrim','HtmlEntities'),
+                'person_value' => array('StringTrim','HtmlEntities'),
+                'person_name' => array('StringTrim','HtmlEntities'),
+            );
+            $input = new Zend_Filter_Input($filters, $validators, $data);
+
+
+            $userData = array(
+                'person' => $data['person'],
+                'date_from' => $data['date_from'],
+                'date_to' => $data['date_to'],
+                'goal' => $input->getEscaped('goal'),
+                'foursquare_id' => $input->getEscaped('foursquare_id'),
+                'city' => $input->getEscaped('city'),
+                'person_value' => $input->getEscaped('person_value'),
+                'person_name' => $input->getEscaped('person_name'),
+            );
+
+            $db = new Application_Model_DbTable_Calendar();
+            if ($data['person'] == 0) {
+                $res = $db->createFreeSlot($user,$userData);
+            }
+            elseif ($data['person'] == 1) {
+                $res = $db->createMeeting($user,$userData);
+            }
+            elseif ($data['person'] == 2) {
+                $res = $db->createMeetingEmail($user,$userData);
+            }
+            else {
+                $res = 400;
+            }
+
+            if (isset($res['id'])) {
+                $this->_helper->json->sendJson(array(
+                    'body' => $res,
+                    'errorCode' => 200
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'errorCode' => $res
                 ));
             }
         }
@@ -273,27 +288,21 @@ class V1_MeetingsController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
-        $data = @Zend_Json::decode($body);
-        if (isset($data['private_key']) && $data['private_key'] != null && $data['private_key'] != '' && isset($data['id']) && is_numeric($data['id']) && isset($data['status']) && is_numeric($data['status']) ) {
-            $user = Application_Model_DbTable_Users::getUserData($data['private_key']);
-            if ($user) {
-                if (isset($data['foursqure_id']) && $data['foursqure_id'] != null && $data['foursqure_id'] != '') {
-                    $foursqure_id = $data['foursqure_id'];
-                }
-                else {
-                    $foursqure_id = false;
-                }
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id']) && isset($data['status']) && is_numeric($data['status']) ) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+            $validators = array(
+                '*' => array()
+            );
+            $filters = array(
+                'foursquare_id' => array('StringTrim','HtmlEntities'),
+            );
+            $input = new Zend_Filter_Input($filters, $validators, $data);
 
-                $db = new Application_Model_DbTable_Calendar();
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => $db->answerMeeting($user,$data['id'],$data['status'],$foursqure_id)
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+            $db = new Application_Model_DbTable_Calendar();
+            $this->_helper->json->sendJson(array(
+                'errorCode' => $db->answerMeeting($user,$data['id'],$data['status'],$input->getEscaped('foursquare_id'))
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(

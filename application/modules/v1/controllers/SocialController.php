@@ -28,8 +28,9 @@ class V1_SocialController extends Zend_Rest_Controller
 
     /**
      *
-     * @SWG\Model(id="syncUserSettingParams")
-     * @SWG\Property(name="title",type="value")
+     * @SWG\Model(id="ShareCreateParams")
+     * @SWG\Property(name="private_key",type="string")
+     * @SWG\Property(name="id",type="int")
      *
      *
      * @SWG\Api(
@@ -49,6 +50,10 @@ class V1_SocialController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -57,7 +62,7 @@ class V1_SocialController extends Zend_Rest_Controller
      *           paramType="body",
      *           required="true",
      *           allowMultiple="false",
-     *           dataType="syncUserSettingParams"
+     *           dataType="ShareCreateParams"
      *         )
      *     )
      *   )
@@ -67,19 +72,13 @@ class V1_SocialController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
-        if ($token && $token != null && $token != '') {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_Linkedin();
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => $db->makePost($user)
-                ));
-            }
-            else {
-                $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
-                ));
-            }
+        $id = $this->_request->getParam('id');
+        if ($token && is_numeric($id)) {
+            $user = Application_Model_DbTable_Users::authorize($token);
+
+            $this->_helper->json->sendJson(array(
+                'errorCode' => (new Application_Model_Linkedin())->makePost($user,$id)
+            ));
         }
         else {
             $this->_helper->json->sendJson(array(

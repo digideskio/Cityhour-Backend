@@ -10,12 +10,13 @@ class Application_Model_DbTable_EmailUsers extends Zend_Db_Table_Abstract
     }
 
     public static function getUser($key) {
+        $key = Zend_Db_Table::getDefaultAdapter()->quote($key);
         $res = Zend_Db_Table::getDefaultAdapter()->fetchRow("
             select *
             from email_users
             where `key` = '$key' and `status` = 0
         ");
-        if ($res && $res != null) {
+        if ($res) {
             return $res;
         }
         else {

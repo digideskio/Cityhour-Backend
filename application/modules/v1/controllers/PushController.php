@@ -25,9 +25,8 @@ class V1_PushController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $ids = $this->_request->getParam('ids');
-        if ($ids && $ids != '' && $ids != ',') {
-            $db = new Application_Model_DbTable_PushMessages();
-            $res = $db->sendAll($ids);
+        if ($ids && $ids != ',') {
+            $res = (new Application_Model_DbTable_PushMessages())->sendAll($ids);
         }
         else {
             $res = false;
@@ -69,6 +68,10 @@ class V1_PushController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="400",
      *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -88,28 +91,23 @@ class V1_PushController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key'])) $private_key = $data['private_key']; else $private_key = false;
-        if ($private_key && $private_key != null && $private_key != '') {
-            $user = Application_Model_DbTable_Users::getUserData($private_key);
-            if ($user) {
-                if (isset($data['token'])) $token = $data['token']; else $token = null;
-                if (isset($data['device'])) $device = $data['device']; else $device = null;
-                if (isset($data['debug'])) $debug = $data['debug']; else $debug = null;
-                $id = $user['id'];
+        if (isset($data['private_key']) && $data['private_key']) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 
-                $trim = new Zend_Filter_StringTrim();
-                $strip = new Zend_Filter_StripTags();
-                $num = new Zend_Filter_Digits();
-                $token = $trim->filter($token);
-                $token = $strip->filter($token);
-                $device = $trim->filter($device);
-                $device = $strip->filter($device);
-                $debug = $num->filter($debug);
+            $validators = array(
+                '*' => array('NotEmpty')
+            );
+            $filter_alnum = new Zend_Filter_Alnum(true);
+            $filters = array(
+                'token' => array('StringTrim','HtmlEntities',$filter_alnum),
+                'device' => array('StringTrim','HtmlEntities',$filter_alnum),
+                'debug' => array('StringTrim','HtmlEntities','Int')
+            );
+            $input = new Zend_Filter_Input($filters, $validators, $data);
 
+            if ($input->isValid()) {
                 $db = new Application_Model_DbTable_Push();
-                $answer = $db->addToken($id, $token, $device, $debug);
-
-                if ($answer) {
+                if ($db->addToken($user['id'], $input->getEscaped('token'), $input->getEscaped('device'), $input->getEscaped('debug'))) {
                     $this->_helper->json->sendJson(array(
                         'errorCode' => '200'
                     ));
@@ -122,7 +120,7 @@ class V1_PushController extends Zend_Rest_Controller
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'errorCode' => '400'
                 ));
             }
         }
@@ -156,6 +154,10 @@ class V1_PushController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions"
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      *
@@ -182,35 +184,28 @@ class V1_PushController extends Zend_Rest_Controller
     public function deleteAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $private_key = $this->_request->getParam('private_key');
-        $device = $this->_request->getParam('device');
-        if ($private_key && $private_key != null && $private_key != '' && $device != null) {
-            $user = Application_Model_DbTable_Users::getUserData($private_key);
-            if ($user) {
-                $id = $user['id'];
 
-                $trim = new Zend_Filter_StringTrim();
-                $strip = new Zend_Filter_StripTags();
-                $device = $trim->filter($device);
-                $device = $strip->filter($device);
+        $validators = array(
+            '*' => array('NotEmpty')
+        );
+        $filter_alnum = new Zend_Filter_Alnum(true);
+        $filters = array(
+            'device' => array('StringTrim','HtmlEntities',$filter_alnum)
+        );
+        $input = new Zend_Filter_Input($filters, $validators, $this->_request->getParams());
 
-                $db = new Application_Model_DbTable_Push();
-                $answer = $db->deletePush($id,$device);
+        if ($input->isValid()) {
+            $user = Application_Model_DbTable_Users::authorize($input->getUnescaped('private_key'));
+            $db = new Application_Model_DbTable_Push();
 
-                if ($answer) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '500'
-                    ));
-                }
+            if ($db->deletePush($user['id'],$input->getEscaped('device'))) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'errorCode' => '500'
                 ));
             }
         }

@@ -56,6 +56,10 @@ class V1_ComplaintsController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="403",
      *            reason="Already make complaint to this user."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -74,38 +78,32 @@ class V1_ComplaintsController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
-        $data = @Zend_Json::decode($body);
-        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if ($token && $token != null && $token != '' && isset($data['type']) && is_numeric($data['type']) && isset($data['to']) && is_numeric($data['to'])) {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Complaints();
-                $res = $db->addComplaint(array(
-                    'type' => $data['type'],
-                    'from' => $user['id'],
-                    'to' => $data['to'],
-                    'dscr' => $data['dscr']
-                ), $user['id'], $data['to']);
-                if ($res === true) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '200'
-                    ));
-                }
-                elseif ($res === 403) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '403'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'body' => $res,
-                        'errorCode' => '500'
-                    ));
-                }
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['type']) && is_numeric($data['type']) && isset($data['to']) && is_numeric($data['to'])) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+
+            $filter_alnum = new Zend_Filter_Alnum(true);
+            $db = new Application_Model_DbTable_Complaints();
+            $res = $db->addComplaint(array(
+                'type' => $data['type'],
+                'from' => $user['id'],
+                'to' => $data['to'],
+                'dscr' => $filter_alnum->filter($data['dscr'])
+            ), $user['id'], $data['to']);
+            if ($res === true) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '200'
+                ));
+            }
+            elseif ($res === 403) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '403'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'body' => $res,
+                    'errorCode' => '500'
                 ));
             }
         }
@@ -141,6 +139,10 @@ class V1_ComplaintsController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="401",
      *            reason="Have no permissions."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
@@ -159,29 +161,21 @@ class V1_ComplaintsController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
-        $data = @Zend_Json::decode($body);
-        if (isset($data['private_key'])) $token = $data['private_key']; else $token = false;
-        if (isset($data['dscr'])) $dscr = $data['dscr']; else $dscr = false;
-        if ($token && $token != null && $token != '' && $dscr && $dscr != null && $dscr != '') {
-            $user = Application_Model_DbTable_Users::getUserData($token);
-            if ($user) {
-                $db = new Application_Model_DbTable_Complaints();
-                $res = $db->addFeedback($user,$dscr);
-                if ($res === true) {
-                    $this->_helper->json->sendJson(array(
-                        'errorCode' => '200'
-                    ));
-                }
-                else {
-                    $this->_helper->json->sendJson(array(
-                        'body' => $res,
-                        'errorCode' => '500'
-                    ));
-                }
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['dscr']) && $data['dscr']) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+
+            $filter_alnum = new Zend_Filter_Alnum(true);
+            $db = new Application_Model_DbTable_Complaints();
+            if ($res = $db->addFeedback($user,$filter_alnum->filter($data['dscr']))) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '200'
+                ));
             }
             else {
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => '401'
+                    'body' => $res,
+                    'errorCode' => '500'
                 ));
             }
         }
