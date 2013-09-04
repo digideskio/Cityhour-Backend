@@ -407,7 +407,9 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 'value' => 1
             ));
 
-
+            if ($userData['linkedin_id']) {
+                (new Application_Model_DbTable_UserContactsWait())->linkedinFriendsNotify($id,$userData);
+            }
 
             $completeness = Application_Model_Common::UpdateCompleteness($id);
             $experience = Application_Model_Common::UpdateExperience($id);

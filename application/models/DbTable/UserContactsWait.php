@@ -10,8 +10,11 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         return true;
     }
 
-    public function userUpdateInfo($id,$user,$token,$type) {
+    public function userUpdateInfo($id,$user,$token,$type,$user_real) {
         if ($type == 1) {
+            if (!$user_real['facebook_key']) {
+                $this->facebookFriendsNotify($user_real['id'],$user_real);
+            }
             $this->_db->update('users',array(
                 'facebook_id' => $user,
                 'facebook_key' => $token
@@ -23,6 +26,84 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 'linkedin_key' => $token
             ),"id = $id");
         }
+        return true;
+    }
+
+    public function linkedinFriendsNotify($id,$user) {
+        $res = $this->_db->fetchAll("
+                select u.id, CASE
+                  	when ( select distinct(f.id)
+                  	from user_friends f
+                  	where f.user_id = $id
+                  	and f.friend_id = u.id
+                  	and f.status = 1
+                  	) > 0 then 2
+                  	when ( select distinct(n.id)
+                  	from notifications n
+                  	where n.from = $id
+                  	and n.to = u.id
+                  	and n.type = 0
+                  	and n.status = 0
+                  	) > 0 then 1
+                 	else 0
+                  END as status
+                from users u
+                left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
+                where
+                  user_id = $id and w.type = 2
+                having status = 0
+            ");
+        if ($res) {
+            $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. ваш друг c Linkedin и он зарегистрировался.';
+            foreach ($res as $num=>$row) {
+                $this->_db->insert('notifications',array(
+                    'from' => $id,
+                    'to' => $row['id'],
+                    'type' => 7,
+                    'text' => $text
+                ));
+            }
+        }
+
+        return true;
+    }
+
+    public function facebookFriendsNotify($id,$user) {
+        $res = $this->_db->fetchAll("
+                select u.id, w.name, w.lastname, w.photo, CASE
+                        when ( select distinct(f.id)
+                        from user_friends f
+                        where f.user_id = $id
+                        and f.friend_id = u.id
+                        and f.status = 1
+                        ) > 0 then 2
+                        when ( select distinct(n.id)
+                        from notifications n
+                        where n.from = $id
+                        and n.to = u.id
+                        and n.type = 0
+                        and n.status = 0
+                        ) > 0 then 1
+                        else 0
+                      END as status
+                    from users u
+                    left join user_contacts_wait w on u.facebook_id = w.linkedin_id
+                    where
+                      user_id = $id and w.type = 1
+                    having status = 0
+            ");
+        if ($res) {
+            $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. ваш друг c Facebook и он зарегистрировался.';
+            foreach ($res as $num=>$row) {
+                $this->_db->insert('notifications',array(
+                    'from' => $id,
+                    'to' => $row['id'],
+                    'type' => 8,
+                    'text' => $text
+                ));
+            }
+        }
+
         return true;
     }
 
@@ -54,9 +135,9 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         // Facebook
         $id = $user['id'];
         if ($type == 1) {
-            if ($token && $token != null && $token != '') {
+            if ($token) {
                 $facebook = new Application_Model_Facebook();
-                $facebook->storeInfo($token,$id);
+                $facebook->storeInfo($token,$id,$user);
                 $res = $this->_db->fetchAll("
                     select u.id, w.name, w.lastname, w.photo, CASE
                         when ( select distinct(f.id)

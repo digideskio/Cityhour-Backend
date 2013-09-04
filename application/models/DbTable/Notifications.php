@@ -38,7 +38,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                 (select count(id)
                 from notifications
                 where `to` = $user_id
-                and type in (1,2,4,5,6)
+                and type in (1,2,4,5,6,7,8)
                 and status = 0) as notification
           ");
         return array(

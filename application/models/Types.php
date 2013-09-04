@@ -35,7 +35,9 @@ class Application_Model_Types
             3 => 'Meeting request',
             4 => 'Meeting accept',
             5 => 'Meeting reject',
-            6 => 'Meeting canceled'
+            6 => 'Meeting canceled',
+            7 => 'User registered linkedin',
+            8 => 'User registered facebook',
         );
     }
 

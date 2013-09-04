@@ -651,11 +651,16 @@ class FindPeople extends Common {
                       when t.type = 1 then (select c.place from calendar c where c.id = t.id)
                       when t.type = 3 then (select ci.place from user_settings s left join place ci on ci.foursquare_id = s.value where s.name = 'foursquare_id' and s.user_id = t.user_id)
                       else null
-                    end as place
+                    end as place,
+                    case
+                      when (select count(o.id) from calendar o where o.user_id = $this->user_id and o.user_id_second = t.user_id and o.type = 2) > 0 then 1
+                      else 0
+                    end as meet
                 from (select * from rSult order by start_time asc) as t
                 where (UNIX_TIMESTAMP(t.end_time) - UNIX_TIMESTAMP(t.start_time)) >= 3600
                 and t.user_id != $this->user_id
                 group by t.user_id
+                order by meet asc
             ";
         }
         else {
@@ -735,6 +740,7 @@ class FindPeople extends Common {
             $sql = "
                 create temporary table mSult (
                 `user_id` bigint(20) unsigned DEFAULT NULL,
+                `meet` int(2) unsigned DEFAULT NULL,
                 `start_time` timestamp NULL DEFAULT NULL,
                 `end_time` timestamp NULL DEFAULT NULL,
                 `foursquare_id` varchar(255) NULL DEFAULT NULL,
@@ -747,9 +753,10 @@ class FindPeople extends Common {
                 $this->insertM($this->find());
             }
             $answer = $this->query("
-                select user_id, start_time, end_time, foursquare_id, place
+                select user_id, meet, start_time, end_time, foursquare_id, place
                 from mSult
                 group by user_id
+                order by meet asc
             ",false,true);
             $this->query('drop table mSult');
 

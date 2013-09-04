@@ -42,7 +42,7 @@ class databaseClass {
         }
 
         if ($status === 0) {
-            $text = "Написал в чат типок ".mysql_real_escape_string($user_all['name']).' '.mysql_real_escape_string($user_all['lastname']);
+            $text = mysql_real_escape_string($user_all['name']).' '.mysql_real_escape_string(substr($user_all['lastname'], 0, 1)).' прислал вам новое сообщение';
             $data = json_encode(array(
                 'from' => $from,
                 'to' => $to,

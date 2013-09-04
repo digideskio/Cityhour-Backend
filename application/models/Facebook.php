@@ -33,7 +33,7 @@ class Application_Model_Facebook
         return $user_profile;
     }
 
-    public function storeInfo($token,$id) {
+    public function storeInfo($token,$id,$user_real) {
         $facebook_config = $this->getConfig();
         $facebook = new Facebook($facebook_config);
         $facebook->setAccessToken($token);
@@ -58,7 +58,7 @@ class Application_Model_Facebook
             'exclude' => "user_id = $id"
 
         ));
-        $db->userUpdateInfo($id,$user,$token,1);
+        $db->userUpdateInfo($id,$user,$token,1,$user_real);
 
         foreach ($friends as $row) {
             $row = array(
