@@ -353,7 +353,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             select c.id
             from calendar c
             where
-            (c.start_time between '$q_in' and '$q_out' or c.end_time between '$q_in' and '$q_out' or (c.start_time >= '$q_in' and c.end_time >= '$q_out') )
+            ((c.start_time > '$q_in' and c.start_time < '$q_out') or (c.end_time > '$q_in' and c.end_time < '$q_out') or (c.start_time > '$q_in' and c.end_time > '$q_out') )
             and c.user_id = $user_id
             and c.type = 1
             and c.status = 0
@@ -372,7 +372,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             select c.id
             from calendar c
             where
-            (unix_timestamp(c.start_time) between $q_in and $q_out or unix_timestamp(c.end_time) between $q_in and $q_out or (unix_timestamp(c.start_time) >= $q_in and unix_timestamp(c.end_time) >= $q_out) )
+            ((unix_timestamp(c.start_time) > $q_in and unix_timestamp(c.start_time) < $q_out) or (unix_timestamp(c.end_time) > $q_in and unix_timestamp(c.end_time) < $q_out) or (unix_timestamp(c.start_time) > $q_in and unix_timestamp(c.end_time) > $q_out) )
             and c.user_id = $user_id
             and c.type = 2
             and c.status = 2

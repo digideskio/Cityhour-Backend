@@ -388,6 +388,11 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             ));
             $this->_db->insert('user_settings',array(
                 'user_id' => $id,
+                'name' => 'goal',
+                'value' => 1
+            ));
+            $this->_db->insert('user_settings',array(
+                'user_id' => $id,
                 'name' => 'newMessageSync',
                 'value' => 1
             ));
@@ -428,7 +433,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function facebookLogin($token)
     {
-        $token = $this->_db->quote($token);
         $user = $this->getUser($token,false,'facebook_key',true,true);
         if ($user) {
             if ($user['status'] == 0) {
@@ -488,7 +492,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
     public function linkedinLogin($token)
     {
-        $token = $this->_db->quote($token);
         $user = $this->getUser($token,false,'linkedin_key',true,true);
         if ($user) {
             if ($user['status'] == 0) {
@@ -639,6 +642,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         else {
             $private = '';
         }
+        $this->_db->quote($id);
         $res = $this->_db->fetchRow("
             select u.id $private, u.name, u.lastname, u.status, u.email,u.city_name,u.city,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_declined, group_concat(DISTINCT s.name SEPARATOR '$$$$$') as skills, group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') as languages
             from users u
