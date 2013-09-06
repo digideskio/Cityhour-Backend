@@ -13,7 +13,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
     public function userUpdateInfo($id,$user,$token,$type,$user_real) {
         if ($type == 1) {
             if (!$user_real['facebook_key']) {
-                $this->facebookFriendsNotify($user_real['id'],$user_real);
+                $this->facebookFriendsNotify($user_real['id'],$user_real,$user);
             }
             $this->_db->update('users',array(
                 'facebook_id' => $user,
@@ -30,28 +30,15 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
     }
 
     public function linkedinFriendsNotify($id,$user) {
+        $wid = $user['linkedin_id'];
         $res = $this->_db->fetchAll("
-                select u.id, CASE
-                  	when ( select distinct(f.id)
-                  	from user_friends f
-                  	where f.user_id = $id
-                  	and f.friend_id = u.id
-                  	and f.status = 1
-                  	) > 0 then 2
-                  	when ( select distinct(n.id)
-                  	from notifications n
-                  	where n.from = $id
-                  	and n.to = u.id
-                  	and n.type = 0
-                  	and n.status = 0
-                  	) > 0 then 1
-                 	else 0
-                  END as status
-                from users u
-                left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
+                select w.user_id as id
+                from user_contacts_wait w
+                left join users u on w.user_id = u.id
                 where
-                  user_id = $id and w.type = 2
-                having status = 0
+                w.linkedin_id = '$wid'
+                and w.type = 2
+                and u.status = 0
             ");
         if ($res) {
             $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. ваш друг c Linkedin и он зарегистрировался.';
@@ -68,30 +55,16 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         return true;
     }
 
-    public function facebookFriendsNotify($id,$user) {
+    public function facebookFriendsNotify($id,$user,$wid) {
         $res = $this->_db->fetchAll("
-                select u.id, w.name, w.lastname, w.photo, CASE
-                        when ( select distinct(f.id)
-                        from user_friends f
-                        where f.user_id = $id
-                        and f.friend_id = u.id
-                        and f.status = 1
-                        ) > 0 then 2
-                        when ( select distinct(n.id)
-                        from notifications n
-                        where n.from = $id
-                        and n.to = u.id
-                        and n.type = 0
-                        and n.status = 0
-                        ) > 0 then 1
-                        else 0
-                      END as status
-                    from users u
-                    left join user_contacts_wait w on u.facebook_id = w.linkedin_id
-                    where
-                      user_id = $id and w.type = 1
-                    having status = 0
-            ");
+            select w.user_id as id
+            from user_contacts_wait w
+            left join users u on w.user_id = u.id
+            where
+            w.linkedin_id = '$wid'
+            and w.type = 1
+            and u.status = 0
+        ");
         if ($res) {
             $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. ваш друг c Facebook и он зарегистрировался.';
             foreach ($res as $num=>$row) {
@@ -199,11 +172,37 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
 
         //Address book
         else if ($type == 3) {
-            $phones = "u.phone like '%".implode("%' or u.phone like '%",$token['phones'])."%'";
-            $emails = "u.email like '%".implode("%' or u.email like '%",$token['emails'])."%'";
-            $business_emails = "u.business_email like '%".implode("%' or u.business_email like '%",$token['emails'])."%'";
-            if (!$emails) $emails = 0;
-            if (!$phones) $phones = 0;
+            $emails = array();
+            $filter_int = new Zend_Filter_Digits();
+            $valid_email = new Zend_Validate_EmailAddress();
+
+            if (isset($token['phones'])) {
+                foreach ($token['phones'] as $num => $row) {
+                    $phone = $filter_int->filter($row);
+                    if (is_numeric($phone)) {
+                        $phones[$num] = $phone;
+                    }
+                }
+                $phones = "u.phone like '%".implode("%' or u.phone like '%",$phones)."%'";
+            }
+            else {
+                $phones = 0;
+            }
+
+            if (isset($token['emails'])) {
+                foreach ($token['emails'] as $num => $row) {
+                    if ($valid_email->isValid($row)) {
+                        $emails[$num] = $row;
+                    }
+                }
+                $business_emails = "u.business_email like '%".implode("%' or u.business_email like '%",$emails)."%'";
+                $emails = "u.email like '%".implode("%' or u.email like '%",$emails)."%'";
+            }
+            else {
+                $emails = 0;
+                $business_emails = 0;
+            }
+
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
             $url = $config->userPhoto->url;
 

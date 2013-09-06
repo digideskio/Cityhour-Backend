@@ -78,27 +78,28 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
 
-        $validators = array(
-            '*' => array('NotEmpty')
-        );
-        $filters = array(
-            'token' => array('StringTrim','HtmlEntities')
-        );
-        $input = new Zend_Filter_Input($filters, $validators, $data);
-        $token = $input->getEscaped('token');
-        if (isset($data['type']) && is_numeric($data['type'])) $type = $data['type']; else $type = false;
 
-        if (isset($data['private_key']) && $data['private_key'] && $input->isValid()) {
+        if (isset($data['type']) && is_numeric($data['type'])) $type = $data['type']; else $type = false;
+        if ($type == 3) {
+            $token = $data['token'];
+        }
+        else {
+            $validators = array(
+                '*' => array('NotEmpty')
+            );
+            $filters = array(
+                'token' => array('StringTrim','HtmlEntities')
+            );
+            $input = new Zend_Filter_Input($filters, $validators, $data);
             $db_types = new Application_Model_Types();
             $types = $db_types->getInvetes();
             if (array_key_exists($type, $types)) {
-                $user = Application_Model_DbTable_Users::authorize($data['private_key']);
-
-                $db = new Application_Model_DbTable_UserContactsWait();
-                $this->_helper->json->sendJson(array(
-                    'body' => $db->getAll($user,$type,$token),
-                    'errorCode' => '200'
-                ));
+                $token = $input->getEscaped('token');
+                if (!$input->isValid()) {
+                    $this->_helper->json->sendJson(array(
+                        'errorCode' => '400'
+                    ));
+                }
             }
             else {
                 $this->_helper->json->sendJson(array(
@@ -106,7 +107,18 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
                 ));
             }
         }
-        elseif ($input->isValid() && $type == 4) {
+
+
+        if (isset($data['private_key']) && $data['private_key']) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+
+            $db = new Application_Model_DbTable_UserContactsWait();
+            $this->_helper->json->sendJson(array(
+                'body' => $db->getAll($user,$type,$token),
+                'errorCode' => '200'
+            ));
+        }
+        elseif ($type == 4) {
             $db = new Application_Model_DbTable_UserContactsWait();
             $this->_helper->json->sendJson(array(
                 'body' => $db->getAll(false,$type,$token),

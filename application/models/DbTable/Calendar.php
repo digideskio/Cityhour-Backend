@@ -6,15 +6,32 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     protected $_name = 'calendar';
 
     public function getSlotID($id) {
-        $res = $this->fetchRow("id = $id");
-        if ($res) {
-            $res = $res->toArray();
-            $res['start_time'] = strtotime($res['start_time']);
-            $res['end_time'] = strtotime($res['end_time']);
-            $res['time_create'] = strtotime($res['time_create']);
-        }
-        else
-            $res = array();
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        $url = $config->userPhoto->url;
+
+        $res = $this->_db->fetchRow("
+            select c.id,c.user_id,c.user_id_second,c.start_time,c.end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
+             case
+              when c.email = 0 then case
+                                      when (select distinct(f.id)
+                                            from user_friends f
+                                            where f.user_id = c.user_id
+                                            and f.friend_id = u.id
+                                            and f.status = 1) > 0 then concat(u.name,' ',u.lastname)
+                                      else concat(u.name,' ',substr(u.lastname,1,1),'.')
+                                    end
+              else e.name
+             end as fullname,
+            case
+              when c.email = 0 then concat('$url',u.photo)
+              else ''
+            end as photo
+            from calendar c
+            left join users u on c.user_id_second = u.id and c.email = 0
+            left join email_users e on c.user_id_second = e.id and c.email = 1
+            where
+            c.id = $id
+        ");
         return $res;
     }
 
@@ -38,17 +55,39 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     public function getAll($user) {
         $user_id = $user['id'];
         $start = date('Y-m-d H:i:s',time()-86400);
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        $url = $config->userPhoto->url;
 
-        $res = $this->fetchAll("
-        user_id = $user_id and (
-        (`status` = 2 and type = 2) or end_time > '$start'
-        )
-        ")->toArray();
+        $res = $this->_db->fetchAll("
+            select c.id,c.user_id,c.user_id_second,c.start_time,c.end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
+             case
+              when c.email = 0 and user_id_second is not null then case
+                                                                      when (select distinct(f.id)
+                                                                            from user_friends f
+                                                                            where f.user_id = $user_id
+                                                                            and f.friend_id = u.id
+                                                                            and f.status = 1) > 0 then concat(u.name,' ',u.lastname)
+                                                                      else concat(u.name,' ',substr(u.lastname,1,1),'.')
+                                                                    end
+              when user_id_second is not null then e.name
+              else null
+             end as fullname,
+            case
+              when c.email = 0 and user_id_second is not null then concat('$url',u.photo)
+              else ''
+            end as photo
+            from calendar c
+            left join users u on c.user_id_second = u.id and c.email = 0
+            left join email_users e on c.user_id_second = e.id and c.email = 1
+            where
+            c.user_id = $user_id and (
+            (c.status = 2 and c.type = 2) or c.end_time > '$start'
+            )
+        ");
 
         foreach ($res as $num=>$row) {
             $row['start_time'] = strtotime($row['start_time']);
             $row['end_time'] = strtotime($row['end_time']);
-            $row['time_create'] = strtotime($row['time_create']);
             $res[$num] = $row;
         }
 
@@ -353,10 +392,16 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             select c.id
             from calendar c
             where
-            ((c.start_time > '$q_in' and c.start_time < '$q_out') or (c.end_time > '$q_in' and c.end_time < '$q_out') or (c.start_time > '$q_in' and c.end_time > '$q_out') )
-            and c.user_id = $user_id
-            and c.type = 1
-            and c.status = 0
+            (
+            	(c.start_time between '$q_in' and '$q_out') or
+            	(c.end_time between '$q_in' and '$q_out') or
+            	(c.start_time < '$q_in' and c.end_time > '$q_out')
+            )
+              and c.start_time != '$q_out'
+              and c.end_time != '$q_in'
+              and c.user_id = $user_id
+              and c.type = 1
+              and c.status = 0
             limit 1
         ");
         if (is_numeric($che)) {
@@ -368,14 +413,22 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function userBusyOrFree($q_in,$q_out,$user_id) {
+        $q_in = date('Y-m-d H:i:s',(int)$q_in);
+        $q_out = date('Y-m-d H:i:s',(int)$q_out);
         $che = $this->_db->fetchOne("
             select c.id
             from calendar c
             where
-            ((unix_timestamp(c.start_time) > $q_in and unix_timestamp(c.start_time) < $q_out) or (unix_timestamp(c.end_time) > $q_in and unix_timestamp(c.end_time) < $q_out) or (unix_timestamp(c.start_time) > $q_in and unix_timestamp(c.end_time) > $q_out) )
-            and c.user_id = $user_id
-            and c.type = 2
-            and c.status = 2
+            (
+            	(c.start_time between '$q_in' and '$q_out') or
+            	(c.end_time between '$q_in' and '$q_out') or
+            	(c.start_time < '$q_in' and c.end_time > '$q_out')
+            )
+              and c.start_time != '$q_out'
+              and c.end_time != '$q_in'
+              and c.user_id = $user_id
+              and c.type = 2
+              and c.status = 2
             limit 1
         ");
         if (is_numeric($che)) {
@@ -407,6 +460,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         try {
             $this->_db->beginTransaction();
             $data = $this->prepeareSlotCreate($user,$data,2,1,$user_second);
+            $data['status'] = 2;
             $id = $this->insert($data);
 
             if (isset($data['place'])) {

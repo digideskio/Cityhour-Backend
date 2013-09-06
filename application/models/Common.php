@@ -91,11 +91,18 @@ class Application_Model_Common
             $client = new Zend_Http_Client($url);
             $req = json_decode($client->request()->getBody(), true);
             if ($req['status'] == 'OK') {
-                $data['city_name'] = $req['result']['formatted_address'];
                 $data['city'] = $city;
                 $data['lat'] = $req['result']['geometry']['location']['lat'];
                 $data['lng'] = $req['result']['geometry']['location']['lng'];
-
+                foreach ($req['result']['address_components'] as $row) {
+                    if ($row['types']) {
+                        foreach ($row['types'] as $row2) {
+                            if ($row2 == 'country') {
+                                $data['city_name'] = $req['result']['name'].', '.$row['short_name'];
+                            }
+                        }
+                    }
+                }
                 if (isset($req['result']['geometry']['viewport'])) {
                     $data['n_lng'] = $req['result']['geometry']['viewport']['northeast']['lng'];
                     $data['s_lng'] = $req['result']['geometry']['viewport']['southwest']['lng'];
