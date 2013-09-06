@@ -131,8 +131,8 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 if ($status == 2) {
                     $text = $user['name'].' '.$user['lastname'].' подтвердил ваш запрос';
                     $this->_db->insert('notifications',array(
-                        'from' => $user_id2,
-                        'to' => $user_id,
+                        'from' => $user_id,
+                        'to' => $user_id2,
                         'type' => 1,
                         'text' => $text
                     ));
@@ -149,20 +149,6 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                     ));
 
                     Application_Model_Common::updateContacts($user_id.','.$user_id2,true);
-                    $this->_db->insert('notifications',array(
-                        'from' => $user_id,
-                        'to' => $user_id2,
-                        'type' => 1,
-                        'text' => $user['name'].' Friend request Accept'
-                    ));
-                }
-                elseif ($status == 3) {
-                    $this->_db->insert('notifications',array(
-                        'from' => $user_id,
-                        'to' => $user_id2,
-                        'type' => 2,
-                        'text' => $user['name'].' Friend request Reject'
-                    ));
                 }
 
                 $this->_db->commit();
