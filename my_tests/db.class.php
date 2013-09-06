@@ -20,6 +20,8 @@ class DB {
 
         try {
             $this->mysql = new PDO("mysql:host=$host;dbname=$dbname", "$username", "$password");
+            $this->mysql->exec("SET NAMES utf8, time_zone = '+0:00'");
+            date_default_timezone_set("UTC");
             $this->mysql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         }
         catch(Exception $e)

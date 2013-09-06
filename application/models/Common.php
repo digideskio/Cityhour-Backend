@@ -55,7 +55,7 @@ class Application_Model_Common
 
         if ($res) {
             $min = new DateTime($res[0]['start_time']);
-            $max = new DateTime(date('Y-m-d H:i:s',time()));
+            $max = new DateTime(gmdate('Y-m-d H:i:s',time()));
             $end = $res[0]['end_time'];
             $all = $max->diff($min);
             $month = 0;

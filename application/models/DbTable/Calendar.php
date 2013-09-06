@@ -10,7 +10,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $url = $config->userPhoto->url;
 
         $res = $this->_db->fetchRow("
-            select c.id,c.user_id,c.user_id_second,c.start_time,c.end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
+            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
              case
               when c.email = 0 then case
                                       when (select distinct(f.id)
@@ -54,12 +54,12 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     public function getAll($user) {
         $user_id = $user['id'];
-        $start = date('Y-m-d H:i:s',time()-86400);
+        $start = gmdate('Y-m-d H:i:s',time()-86400);
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->userPhoto->url;
 
         $res = $this->_db->fetchAll("
-            select c.id,c.user_id,c.user_id_second,c.start_time,c.end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
+            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
              case
               when c.email = 0 and user_id_second is not null then case
                                                                       when (select distinct(f.id)
@@ -84,12 +84,6 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             (c.status = 2 and c.type = 2) or c.end_time > '$start'
             )
         ");
-
-        foreach ($res as $num=>$row) {
-            $row['start_time'] = strtotime($row['start_time']);
-            $row['end_time'] = strtotime($row['end_time']);
-            $res[$num] = $row;
-        }
 
         return $res;
     }
@@ -275,8 +269,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function prepeareSlotCreate($user,$data,$type=0,$status=0,$user_second = false, $email = false) {
-        $res['start_time'] = date('Y-m-d H:i:s',(int)$data['date_from']);
-        $res['end_time'] = date('Y-m-d H:i:s',(int)$data['date_to']);
+        $res['start_time'] = gmdate('Y-m-d H:i:s',(int)$data['date_from']);
+        $res['end_time'] = gmdate('Y-m-d H:i:s',(int)$data['date_to']);
         $res['user_id'] = $user['id'];
         $res['type'] = $type;
         $res['status'] = $status;
@@ -413,8 +407,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function userBusyOrFree($q_in,$q_out,$user_id) {
-        $q_in = date('Y-m-d H:i:s',(int)$q_in);
-        $q_out = date('Y-m-d H:i:s',(int)$q_out);
+        $q_in = gmdate('Y-m-d H:i:s',(int)$q_in);
+        $q_out = gmdate('Y-m-d H:i:s',(int)$q_out);
         $che = $this->_db->fetchOne("
             select c.id
             from calendar c
@@ -510,11 +504,11 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
         else {
             if (isset($data['date_from'])) {
-                $res['start_time'] = date('Y-m-d H:i:s',(int)$data['date_from']);
+                $res['start_time'] = gmdate('Y-m-d H:i:s',(int)$data['date_from']);
             }
 
             if (isset($data['date_to'])) {
-                $res['end_time'] = date('Y-m-d H:i:s',(int)$data['date_to']);
+                $res['end_time'] = gmdate('Y-m-d H:i:s',(int)$data['date_to']);
             }
 
             if (isset($data['goal']) && is_numeric($data['goal'])) {
@@ -674,8 +668,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                         $row['user_id'] = $user['id'];
                         $row['hash'] = $input->getEscaped('hash');
                         $row['calendar_name'] = $input->getEscaped('calendar_name');
-                        $row['start_time'] = date('Y-m-d H:i:s',(int)$input->getEscaped('start_time'));
-                        $row['end_time'] = date('Y-m-d H:i:s',(int)$input->getEscaped('end_time'));
+                        $row['start_time'] = gmdate('Y-m-d H:i:s',(int)$input->getEscaped('start_time'));
+                        $row['end_time'] = gmdate('Y-m-d H:i:s',(int)$input->getEscaped('end_time'));
                         $row['type'] = 0;
                         $this->insert($row);
                     }
