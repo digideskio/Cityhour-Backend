@@ -6,14 +6,20 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
     protected $_name = 'push_messages';
 
     public function sendAll($ids) {
-        $ids = $this->_db->quote($ids);
+        $ids = explode(',',$ids);
+        $good_ids = array();
+        foreach ($ids as $row) {
+            if (is_numeric($row)) {
+                array_push($good_ids,$row);
+            }
+        }
+        $ids = implode(',',$good_ids);
         $tokens = $this->_db->fetchAll("
             select m.alert, m.data, p.debug, p.deviceToken, p.id, m.id as mid
             from push_messages m
             inner join push p on m.user_id = p.user_id
             where m.id in ($ids) and m.status = 0
         ");
-
         $dcrt = APPLICATION_PATH.'/configs/development.pem';
         $pcrt = APPLICATION_PATH.'/configs/production.pem';
 
@@ -48,7 +54,6 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
                     $logger->info(Zend_Debug::dump($e->getMessage()));
                     exit(1);
                 }
-
                 //Send
                 foreach ($tokens as $num=>$row) {
                     $mid = $row['mid'];

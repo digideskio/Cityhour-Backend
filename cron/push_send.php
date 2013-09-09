@@ -25,7 +25,7 @@ class databaseClass {
         $config = parse_ini_file("../application/configs/application.ini");
         $this->conn = mysql_connect($config['resources.db.params.host'], $config['resources.db.params.username'], $config['resources.db.params.password']);
         $this->db = mysql_select_db($config['resources.db.params.dbname']);
-        mysql_set_charset($config['resources.db.params.charset'],$this->conn);
+        mysql_set_charset('utf8',$this->conn);
     }
 
     public function disconnect() {

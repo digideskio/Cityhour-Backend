@@ -46,6 +46,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 $this->_db->insert('notifications',array(
                     'from' => $id,
                     'to' => $row['id'],
+                    'item' => $id,
                     'type' => 7,
                     'text' => $text
                 ));
@@ -71,6 +72,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 $this->_db->insert('notifications',array(
                     'from' => $id,
                     'to' => $row['id'],
+                    'item' => $id,
                     'type' => 8,
                     'text' => $text
                 ));

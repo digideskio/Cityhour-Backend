@@ -454,7 +454,6 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         try {
             $this->_db->beginTransaction();
             $data = $this->prepeareSlotCreate($user,$data,2,1,$user_second);
-            $data['status'] = 2;
             $id = $this->insert($data);
 
             if (isset($data['place'])) {
@@ -589,6 +588,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $this->_db->insert('notifications',array(
                 'from' => $user['id'],
                 'to' => $slot['user_id_second'],
+                'item' => $sid,
                 'type' => 6,
                 'text' => $text
             ));

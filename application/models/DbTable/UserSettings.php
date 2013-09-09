@@ -17,8 +17,6 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
         foreach ($data as $num => $row ) {
             $num = trim($filter->filter($num));
             $row = trim($filter->filter($row));
-            $row = $this->_db->quote($row);
-            $num = $this->_db->quote($num);
 
             if ($num == 'city') {
                 Application_Model_Common::getCity($row);

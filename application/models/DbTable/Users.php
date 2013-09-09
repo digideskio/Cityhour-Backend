@@ -600,7 +600,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 unset($res['business_email']);
                 unset($res['skype']);
                 unset($res['phone']);
-                $res['lastname'] = substr($res['lastname'], 0, 1);
+                $res['lastname'] = substr($res['lastname'], 0, 1).'.';
                 $res['friend'] = false;
             }
 

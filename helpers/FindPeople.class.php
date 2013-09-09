@@ -52,6 +52,14 @@ include_once 'Common.class.php';
  *           @SWG\ErrorResponse(
  *            code="407",
  *            reason="Current user blocked."
+ *          ),
+ *           @SWG\ErrorResponse(
+ *            code="404",
+ *            reason="You have`n free time. for request period."
+ *          ),
+ *           @SWG\ErrorResponse(
+ *            code="500",
+ *            reason="Server side problem."
  *          )
  *       ),
  * @SWG\Parameter(
@@ -715,7 +723,7 @@ class FindPeople extends Common {
                     $sql .= ',';
                 };
                 $first = false;
-                $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['foursquare_id']."','".$row['place']."')";
+                $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['foursquare_id']."',".$this->mysql->quote($row['place']).")";
             }
 
             $this->query($sql);

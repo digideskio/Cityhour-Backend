@@ -77,6 +77,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         $this->_db->insert('notifications',array(
                             'from' => $user_id,
                             'to' => $friend_id,
+                            'item' => $user_id,
                             'type' => 0,
                             'text' => $text
                         ));
@@ -128,11 +129,12 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 $user_id = $user['id'];
                 $user_id2 = $notification['from'];
 
-                if ($status == 2) {
+                if ($status == 1) {
                     $text = $user['name'].' '.$user['lastname'].' подтвердил ваш запрос';
                     $this->_db->insert('notifications',array(
                         'from' => $user_id,
                         'to' => $user_id2,
+                        'item' => $user_id,
                         'type' => 1,
                         'text' => $text
                     ));

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-url="http://127.0.0.1:8000/v1/push/"
+url="http://127.0.0.1:5000/v1/push/"
 all=$1
 
 pack=0
