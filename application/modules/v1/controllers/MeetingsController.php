@@ -145,6 +145,10 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="300",
      *            reason="You have meeting or free slot on this time."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="301",
+     *            reason="You have meeting with this user on this time."
      *          )
      *       ),
      * @SWG\Parameter(

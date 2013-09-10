@@ -190,6 +190,10 @@ class V1_CalendarController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="300",
      *            reason="Request user busy."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="301",
+     *            reason="You have meeting with this user on this time."
      *          )
      *       ),
      * @SWG\Parameter(

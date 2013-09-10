@@ -42,7 +42,7 @@ class Application_Model_Linkedin
         $client->setRawData($data,'text/xml');
         $client->setHeaders('Content-Type', 'text/xml');
         $response = $client->request('POST');
-        var_dump($response->getBody());
+//        var_dump($response->getBody());
 
         return 200;
     }

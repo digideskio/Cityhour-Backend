@@ -87,7 +87,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                               AND j.type = 0
              WHERE  n.to = $user_id
                 AND n.status = 0
-                AND n.type IN ( 3, 4, 5, 6 )
+                AND n.type IN ( 3, 4, 5, 6, 9 )
              GROUP  BY n.id)
         ");
         return $res;
@@ -108,7 +108,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                 (select count(id)
                 from notifications
                 where `to` = $user_id
-                and type in (0,3)
+                and type in (0,3,9)
                 and status = 0) as requests,
                 (select count(id)
                 from notifications

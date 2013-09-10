@@ -38,6 +38,7 @@ class Application_Model_Types
             6 => 'Meeting canceled',
             7 => 'User registered linkedin',
             8 => 'User registered facebook',
+            9 => 'Meeting request user not free',
         );
     }
 
@@ -64,6 +65,7 @@ class Application_Model_Types
             3 => 'New message',
             4 => 'Friend request',
             5 => 'Chat message',
+            6 => 'Meeting request user not free',
         );
     }
 

@@ -138,13 +138,13 @@ class V1_SocialController extends Zend_Rest_Controller
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
-        $token = $this->_request->getParam('private_key');
-        $id = $this->_request->getParam('id');
-        if ($token && is_numeric($id)) {
-            $user = Application_Model_DbTable_Users::authorize($token);
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id'])) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 
             $this->_helper->json->sendJson(array(
-                'errorCode' => (new Application_Model_Linkedin())->makePost($user,$id)
+                'errorCode' => (new Application_Model_Linkedin())->makePost($user,$data['id'])
             ));
         }
         else {

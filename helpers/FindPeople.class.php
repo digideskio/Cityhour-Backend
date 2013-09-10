@@ -661,14 +661,22 @@ class FindPeople extends Common {
                       else null
                     end as place,
                     case
-                      when (select count(o.id) from calendar o where o.user_id = $this->user_id and o.user_id_second = t.user_id and o.type = 2) > 0 then 1
+                      when (select count(o.id) from calendar o where o.user_id = $this->user_id and o.user_id_second = t.user_id and o.type = 2 and o.status = 1 and o.start_time > now()) > 0 then 1
                       else 0
-                    end as meet
+                    end as request,
+                    case
+                      when (select distinct(f.id)
+                            from user_friends f
+                            where f.user_id = $this->user_id
+                            and f.friend_id = t.user_id
+                            and f.status = 1) > 0 then 1
+                      else 0
+                    end as friend
                 from (select * from rSult order by start_time asc) as t
                 where (UNIX_TIMESTAMP(t.end_time) - UNIX_TIMESTAMP(t.start_time)) >= 3600
                 and t.user_id != $this->user_id
                 group by t.user_id
-                order by meet asc
+                order by request,friend asc
             ";
         }
         else {
@@ -715,7 +723,7 @@ class FindPeople extends Common {
 
     public function insertM($data) {
         if ($data) {
-            $sql = "insert into mSult (user_id, start_time, end_time, foursquare_id, place) VALUES ";
+            $sql = "insert into mSult (user_id, start_time, end_time, foursquare_id, place, request, friend) VALUES ";
 
             $first = true;
             foreach ($data as $row) {
@@ -723,7 +731,7 @@ class FindPeople extends Common {
                     $sql .= ',';
                 };
                 $first = false;
-                $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['foursquare_id']."',".$this->mysql->quote($row['place']).")";
+                $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['foursquare_id']."',".$this->mysql->quote($row['place']).",'".$row['request']."','".$row['friend']."')";
             }
 
             $this->query($sql);
@@ -748,7 +756,8 @@ class FindPeople extends Common {
             $sql = "
                 create temporary table mSult (
                 `user_id` bigint(20) unsigned DEFAULT NULL,
-                `meet` int(2) unsigned DEFAULT NULL,
+                `request` int(2) unsigned DEFAULT NULL,
+                `friend` int(2) unsigned DEFAULT NULL,
                 `start_time` timestamp NULL DEFAULT NULL,
                 `end_time` timestamp NULL DEFAULT NULL,
                 `foursquare_id` varchar(255) NULL DEFAULT NULL,
@@ -758,13 +767,15 @@ class FindPeople extends Common {
             foreach ($this->free as $row) {
                 $this->q_s = $row['start_time'];
                 $this->q_e = $row['end_time'];
+                var_dump($this->find());
+                die();
                 $this->insertM($this->find());
             }
             $answer = $this->query("
-                select user_id, meet, start_time, end_time, foursquare_id, place
+                select user_id, start_time, end_time, foursquare_id, place, request, friend
                 from mSult
                 group by user_id
-                order by meet asc
+                order by request,friend asc
             ",false,true);
             $this->query('drop table mSult');
 

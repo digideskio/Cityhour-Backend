@@ -75,14 +75,24 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             case
               when c.email = 0 and user_id_second is not null then concat('$url',u.photo)
               else ''
-            end as photo
+            end as photo,
+            case
+              when c.email = 0 and user_id_second is not null then j.name
+              else ''
+            end as job,
+            case
+              when c.email = 0 and user_id_second is not null then j.company
+              else ''
+            end as company
             from calendar c
             left join users u on c.user_id_second = u.id and c.email = 0
+            left join user_jobs j on c.user_id_second = j.user_id and c.email = 0 and j.type = 0 and j.current = 1
             left join email_users e on c.user_id_second = e.id and c.email = 1
             where
             c.user_id = $user_id and (
             (c.status = 2 and c.type = 2) or c.end_time > '$start'
             )
+            group by c.id
         ");
 
         return $res;
@@ -433,6 +443,34 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
     }
 
+    public function meetWithYouThisTime($q_in,$q_out,$user_id,$user_second) {
+        $q_in = gmdate('Y-m-d H:i:s',(int)$q_in);
+        $q_out = gmdate('Y-m-d H:i:s',(int)$q_out);
+        $che = $this->_db->fetchOne("
+            select c.id
+            from calendar c
+            where
+            (
+            	(c.start_time between '$q_in' and '$q_out') or
+            	(c.end_time between '$q_in' and '$q_out') or
+            	(c.start_time < '$q_in' and c.end_time > '$q_out')
+            )
+              and c.start_time != '$q_out'
+              and c.end_time != '$q_in'
+              and c.user_id = $user_id
+              and c.user_id_second = $user_second
+              and c.type = 2
+              and c.status = 1
+            limit 1
+        ");
+        if (is_numeric($che)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
     public function createMeeting($user,$data) {
 
 
@@ -447,8 +485,13 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             return 300;
         }
 
-        if ($this->userBusyOrFree($data['date_from'],$data['date_to'],$user_second)) {
+        if ($this->meetWithYouThisTime($data['date_from'],$data['date_to'],$user['id'],$user_second)) {
             return 301;
+        }
+
+        $user_second_free = true;
+        if ($this->userBusyOrFree($data['date_from'],$data['date_to'],$user_second)) {
+            $user_second_free = false;
         }
 
         try {
@@ -463,11 +506,22 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $place = '';
             }
 
-            $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. пригласил вас на встречу '.$data['start_time'].$place;
+            if ($user_second_free) {
+                $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. пригласил вас на встречу '.$data['start_time'].$place;
+                $nType = 3;
+                $pType = 0;
+            }
+            else {
+                $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. пригласил вас на встречу '.$data['start_time'].$place;
+                $nType = 9;
+                $pType = 6;
+            }
+
+
             $this->_db->insert('notifications',array(
                 'from' => $user['id'],
                 'to' => $user_second,
-                'type' => 3,
+                'type' => $nType,
                 'item' => $id,
                 'text' => $text
             ));
@@ -476,7 +530,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $push->sendPush($user_second,$text,0,array(
                 'from' => $user['id'],
                 'to' => $user_second,
-                'type' => 0
+                'type' => $pType
             ));
 
             $this->_db->commit();

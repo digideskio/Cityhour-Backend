@@ -14,7 +14,7 @@ class Application_Model_DbTable_EmailUsers extends Zend_Db_Table_Abstract
         $res = Zend_Db_Table::getDefaultAdapter()->fetchRow("
             select *
             from email_users
-            where `key` = '$key' and `status` = 0
+            where `key` = $key and `status` = 0
         ");
         if ($res) {
             return $res;
