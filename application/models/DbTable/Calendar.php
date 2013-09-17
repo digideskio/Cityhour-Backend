@@ -583,24 +583,25 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return $res;
     }
 
-    public function updateSlot($data,$slot,$user) {
-        if ($slot['type'] === '2' && isset($data['rating']) && is_numeric($data['rating'])) {
-            $sid = $slot['id'];
+    public function updateRating($data,$slot) {
+        $sid = $slot['id'];
+        $this->update(array(
+            'rating' => $data['rating']
+        ),"id = $sid");
+
+        if ((int)$data['rating'] < 2) {
+            $user_id = $slot['user_id_second'];
             $this->update(array(
-                'rating' => $data['rating']
-            ),"id = $sid");
-
-            if ((int)$data['rating'] < 2) {
-                $user_id = $slot['user_id_second'];
-                $this->update(array(
-                    'meet_declined' => '`meet_declined`+1',
-                    'meet_succesfull' => '`meet_succesfull`-1'
-                ),"id = $user_id");
-            }
-
-            return $this->getSlotID($sid);
+                'meet_declined' => '`meet_declined`+1',
+                'meet_succesfull' => '`meet_succesfull`-1'
+            ),"id = $user_id");
         }
-        elseif ($slot['type'] === true && isset($data['person']) && is_numeric($data['person'])) {
+
+        return $this->getSlotID($sid);
+    }
+
+    public function updateSlot($data,$slot,$user) {
+        if ($slot['type'] === true && isset($data['person']) && is_numeric($data['person'])) {
             $res = 400;
             $sid = $slot['id'];
 

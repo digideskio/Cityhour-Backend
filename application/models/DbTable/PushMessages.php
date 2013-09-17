@@ -25,6 +25,12 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
 
         $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../logs/apns.log');
         $logger = new Zend_Log($writer);
+
+        //Mark push as send
+        $this->update(array(
+            'status' => 1
+        ),"id in ($ids)");
+
         try {
             if (isset($tokens[0])) {
 
@@ -54,12 +60,9 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
                     $logger->info(Zend_Debug::dump($e->getMessage()));
                     exit(1);
                 }
+
                 //Send
                 foreach ($tokens as $num=>$row) {
-                    $mid = $row['mid'];
-                    $this->update(array(
-                        'status' => 1
-                    ),"id = $mid");
                     $id = $row['id'];
                     try {
                         $message = new Zend_Mobile_Push_Message_Apns();

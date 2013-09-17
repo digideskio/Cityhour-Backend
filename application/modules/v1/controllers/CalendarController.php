@@ -213,45 +213,66 @@ class V1_CalendarController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id']) && isset($data['date_from']) && is_numeric($data['date_from']) && isset($data['date_to']) && is_numeric($data['date_to']) && isset($data['person']) && is_numeric($data['person'])) {
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id'])) {
             $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 
             $db = new Application_Model_DbTable_Calendar();
             if ($res = $db->getSlot($data['id'],$user['id'])) {
-                $validators = array(
-                    '*' => array()
-                );
-                $filters = array(
-                    'goal' => array('StringTrim','HtmlEntities','Int'),
-                    'foursquare_id' => array('StringTrim','HtmlEntities'),
-                    'city' => array('StringTrim','HtmlEntities'),
-                    'person_value' => array('StringTrim','HtmlEntities'),
-                    'person_name' => array('StringTrim','HtmlEntities'),
-                );
-                $input = new Zend_Filter_Input($filters, $validators, $data);
+                if ($res['type'] == 2 && isset($data['rating']) && is_numeric($data['rating']) ) {
+                    $res = $db->updateRating($data,$res);
+                    if (isset($res['id'])) {
+                        $this->_helper->json->sendJson(array(
+                            'body' => $res,
+                            'errorCode' => 200
+                        ));
+                    }
+                    else {
+                        $this->_helper->json->sendJson(array(
+                            'errorCode' => $res
+                        ));
+                    }
+                }
+                elseif (isset($data['date_from']) && is_numeric($data['date_from']) && isset($data['date_to']) && is_numeric($data['date_to']) && isset($data['person']) && is_numeric($data['person'])) {
+                    $validators = array(
+                        '*' => array()
+                    );
+                    $filters = array(
+                        'goal' => array('StringTrim','HtmlEntities','Int'),
+                        'foursquare_id' => array('StringTrim','HtmlEntities'),
+                        'city' => array('StringTrim','HtmlEntities'),
+                        'person_value' => array('StringTrim','HtmlEntities'),
+                        'person_name' => array('StringTrim','HtmlEntities'),
+                    );
+                    $input = new Zend_Filter_Input($filters, $validators, $data);
 
-                $userData = array(
-                    'id' => $data['id'],
-                    'date_from' => $data['date_from'],
-                    'date_to' => $data['date_to'],
-                    'person' => $data['person'],
-                    'goal' => $input->getEscaped('goal'),
-                    'foursquare_id' => $input->getEscaped('foursquare_id'),
-                    'city' => $input->getEscaped('city'),
-                    'person_value' => $input->getEscaped('person_value'),
-                    'person_name' => $input->getEscaped('person_name'),
-                );
+                    $userData = array(
+                        'id' => $data['id'],
+                        'date_from' => $data['date_from'],
+                        'date_to' => $data['date_to'],
+                        'person' => $data['person'],
+                        'goal' => $input->getEscaped('goal'),
+                        'foursquare_id' => $input->getEscaped('foursquare_id'),
+                        'city' => $input->getEscaped('city'),
+                        'person_value' => $input->getEscaped('person_value'),
+                        'person_name' => $input->getEscaped('person_name'),
+                    );
 
-                $res = $db->updateSlot($userData,$res,$user);
-                if (isset($res['id'])) {
-                    $this->_helper->json->sendJson(array(
-                        'body' => $res,
-                        'errorCode' => 200
-                    ));
+                    $res = $db->updateSlot($userData,$res,$user);
+                    if (isset($res['id'])) {
+                        $this->_helper->json->sendJson(array(
+                            'body' => $res,
+                            'errorCode' => 200
+                        ));
+                    }
+                    else {
+                        $this->_helper->json->sendJson(array(
+                            'errorCode' => $res
+                        ));
+                    }
                 }
                 else {
                     $this->_helper->json->sendJson(array(
-                        'errorCode' => $res
+                        'errorCode' => '400'
                     ));
                 }
             }

@@ -23,6 +23,7 @@ class databaseClass {
         $this->conn = mysql_connect($config['resources.db.params.host'], $config['resources.db.params.username'], $config['resources.db.params.password']);
         $this->db = mysql_select_db($config['resources.db.params.dbname']);
         mysql_set_charset('utf8',$this->conn);
+        mysql_query("SET NAMES utf8, time_zone = '+0:00'");
     }
 
     public function disconnect() {
@@ -34,29 +35,36 @@ class databaseClass {
         $this->connect();
     }
 
-    public function storeMSG($when,$from,$to,$msg,$status,$user_all = false) {
+    public function sendPush($from,$to,$msg,$user_all = false) {
         //auto reconnect if MySQL server has gone away
         while (!mysql_ping($this->conn)) {
             sleep(2);
             $this->reconnect();
         }
 
-        if ($status === 0) {
-            $text = mysql_real_escape_string($user_all['name']).' '.mysql_real_escape_string(substr($user_all['lastname'], 0, 1)).' прислал вам новое сообщение';
-            $text = mb_substr($text,0,25,'UTF-8');
-            $data = json_encode(array(
-                'from' => $from,
-                'to' => $to,
-                'type' => 5
-            ));
-            $result = mysql_query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$to','5','$text','$data')");
+        $text = mysql_real_escape_string($user_all['name']).' '.mysql_real_escape_string(substr($user_all['lastname'], 0, 1)).' прислал вам новое сообщение. '.$msg;
+        $text = mb_substr($text,0,25,'UTF-8');
+        $data = json_encode(array(
+            'from' => $from,
+            'to' => $to,
+            'type' => 5
+        ));
+        $result = mysql_query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$to','5','$text','$data')");
 
-            echo mysql_error();
-            if (!$result) {
-                return false;
-            }
+        echo mysql_error();
+        if (!$result) {
+            return false;
         }
 
+        return true;
+    }
+
+    public function storeMSG($when,$from,$to,$msg,$status) {
+        //auto reconnect if MySQL server has gone away
+        while (!mysql_ping($this->conn)) {
+            sleep(2);
+            $this->reconnect();
+        }
         $msg = mysql_real_escape_string($msg);
         $to = mysql_real_escape_string($to);
         $from = mysql_real_escape_string($from);
@@ -215,7 +223,8 @@ while (true) {
                                     $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text'],1);
                                 }
                                 else {
-                                    $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text'],0,$user_all);
+                                    $db_class->sendPush($user_all['id'],$target_all['id'],$recv['text'],$user_all);
+                                    $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text'],0);
                                 }
                                 if ($id) {
                                     $msg_data = array(

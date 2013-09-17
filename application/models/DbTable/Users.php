@@ -47,7 +47,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $filters = array(
             'name' => array('StringTrim','HtmlEntities',$filter_alnum),
             'lastname' => array('StringTrim','HtmlEntities',$filter_alnum),
-            'summary' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'summary' => array('StringTrim','HtmlEntities'),
             'skype' => array('StringTrim','HtmlEntities'),
             'phone' => array('StringTrim','HtmlEntities'),
             'industry_id' => array('StringTrim','HtmlEntities','Int'),
@@ -59,7 +59,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         try {
             if ($input->getEscaped('name')) $userData['name'] = $input->getEscaped('name');
             if ($input->getEscaped('lastname')) $userData['lastname'] = $input->getEscaped('lastname');
-            if ($input->getEscaped('summary')) $userData['summary'] = $input->getEscaped('summary');
+            if ($input->getEscaped('summary')) $userData['summary'] = $data['summary'];
             if ($input->getEscaped('skype')) $userData['skype'] = $input->getEscaped('skype');
             if ($input->getEscaped('phone')) $userData['phone'] = $input->getEscaped('phone');
             if ($input->getEscaped('industry_id')) $userData['industry_id'] = $input->getEscaped('industry_id');
@@ -76,10 +76,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 $validators = array(
                     '*' => array()
                 );
-                $filter_alnum = new Zend_Filter_Alnum(true);
                 $filters = array(
-                    'name' => array('StringTrim','HtmlEntities',$filter_alnum),
-                    'company' => array('StringTrim','HtmlEntities',$filter_alnum),
                     'current' => array('StringTrim','HtmlEntities','Int'),
                     'start_time' => array('StringTrim','HtmlEntities'),
                     'end_time' => array('StringTrim','HtmlEntities'),
@@ -100,8 +97,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     if (isset($row['id']) && is_numeric($row['id'])) {
                         $job_id = $row['id'];
                         $this->_db->update('user_jobs',array(
-                            'name' => $jobs_input->getEscaped('name'),
-                            'company' => $jobs_input->getEscaped('company'),
+                            'name' => $row['name'],
+                            'company' => $row['company'],
                             'current' => $jobs_input->getEscaped('current'),
                             'start_time' => $jobs_input->getEscaped('start_time'),
                             'end_time' => $jobs_input->getEscaped('end_time')
@@ -110,8 +107,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     else {
                         $this->_db->insert('user_jobs',array(
                             'user_id' => $user_id,
-                            'name' => $jobs_input->getEscaped('name'),
-                            'company' => $jobs_input->getEscaped('company'),
+                            'name' => $row['name'],
+                            'company' => $row['company'],
                             'current' => $jobs_input->getEscaped('current'),
                             'start_time' => $jobs_input->getEscaped('start_time'),
                             'end_time' => $jobs_input->getEscaped('end_time'),
@@ -128,10 +125,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 $validators = array(
                     '*' => array()
                 );
-                $filter_alnum = new Zend_Filter_Alnum(true);
                 $filters = array(
-                    'name' => array('StringTrim','HtmlEntities',$filter_alnum),
-                    'company' => array('StringTrim','HtmlEntities',$filter_alnum),
                     'current' => array('StringTrim','HtmlEntities','Int'),
                     'start_time' => array('StringTrim','HtmlEntities'),
                     'end_time' => array('StringTrim','HtmlEntities'),
@@ -143,8 +137,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     if (isset($row['id']) && is_numeric($row['id'])) {
                         $job_id = $row['id'];
                         $this->_db->update('user_jobs',array(
-                            'name' => $jobs_input->getEscaped('name'),
-                            'company' => $jobs_input->getEscaped('company'),
+                            'name' => $row['name'],
+                            'company' => $row['company'],
                             'start_time' => $jobs_input->getEscaped('start_time'),
                             'end_time' => $jobs_input->getEscaped('end_time')
                         ),"id = $job_id");
@@ -152,8 +146,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     else {
                         $this->_db->insert('user_jobs',array(
                             'user_id' => $user_id,
-                            'name' => $jobs_input->getEscaped('name'),
-                            'company' => $jobs_input->getEscaped('company'),
+                            'name' => $row['name'],
+                            'company' => $row['company'],
                             'start_time' => $jobs_input->getEscaped('start_time'),
                             'end_time' => $jobs_input->getEscaped('end_time'),
                             'type' => 1
@@ -163,7 +157,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             }
 
             //Skills
-            if (isset($data['skills'])) {
+            if (isset($data['skills'][0]) && $data['skills'][0]) {
                 $this->_db->delete('user_skills',"user_id = $user_id");
                 foreach($data['skills'] as $num=>$row) {
                     $this->_db->insert('user_skills',array(
@@ -174,7 +168,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             }
 
             //Languages
-            if (isset($data['languages'])) {
+            if (isset($data['languages'][0]) && $data['languages'][0]) {
                 $this->_db->delete('user_languages',"user_id = $user_id");
                 foreach($data['languages'] as $num=>$row) {
                     $this->_db->insert('user_languages',array(
@@ -242,7 +236,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $filters = array(
             'name' => array('StringTrim','HtmlEntities',$filter_alnum),
             'lastname' => array('StringTrim','HtmlEntities',$filter_alnum),
-            'summary' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'summary' => array('StringTrim','HtmlEntities'),
             'skype' => array('StringTrim','HtmlEntities'),
             'phone' => array('StringTrim','HtmlEntities'),
             'industry_id' => array('StringTrim','HtmlEntities','Int'),
@@ -264,7 +258,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $userData['private_key'] = uniqid(sha1(time()), false);
 
             //Not Important
-            if ($input->getEscaped('summary')) $userData['summary'] = $input->getEscaped('summary');
+            if ($input->getEscaped('summary')) $userData['summary'] = $data['summary'];;
             if ($input->getEscaped('skype')) $userData['skype'] = $input->getEscaped('skype');
             if ($input->getEscaped('phone')) $userData['phone'] = $input->getEscaped('phone');
             if ($input->getEscaped('business_email')) $userData['business_email'] = $input->getEscaped('business_email');
@@ -303,10 +297,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 $validators = array(
                     '*' => array()
                 );
-                $filter_alnum = new Zend_Filter_Alnum(true);
                 $filters = array(
-                    'name' => array('StringTrim','HtmlEntities',$filter_alnum),
-                    'company' => array('StringTrim','HtmlEntities',$filter_alnum),
                     'current' => array('StringTrim','HtmlEntities','Int'),
                     'start_time' => array('StringTrim','HtmlEntities'),
                     'end_time' => array('StringTrim','HtmlEntities'),
@@ -325,8 +316,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     }
                     $this->_db->insert('user_jobs',array(
                         'user_id' => $id,
-                        'name' => $jobs_input->getEscaped('name'),
-                        'company' => $jobs_input->getEscaped('company'),
+                        'name' => $row['name'],
+                        'company' => $row['company'],
                         'current' => $jobs_input->getEscaped('current'),
                         'start_time' => $jobs_input->getEscaped('start_time'),
                         'end_time' => $jobs_input->getEscaped('end_time'),
@@ -339,10 +330,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 $validators = array(
                     '*' => array()
                 );
-                $filter_alnum = new Zend_Filter_Alnum(true);
                 $filters = array(
-                    'name' => array('StringTrim','HtmlEntities',$filter_alnum),
-                    'company' => array('StringTrim','HtmlEntities',$filter_alnum),
                     'current' => array('StringTrim','HtmlEntities','Int'),
                     'start_time' => array('StringTrim','HtmlEntities'),
                     'end_time' => array('StringTrim','HtmlEntities'),
@@ -351,8 +339,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
                     $this->_db->insert('user_jobs',array(
                         'user_id' => $id,
-                        'name' => $jobs_input->getEscaped('name'),
-                        'company' => $jobs_input->getEscaped('company'),
+                        'name' => $row['name'],
+                        'company' => $row['company'],
                         'current' => 0,
                         'start_time' => $jobs_input->getEscaped('start_time'),
                         'end_time' => $jobs_input->getEscaped('end_time'),
@@ -600,7 +588,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 unset($res['business_email']);
                 unset($res['skype']);
                 unset($res['phone']);
-                $res['lastname'] = substr($res['lastname'], 0, 1).'.';
+                $res['lastname'] = mb_substr($res['lastname'], 0, 1, 'UTF-8').'.';
                 $res['friend'] = false;
             }
 
