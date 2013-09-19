@@ -154,7 +154,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function answerMeeting($user,$id,$status,$foursqure_id) {
-        if (!$slot_id = $this->_db->fetchOne("select `item` from notifications where id = $id and type = 3")) {
+        if (!$slot_id = $this->_db->fetchOne("select `item` from notifications where id = $id and type in (3,9)")) {
             return 400;
         }
 
@@ -264,14 +264,16 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
         if ($res) {
             $res = $res->toArray();
-
-            if ($res['type'] = 1 && strtotime($res['end_time']) > time()) {
+            if ($res['type'] == 1 && strtotime($res['end_time']) > time()) {
                 return $res;
             }
-            elseif (!$meet_notStart && $res['type'] = 2 && $res['status'] = 2 && strtotime($res['end_time']) < time()) {
+            elseif (!$meet_notStart && $res['type'] == 2 && $res['status'] == 2 && strtotime($res['end_time']) < time()) {
                 return $res;
             }
-            elseif ($meet_notStart && $res['status'] = 2 && strtotime($res['start_time']) > time()-3600) {
+            elseif ($meet_notStart && $res['type'] == 2 && $res['status'] == 1 && strtotime($res['start_time']) > time()-3600) {
+                return $res;
+            }
+            elseif ($meet_notStart && $res['type'] == 2 && $res['status'] == 2 && strtotime($res['start_time']) > time()-3600) {
                 return $res;
             }
         }
@@ -342,7 +344,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $this->_db->rollBack();
                 return 400;
             }
-
+            $data['hash'] = uniqid(sha1(time()), false);
             $id = $this->insert($data);
 
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
@@ -497,6 +499,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         try {
             $this->_db->beginTransaction();
             $data = $this->prepeareSlotCreate($user,$data,2,1,$user_second);
+            $data['hash'] = uniqid(sha1(time()), false);
             $id = $this->insert($data);
 
             if (isset($data['place'])) {
@@ -601,10 +604,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function updateSlot($data,$slot,$user) {
-        if ($slot['type'] === true && isset($data['person']) && is_numeric($data['person'])) {
+        if ($slot['type'] == 1 && isset($data['person']) && is_numeric($data['person'])) {
             $res = 400;
             $sid = $slot['id'];
-
             if ($data['person'] == 0) {
                 $data = $this->prepeareUpdate($data);
                 if ($data) {
@@ -634,16 +636,25 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     public function cancelMeeting($user,$slot) {
         try {
             $this->_db->beginTransaction();
-            $sid = $slot['id'];
+            $hash = $slot['hash'];
+            $uid = $user['id'];
+            $slot2 = $this->fetchRow("`hash` = '$hash' and user_id_second = $uid");
+
             $this->update(array(
                 'status' => 4
-            ),"id = $sid");
+            ),"hash = '$hash'");
+
+            $sid1 = $slot['id'];
+            $sid2 = $slot2['id'];
+            $this->_db->update('notifications',array(
+                'status' => 2
+            ),"(item = $sid1 or item = $sid2) and type = 4");
 
             $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. отменил встречу '.$slot['start_time'].' в '.$slot['place'];
             $this->_db->insert('notifications',array(
                 'from' => $user['id'],
-                'to' => $slot['user_id_second'],
-                'item' => $sid,
+                'to' => $slot2['user_id'],
+                'item' => $slot2['id'],
                 'type' => 6,
                 'text' => $text
             ));
@@ -669,7 +680,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $user_id = $user['id'];
         $slot = $this->getSlot($id,$user_id,true);
         if ($slot) {
-            if ($slot['type'] === true) {
+            if ($slot['type'] == 1) {
                 $this->delete("id = $id");
                 return 200;
             }

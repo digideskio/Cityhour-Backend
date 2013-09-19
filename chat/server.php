@@ -42,6 +42,16 @@ class databaseClass {
             $this->reconnect();
         }
 
+        $che = mysql_query("
+            select `value`
+            from user_settings
+            where user_id = $to and `name` = 'newMessageSync'
+        ");
+
+        if ((int)mysql_fetch_assoc($che)['value'] != 1) {
+            return true;
+        }
+
         $text = mysql_real_escape_string($user_all['name']).' '.mysql_real_escape_string(substr($user_all['lastname'], 0, 1)).' прислал вам новое сообщение. '.$msg;
         $text = mb_substr($text,0,25,'UTF-8');
         $data = json_encode(array(

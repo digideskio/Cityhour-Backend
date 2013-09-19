@@ -31,7 +31,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                     Concat('$url', u.photo) AS photo,
                     j.name                  AS job,
                     j.company,
-                    0 as place
+                    null as place,
+                    null as foursquare_id
              FROM   notifications n
                     LEFT JOIN users u
                            ON n.from = u.id
@@ -71,12 +72,13 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                     end                    AS photo,
                     j.name                 AS job,
                     j.company,
-                    c.place as place
+                    c.place as place,
+                    c.foursquare_id as foursquare_id
              FROM   notifications n
                     LEFT JOIN calendar c
                            ON n.item = c.id
                     LEFT JOIN users u
-                           ON c.user_id = u.id
+                           ON n.from = u.id
                               AND c.email = 0
                     LEFT JOIN email_users e
                            ON c.user_id = e.id
@@ -113,7 +115,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                 (select count(id)
                 from notifications
                 where `to` = $user_id
-                and type in (3,4,5,6)
+                and type in (3,4,5,6,9)
                 and status = 0) as meetings
           ");
         return array(

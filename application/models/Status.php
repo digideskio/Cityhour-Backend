@@ -24,8 +24,7 @@ class Application_Model_Status
         return array(
             0 => 'Sent',
             1 => 'Read',
-            2 => 'Accept',
-            3 => 'Reject'
+            2 => 'Not correct now'
         );
     }
 

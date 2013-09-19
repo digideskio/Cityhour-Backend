@@ -779,8 +779,6 @@ class FindPeople extends Common {
             foreach ($this->free as $row) {
                 $this->q_s = $row['start_time'];
                 $this->q_e = $row['end_time'];
-                var_dump($this->find());
-                die();
                 $this->insertM($this->find());
             }
             $answer = $this->query("
