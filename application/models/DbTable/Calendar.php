@@ -216,6 +216,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     ),"id = $slot_id");
                 }
 
+                $this->expireMeeting($user['id'],$slot);
+
                 $this->_db->update('notifications',array(
                     'status' => 1
                 ),"id = $id");
@@ -253,6 +255,36 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             return 200;
         }
         return 400;
+    }
+
+    public function expireMeeting($ids,$slot) {
+        $q_in = $slot['start_time'];
+        $q_out = $slot['end_time'];
+        $items = $this->_db->fetchOne("
+            select group_concat(c.id)
+            from calendar c
+            where
+            (
+            	(c.start_time between '$q_in' and '$q_out') or
+            	(c.end_time between '$q_in' and '$q_out') or
+            	(c.start_time < '$q_in' and c.end_time > '$q_out')
+            )
+              and c.start_time != '$q_out'
+              and c.end_time != '$q_in'
+              and c.user_id_second in ($ids)
+              and c.type = 2
+              and c.status = 1
+        ");
+        if ($items) {
+            $this->_db->update('notifications',array(
+                'status' => 2
+            ),"`item` in ($items)");
+
+            $this->update(array(
+                'status' => 5
+            ),"id in ($items)");
+        }
+        return true;
     }
 
     public function getSlot($sid, $user_id, $meet_notStart = false, $second_user = false) {
@@ -312,6 +344,11 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function createMeetingEmail($user,$data) {
+
+        if ($this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'])) {
+            return 300;
+        }
+
         if (isset($data['person_value']) && $data['person_value'] && isset($data['person_name']) && $data['person_name']) {
             $email = $data['person_value'];
             $che = $this->_db->fetchOne("
@@ -680,7 +717,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $user_id = $user['id'];
         $slot = $this->getSlot($id,$user_id,true);
         if ($slot) {
-            if ($slot['type'] == 1) {
+            if ($slot['type'] === '1') {
                 $this->delete("id = $id");
                 return 200;
             }
@@ -747,7 +784,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
                 $old_slots = "'".implode("','",$old_slots)."'";
                 if ($old_slots) {
-                    $this->delete("user_id = $user_id and `hash` not in ($old_slots)");
+                    $this->delete("user_id = $user_id and `hash` not in ($old_slots) and type = 0");
                 }
                 return true;
             }

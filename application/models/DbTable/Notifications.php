@@ -32,7 +32,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                     j.name                  AS job,
                     j.company,
                     null as place,
-                    null as foursquare_id
+                    null as foursquare_id,
+                    null as start_time
              FROM   notifications n
                     LEFT JOIN users u
                            ON n.from = u.id
@@ -73,7 +74,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                     j.name                 AS job,
                     j.company,
                     c.place as place,
-                    c.foursquare_id as foursquare_id
+                    c.foursquare_id as foursquare_id,
+                    unix_timestamp(c.start_time) as start_time
              FROM   notifications n
                     LEFT JOIN calendar c
                            ON n.item = c.id

@@ -35,6 +35,7 @@ class Application_Model_Status
             2 => 'Meeting Accepted',
             3 => 'Meeting Rejected',
             4 => 'Meeting Canceled',
+            5 => 'Meeting Expired',
         );
     }
 
