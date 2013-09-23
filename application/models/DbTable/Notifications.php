@@ -6,10 +6,17 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
     protected $_name = 'notifications';
 
 
-    public function getAll($user) {
+    public function getAll($user,$id) {
         $user_id = $user['id'];
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->userPhoto->url;
+
+        if (is_numeric($id)) {
+            $id = "and n.id = $id";
+        }
+        else {
+            $id = '';
+        }
 
         $res = $this->_db->fetchAll("
             (SELECT n.id,
@@ -44,6 +51,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
              WHERE  n.to = $user_id
                 AND n.status = 0
                 AND n.type IN ( 0, 1, 2, 7, 8 )
+                $id
              GROUP  BY n.id)
             UNION
             (SELECT n.id,
@@ -92,6 +100,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
              WHERE  n.to = $user_id
                 AND n.status = 0
                 AND n.type IN ( 3, 4, 5, 6, 9 )
+                $id
              GROUP  BY n.id)
         ");
         return $res;
