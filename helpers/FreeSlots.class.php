@@ -19,7 +19,7 @@ include_once 'Common.class.php';
  *
  *
  * @SWG\Api(
- *   path="/FreeSlots.php",
+ *   path="/freeslots.php",
  *   @SWG\Operations(
  *     @SWG\Operation(
  *       httpMethod="POST",

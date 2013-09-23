@@ -32,7 +32,7 @@ include_once 'Common.class.php';
  *
  *
  * @SWG\Api(
- *   path="/FindPeople.php",
+ *   path="/findpeople.php",
  *   @SWG\Operations(
  *     @SWG\Operation(
  *       httpMethod="POST",
