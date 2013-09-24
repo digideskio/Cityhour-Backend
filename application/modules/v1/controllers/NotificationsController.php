@@ -194,7 +194,7 @@ class V1_NotificationsController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
-        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id'])) {
+        if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && $data['id']) {
             $user = Application_Model_DbTable_Users::authorize($data['private_key']);
             (new Application_Model_DbTable_Notifications())->read($data['id'],$user);
             $this->_helper->json->sendJson(array(

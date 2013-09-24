@@ -108,9 +108,21 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
 
     public function read($id,$user) {
         $user_id = $user['id'];
-        $this->update(array(
-            'status' => 1
-        ),"id = $id and `to` = $user_id");
+        $id = explode(',',$id);
+
+        $idc = array();
+        foreach ($id as $row) {
+            if (is_numeric($row)) {
+                array_push($idc,$row);
+            }
+        }
+
+        if ($idc) {
+            $idc = implode(',',$idc);
+            $this->update(array(
+                'status' => 1
+            ),"id in ($idc) and `to` = $user_id");
+        }
         return true;
     }
 
