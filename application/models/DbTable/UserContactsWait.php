@@ -41,7 +41,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 and u.status = 0
             ");
         if ($res) {
-            $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. ваш друг c Linkedin и он зарегистрировался.';
+            $text = '$$$name$$$ ваш друг c Linkedin и он зарегистрировался.';
             foreach ($res as $num=>$row) {
                 $this->_db->insert('notifications',array(
                     'from' => $id,
@@ -67,7 +67,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             and u.status = 0
         ");
         if ($res) {
-            $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. ваш друг c Facebook и он зарегистрировался.';
+            $text = '$$$name$$$ ваш друг c Facebook и он зарегистрировался.';
             foreach ($res as $num=>$row) {
                 $this->_db->insert('notifications',array(
                     'from' => $id,

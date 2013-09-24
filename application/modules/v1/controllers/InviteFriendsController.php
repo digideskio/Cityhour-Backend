@@ -38,7 +38,7 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *
      *
      * @SWG\Api(
-     *   path="/inviteFriends/",
+     *   path="/invite-friends/",
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="POST",
