@@ -162,8 +162,8 @@ class Application_Model_Linkedin
             if (isset($user_profile['educations']['values'])) {
                 foreach ($user_profile['educations']['values'] as $num => $row) {
                     $education[$num] = array(
-                        'name' => $row['fieldOfStudy'],
-                        'company' => $row['schoolName'],
+                        'name' => (isset($row['fieldOfStudy']) && $row['fieldOfStudy']) ? $row['fieldOfStudy'] : '',
+                        'company' => (isset($row['schoolName']) && $row['schoolName']) ? $row['schoolName'] : '',
                         'start_time' => date('Y-m-d',mktime(0,0,0,1,1,(int)$row['startDate']['year'])),
                         'end_time' => date('Y-m-d',mktime(0,0,0,1,1,(int)$row['endDate']['year']))
                     );
