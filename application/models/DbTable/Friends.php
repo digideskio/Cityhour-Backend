@@ -79,14 +79,17 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                             'to' => $friend_id,
                             'item' => $user_id,
                             'type' => 0,
-                            'text' => $text
+                            'text' => $text,
+                            'template' => 2,
+                            'action' => 2
                         ));
 
                         $push = new Application_Model_DbTable_Push();
                         $push->sendPush($friend_id,$text,4,array(
                             'from' => $user_id,
-                            'to' => $friend_id,
-                            'type' => 4
+                            'type' => 4,
+                            'item' => $user_id,
+                            'action' => 2
                         ));
 
                         $this->_db->commit();
@@ -136,7 +139,9 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         'to' => $user_id2,
                         'item' => $user_id,
                         'type' => 1,
-                        'text' => $text
+                        'text' => $text,
+                        'template' => 0,
+                        'action' => 3
                     ));
 
                     $this->insert(array(

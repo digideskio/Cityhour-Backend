@@ -48,7 +48,9 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     'to' => $row['id'],
                     'item' => $id,
                     'type' => 7,
-                    'text' => $text
+                    'text' => $text,
+                    'template' => 0,
+                    'action' => 6
                 ));
             }
         }
@@ -74,7 +76,9 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     'to' => $row['id'],
                     'item' => $id,
                     'type' => 8,
-                    'text' => $text
+                    'text' => $text,
+                    'template' => 0,
+                    'action' => 6
                 ));
             }
         }

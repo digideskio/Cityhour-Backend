@@ -130,15 +130,18 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'to' => $slot['user_id'],
                     'type' => 4,
                     'item' => $slot['id'],
-                    'text' => $text
+                    'text' => $text,
+                    'template' => 0,
+                    'action' => 1
                 ));
 
                 $text = $user['name'].' принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
                 $push = new Application_Model_DbTable_Push();
                 $push->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
-                    'to' => $slot['user_id'],
-                    'type' => 2
+                    'type' => 2,
+                    'item' => $slot['id'],
+                    'action' => 1
                 ));
 
                 $this->_db->commit();
@@ -230,15 +233,18 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'to' => $slot['user_id'],
                     'type' => 4,
                     'item' => $slot['id'],
-                    'text' => $text
+                    'text' => $text,
+                    'template' => 0,
+                    'action' => 1
                 ));
 
                 $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
                 $push = new Application_Model_DbTable_Push();
                 $push->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
-                    'to' => $slot['user_id'],
-                    'type' => 2
+                    'type' => 2,
+                    'item' => $slot['id'],
+                    'action' => 1
                 ));
 
                 unset($slot['id']);
@@ -566,14 +572,17 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'to' => $user_second,
                 'type' => $nType,
                 'item' => $id,
-                'text' => $text
+                'text' => $text,
+                'template' => 2,
+                'action' => 0
             ));
 
             $push = new Application_Model_DbTable_Push();
             $push->sendPush($user_second,$text,0,array(
                 'from' => $user['id'],
-                'to' => $user_second,
-                'type' => $pType
+                'type' => $pType,
+                'item' => $id,
+                'action' => 0
             ));
 
             $this->_db->commit();
@@ -696,15 +705,18 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'to' => $slot2['user_id'],
                 'item' => $slot2['id'],
                 'type' => 6,
-                'text' => $text
+                'text' => $text,
+                'template' => 1,
+                'action' => 1
             ));
 
             $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. отменил встречу '.$slot['start_time'].' в '.$slot['place'];
             $push = new Application_Model_DbTable_Push();
             $push->sendPush($slot['user_id_second'],$text,0,array(
                 'from' => $user['id'],
-                'to' => $slot['user_id_second'],
-                'type' => 1
+                'type' => 1,
+                'item' => $slot2['id'],
+                'action' => 1
             ));
 
             $this->_db->commit();

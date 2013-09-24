@@ -54,6 +54,18 @@ class Application_Model_Types
         );
     }
 
+    public static function actions() {
+        return array(
+            0 => 'Meeting request',
+            1 => 'Meeting details',
+            2 => 'Friend request',
+            3 => 'Contact profile',
+            4 => 'Chat with user',
+            5 => 'User profile',
+            6 => 'Other user profile',
+        );
+    }
+
     public static function calendar() {
         return array(
             0 => 'Busy time',
