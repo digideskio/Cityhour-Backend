@@ -132,7 +132,7 @@ class V1_SyncController extends Zend_Rest_Controller
             $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 
             unset($data['private_key']);
-            (new Application_Model_DbTable_userSettings())->updateSettings($user,$data);
+            (new Application_Model_DbTable_UserSettings())->updateSettings($user,$data);
 
             $this->_helper->json->sendJson(array(
                 'errorCode' => '200'

@@ -10,6 +10,11 @@
     Twitter: @Krivoblotsky
     Location: Kiev, Ukraine
 
+    iOS Developer: Evgeniy Gurtovoy
+    Skype: gurt87
+    Twitter: @evgeniygt
+    Location: Kiev, Ukraine
+
     Designer: Alex Kot
     Skype: thisiskotki
     Twitter: @kotki_says
@@ -17,10 +22,10 @@
 
 /* THANKS */
 
-    To our moms,dads,girlfriends, Ian MacKaye and other people who helped)
+    To our moms,dads,girlfriends, Sergey Shnurov and other people who helped)
 
 /* API */
-    Last update: 2013/07/17
+    Last update: 2013/10/01
     Standards: REST
     Components: Zend Framework, Swagger
     Software: phpStorm, git

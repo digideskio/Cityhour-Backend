@@ -121,13 +121,18 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                 (select count(id)
                 from notifications
                 where `to` = $user_id
-                and type in (0,1,7,8)
+                and type in (0)
                 and status = 0) as contacts,
                 (select count(id)
                 from notifications
                 where `to` = $user_id
-                and type in (3,4,5,6,9)
-                and status = 0) as meetings
+                and type in (3,9)
+                and status = 0) as meetings,
+                (select count(id)
+                from notifications
+                where `to` = $user_id
+                and type in (1,4,5,6,7,8)
+                and status = 0) as system
           ");
         return array(
             'chat' => (int)$this->_db->fetchOne("select count(chat) as chat
