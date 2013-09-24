@@ -39,14 +39,18 @@ class Application_Model_Types
             7 => 'User registered linkedin',
             8 => 'User registered facebook',
             9 => 'Meeting request user not free',
+            10 => 'Meeting come',
+            11 => 'Rate meeting',
+            12 => 'System'
         );
     }
 
     public static function notificationTemplate() {
         return array(
-            0 => 'No',
-            1 => 'User_id',
-            2 => 'Email'
+            0 => 'Standart',
+            1 => 'Red',
+            2 => 'Requests',
+            3 => 'System'
         );
     }
 

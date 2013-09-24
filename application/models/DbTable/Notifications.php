@@ -157,6 +157,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                                             and `status` = 0
                                             GROUP BY `from`) as t"),
             'contacts' => (int)$notifications['contacts'],
+            'system' => (int)$notifications['system'],
             'meetings' => (int)$notifications['meetings']
         );
     }
