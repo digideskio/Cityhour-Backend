@@ -86,7 +86,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         $push->sendPush($friend_id,$text,4,array(
                             'from' => $user_id,
                             'to' => $friend_id,
-                            'type' => 0
+                            'type' => 4
                         ));
 
                         $this->_db->commit();
