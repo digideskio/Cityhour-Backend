@@ -42,6 +42,14 @@ class Application_Model_Types
         );
     }
 
+    public static function notificationTemplate() {
+        return array(
+            0 => 'No',
+            1 => 'User_id',
+            2 => 'Email'
+        );
+    }
+
     public static function calendar() {
         return array(
             0 => 'Busy time',
