@@ -27,6 +27,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         n.type,
                         n.item,
                         n.text,
+                        n.template,
+                        n.action,
                         n.status,
                         Unix_timestamp(n.time)  AS time_when,
                         CASE
@@ -61,6 +63,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         n.type,
                         n.item,
                         n.text,
+                        n.template,
+                        n.action,
                         n.status,
                         Unix_timestamp(n.time) AS time_when,
                         CASE
