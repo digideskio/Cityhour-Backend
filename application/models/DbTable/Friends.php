@@ -74,7 +74,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                     $this->_db->beginTransaction();
                     try {
                         $text = $user['name'].' '.$user['lastname'].' хочет добавить вас в контакты';
-                        $this->_db->insert('notifications',array(
+                        $idn = (new Application_Model_DbTable_Notifications())->insertNotification(array(
                             'from' => $user_id,
                             'to' => $friend_id,
                             'item' => $user_id,
@@ -84,11 +84,10 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                             'action' => 2
                         ));
 
-                        $push = new Application_Model_DbTable_Push();
-                        $push->sendPush($friend_id,$text,4,array(
+                        (new Application_Model_DbTable_Push())->sendPush($friend_id,$text,4,array(
                             'from' => $user_id,
                             'type' => 4,
-                            'item' => $user_id,
+                            'item' => $idn,
                             'action' => 2
                         ));
 

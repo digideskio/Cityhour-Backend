@@ -125,7 +125,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 ),"id = $slot_id");
 
                 $text = '$$$name$$$ принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
-                $this->_db->insert('notifications',array(
+                $idn = (new Application_Model_DbTable_Notifications())->insertNotification(array(
                     'from' => $user['id'],
                     'to' => $slot['user_id'],
                     'type' => 4,
@@ -136,11 +136,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 ));
 
                 $text = $user['name'].' принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
-                $push = new Application_Model_DbTable_Push();
-                $push->sendPush($slot['user_id'],$text,2,array(
+                (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
                     'type' => 2,
-                    'item' => $slot['id'],
+                    'item' => $idn,
                     'action' => 1
                 ));
 
@@ -228,7 +227,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
 
                 $text = '$$$name$$$ принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
-                $this->_db->insert('notifications',array(
+                $idn = (new Application_Model_DbTable_Notifications())->insertNotification(array(
                     'from' => $user['id'],
                     'to' => $slot['user_id'],
                     'type' => 4,
@@ -239,11 +238,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 ));
 
                 $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
-                $push = new Application_Model_DbTable_Push();
-                $push->sendPush($slot['user_id'],$text,2,array(
+                (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
                     'type' => 2,
-                    'item' => $slot['id'],
+                    'item' => $idn,
                     'action' => 1
                 ));
 
@@ -567,7 +565,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             }
 
 
-            $this->_db->insert('notifications',array(
+            $idn = (new Application_Model_DbTable_Notifications())->insertNotification(array(
                 'from' => $user['id'],
                 'to' => $user_second,
                 'type' => $nType,
@@ -577,11 +575,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'action' => 0
             ));
 
-            $push = new Application_Model_DbTable_Push();
-            $push->sendPush($user_second,$text,0,array(
+            (new Application_Model_DbTable_Push())->sendPush($user_second,$text,0,array(
                 'from' => $user['id'],
                 'type' => $pType,
-                'item' => $id,
+                'item' => $idn,
                 'action' => 0
             ));
 
@@ -700,7 +697,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             ),"(item = $sid1 or item = $sid2) and type = 4");
 
             $text = '$$$name$$$ отменил встречу '.$slot['start_time'].' в '.$slot['place'];
-            $this->_db->insert('notifications',array(
+            $idn = (new Application_Model_DbTable_Notifications())->insertNotification(array(
                 'from' => $user['id'],
                 'to' => $slot2['user_id'],
                 'item' => $slot2['id'],
@@ -711,11 +708,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             ));
 
             $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. отменил встречу '.$slot['start_time'].' в '.$slot['place'];
-            $push = new Application_Model_DbTable_Push();
-            $push->sendPush($slot['user_id_second'],$text,0,array(
+            (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,0,array(
                 'from' => $user['id'],
                 'type' => 1,
-                'item' => $slot2['id'],
+                'item' => $idn,
                 'action' => 1
             ));
 
