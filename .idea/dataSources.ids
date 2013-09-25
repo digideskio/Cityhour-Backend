@@ -138,7 +138,9 @@
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="from" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="to" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
+      <column name="type" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MTI="/>
+      <column name="action" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="template" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="item" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
       <column name="text" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>

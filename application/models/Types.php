@@ -91,6 +91,7 @@ class Application_Model_Types
             5 => 'Chat message',
             6 => 'Meeting request user not free',
             7 => 'System',
+            8 => 'Meeting come'
         );
     }
 

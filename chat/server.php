@@ -56,7 +56,6 @@ class databaseClass {
         $text = mb_substr($text,0,25,'UTF-8');
         $data = json_encode(array(
             'from' => $from,
-            'to' => $to,
             'type' => 5
         ));
         $result = mysql_query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$to','5','$text','$data')");
