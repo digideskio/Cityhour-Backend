@@ -707,10 +707,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             ));
 
             $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. отменил встречу '.$slot['start_time'].' в '.$slot['place'];
-            (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,0,array(
+            (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,1,array(
                 'from' => $user['id'],
                 'type' => 1,
-                'item' => $idn,
+                'item' => $slot2['id'],
                 'action' => 1
             ));
 
