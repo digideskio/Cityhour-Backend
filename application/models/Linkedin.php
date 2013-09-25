@@ -165,7 +165,7 @@ class Application_Model_Linkedin
                         'name' => (isset($row['fieldOfStudy']) && $row['fieldOfStudy']) ? $row['fieldOfStudy'] : '',
                         'company' => (isset($row['schoolName']) && $row['schoolName']) ? $row['schoolName'] : '',
                         'start_time' => (isset($row['startDate']['year']) && $row['startDate']['year']) ? date('Y-m-d',mktime(0,0,0,1,1,(int)$row['startDate']['year'])) : null,
-                        'end_time' => (isset($row['schoolName']) && $row['endDate']['year']) ? date('Y-m-d',mktime(0,0,0,1,1,(int)$row['endDate']['year'])) : null
+                        'end_time' => (isset($row['endDate']['year']) && $row['endDate']['year']) ? date('Y-m-d',mktime(0,0,0,1,1,(int)$row['endDate']['year'])) : null
                     );
                 }
             }
