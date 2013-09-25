@@ -352,8 +352,11 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     public function createMeetingEmail($user,$data) {
 
-        if ($this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'])) {
-            return 300;
+        if ($bid = $this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'],true)) {
+            return array(
+                'body' => $this->getSlotID($bid),
+                'error' => 300
+            );
         }
 
         if (isset($data['person_value']) && $data['person_value'] && isset($data['person_name']) && $data['person_name']) {
@@ -462,7 +465,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
     }
 
-    public function userBusyOrFree($q_in,$q_out,$user_id) {
+    public function userBusyOrFree($q_in,$q_out,$user_id,$return_id = false) {
         $q_in = gmdate('Y-m-d H:i:s',(int)$q_in);
         $q_out = gmdate('Y-m-d H:i:s',(int)$q_out);
         $che = $this->_db->fetchOne("
@@ -482,6 +485,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             limit 1
         ");
         if (is_numeric($che)) {
+            if ($return_id) {
+                return $che;
+            }
             return true;
         }
         else {
@@ -527,8 +533,11 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             return 408;
         }
 
-        if ($this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'])) {
-            return 300;
+        if ($bid = $this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'],true)) {
+            return array(
+                'body' => $this->getSlotID($bid),
+                'error' => 300
+            );
         }
 
         if ($this->meetWithYouThisTime($data['date_from'],$data['date_to'],$user['id'],$user_second)) {

@@ -90,6 +90,7 @@ class Application_Model_Types
             4 => 'Friend request',
             5 => 'Chat message',
             6 => 'Meeting request user not free',
+            7 => 'System',
         );
     }
 

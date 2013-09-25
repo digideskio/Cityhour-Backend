@@ -215,6 +215,12 @@ class V1_MeetingsController extends Zend_Rest_Controller
                     'errorCode' => 200
                 ));
             }
+            elseif (isset($res['body'])) {
+                $this->_helper->json->sendJson(array(
+                    'body' => $res['body'],
+                    'errorCode' => $res['error']
+                ));
+            }
             else {
                 $this->_helper->json->sendJson(array(
                     'errorCode' => $res
