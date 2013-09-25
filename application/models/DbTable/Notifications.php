@@ -19,95 +19,97 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
         }
 
         $res = $this->_db->fetchAll("
-        select *
-        from (
-                (SELECT n.id,
-                        n.from,
-                        n.to,
-                        n.type,
-                        n.item,
-                        n.text,
-                        n.template,
-                        n.action,
-                        n.status,
-                        Unix_timestamp(n.time)  AS time_when,
+            (SELECT n.id,
+                    n.from,
+                    n.to,
+                    n.type,
+                    n.item,
+                    n.text,
+                    n.template,
+                    n.action,
+                    n.status,
+                    Unix_timestamp(n.time)  AS time_when,
+                    CASE
+                      WHEN (SELECT DISTINCT( f.id )
+                            FROM   user_friends f
+                            WHERE  f.user_id = n.to
+                               AND f.friend_id = n.from
+                               AND f.status = 1) > 0 THEN Concat(u.name, ' ', u.lastname)
+                      ELSE Concat(u.name, ' ', Substr(u.lastname, 1, 1), '.')
+                    end                     AS fullname,
+                    Concat('$url', u.photo) AS photo,
+                    j.name                  AS job,
+                    j.company,
+                    null as place,
+                    null as foursquare_id,
+                    null as start_time
+             FROM   notifications n
+                    LEFT JOIN users u
+                           ON n.from = u.id
+                    LEFT JOIN user_jobs j
+                           ON u.id = j.user_id
+                              AND j.current = 1
+                              AND j.type = 0
+             WHERE  n.to = $user_id
+                AND n.type IN ( 0, 1, 2, 7, 8 )
+                $id
+             GROUP  BY n.id
+             order by n.id desc
+             limit 50
+             )
+            UNION
+            (SELECT n.id,
+                    n.from,
+                    n.to,
+                    n.type,
+                    n.item,
+                    n.text,
+                    n.template,
+                    n.action,
+                    n.status,
+                    Unix_timestamp(n.time) AS time_when,
+                    CASE
+                      WHEN c.email = 0 THEN
                         CASE
                           WHEN (SELECT DISTINCT( f.id )
                                 FROM   user_friends f
                                 WHERE  f.user_id = n.to
                                    AND f.friend_id = n.from
-                                   AND f.status = 1) > 0 THEN Concat(u.name, ' ', u.lastname)
+                                   AND f.status = 1) > 0 THEN
+                          Concat(u.name, ' ', u.lastname)
                           ELSE Concat(u.name, ' ', Substr(u.lastname, 1, 1), '.')
-                        end                     AS fullname,
-                        Concat('$url', u.photo) AS photo,
-                        j.name                  AS job,
-                        j.company,
-                        null as place,
-                        null as foursquare_id,
-                        null as start_time
-                 FROM   notifications n
-                        LEFT JOIN users u
-                               ON n.from = u.id
-                        LEFT JOIN user_jobs j
-                               ON u.id = j.user_id
-                                  AND j.current = 1
-                                  AND j.type = 0
-                 WHERE  n.to = $user_id
-                    AND n.type IN ( 0, 1, 2, 7, 8 )
-                    $id
-                 GROUP  BY n.id)
-                UNION
-                (SELECT n.id,
-                        n.from,
-                        n.to,
-                        n.type,
-                        n.item,
-                        n.text,
-                        n.template,
-                        n.action,
-                        n.status,
-                        Unix_timestamp(n.time) AS time_when,
-                        CASE
-                          WHEN c.email = 0 THEN
-                            CASE
-                              WHEN (SELECT DISTINCT( f.id )
-                                    FROM   user_friends f
-                                    WHERE  f.user_id = n.to
-                                       AND f.friend_id = n.from
-                                       AND f.status = 1) > 0 THEN
-                              Concat(u.name, ' ', u.lastname)
-                              ELSE Concat(u.name, ' ', Substr(u.lastname, 1, 1), '.')
-                            end
-                          ELSE e.name
-                        end                    AS fullname,
-                        CASE
-                          WHEN c.email = 0 THEN Concat('$url', u.photo)
-                          ELSE ''
-                        end                    AS photo,
-                        j.name                 AS job,
-                        j.company,
-                        c.place as place,
-                        c.foursquare_id as foursquare_id,
-                        unix_timestamp(c.start_time) as start_time
-                 FROM   notifications n
-                        LEFT JOIN calendar c
-                               ON n.item = c.id
-                        LEFT JOIN users u
-                               ON n.from = u.id
-                                  AND c.email = 0
-                        LEFT JOIN email_users e
-                               ON c.user_id = e.id
-                                  AND c.email = 1
-                        LEFT JOIN user_jobs j
-                               ON u.id = j.user_id
-                                  AND j.current = 1
-                                  AND j.type = 0
-                 WHERE  n.to = $user_id
-                    AND n.type IN ( 3, 4, 5, 6, 9 )
-                    $id
-                 GROUP  BY n.id)
-                ) as tn
-                limit 50
+                        end
+                      ELSE e.name
+                    end                    AS fullname,
+                    CASE
+                      WHEN c.email = 0 THEN Concat('$url', u.photo)
+                      ELSE ''
+                    end                    AS photo,
+                    j.name                 AS job,
+                    j.company,
+                    c.place as place,
+                    c.foursquare_id as foursquare_id,
+                    unix_timestamp(c.start_time) as start_time
+             FROM   notifications n
+                    LEFT JOIN calendar c
+                           ON n.item = c.id
+                    LEFT JOIN users u
+                           ON n.from = u.id
+                              AND c.email = 0
+                    LEFT JOIN email_users e
+                           ON c.user_id = e.id
+                              AND c.email = 1
+                    LEFT JOIN user_jobs j
+                           ON u.id = j.user_id
+                              AND j.current = 1
+                              AND j.type = 0
+             WHERE  n.to = $user_id
+                AND n.type IN ( 3, 4, 5, 6, 9 )
+                $id
+             GROUP  BY n.id
+             order by n.id desc
+             limit 50
+             )
         ");
         return $res;
     }
