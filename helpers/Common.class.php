@@ -93,7 +93,7 @@ class Common {
                     $result[$num]['start_time'] = strtotime($row['start_time']);
                     $result[$num]['end_time'] = strtotime($row['end_time']);
                     if (!$row['foursquare_id']) {
-                        $result[$num]['foursquare_id'] = $row['foursquare_id'];
+                        $result[$num]['foursquare_id'] = null;
                     }
                 }
             }
