@@ -104,15 +104,13 @@ class Application_Model_Linkedin
             if (isset($user_profile['positions']['values'])) {
                 foreach ($user_profile['positions']['values'] as $num=>$row) {
                     $start_m =  (isset($row['startDate']['month'])) ? (int)$row['startDate']['month']:1;
-                    $start_y =  (isset($row['startDate']['year'])) ? (int)$row['startDate']['year']:0;
                     $end_m =  (isset($row['endDate']['month'])) ? (int)$row['endDate']['month']:1;
-                    $end_y =  (isset($row['endDate']['year'])) ? (int)$row['endDate']['year']:0;
 
                     $jobs[$num] = array(
                         'name' => $row['title'],
                         'company' => (isset($row['company']['name']) && $row['company']['name']) ? $row['company']['name'] : '',
                         'current' => $row['isCurrent'],
-                        'start_time' => date('Y-m-d',mktime(0,0,0,$start_m,1,(int)$start_y))
+                        'start_time' => (isset($row['startDate']['year'])) ? (int)date('Y-m-d',mktime(0,0,0,$start_m,1,(int)$row['startDate']['year'])):null
                     );
                     if ($row['isCurrent']) {
                         $jobs[$num]['end_time'] = null;
@@ -121,7 +119,7 @@ class Application_Model_Linkedin
                         }
                     }
                     else {
-                        $jobs[$num]['end_time'] = date('Y-m-d',mktime(0,0,0,$end_m,1,(int)$end_y));
+                        $jobs[$num]['end_time'] = (isset($row['endDate']['year'])) ? date('Y-m-d',mktime(0,0,0,$end_m,1,(int)$row['endDate']['year'])):null;
                     }
                 }
             }
@@ -232,7 +230,7 @@ class Application_Model_Linkedin
             return false;
         }
 
-        if ($friends == null) {
+        if (!isset($friends['values'])) {
             return false;
         }
         $friends = $friends['values'];
