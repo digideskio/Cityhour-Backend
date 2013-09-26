@@ -692,10 +692,12 @@ class FindPeople extends Common {
         else {
             $url = $this->config['userPhoto.url'];
             $sql = "
-                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company
+                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place
                 from (
                     (
-                        SELECT m.user_id, m.lat, m.lng
+                        SELECT m.user_id, m.lat, m.lng, unix_timestamp(now()) as start_time,
+                        null as foursquare_id,
+                        null as place
                         FROM map m
                         WHERE
                         m.time > now() - interval 10 MINUTE
@@ -713,7 +715,18 @@ class FindPeople extends Common {
                           when r.type = 1 then (select c.lng from calendar c where c.id = r.id)
                           when r.type = 3 then (select ci.lng from user_settings s left join city ci on ci.city = s.value where s.name = 'city' and s.user_id = r.user_id)
                           else null
-                        end as lng
+                        end as lng,
+                        r.start_time,
+                        case
+                          when r.type = 1 then (select c.foursquare_id from calendar c where c.id = r.id)
+                          when r.type = 3 then (select s.value from user_settings s where s.name = 'foursquare_id' and s.user_id = r.user_id)
+                          else null
+                        end as foursquare_id,
+                        case
+                          when r.type = 1 then (select c.place from calendar c where c.id = r.id)
+                          when r.type = 3 then (select ci.place from user_settings s left join place ci on ci.foursquare_id = s.value where s.name = 'foursquare_id' and s.user_id = r.user_id)
+                          else null
+                        end as place
                         from rSult r
                         where (UNIX_TIMESTAMP(r.end_time) - UNIX_TIMESTAMP(r.start_time)) >= 3600
                     )

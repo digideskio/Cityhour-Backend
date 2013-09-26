@@ -4,6 +4,8 @@ $config = parse_ini_file("../application/configs/application.ini");
 $db = mysql_connect($config['resources.db.params.host'], $config['resources.db.params.username'], $config['resources.db.params.password']) or
 die("Could not connect: " . mysql_error());
 mysql_select_db($config['resources.db.params.dbname']);
+mysql_set_charset('utf8',$db);
+mysql_query("SET NAMES utf8, time_zone = '+0:00'");
 
 $result = mysql_query("
                         select id,user_id
@@ -52,10 +54,11 @@ if (mysql_num_rows($result) != 0) {
             'from' => 0,
             'type' => 8,
             'item' => $id,
-            'action' => 1
+            'action' => 7
         );
+        $data = json_encode($data);
         mysql_query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$user_id','8','$text','$data')");
-        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','10','1','0','$id','$text')");
+        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','10','7','0','$id','$text')");
     }
 }
 mysql_free_result($result);

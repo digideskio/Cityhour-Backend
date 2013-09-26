@@ -18,7 +18,9 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
             select m.alert, m.data, p.debug, p.deviceToken, p.id, m.id as mid
             from push_messages m
             inner join push p on m.user_id = p.user_id
+            left join users u on m.user_id = u.id
             where m.id in ($ids) and m.status = 0
+            and u.status = 0
         ");
         $dcrt = APPLICATION_PATH.'/configs/development.pem';
         $pcrt = APPLICATION_PATH.'/configs/production.pem';

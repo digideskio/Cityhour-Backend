@@ -63,6 +63,7 @@ class Application_Model_Types
             4 => 'Chat with user',
             5 => 'User profile',
             6 => 'Other user profile',
+            7 => 'Meeting come',
         );
     }
 

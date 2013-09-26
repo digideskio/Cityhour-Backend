@@ -26,6 +26,31 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         return true;
     }
 
+    public function blocked($private_key) {
+        $filter = new Zend_Filter_Alnum();
+        $private_key = $filter->filter($private_key);
+        $res = $this->_db->fetchRow("
+            select u.id,u.status,s.value
+            from users u
+            left join user_settings s on u.id = s.user_id and s.name = 'blocked'
+            where private_key = '$private_key'
+        ");
+        if (!isset($res['id']) || !is_numeric($res['id'])) {
+            return 404;
+        }
+        if ((int)$res['status'] === 0) {
+            return array(
+                'status' => false
+            );
+        }
+        else {
+            return array(
+                'status' => true,
+                'reason' => $res['value']
+            );
+        }
+    }
+
     public function getLinkedinUsers($users_in) {
         return $this->_db->fetchAll("
             select id, linkedin_id
@@ -689,7 +714,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
     }
 
-    public static function authorize($private_key) {
+    public static function authorize($private_key,$block = true) {
         if ($private_key) {
             $filter = new Zend_Filter_Alnum();
             $private_key = $filter->filter($private_key);
@@ -701,7 +726,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             if ($res && $res['status'] == 0) {
                 return $res;
             }
-            elseif ($res && $res['status'] != 0) {
+            elseif ($res && $res['status'] != 0 && $block) {
                 Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
                     'errorCode' => '407'
                 ));
