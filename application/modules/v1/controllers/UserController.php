@@ -76,7 +76,7 @@ class V1_UserController extends Zend_Rest_Controller
         $token = $this->_request->getParam('private_key');
         $id = $this->_request->getParam('id');
         if ($token && is_numeric($id)) {
-            $user = Application_Model_DbTable_Users::authorize($token);
+            $user = Application_Model_DbTable_Users::authorize($token,false);
 
             $db = new Application_Model_DbTable_Users();
             if ($res = $db->getUser($id,$user)) {
@@ -179,7 +179,7 @@ class V1_UserController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key']) && $data['private_key']) {
-            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+            $user = Application_Model_DbTable_Users::authorize($data['private_key'],false);
 
             $db = new Application_Model_DbTable_Users();
             if ($res = $db->updateUser($user,$data)) {

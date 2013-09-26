@@ -453,17 +453,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
     {
         $user = $this->getUser($token,false,'facebook_key',true,true);
         if ($user) {
-            if ($user['status'] == 0) {
-                return array(
-                    'body' => $user,
-                    'errorCode' => '200'
-                );
-            }
-            else {
-                return array(
-                    'errorCode' => '407'
-                );
-            }
+            return array(
+                'body' => $user,
+                'errorCode' => '200'
+            );
         } else {
             $facebook = new Application_Model_Facebook();
             $user_profile = $facebook->getUser($token);
@@ -476,17 +469,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         'facebook_id' => $user_profile['id']
                     ),"id = $id");
 
-                    if ($user['status'] == 0) {
-                        return array(
-                            'body' => $user,
-                            'errorCode' => '200'
-                        );
-                    }
-                    else {
-                        return array(
-                            'errorCode' => '407'
-                        );
-                    }
+                    return array(
+                        'body' => $user,
+                        'errorCode' => '200'
+                    );
                 }
                 else {
                     return array(
@@ -512,17 +498,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
     {
         $user = $this->getUser($token,false,'linkedin_key',true,true);
         if ($user) {
-            if ($user['status'] == 0) {
-                return array(
-                    'body' => $user,
-                    'errorCode' => '200'
-                );
-            }
-            else {
-                return array(
-                    'errorCode' => '407'
-                );
-            }
+            return array(
+                'body' => $user,
+                'errorCode' => '200'
+            );
         } else {
             $linkedin = new Application_Model_Linkedin();
             $user_profile = $linkedin->getUser($token);
@@ -535,17 +514,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         'linkedin_id' => $user_profile['linkedin_id']
                     ),"id = $id");
 
-                    if ($user['status'] == 0) {
-                        return array(
-                            'body' => $user,
-                            'errorCode' => '200'
-                        );
-                    }
-                    else {
-                        return array(
-                            'errorCode' => '407'
-                        );
-                    }
+                    return array(
+                        'body' => $user,
+                        'errorCode' => '200'
+                    );
                 }
                 else {
 
