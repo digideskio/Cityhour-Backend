@@ -692,7 +692,7 @@ class FindPeople extends Common {
         else {
             $url = $this->config['userPhoto.url'];
             $sql = "
-                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place
+                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, t.start_time
                 from (
                     (
                         SELECT m.user_id, m.lat, m.lng, unix_timestamp(now()) as start_time,
