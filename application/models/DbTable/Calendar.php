@@ -5,11 +5,17 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     protected $_name = 'calendar';
 
-    public function getSlotID($id) {
+    public function getSlotID($id,$many = false) {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->userPhoto->url;
 
-        $res = $this->_db->fetchRow("
+        if (!$many) {
+            $id = "c.id = $id";
+        }
+        else {
+            $id = "c.id in ($id)";
+        }
+        $res = $this->_db->fetchAll("
             select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
              case
               when c.email = 0 then case
@@ -32,6 +38,11 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             where
             c.id = $id
         ");
+
+        if (!$many && isset($res[0])) {
+            $res = $res[0];
+        }
+
         return $res;
     }
 
@@ -353,8 +364,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     public function createMeetingEmail($user,$data) {
 
         if ($bid = $this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'],true)) {
+            $bid = implode(',',$bid);
             return array(
-                'body' => $this->getSlotID($bid),
+                'body' => $this->getSlotID($bid,true),
                 'error' => 300
             );
         }
@@ -469,7 +481,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $q_in = gmdate('Y-m-d H:i:s',(int)$q_in);
         $q_out = gmdate('Y-m-d H:i:s',(int)$q_out);
         $che = $this->_db->fetchOne("
-            select c.id
+            select group_concat(c.id)
             from calendar c
             where
             (
@@ -482,9 +494,11 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
               and c.user_id = $user_id
               and c.type = 2
               and c.status = 2
-            limit 1
         ");
-        if (is_numeric($che)) {
+        if ($che) {
+            $che = explode(',',$che);
+        }
+        if (isset($che[0]) && is_numeric($che[0])) {
             if ($return_id) {
                 return $che;
             }
@@ -534,8 +548,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
 
         if ($bid = $this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'],true)) {
+            $bid = implode(',',$bid);
             return array(
-                'body' => $this->getSlotID($bid),
+                'body' => $this->getSlotID($bid,true),
                 'error' => 300
             );
         }
