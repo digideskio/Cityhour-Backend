@@ -85,7 +85,13 @@ class Application_Model_Linkedin
             catch (Exception $e) {
                 $picture = null;
             }
-            $photo = $picture['values'][0];
+            if (isset($picture['values'][0])) {
+                $photo = $picture['values'][0];
+            }
+            else {
+                $photo = null;
+            }
+
 
             //Industry
             $industry_id = false;
@@ -98,13 +104,15 @@ class Application_Model_Linkedin
             if (isset($user_profile['positions']['values'])) {
                 foreach ($user_profile['positions']['values'] as $num=>$row) {
                     $start_m =  (isset($row['startDate']['month'])) ? (int)$row['startDate']['month']:1;
+                    $start_y =  (isset($row['startDate']['year'])) ? (int)$row['startDate']['year']:0;
                     $end_m =  (isset($row['endDate']['month'])) ? (int)$row['endDate']['month']:1;
+                    $end_y =  (isset($row['endDate']['year'])) ? (int)$row['endDate']['year']:0;
 
                     $jobs[$num] = array(
                         'name' => $row['title'],
-                        'company' => $row['company']['name'],
+                        'company' => (isset($row['company']['name']) && $row['company']['name']) ? $row['company']['name'] : '',
                         'current' => $row['isCurrent'],
-                        'start_time' => date('Y-m-d',mktime(0,0,0,$start_m,1,(int)$row['startDate']['year']))
+                        'start_time' => date('Y-m-d',mktime(0,0,0,$start_m,1,(int)$start_y))
                     );
                     if ($row['isCurrent']) {
                         $jobs[$num]['end_time'] = null;
@@ -113,7 +121,7 @@ class Application_Model_Linkedin
                         }
                     }
                     else {
-                        $jobs[$num]['end_time'] = date('Y-m-d',mktime(0,0,0,$end_m,1,(int)$row['endDate']['year']));
+                        $jobs[$num]['end_time'] = date('Y-m-d',mktime(0,0,0,$end_m,1,(int)$end_y));
                     }
                 }
             }
