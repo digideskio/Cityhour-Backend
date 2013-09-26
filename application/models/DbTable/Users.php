@@ -117,7 +117,12 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         $row['current'] = 1;
                     }
                     if (!isset($row['end_time'])) {
-                        $row['end_time'] = $row['start_time'];
+                        if (isset($row['start_time'])) {
+                            $row['end_time'] = $row['start_time'];
+                        }
+                        else {
+                            $row['end_time'] = null;
+                        }
                     }
                     if (isset($row['id']) && is_numeric($row['id'])) {
                         $job_id = $row['id'];

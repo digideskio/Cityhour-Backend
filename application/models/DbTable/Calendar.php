@@ -36,7 +36,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             left join users u on c.user_id_second = u.id and c.email = 0
             left join email_users e on c.user_id_second = e.id and c.email = 1
             where
-            c.id = $id
+            $id
         ");
 
         if (!$many && isset($res[0])) {
@@ -748,8 +748,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return true;
     }
 
-    public function deleteSlot($user,$id) {
-        $user_id = $user['id'];
+    public function deleteSlotReal($user,$id,$user_id) {
         $slot = $this->getSlot($id,$user_id,true);
         if ($slot) {
             if ($slot['type'] === '1') {
@@ -762,6 +761,25 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             }
         }
         return 404;
+    }
+
+    public function deleteSlot($user,$id) {
+        $user_id = $user['id'];
+
+        if (is_numeric($id)) {
+            return $this->deleteSlotReal($user,$id,$user_id);
+        }
+        else {
+            $id = explode(',',$id);
+            if (isset($id[0])) {
+                foreach ($id as $row) {
+                    if (is_numeric($row)) {
+                        $this->deleteSlotReal($user,$row,$user_id);
+                    }
+                }
+            }
+            return 200;
+        }
     }
 
 
