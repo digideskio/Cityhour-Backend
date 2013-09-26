@@ -310,9 +310,19 @@ class V1_MeetingsController extends Zend_Rest_Controller
             $input = new Zend_Filter_Input($filters, $validators, $data);
 
             $db = new Application_Model_DbTable_Calendar();
-            $this->_helper->json->sendJson(array(
-                'errorCode' => $db->answerMeeting($user,$data['id'],$data['status'],$input->getEscaped('foursquare_id'))
-            ));
+            $res = $db->answerMeeting($user,$data['id'],$data['status'],$input->getEscaped('foursquare_id'));
+
+            if (isset($res['body'])) {
+                $this->_helper->json->sendJson(array(
+                    'body' => $res['body'],
+                    'errorCode' => $res['error']
+                ));
+            }
+            else {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => $res
+                ));
+            }
         }
         else {
             $this->_helper->json->sendJson(array(
