@@ -90,7 +90,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             left join email_users e on c.user_id_second = e.id and c.email = 1
             where
             c.user_id = $user_id and (
-            (c.status = 2 and c.type = 2) or c.end_time > '$start'
+            (c.status in (2,4) and c.type = 2) or c.end_time > '$start'
             )
             group by c.id
         ");
