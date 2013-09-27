@@ -197,7 +197,20 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 return 404;
             }
 
-            if ($bid = $this->userBusyOrFree($slot['start_time'],$slot['end_time'],$user['id'],true)) {
+            if ($start_time && $end_time) {
+                $start_time = gmdate('Y-m-d H:i:s',(int)$start_time);
+                $end_time = gmdate('Y-m-d H:i:s',(int)$end_time);
+                $new_slot['start_time'] = $start_time;
+                $new_slot['end_time'] = $end_time;
+            }
+            else {
+                $new_slot['start_time'] = $slot['start_time'];
+                $new_slot['end_time'] = $slot['end_time'];
+            }
+
+
+
+            if ($bid = $this->userBusyOrFree($new_slot['start_time'],$new_slot['end_time'],$user['id'],true)) {
                 $bid = implode(',',$bid);
                 return array(
                     'body' => $this->getSlotID($bid,true),
@@ -209,24 +222,13 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 return 408;
             }
 
-            if ($this->userBusyOrFree(strtotime($slot['start_time']),strtotime($slot['end_time']),$slot['user_id'])) {
+            if ($this->userBusyOrFree(strtotime($new_slot['start_time']),strtotime($new_slot['end_time']),$slot['user_id'])) {
                 return 301;
             }
 
             $this->_db->beginTransaction();
             try {
                 $new_slot = array();
-
-                if ($start_time && $end_time) {
-                    $start_time = gmdate('Y-m-d H:i:s',(int)$start_time);
-                    $end_time = gmdate('Y-m-d H:i:s',(int)$end_time);
-                    $new_slot['start_time'] = $start_time;
-                    $new_slot['end_time'] = $end_time;
-                }
-                else {
-                    $new_slot['start_time'] = $slot['start_time'];
-                    $new_slot['end_time'] = $slot['end_time'];
-                }
 
                 if ($foursqure_id) {
                     $new_slot = array_merge($new_slot,Application_Model_Common::getPlace($foursqure_id));
@@ -735,24 +737,35 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'status' => 2
             ),"(item = $sid1 or item = $sid2) and type = 4");
 
-            $text = '$$$name$$$ отменил встречу $$$date$$$ в '.$slot['place'];
-            $idn = (new Application_Model_DbTable_Notifications())->insertNotification(array(
-                'from' => $user['id'],
-                'to' => $slot2['user_id'],
-                'item' => $slot2['id'],
-                'type' => 6,
-                'text' => $text,
-                'template' => 1,
-                'action' => 1
-            ));
 
-            $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. отменил встречу '.$slot['start_time'].' в '.$slot['place'];
-            (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,1,array(
-                'from' => $user['id'],
-                'type' => 1,
-                'item' => $slot2['id'],
-                'action' => 1
-            ));
+            if ($slot['email'] == 1) {
+                if ( $user_email = Application_Model_DbTable_EmailUsers::getUserId($slot2['user_id']) ) {
+                    $options = array(
+                        'name' => $user_email['name'],
+                    );
+                    Application_Model_Common::sendEmail($user_email['email'], "Митинг отменен!", null, null, null, "meeting_canceled.phtml", $options, 'meeting_canceled');
+                }
+            }
+            else {
+                $text = '$$$name$$$ отменил встречу $$$date$$$ в '.$slot['place'];
+                (new Application_Model_DbTable_Notifications())->insertNotification(array(
+                    'from' => $user['id'],
+                    'to' => $slot2['user_id'],
+                    'item' => $slot2['id'],
+                    'type' => 6,
+                    'text' => $text,
+                    'template' => 1,
+                    'action' => 1
+                ));
+
+                $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. отменил встречу '.$slot['start_time'].' в '.$slot['place'];
+                (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,1,array(
+                    'from' => $user['id'],
+                    'type' => 1,
+                    'item' => $slot2['id'],
+                    'action' => 1
+                ));
+            }
 
             $this->_db->commit();
             return 200;
