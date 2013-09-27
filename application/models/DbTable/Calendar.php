@@ -167,7 +167,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return 400;
     }
 
-    public function answerMeeting($user,$id,$status,$foursqure_id,$start_time,$end_time) {
+    public function answerMeeting($user,$id,$status,$foursqure_id,$start_time) {
         if (!$slot_id = $this->_db->fetchOne("select `item` from notifications where id = $id and type in (3,9)")) {
             return 400;
         }
@@ -197,18 +197,15 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 return 404;
             }
 
-            if ($start_time && $end_time) {
+            if ($start_time) {
                 $start_time = gmdate('Y-m-d H:i:s',(int)$start_time);
-                $end_time = gmdate('Y-m-d H:i:s',(int)$end_time);
                 $new_slot['start_time'] = $start_time;
-                $new_slot['end_time'] = $end_time;
             }
             else {
                 $new_slot['start_time'] = $slot['start_time'];
-                $new_slot['end_time'] = $slot['end_time'];
             }
-
-
+            $new_slot['end_time'] = strtotime($new_slot['start_time']) + 3600;
+            $new_slot['end_time'] = gmdate('Y-m-d H:i:s',(int)$new_slot['end_time']);
 
             if ($bid = $this->userBusyOrFree($new_slot['start_time'],$new_slot['end_time'],$user['id'],true)) {
                 $bid = implode(',',$bid);
@@ -380,6 +377,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function createMeetingEmail($user,$data) {
+
+        $data['date_to'] = (int)$data['date_from'] + 3600;
 
         if ($bid = $this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'],true)) {
             $bid = implode(',',$bid);
