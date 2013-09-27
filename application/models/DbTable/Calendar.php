@@ -225,15 +225,12 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
             $this->_db->beginTransaction();
             try {
-                $new_slot = array();
 
                 if ($foursqure_id) {
                     $new_slot = array_merge($new_slot,Application_Model_Common::getPlace($foursqure_id));
                     unset($new_slot['lat']);
                     unset($new_slot['lng']);
                     $slot = array_merge($slot,$new_slot);
-
-
                 }
                 elseif (!$slot['foursquare_id'] || empty($slot['foursquare_id'])) {
                     $this->_db->rollBack();
@@ -248,7 +245,6 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $this->_db->update('notifications',array(
                     'status' => 1
                 ),"id = $id");
-
 
                 $text = '$$$name$$$ принял приглашение на встречу $$$date$$$ в '.$slot['place'];
                 (new Application_Model_DbTable_Notifications())->insertNotification(array(
