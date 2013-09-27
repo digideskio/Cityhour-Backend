@@ -1,4 +1,4 @@
-# This PHP api for MeetRocket
+# This PHP api for CityHour
 Good new Soc thing.
 
 ## Documentation
