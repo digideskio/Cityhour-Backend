@@ -331,7 +331,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             elseif (!$meet_notStart && $res['type'] == 2 && $res['status'] == 2 && strtotime($res['end_time']) < time()) {
                 return $res;
             }
-            elseif ($meet_notStart && $res['type'] == 2 && $res['status'] == 1 && strtotime($res['start_time']) > time()-3600) {
+            elseif ($meet_notStart && $res['type'] == 2 && $res['status'] == 1 && strtotime($res['end_time']) > time()+3600) {
                 return $res;
             }
             elseif ($meet_notStart && $res['type'] == 2 && $res['status'] == 2 && strtotime($res['start_time']) > time()-3600) {
