@@ -207,7 +207,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $new_slot['end_time'] = strtotime($new_slot['start_time']) + 3600;
             $new_slot['end_time'] = gmdate('Y-m-d H:i:s',(int)$new_slot['end_time']);
 
-            if ($bid = $this->userBusyOrFree($new_slot['start_time'],$new_slot['end_time'],$user['id'],true)) {
+            if ($bid = $this->userBusyOrFree(strtotime($new_slot['start_time']),strtotime($new_slot['end_time']),$user['id'],true)) {
                 $bid = implode(',',$bid);
                 return array(
                     'body' => $this->getSlotID($bid,true),
