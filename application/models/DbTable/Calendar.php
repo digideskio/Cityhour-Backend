@@ -167,7 +167,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return 400;
     }
 
-    public function answerMeeting($user,$id,$status,$foursqure_id) {
+    public function answerMeeting($user,$id,$status,$foursqure_id,$start_time,$end_time) {
         if (!$slot_id = $this->_db->fetchOne("select `item` from notifications where id = $id and type in (3,9)")) {
             return 400;
         }
@@ -197,8 +197,12 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 return 404;
             }
 
-            if ($this->userBusyOrFree(strtotime($slot['start_time']),strtotime($slot['end_time']),$user['id'])) {
-                return 300;
+            if ($bid = $this->userBusyOrFree($slot['start_time'],$slot['end_time'],$user['id'],true)) {
+                $bid = implode(',',$bid);
+                return array(
+                    'body' => $this->getSlotID($bid,true),
+                    'error' => 300
+                );
             }
 
             if (!Application_Model_DbTable_Users::isValidUser($slot['user_id'])) {
@@ -211,24 +215,34 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
             $this->_db->beginTransaction();
             try {
-                if ($foursqure_id) {
-                    $foursqure_id = Application_Model_Common::getPlace($foursqure_id);
-                    unset($foursqure_id['lat']);
-                    unset($foursqure_id['lng']);
+                $new_slot = array();
 
-                    $foursqure_id['status'] = 2;
-                    $this->update($foursqure_id,"id = $slot_id");
-                    $slot = array_merge($slot,$foursqure_id);
+                if ($start_time && $end_time) {
+                    $start_time = gmdate('Y-m-d H:i:s',(int)$start_time);
+                    $end_time = gmdate('Y-m-d H:i:s',(int)$end_time);
+                    $new_slot['start_time'] = $start_time;
+                    $new_slot['end_time'] = $end_time;
                 }
                 else {
-                    if (!$slot['foursquare_id'] || empty($slot['foursquare_id'])) {
-                        $this->_db->rollBack();
-                        return 400;
-                    }
-                    $this->update(array(
-                        'status' => 2
-                    ),"id = $slot_id");
+                    $new_slot['start_time'] = $slot['start_time'];
+                    $new_slot['end_time'] = $slot['end_time'];
                 }
+
+                if ($foursqure_id) {
+                    $new_slot = Application_Model_Common::getPlace($foursqure_id);
+                    unset($new_slot['lat']);
+                    unset($new_slot['lng']);
+                    $slot = array_merge($slot,$new_slot);
+
+
+                }
+                elseif (!$slot['foursquare_id'] || empty($slot['foursquare_id'])) {
+                    $this->_db->rollBack();
+                    return 400;
+                }
+
+                $new_slot['status'] = 2;
+                $this->update($new_slot,"id = $slot_id");
 
                 $this->expireMeeting($user['id'],$slot);
 
@@ -248,7 +262,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
+                $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. принял приглашение на встречу '.$new_slot['start_time'].' в '.$slot['place'];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
                     'type' => 2,
@@ -261,6 +275,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $slot['user_id'] = $user['id'];
                 $slot['status'] = 2;
                 $slot['type'] = 2;
+                $slot['start_time'] = $new_slot['start_time'];
+                $slot['end_time'] = $new_slot['end_time'];
                 $this->insert($slot);
 
                 $this->_db->commit();

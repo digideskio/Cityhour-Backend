@@ -241,6 +241,8 @@ class V1_MeetingsController extends Zend_Rest_Controller
      * @SWG\Property(name="id",type="int")
      * @SWG\Property(name="status",type="int")
      * @SWG\Property(name="foursqure_id",type="string")
+     * @SWG\Property(name="start_time",type="string")
+     * @SWG\Property(name="end_time",type="string")
      *
      *
      * @SWG\Api(
@@ -306,11 +308,13 @@ class V1_MeetingsController extends Zend_Rest_Controller
             );
             $filters = array(
                 'foursquare_id' => array('StringTrim','HtmlEntities'),
+                'start_time' => array('StringTrim','HtmlEntities','Int'),
+                'end_time' => array('StringTrim','HtmlEntities','Int'),
             );
             $input = new Zend_Filter_Input($filters, $validators, $data);
 
             $db = new Application_Model_DbTable_Calendar();
-            $res = $db->answerMeeting($user,$data['id'],$data['status'],$input->getEscaped('foursquare_id'));
+            $res = $db->answerMeeting($user,$data['id'],$data['status'],$input->getEscaped('foursquare_id'),$input->getEscaped('start_time'),$input->getEscaped('end_time'));
 
             if (isset($res['body'])) {
                 $this->_helper->json->sendJson(array(
