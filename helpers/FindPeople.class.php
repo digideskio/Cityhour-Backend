@@ -22,10 +22,7 @@ include_once 'Common.class.php';
  * @SWG\Property(name="goal",type="int")
  * @SWG\Property(name="industry",type="int")
  *
- * @SWG\Property(name="s_lat",type="float")
- * @SWG\Property(name="n_lat",type="float")
- * @SWG\Property(name="s_lng",type="float")
- * @SWG\Property(name="n_lng",type="float")
+ * @SWG\Property(name="map",type="boolean")
  * @SWG\Property(name="lat",type="float")
  * @SWG\Property(name="lng",type="float")
  *
