@@ -299,11 +299,6 @@ class FindPeople extends Common {
 
             if (isset($data["private_key"])) $token = $data["private_key"]; else $che = false;
 
-            if (isset($data["n_lat"])) $this->n_lat = $data["n_lat"]; else $che = false;
-            if (isset($data["s_lat"])) $this->s_lat = $data["s_lat"]; else $che = false;
-            if (isset($data["n_lng"])) $this->n_lng = $data["n_lng"]; else $che = false;
-            if (isset($data["s_lng"])) $this->s_lng = $data["s_lng"]; else $che = false;
-
             if (isset($data["lat"])) $lat = $data["lat"]; else $che = false;
             if (isset($data["lng"])) $lng = $data["lng"]; else $che = false;
 
@@ -312,6 +307,11 @@ class FindPeople extends Common {
                 die();
             }
 
+
+            $this->n_lat = (float)$data["lat"]+1.5;
+            $this->s_lat = (float)$data["lat"]-1.5;
+            $this->n_lng = (float)$data["lng"]+1.5;
+            $this->s_lng = (float)$data["lng"]-1.5;
 
             if ( $token != null && $token != '' && is_numeric($this->n_lat) && is_numeric($this->s_lat) && is_numeric($this->n_lng) && is_numeric($this->s_lng) && is_numeric($lat) && is_numeric($lng)) {
                 $user = $this->getUser($token);
@@ -692,7 +692,7 @@ class FindPeople extends Common {
         else {
             $url = $this->config['userPhoto.url'];
             $sql = "
-                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, t.start_time, u.city_name, 'CjQwAAAApVNZ2-AFvlamsAjOCcHjUtsYzwMqe8Xmn_JC36dG7hvksJSL9qypW4IlT6EIdzYgEhCFjmTtllsKJtz88Kj0kDYcGhR_Eaud4dn9q5ef6C0uWRqZo3f0-w' as city
+                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, t.start_time, u.city_name
                 from (
                     (
                         SELECT m.user_id, m.lat, m.lng, unix_timestamp(now()) as start_time,
