@@ -266,6 +266,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $filters = array(
             'name' => array('StringTrim','HtmlEntities',$filter_alnum),
             'lastname' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'country' => array('StringTrim','HtmlEntities',$filter_alnum),
             'summary' => array('StringTrim','HtmlEntities'),
             'skype' => array('StringTrim','HtmlEntities'),
             'phone' => array('StringTrim','HtmlEntities'),
@@ -288,7 +289,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $userData['private_key'] = uniqid(sha1(time()), false);
 
             //Not Important
-            if ($input->getEscaped('summary')) $userData['summary'] = $data['summary'];;
+            if ($input->getEscaped('summary')) $userData['summary'] = $data['summary'];
+            if ($input->getEscaped('country')) $userData['country'] = $data['country'];
             if ($input->getEscaped('skype')) $userData['skype'] = $input->getEscaped('skype');
             if ($input->getEscaped('phone')) $userData['phone'] = $input->getEscaped('phone');
             if ($input->getEscaped('business_email')) $userData['business_email'] = $input->getEscaped('business_email');
@@ -658,7 +660,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         }
         $this->_db->quote($id);
         $res = $this->_db->fetchRow("
-            select u.id $private, u.name, u.lastname, u.status, u.email,u.city_name,u.city,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_declined, group_concat(DISTINCT s.name SEPARATOR '$$$$$') as skills, group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') as languages
+            select u.id $private, u.country, u.name, u.lastname, u.status, u.email,u.city_name,u.city,u.industry_id,u.summary,u.photo,u.phone,u.business_email,u.skype,u.rating,u.experience, u.completeness,u.contacts,u.meet_succesfull,u.meet_declined, group_concat(DISTINCT s.name SEPARATOR '$$$$$') as skills, group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') as languages
             from users u
             left join user_skills s on u.id = s.user_id
             left join user_languages l on u.id = l.user_id

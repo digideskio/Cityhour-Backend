@@ -52,7 +52,7 @@ class Application_Model_Linkedin
             'oauth2_access_token' => $token,
             'format' => 'json',
         );
-        $url = 'https://api.linkedin.com/v1/people/~:(id,firstName,lastName,email-address,skills,industry,summary,positions,languages,phone-numbers,im-accounts,educations,main-address)?' . http_build_query($params);
+        $url = 'https://api.linkedin.com/v1/people/~:(id,firstName,lastName,email-address,skills,industry,summary,positions,languages,phone-numbers,im-accounts,educations,main-address,location)?' . http_build_query($params);
         $context = stream_context_create(
             array('http' =>
                 array(
@@ -92,9 +92,6 @@ class Application_Model_Linkedin
                 $photo = null;
             }
 
-//            var_dump($user_profile);
-//            die();
-
             //Industry
             $industry_id = false;
             if (isset($user_profile['industry'])) {
@@ -124,6 +121,13 @@ class Application_Model_Linkedin
                         $jobs[$num]['end_time'] = (isset($row['endDate']['year'])) ? date('Y-m-d',mktime(0,0,0,$end_m,1,(int)$row['endDate']['year'])):null;
                     }
                 }
+            }
+
+            //get Country ID
+            $country = null;
+            if (isset($user_profile['location']['country']['code'])) {
+                $country = $user_profile['location']['country']['code'];
+                $country = (new Application_Model_DbTable_Country())->getName($country);
             }
 
             //get Industry ID
@@ -204,6 +208,7 @@ class Application_Model_Linkedin
                 'languages' => $languages,
                 'skills' => $skills,
                 'city' => $city,
+                'country' => $country,
                 'education' => $education
             );
         }

@@ -42,6 +42,7 @@
           <dbTableFile dbTableName="Admins"/>
           <dbTableFile dbTableName="Logger"/>
           <dbTableFile dbTableName="EmailUsers"/>
+          <dbTableFile dbTableName="Country"/>
         </dbTableDirectory>
         <modelFile modelName="Common"/>
         <modelFile modelName="Types"/>

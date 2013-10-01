@@ -81,6 +81,12 @@
       <primary-key name="PRIMARY" columns="id"/>
       <index name="fk_complaints_users1_idx" unique="false" columns="from"/>
     </table>
+    <table name="country" schema="" catalog="truebear" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="code" sqlType="VARCHAR" length="5" precision="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
     <table name="email_users" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="email" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
@@ -247,6 +253,7 @@
       <column name="photo" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="phone" sqlType="VARCHAR" length="20" precision="0" nullable="true" jdbcType="12"/>
       <column name="business_email" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="country" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="city_name" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
       <column name="lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>

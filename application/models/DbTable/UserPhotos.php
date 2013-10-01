@@ -17,6 +17,7 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
         $convert = $config2->server->convert;
 
         exec("$convert -size $size[0]x$size[1] xc:none -fill $tmp_file -draw \"circle $width_h,$height_h $width_h,1\" $filename_ot");
+        exec("$convert $filename_ot -filter Lanczos -distort resize 266 $filename_ot");
 
         $s3 = new Zend_Service_Amazon_S3($config['my_aws_key'], $config['my_aws_secret_key']);
         $s3->putFile($tmp_file, $config['bucket'].$filename,
