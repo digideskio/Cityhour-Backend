@@ -63,7 +63,7 @@ class V1_SyncController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
         if ($token) {
-            $user = Application_Model_DbTable_Users::authorize($token);
+            $user = Application_Model_DbTable_Users::authorize($token,false);
             $this->_helper->json->sendJson(array(
                 'body' => (new Application_Model_DbTable_UserSettings())->getSettings($user),
                 'errorCode' => '200'
@@ -129,7 +129,7 @@ class V1_SyncController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key']) && $data['private_key']) {
-            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+            $user = Application_Model_DbTable_Users::authorize($data['private_key'],false);
 
             unset($data['private_key']);
             (new Application_Model_DbTable_UserSettings())->updateSettings($user,$data);

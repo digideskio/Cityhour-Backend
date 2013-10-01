@@ -33,7 +33,7 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
             )
         );
 
-        if ($private_key = Application_Model_DbTable_Users::getUserData($private_key)) {
+        if ($private_key = Application_Model_DbTable_Users::getUserData($private_key,true)) {
             $user_id = $private_key['id'];
             $id = $this->fetchRow("user_id = $user_id");
             if ($id != null) {
@@ -49,14 +49,20 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
                 $this->_db->update('users',array(
                     'photo' => $filename_o
                 ),"id = $user_id");
-                return $id;
+                return array(
+                    'id' => $id,
+                    'url' => $filename_o
+                );
             }
         }
         $id = $this->insert(array(
             'orig' => $filename,
             'circle_260' => $filename_o
         ));
-        return $id;
+        return array(
+            'id' => $id,
+            'url' => $filename_o
+        );
     }
 
 }

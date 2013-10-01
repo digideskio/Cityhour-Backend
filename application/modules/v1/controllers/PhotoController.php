@@ -89,8 +89,8 @@ class V1_PhotoController extends Zend_Rest_Controller
 
                 $this->_helper->json->sendJson(array(
                     'body' => array(
-                        'id' => $id,
-                        'url' => $config['url'].$filename
+                        'id' => $id['id'],
+                        'url' => $config['url'].$id['url']
                     ),
                     'errorCode' => '200'
                 ));

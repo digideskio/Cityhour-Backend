@@ -679,13 +679,16 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             return false;
     }
 
-    public static function getUserData($private_key) {
+    public static function getUserData($private_key,$block = false) {
         $res = Zend_Db_Table::getDefaultAdapter()->fetchRow("
             select *
             from users
             where private_key = '$private_key'
         ");
         if ($res != null && $res['status'] == 0) {
+            return $res;
+        }
+        elseif ($res != null && $res['status'] == 1 && $block) {
             return $res;
         }
         else {
