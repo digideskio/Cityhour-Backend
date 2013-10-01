@@ -20,7 +20,7 @@
           </elementProp>
           <elementProp name="key" elementType="Argument">
             <stringProp name="Argument.name">key</stringProp>
-            <stringProp name="Argument.value">42530ec9ae353de65dbc386b8d9bd9449ac99b845231c239d9c6a</stringProp>
+            <stringProp name="Argument.value">c3077d5cd3efe0797fb516b3cb216b3d55242f425221f6a71b83c</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="upload_pid" elementType="Argument">
@@ -41,7 +41,7 @@
         <boolProp name="CookieManager.clearEachIteration">false</boolProp>
       </CookieManager>
       <hashTree/>
-      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="v1/" enabled="true">
+      <ThreadGroup guiclass="ThreadGroupGui" testclass="ThreadGroup" testname="v1/user" enabled="true">
         <stringProp name="ThreadGroup.on_sample_error">continue</stringProp>
         <elementProp name="ThreadGroup.main_controller" elementType="LoopController" guiclass="LoopControlPanel" testclass="LoopController" testname="Loop Controller" enabled="true">
           <boolProp name="LoopController.continue_forever">false</boolProp>
@@ -56,7 +56,7 @@
         <stringProp name="ThreadGroup.delay"></stringProp>
       </ThreadGroup>
       <hashTree>
-        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Sessinon Case test" enabled="true"/>
+        <RecordingController guiclass="RecordController" testclass="RecordingController" testname="Get User" enabled="true"/>
         <hashTree>
           <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="/" enabled="true">
             <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" enabled="true">

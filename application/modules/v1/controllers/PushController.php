@@ -92,7 +92,7 @@ class V1_PushController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key']) && $data['private_key']) {
-            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+            $user = Application_Model_DbTable_Users::authorize($data['private_key'],false);
 
             $validators = array(
                 '*' => array('NotEmpty')
@@ -195,7 +195,7 @@ class V1_PushController extends Zend_Rest_Controller
         $input = new Zend_Filter_Input($filters, $validators, $this->_request->getParams());
 
         if ($input->isValid()) {
-            $user = Application_Model_DbTable_Users::authorize($input->getUnescaped('private_key'));
+            $user = Application_Model_DbTable_Users::authorize($input->getUnescaped('private_key'),false);
             $db = new Application_Model_DbTable_Push();
 
             if ($db->deletePush($user['id'],$input->getEscaped('device'))) {
