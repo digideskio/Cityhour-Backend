@@ -163,7 +163,7 @@ class V1_ComplaintsController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['private_key']) && $data['private_key'] && isset($data['dscr']) && $data['dscr']) {
-            $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+            $user = Application_Model_DbTable_Users::authorize($data['private_key'],false);
 
             $filter_alnum = new Zend_Filter_Alnum(true);
             $db = new Application_Model_DbTable_Complaints();
