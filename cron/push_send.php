@@ -51,6 +51,9 @@ class databaseClass {
 
         if (mysql_num_rows($result) != 0) {
             $res = mysql_fetch_assoc($result);
+            if (!$res['ids']) {
+                $res = false;
+            }
             mysql_free_result($result);
             return $res;
         }
