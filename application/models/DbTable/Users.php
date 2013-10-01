@@ -705,10 +705,13 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             if ($res && $res['status'] == 0) {
                 return $res;
             }
-            elseif ($res && $res['status'] != 0 && $block) {
+            elseif ($res && $res['status'] == 1 && $block) {
                 Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
                     'errorCode' => '407'
                 ));
+            }
+            elseif ($res && $res['status'] == 1 && !$block) {
+                return $res;
             }
             else {
                 Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
