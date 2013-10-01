@@ -568,6 +568,14 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $res['photo'] = null;
         }
 
+        //Blocked
+        if ($res['status'] != 0) {
+            $res['blocked'] = true;
+        }
+        else {
+            $res['blocked'] = false;
+        }
+
         // Public?Private request
         if ($user) {
             $user_id = $user['id'];
@@ -659,14 +667,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         ");
 
         if (isset($res['id'])) {
-            //Blocked
-            if ($res['status'] != 0) {
-                return array(
-                    'user_data' => $res,
-                    'blocked' => true
-                );
-            }
-
             // Prepeare User
             if ($prepeare) {
                 $res = $this->prepeareUser($res, $user);

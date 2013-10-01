@@ -92,6 +92,8 @@ class Application_Model_Linkedin
                 $photo = null;
             }
 
+//            var_dump($user_profile);
+//            die();
 
             //Industry
             $industry_id = false;
