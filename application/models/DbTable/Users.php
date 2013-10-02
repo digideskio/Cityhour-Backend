@@ -30,9 +30,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $filter = new Zend_Filter_Alnum();
         $private_key = $filter->filter($private_key);
         $res = $this->_db->fetchRow("
-            select u.id,u.status,s.value
+            select u.id,u.status,s.value as reason,s2.value as hours
             from users u
             left join user_settings s on u.id = s.user_id and s.name = 'blocked'
+            left join user_settings s2 on u.id = s2.user_id and s2.name = 'hours'
             where private_key = '$private_key'
         ");
         if (!isset($res['id']) || !is_numeric($res['id'])) {
@@ -46,7 +47,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         else {
             return array(
                 'status' => true,
-                'reason' => $res['value']
+                'reason' => $res['reason'],
+                'hours' => $res['hours'],
             );
         }
     }
