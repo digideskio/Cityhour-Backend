@@ -210,7 +210,7 @@ class Application_Model_Linkedin
                 'skype' => $skype,
                 'languages' => $languages,
                 'skills' => $skills,
-                'city' => $city,
+                'city_name' => $city,
                 'country' => $country,
                 'education' => $education
             );
