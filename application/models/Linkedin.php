@@ -61,7 +61,7 @@ class Application_Model_Linkedin
             )
         );
         try {
-            $user_profile = file_get_contents($url, false, $context);
+            $user_profile = @file_get_contents($url, false, $context);
             $user_profile = json_decode($user_profile,true);
         }
         catch (Exception $e) {
@@ -186,6 +186,9 @@ class Application_Model_Linkedin
             $city = null;
             if (isset($user_profile['mainAddress'])) {
                 $city = $user_profile['mainAddress'];
+            }
+            elseif (isset($user_profile['location']['name'])) {
+                $city = $user_profile['location']['name'];
             }
 
             // Summary

@@ -26,6 +26,10 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                 Application_Model_Common::getPlace($row);
             }
 
+            if ($num == 'offset') {
+                $row = (int)$row;
+            }
+
             if ($validator_exist->isValid($num)) {
                 $row = array(
                     'user_id' => $user_id,

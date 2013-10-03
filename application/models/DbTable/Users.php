@@ -273,6 +273,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             'skype' => array('StringTrim','HtmlEntities'),
             'phone' => array('StringTrim','HtmlEntities'),
             'industry_id' => array('StringTrim','HtmlEntities','Int'),
+            'offset' => array('StringTrim','HtmlEntities','Int'),
             'city' => array('StringTrim','HtmlEntities'),
             'facebook_key' => array('StringTrim','HtmlEntities'),
             'facebook_id' => array('StringTrim','HtmlEntities'),
@@ -398,6 +399,12 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             }
 
             //Add default settings
+            $this->_db->insert('user_settings',array(
+                'user_id' => $id,
+                'name' => 'offset',
+                'value' => (int)$input->getEscaped('offset')
+            ));
+
             $this->_db->insert('user_settings',array(
                 'user_id' => $id,
                 'name' => 'city',

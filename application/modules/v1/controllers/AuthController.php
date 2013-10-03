@@ -40,6 +40,8 @@ class V1_AuthController extends Zend_Rest_Controller
      * @SWG\Property(name="business_email",type="string"),
      * @SWG\Property(name="skype",type="string"),
      * @SWG\Property(name="city",type="string"),
+     * @SWG\Property(name="country",type="string"),
+     * @SWG\Property(name="offset",type="int"),
      * @SWG\Property(name="facebook_key",type="string"),
      * @SWG\Property(name="facebook_id",type="string"),
      * @SWG\Property(name="linkedin_id",type="string"),
