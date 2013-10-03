@@ -460,10 +460,11 @@ class FindPeople extends Common {
 
 
             insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
-            select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s') as start_time, LEAST('$this->q_e', '$this->b_e') as end_time
+            select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s'  + interval s3.value second ) as start_time, LEAST('$this->q_e', '$this->b_e'  + interval s3.value second) as end_time
 
             from users u
             left join user_settings s on s.user_id = u.id and s.name = 'free_time'
+            LEFT JOIN user_settings s3 ON s3.user_id = u.id AND s3.name = 'offset'
             left join user_settings s2 on s2.user_id = u.id and s2.name = 'city'
             left join city ct on s2.value = ct.city
 
