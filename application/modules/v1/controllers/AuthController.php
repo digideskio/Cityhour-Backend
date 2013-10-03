@@ -104,9 +104,10 @@ class V1_AuthController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         if (isset($data['email'])) $email = $data['email']; else $email = false;
+        if (isset($data['city'])) $city = $data['city']; else $city = false;
         $valid_email = new Zend_Validate_EmailAddress();
 
-        if ($valid_email->isValid($email)) {
+        if ($valid_email->isValid($email) && $city) {
             $db = new Application_Model_DbTable_Users();
             if ($db->getUser($email,false,'email',false)) {
                 $this->_helper->json->sendJson(array(
