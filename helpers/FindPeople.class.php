@@ -649,13 +649,13 @@ class FindPeople extends Common {
             $sql = "
                 select t.user_id, t.start_time, t.end_time,
                     case
-                      when t.type = 1 then (select c.foursquare_id from calendar c where c.id = t.id)
-                      when t.type = 3 then (select s.value from user_settings s where s.name = 'foursquare_id' and s.user_id = t.user_id)
+                      when t.type = 1 then c.foursquare_id
+                      when t.type = 3 then s.value
                       else null
                     end as foursquare_id,
                     case
-                      when t.type = 1 then (select c.place from calendar c where c.id = t.id)
-                      when t.type = 3 then (select ci.place from user_settings s left join place ci on ci.foursquare_id = s.value where s.name = 'foursquare_id' and s.user_id = t.user_id)
+                      when t.type = 1 then c.place
+                      when t.type = 3 then ci.place
                       else null
                     end as place,
                     case
@@ -671,16 +671,27 @@ class FindPeople extends Common {
                       else 0
                     end as friend,
                     case
-                          when t.type = 1 then (select c.city from calendar c where c.id = t.id)
-                          when t.type = 3 then (select s.value from user_settings s where s.name = 'city' and s.user_id = t.user_id)
+                          when t.type = 1 then c.city
+                          when t.type = 3 then s3.value
                           else null
                     end as city,
                     case
-                          when t.type = 1 then (select c.goal from calendar c where c.id = t.id)
-                          when t.type = 3 then (select s.value from user_settings s where s.name = 'goal' and s.user_id = t.user_id)
+                          when t.type = 1 then c.goal
+                          when t.type = 3 then s4.value
                           else null
-                    end as goal
+                    end as goal,
+                    case
+                          when t.type = 1 then c.offset
+                          when t.type = 3 then s2.value
+                          else null
+                    end as offset
                 from (select * from rSult order by start_time asc) as t
+                left join calendar c on t.id = c.id
+                left join user_settings s on t.user_id = s.user_id and t.type = 3 and s.name = 'foursquare_id'
+                left join place ci on ci.foursquare_id = s.value and t.type = 3
+                left join user_settings s2 on t.user_id = s2.user_id and t.type = 3 and s2.name = 'offset'
+                left join user_settings s3 on t.user_id = s3.user_id and t.type = 3 and s3.name = 'city'
+                left join user_settings s4 on t.user_id = s4.user_id and t.type = 3 and s4.name = 'goal'
                 where (UNIX_TIMESTAMP(t.end_time) - UNIX_TIMESTAMP(t.start_time)) >= 3600
                 and t.user_id != $this->user_id
                 group by t.user_id

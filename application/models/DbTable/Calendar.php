@@ -663,8 +663,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             }
 
             if (isset($data['offset']) && $data['offset']) {
-                $offset = $data['offset'];
-                $res = array_merge($res,$offset);
+                $res['offset'] = $data['offset'];
             }
 
             if (isset($data['foursquare_id']) && $data['foursquare_id']) {
