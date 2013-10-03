@@ -238,6 +238,7 @@ class V1_CalendarController extends Zend_Rest_Controller
                     );
                     $filters = array(
                         'goal' => array('StringTrim','HtmlEntities','Int'),
+                        'offset' => array('StringTrim','HtmlEntities','Int'),
                         'foursquare_id' => array('StringTrim','HtmlEntities'),
                         'city' => array('StringTrim','HtmlEntities'),
                         'person_value' => array('StringTrim','HtmlEntities'),
@@ -251,6 +252,7 @@ class V1_CalendarController extends Zend_Rest_Controller
                         'date_to' => $data['date_to'],
                         'person' => $data['person'],
                         'goal' => $input->getEscaped('goal'),
+                        'offset' => $input->getEscaped('offset'),
                         'foursquare_id' => $input->getEscaped('foursquare_id'),
                         'city' => $input->getEscaped('city'),
                         'person_value' => $input->getEscaped('person_value'),

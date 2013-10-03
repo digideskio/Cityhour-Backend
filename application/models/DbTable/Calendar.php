@@ -16,7 +16,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $id = "c.id in ($id)";
         }
         $res = $this->_db->fetchAll("
-            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
+            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
              case
               when c.email = 0 then case
                                       when (select distinct(f.id)
@@ -70,7 +70,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $url = $config->userPhoto->url;
 
         $res = $this->_db->fetchAll("
-            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,
+            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
              case
               when c.email = 0 and user_id_second is not null then case
                                                                       when (select distinct(f.id)
@@ -359,6 +359,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
         if (isset($data['goal']) && is_numeric($data['goal'])) {
             $res['goal'] = $data['goal'];
+        }
+
+        if (isset($data['offset']) && is_numeric($data['offset'])) {
+            $res['offset'] = $data['offset'];
         }
 
         if (is_numeric($user_second)) {
@@ -656,6 +660,11 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             if (isset($data['city']) && $data['city']) {
                 $place = Application_Model_Common::getCity($data['city']);
                 $res = array_merge($res,$place);
+            }
+
+            if (isset($data['offset']) && $data['offset']) {
+                $offset = $data['offset'];
+                $res = array_merge($res,$offset);
             }
 
             if (isset($data['foursquare_id']) && $data['foursquare_id']) {
