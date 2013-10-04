@@ -98,7 +98,7 @@ class DB {
         $this->query("
             INSERT INTO `user_settings` (`user_id`, `name`, `value`)
             VALUES
-                ($i, 'offset', '3')
+                ($i, 'offset', '10800')
         ");
 
         $this->query("

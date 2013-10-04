@@ -684,13 +684,19 @@ class FindPeople extends Common {
                           when t.type = 1 then c.offset
                           when t.type = 3 then s2.value
                           else null
-                    end as offset
+                    end as offset,
+                    case
+                          when t.type = 1 then c.city_name
+                          when t.type = 3 then cy.city_name
+                          else null
+                    end as city_name
                 from (select * from rSult order by start_time asc) as t
                 left join calendar c on t.id = c.id
                 left join user_settings s on t.user_id = s.user_id and t.type = 3 and s.name = 'foursquare_id'
                 left join place ci on ci.foursquare_id = s.value and t.type = 3
                 left join user_settings s2 on t.user_id = s2.user_id and t.type = 3 and s2.name = 'offset'
                 left join user_settings s3 on t.user_id = s3.user_id and t.type = 3 and s3.name = 'city'
+                left join city cy on cy.city = s3.value and t.type = 3
                 left join user_settings s4 on t.user_id = s4.user_id and t.type = 3 and s4.name = 'goal'
                 where (UNIX_TIMESTAMP(t.end_time) - UNIX_TIMESTAMP(t.start_time)) >= 3600
                 and t.user_id != $this->user_id
@@ -701,7 +707,7 @@ class FindPeople extends Common {
         else {
             $url = $this->config['userPhoto.url'];
             $sql = "
-                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, t.start_time, u.city_name
+                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, t.start_time, u.city_name, 0 as offset
                 from (
                     (
                         SELECT m.user_id, m.lat, m.lng, unix_timestamp(now()) as start_time,
@@ -755,7 +761,7 @@ class FindPeople extends Common {
 
     public function insertM($data) {
         if ($data) {
-            $sql = "insert into mSult (user_id, start_time, end_time, foursquare_id, place, request, friend, city, goal) VALUES ";
+            $sql = "insert into mSult (user_id, start_time, end_time, foursquare_id, place, request, friend, city, goal, city_name, offset) VALUES ";
 
             $first = true;
             foreach ($data as $row) {
@@ -763,7 +769,7 @@ class FindPeople extends Common {
                     $sql .= ',';
                 };
                 $first = false;
-                $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['foursquare_id']."',".$this->mysql->quote($row['place']).",'".$row['request']."','".$row['friend']."','".$row['city']."','".$row['goal']."')";
+                $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['foursquare_id']."',".$this->mysql->quote($row['place']).",'".$row['request']."','".$row['friend']."','".$row['city']."','".$row['goal']."','".$row['city_name']."','".$row['offset']."')";
             }
 
             $this->query($sql);
@@ -795,6 +801,8 @@ class FindPeople extends Common {
                 `foursquare_id` varchar(255) NULL DEFAULT NULL,
                 `place` varchar(255) NULL DEFAULT NULL,
                 `city` varchar(255) NULL DEFAULT NULL,
+                `city_name` varchar(255) NULL DEFAULT NULL,
+                `offset` int(11) NULL DEFAULT NULL,
                 `goal` int(11) NULL DEFAULT NULL) ENGINE=MEMORY;
             ";
             $this->query($sql);
@@ -804,7 +812,7 @@ class FindPeople extends Common {
                 $this->insertM($this->find());
             }
             $answer = $this->query("
-                select user_id, start_time, end_time, foursquare_id, place, request, friend, city, goal
+                select user_id, start_time, end_time, foursquare_id, place, request, friend, city, goal, city_name, offset
                 from mSult
                 group by user_id
                 order by request,friend asc
