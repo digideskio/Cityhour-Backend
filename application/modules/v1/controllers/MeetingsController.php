@@ -179,6 +179,7 @@ class V1_MeetingsController extends Zend_Rest_Controller
             );
             $filters = array(
                 'goal' => array('StringTrim','HtmlEntities','Int'),
+                'offset' => array('StringTrim','HtmlEntities','Int'),
                 'foursquare_id' => array('StringTrim','HtmlEntities'),
                 'city' => array('StringTrim','HtmlEntities'),
                 'person_value' => array('StringTrim','HtmlEntities'),
@@ -192,6 +193,7 @@ class V1_MeetingsController extends Zend_Rest_Controller
                 'date_from' => $data['date_from'],
                 'date_to' => $data['date_to'],
                 'goal' => $input->getEscaped('goal'),
+                'offset' => $input->getEscaped('offset'),
                 'foursquare_id' => $input->getEscaped('foursquare_id'),
                 'city' => $input->getEscaped('city'),
                 'person_value' => $input->getEscaped('person_value'),
