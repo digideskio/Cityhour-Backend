@@ -7,7 +7,7 @@ $db->connect();
 
 $i = 1;
 
-while ($i < 40) {
+while ($i < 10) {
     $industry = rand(4,5);
 
     // Insert Users

@@ -213,6 +213,9 @@ class V1_CalendarController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
+
+        if (!isset($data['offset'])) $data['offset'] = 0;
+
         if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id'])) {
             $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 

@@ -364,6 +364,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         if (isset($data['offset']) && is_numeric($data['offset'])) {
             $res['offset'] = $data['offset'];
         }
+        else {
+            $res['offset'] = 0;
+        }
 
         if (is_numeric($user_second)) {
             $res['user_id_second'] = $user_second;
@@ -432,10 +435,12 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             else {
                 $place = '';
             }
+            $time = strtotime($data['start_time'])+$data['offset'];
+            $time = gmdate('Y-m-d H:i:s',(int)$time);
             $options = array(
                 'name' => $user['name'],
                 'lastname' => substr($user['lastname'], 0, 1),
-                'time' => $data['start_time'],
+                'time' => $time,
                 'place' => $place,
                 'url_ok' => $url.'meetings/?answer=4&sid='.$id.'&key='.$key,
                 'url_nok' => $url.'meetings/?answer=5&sid='.$id.'&key='.$key

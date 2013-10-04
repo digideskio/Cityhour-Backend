@@ -92,6 +92,18 @@ class DB {
         $this->query("
             INSERT INTO `user_settings` (`user_id`, `name`, `value`)
             VALUES
+                ($i, 'foursquare_id', '4cb580693ac937047b93cc0a')
+        ");
+
+        $this->query("
+            INSERT INTO `user_settings` (`user_id`, `name`, `value`)
+            VALUES
+                ($i, 'offset', '3')
+        ");
+
+        $this->query("
+            INSERT INTO `user_settings` (`user_id`, `name`, `value`)
+            VALUES
                 ($i, 'goal', '$goal')
         ");
 

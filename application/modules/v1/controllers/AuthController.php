@@ -103,6 +103,14 @@ class V1_AuthController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
+
+
+
+        if (!isset($data['offset'])) $data['offset'] = 0;
+
+
+
+
         if (isset($data['email'])) $email = $data['email']; else $email = false;
         if (isset($data['city'])) $city = $data['city']; else $city = false;
         $valid_email = new Zend_Validate_EmailAddress();

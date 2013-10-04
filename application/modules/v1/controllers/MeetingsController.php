@@ -168,6 +168,9 @@ class V1_MeetingsController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
+
+        if (!isset($data['offset'])) $data['offset'] = 0;
+
         if (isset($data['private_key']) && $data['private_key'] && isset($data['person']) && is_numeric($data['person']) && isset($data['city']) && $data['city'] && isset($data['date_from']) && is_numeric($data['date_from']) && isset($data['date_to']) && is_numeric($data['date_to'])) {
             $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 
