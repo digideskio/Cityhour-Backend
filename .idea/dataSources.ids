@@ -125,6 +125,7 @@
       <column name="user_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
       <column name="lat" sqlType="FLOAT" length="20" precision="16" nullable="true" jdbcType="7"/>
       <column name="lng" sqlType="FLOAT" length="20" precision="16" nullable="true" jdbcType="7"/>
+      <column name="offset" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
@@ -182,6 +183,7 @@
       <column name="data" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1"/>
       <column name="status" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
+      <index name="ind_status" unique="false" columns="status"/>
     </table>
     <table name="user_contacts_wait" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
@@ -254,11 +256,15 @@
       <column name="photo" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="phone" sqlType="VARCHAR" length="20" precision="0" nullable="true" jdbcType="12"/>
       <column name="business_email" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_foursquare_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_place" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_city_name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="free_lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="country" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="city_name" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
-      <column name="lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
-      <column name="lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
       <column name="skype" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <column name="rating" sqlType="FLOAT UNSIGNED" length="12" precision="0" nullable="false" jdbcType="7" def="MA=="/>
       <column name="experience" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>

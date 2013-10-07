@@ -167,7 +167,7 @@ class FindPeople extends Common {
         }
     }
 
-    public function mapUpdate($user_id,$lat,$lng) {
+    public function mapUpdate($user_id,$lat,$lng,$offset) {
         $sql = "
             select id
             from `map`
@@ -181,16 +181,16 @@ class FindPeople extends Common {
             $id = $result['id'];
 
             $sql = "
-                    update `map` set `lat` = $lat, `lng` = $lng, `time` = '$time'
+                    update `map` set `lat` = $lat, `lng` = $lng, `time` = '$time', `offset` = $offset
                     where id = $id and user_id = $user_id
                 ";
             $this->query($sql);
         }
         else {
             $sql = "
-                    INSERT INTO `map` (`user_id`, `lat`, `lng`, `time`)
+                    INSERT INTO `map` (`user_id`, `lat`, `lng`, `time`, `offset`)
                     VALUES
-	                ($user_id,$lat,$lng,'$time')
+	                ($user_id,$lat,$lng,'$time','$offset')
                 ";
             $this->query($sql);
         }
@@ -298,6 +298,7 @@ class FindPeople extends Common {
 
             if (isset($data["lat"])) $lat = $data["lat"]; else $che = false;
             if (isset($data["lng"])) $lng = $data["lng"]; else $che = false;
+            if (isset($data["offset"])) $offset = $data["offset"]; else $che = false;
 
             if (!$che) {
                 $this->answer('Not all params given',400);
@@ -313,7 +314,7 @@ class FindPeople extends Common {
             if ( $token != null && $token != '' && is_numeric($this->n_lat) && is_numeric($this->s_lat) && is_numeric($this->n_lng) && is_numeric($this->s_lng) && is_numeric($lat) && is_numeric($lng)) {
                 $user = $this->getUser($token);
                 if ($user) {
-                    $this->mapUpdate($user['id'],$lat,$lng);
+                    $this->mapUpdate($user['id'],$lat,$lng,$offset);
 
                     $time = time();
 
@@ -434,8 +435,6 @@ class FindPeople extends Common {
 
             from calendar c
             left join user_settings s on s.user_id = c.user_id and s.name = 'free_time'
-            left join user_settings s2 on s2.user_id = c.user_id and s2.name = 'city'
-            left join city ct on s2.value = ct.city
             left join users u on c.user_id = u.id
 
             where
@@ -452,7 +451,7 @@ class FindPeople extends Common {
 
             and u.status = 0
             and s.value = '1'
-            and ct.lng BETWEEN $this->s_lng AND $this->n_lng AND ct.lat BETWEEN $this->s_lat AND $this->n_lat
+            and u.free_lng BETWEEN $this->s_lng AND $this->n_lng AND u.free_lat BETWEEN $this->s_lat AND $this->n_lat
             $this->industry_q
             $this->goal_f
 
@@ -465,13 +464,11 @@ class FindPeople extends Common {
             from users u
             left join user_settings s on s.user_id = u.id and s.name = 'free_time'
             LEFT JOIN user_settings s3 ON s3.user_id = u.id AND s3.name = 'offset'
-            left join user_settings s2 on s2.user_id = u.id and s2.name = 'city'
-            left join city ct on s2.value = ct.city
 
             where
             s.value = '1'
             and u.status = 0
-            and ct.lng BETWEEN $this->s_lng AND $this->n_lng AND ct.lat BETWEEN $this->s_lat AND $this->n_lat
+            and u.free_lng BETWEEN $this->s_lng AND $this->n_lng AND u.free_lat BETWEEN $this->s_lat AND $this->n_lat
             $this->industry_q
             $this->goal_fn
             having start_time != end_time;
@@ -650,12 +647,12 @@ class FindPeople extends Common {
                 select t.user_id, t.start_time, t.end_time,
                     case
                       when t.type = 1 then c.foursquare_id
-                      when t.type = 3 then s.value
+                      when t.type = 3 then u.free_foursquare_id
                       else null
                     end as foursquare_id,
                     case
                       when t.type = 1 then c.place
-                      when t.type = 3 then ci.place
+                      when t.type = 3 then u.free_place
                       else null
                     end as place,
                     case
@@ -672,7 +669,7 @@ class FindPeople extends Common {
                     end as friend,
                     case
                           when t.type = 1 then c.city
-                          when t.type = 3 then s3.value
+                          when t.type = 3 then u.free_city
                           else null
                     end as city,
                     case
@@ -687,16 +684,13 @@ class FindPeople extends Common {
                     end as offset,
                     case
                           when t.type = 1 then c.city_name
-                          when t.type = 3 then cy.city_name
+                          when t.type = 3 then u.free_city_name
                           else null
                     end as city_name
                 from (select * from rSult order by start_time asc) as t
                 left join calendar c on t.id = c.id
-                left join user_settings s on t.user_id = s.user_id and t.type = 3 and s.name = 'foursquare_id'
-                left join place ci on ci.foursquare_id = s.value and t.type = 3
+                left join users u on t.user_id = u.id
                 left join user_settings s2 on t.user_id = s2.user_id and t.type = 3 and s2.name = 'offset'
-                left join user_settings s3 on t.user_id = s3.user_id and t.type = 3 and s3.name = 'city'
-                left join city cy on cy.city = s3.value and t.type = 3
                 left join user_settings s4 on t.user_id = s4.user_id and t.type = 3 and s4.name = 'goal'
                 where (UNIX_TIMESTAMP(t.end_time) - UNIX_TIMESTAMP(t.start_time)) >= 3600
                 and t.user_id != $this->user_id
@@ -707,12 +701,13 @@ class FindPeople extends Common {
         else {
             $url = $this->config['userPhoto.url'];
             $sql = "
-                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, t.start_time, u.city_name, 0 as offset
+                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, t.start_time, u.city_name, offset
                 from (
                     (
                         SELECT m.user_id, m.lat, m.lng, unix_timestamp(now()) as start_time,
                         null as foursquare_id,
-                        null as place
+                        null as place,
+                        m.offset
                         FROM map m
                         WHERE
                         m.time > now() - interval 10 MINUTE
@@ -722,27 +717,29 @@ class FindPeople extends Common {
                     (
                         select r.user_id,
                         case
-                          when r.type = 1 then (select c.lat from calendar c where c.id = r.id)
-                          when r.type = 3 then (select ci.lat from user_settings s left join city ci on ci.city = s.value where s.name = 'city' and s.user_id = r.user_id)
+                          when r.type = 1 then c.lng
+                          when r.type = 3 then u.free_lat
                           else null
                         end as lat,
                         case
-                          when r.type = 1 then (select c.lng from calendar c where c.id = r.id)
-                          when r.type = 3 then (select ci.lng from user_settings s left join city ci on ci.city = s.value where s.name = 'city' and s.user_id = r.user_id)
+                          when r.type = 1 then c.lng
+                          when r.type = 3 then u.free_lng
                           else null
                         end as lng,
                         r.start_time,
                         case
-                          when r.type = 1 then (select c.foursquare_id from calendar c where c.id = r.id)
-                          when r.type = 3 then (select s.value from user_settings s where s.name = 'foursquare_id' and s.user_id = r.user_id)
+                          when r.type = 1 then c.foursquare_id
+                          when r.type = 3 then u.free_foursquare_id
                           else null
                         end as foursquare_id,
                         case
-                          when r.type = 1 then (select c.place from calendar c where c.id = r.id)
-                          when r.type = 3 then (select ci.place from user_settings s left join place ci on ci.foursquare_id = s.value where s.name = 'foursquare_id' and s.user_id = r.user_id)
+                          when r.type = 1 then c.place
+                          when r.type = 3 then u.free_place
                           else null
                         end as place
                         from rSult r
+                        left join calendar c on r.id = c.id
+                        left join users u on r.user_id = u.id
                         where (UNIX_TIMESTAMP(r.end_time) - UNIX_TIMESTAMP(r.start_time)) >= 3600
                     )
                 ) as t
@@ -803,7 +800,7 @@ class FindPeople extends Common {
                 `city` varchar(255) NULL DEFAULT NULL,
                 `city_name` varchar(255) NULL DEFAULT NULL,
                 `offset` int(11) NULL DEFAULT NULL,
-                `goal` int(11) NULL DEFAULT NULL) ENGINE=MEMORY;
+                `goal` int(11) NULL DEFAULT NULL) ENGINE=MEMORY DEFAULT CHARSET=utf8;
             ";
             $this->query($sql);
             foreach ($this->free as $row) {

@@ -181,7 +181,7 @@ class FreeSlots extends Common {
         $this->insertInto($res,'zSult');
 
         return $this->query("
-            select r.id, r.start_time, r.end_time, c.foursquare_id, c.place, c.lat, c.lng
+            select r.id, r.start_time, r.end_time, c.foursquare_id, c.place, c.lat, c.lng, c.offset, c.city_name, c.city
             from zSult r
             left join calendar c on r.id = c.id
             where (UNIX_TIMESTAMP(r.end_time) - UNIX_TIMESTAMP(r.start_time)) >= 3600

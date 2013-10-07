@@ -95,7 +95,9 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
             //City
             if ($input->getEscaped('city')) {
-                $userData = array_merge($userData,Application_Model_Common::getCity($input->getEscaped('city')));
+                $city = array_merge($userData,Application_Model_Common::getCity($input->getEscaped('city')));
+                $userData['city'] = $city['city'];
+                $userData['city_name'] = $city['city_name'];
             }
 
             //Jobs
@@ -304,7 +306,13 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
 
             if ($input->getEscaped('city')) {
-                $userData = array_merge($userData,Application_Model_Common::getCity($input->getEscaped('city')));
+                $city = array_merge($userData,Application_Model_Common::getCity($input->getEscaped('city')));
+                $userData['city'] = $city['city'];
+                $userData['city_name'] = $city['city_name'];
+                $userData['free_city'] = $city['city'];
+                $userData['free_city_name'] = $city['city_name'];
+                $userData['free_lat'] = $city['lat'];
+                $userData['free_lng'] = $city['lng'];
             }
 
             $id = $this->insert($userData);
@@ -410,6 +418,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 'name' => 'city',
                 'value' => $userData['city']
             ));
+
             $this->_db->insert('user_settings',array(
                 'user_id' => $id,
                 'name' => 'free_time',
