@@ -23,8 +23,8 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                 $ucity = array(
                     'free_city' => $city['city'],
                     'free_city_name' => $city['city_name'],
-                    'lat' => $city['free_lat'],
-                    'lng' => $city['free_lng'],
+                    'free_lat' => $city['lat'],
+                    'free_lng' => $city['lng'],
                 );
                 if (array_key_exists('foursquare_id', $data)) {
                     unset($ucity['lat']);
@@ -38,9 +38,9 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                 $foursquare = Application_Model_Common::getPlace($row);
                 $ufoursquare = array(
                     'free_foursquare_id' => $foursquare['foursquare_id'],
-                    'place' => $foursquare['place'],
-                    'lat' => $foursquare['free_lat'],
-                    'lng' => $foursquare['free_lng'],
+                    'free_place' => $foursquare['place'],
+                    'free_lat' => $foursquare['lat'],
+                    'free_lng' => $foursquare['lng'],
                 );
                 $this->_db->update('users',$ufoursquare,"id = $user_id");
             }

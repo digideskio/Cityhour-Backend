@@ -1,0 +1,62 @@
+[07-Oct-2013 12:31:50 UTC] PHP Notice:  Memcache::get(): Server localhost (tcp 11211) failed with: Connection refused (61) in /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Cache/Backend/Memcached.php on line 180
+[07-Oct-2013 12:31:50 UTC] PHP Stack trace:
+[07-Oct-2013 12:31:50 UTC] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[07-Oct-2013 12:31:50 UTC] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:38
+[07-Oct-2013 12:31:50 UTC] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Application.php:366
+[07-Oct-2013 12:31:50 UTC] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Application/Bootstrap/Bootstrap.php:97
+[07-Oct-2013 12:31:50 UTC] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Front.php:954
+[07-Oct-2013 12:31:50 UTC] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Dispatcher/Standard.php:308
+[07-Oct-2013 12:31:50 UTC] PHP   7. V1_UserController->getAction() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Action.php:516
+[07-Oct-2013 12:31:50 UTC] PHP   8. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/UserController.php:82
+[07-Oct-2013 12:31:50 UTC] PHP   9. Application_Model_DbTable_Users->prepeareUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:692
+[07-Oct-2013 12:31:50 UTC] PHP  10. Application_Model_DbTable_UserJobs->getEducation() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:576
+[07-Oct-2013 12:31:50 UTC] PHP  11. Zend_Db_Table_Abstract->fetchAll() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/UserJobs.php:13
+[07-Oct-2013 12:31:50 UTC] PHP  12. Zend_Db_Table_Abstract->select() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:1372
+[07-Oct-2013 12:31:50 UTC] PHP  13. Zend_Db_Table_Select->__construct() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:1019
+[07-Oct-2013 12:31:50 UTC] PHP  14. Zend_Db_Table_Select->setTable() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Select.php:78
+[07-Oct-2013 12:31:50 UTC] PHP  15. Zend_Db_Table_Abstract->info() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Select.php:100
+[07-Oct-2013 12:31:50 UTC] PHP  16. Zend_Db_Table_Abstract->_setupPrimaryKey() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:983
+[07-Oct-2013 12:31:50 UTC] PHP  17. Zend_Db_Table_Abstract->_setupMetadata() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:875
+[07-Oct-2013 12:31:50 UTC] PHP  18. Zend_Cache_Core->load() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:832
+[07-Oct-2013 12:31:50 UTC] PHP  19. Zend_Cache_Backend_Memcached->load() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Cache/Core.php:306
+[07-Oct-2013 12:31:50 UTC] PHP  20. Memcache->get() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Cache/Backend/Memcached.php:180
+[07-Oct-2013 12:31:50 UTC] PHP Notice:  Failed saving metadata to metadataCache in /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php on line 839
+[07-Oct-2013 12:31:50 UTC] PHP Stack trace:
+[07-Oct-2013 12:31:50 UTC] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[07-Oct-2013 12:31:50 UTC] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:38
+[07-Oct-2013 12:31:50 UTC] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Application.php:366
+[07-Oct-2013 12:31:50 UTC] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Application/Bootstrap/Bootstrap.php:97
+[07-Oct-2013 12:31:50 UTC] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Front.php:954
+[07-Oct-2013 12:31:50 UTC] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Dispatcher/Standard.php:308
+[07-Oct-2013 12:31:50 UTC] PHP   7. V1_UserController->getAction() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Action.php:516
+[07-Oct-2013 12:31:50 UTC] PHP   8. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/UserController.php:82
+[07-Oct-2013 12:31:50 UTC] PHP   9. Application_Model_DbTable_Users->prepeareUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:692
+[07-Oct-2013 12:31:50 UTC] PHP  10. Application_Model_DbTable_UserJobs->getEducation() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:576
+[07-Oct-2013 12:31:50 UTC] PHP  11. Zend_Db_Table_Abstract->fetchAll() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/UserJobs.php:13
+[07-Oct-2013 12:31:50 UTC] PHP  12. Zend_Db_Table_Abstract->select() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:1372
+[07-Oct-2013 12:31:50 UTC] PHP  13. Zend_Db_Table_Select->__construct() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:1019
+[07-Oct-2013 12:31:50 UTC] PHP  14. Zend_Db_Table_Select->setTable() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Select.php:78
+[07-Oct-2013 12:31:50 UTC] PHP  15. Zend_Db_Table_Abstract->info() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Select.php:100
+[07-Oct-2013 12:31:50 UTC] PHP  16. Zend_Db_Table_Abstract->_setupPrimaryKey() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:983
+[07-Oct-2013 12:31:50 UTC] PHP  17. Zend_Db_Table_Abstract->_setupMetadata() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:875
+[07-Oct-2013 12:31:50 UTC] PHP  18. trigger_error() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:839
+[07-Oct-2013 12:31:51 UTC] PHP Notice:  Failed saving metadata to metadataCache in /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php on line 839
+[07-Oct-2013 12:31:51 UTC] PHP Stack trace:
+[07-Oct-2013 12:31:51 UTC] PHP   1. {main}() /Users/denis/Dropbox/MeetRocket/public/index.php:0
+[07-Oct-2013 12:31:51 UTC] PHP   2. Zend_Application->run() /Users/denis/Dropbox/MeetRocket/public/index.php:38
+[07-Oct-2013 12:31:51 UTC] PHP   3. Zend_Application_Bootstrap_Bootstrap->run() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Application.php:366
+[07-Oct-2013 12:31:51 UTC] PHP   4. Zend_Controller_Front->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Application/Bootstrap/Bootstrap.php:97
+[07-Oct-2013 12:31:51 UTC] PHP   5. Zend_Controller_Dispatcher_Standard->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Front.php:954
+[07-Oct-2013 12:31:51 UTC] PHP   6. Zend_Controller_Action->dispatch() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Dispatcher/Standard.php:308
+[07-Oct-2013 12:31:51 UTC] PHP   7. V1_UserController->getAction() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Controller/Action.php:516
+[07-Oct-2013 12:31:51 UTC] PHP   8. Application_Model_DbTable_Users->getUser() /Users/denis/Dropbox/MeetRocket/application/modules/v1/controllers/UserController.php:82
+[07-Oct-2013 12:31:51 UTC] PHP   9. Application_Model_DbTable_Users->prepeareUser() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:692
+[07-Oct-2013 12:31:51 UTC] PHP  10. Application_Model_DbTable_UserSettings->getSettings() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/Users.php:660
+[07-Oct-2013 12:31:51 UTC] PHP  11. Zend_Db_Table_Abstract->fetchAll() /Users/denis/Dropbox/MeetRocket/application/models/DbTable/UserSettings.php:73
+[07-Oct-2013 12:31:51 UTC] PHP  12. Zend_Db_Table_Abstract->select() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:1372
+[07-Oct-2013 12:31:51 UTC] PHP  13. Zend_Db_Table_Select->__construct() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:1019
+[07-Oct-2013 12:31:51 UTC] PHP  14. Zend_Db_Table_Select->setTable() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Select.php:78
+[07-Oct-2013 12:31:51 UTC] PHP  15. Zend_Db_Table_Abstract->info() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Select.php:100
+[07-Oct-2013 12:31:51 UTC] PHP  16. Zend_Db_Table_Abstract->_setupPrimaryKey() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:983
+[07-Oct-2013 12:31:51 UTC] PHP  17. Zend_Db_Table_Abstract->_setupMetadata() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:875
+[07-Oct-2013 12:31:51 UTC] PHP  18. trigger_error() /Users/denis/Dropbox/MeetRocket/vendor/simukti/zf1/Zend/Db/Table/Abstract.php:839
