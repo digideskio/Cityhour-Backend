@@ -736,7 +736,8 @@ class FindPeople extends Common {
                           when r.type = 1 then c.place
                           when r.type = 3 then u.free_place
                           else null
-                        end as place
+                        end as place,
+                        c.offset
                         from rSult r
                         left join calendar c on r.id = c.id
                         left join users u on r.user_id = u.id

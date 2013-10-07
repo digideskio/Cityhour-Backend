@@ -26,7 +26,7 @@ if (mysql_num_rows($result) != 0) {
     while ($row = mysql_fetch_assoc($result)) {
         $id = $row["id"];
         $user_id = $row["user_id"];
-        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','11','1','0','$id','$text')");
+        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','11','1','3','$id','$text')");
     }
 }
 mysql_free_result($result);
@@ -58,7 +58,7 @@ if (mysql_num_rows($result) != 0) {
         );
         $data = json_encode($data);
         mysql_query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$user_id','8','$text','$data')");
-        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','10','7','0','$id','$text')");
+        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','10','7','3','$id','$text')");
     }
 }
 mysql_free_result($result);

@@ -116,6 +116,50 @@ class DB {
         return true;
     }
 
+    public function insertCoolUser($i,$name,$surname,$email,$industry,$goal,$foursquare,$place,$summar,$photo,$phone,$lat,$lng,$skype,$rating,$experience) {
+
+        $this->deleteUser($i);
+        $contacts = rand(1, 100);
+        $completnes = rand(75, 100);
+        $meet_succesfull = rand(2, 10);
+        $this->query("
+            INSERT INTO `users` (`id`, `email`, `name`, `lastname`, `industry_id`, `summary`, `photo`, `phone`, `business_email`, `city`, `city_name`, `free_city`, `free_city_name`, `free_lat`, `free_lng`, `skype`, `rating`, `experience`, `completeness`, `contacts`, `meet_succesfull`, `meet_declined`, `facebook_key`, `facebook_id`, `linkedin_key`, `linkedin_id`, `private_key`, `status`, `free_foursquare_id`,`free_place`, `country`)
+            VALUES
+                ($i,'$email', '$name', '$surname', $industry , '$summar', '$photo', '$phone', '$email', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, UA', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, UA', $lat, $lng, '$skype', $rating, $experience, $completnes, $contacts, $meet_succesfull, 0, null, null, null, null, '$i', 0,'$foursquare','$place','Ukraine')
+        ");
+
+        $this->query("
+            INSERT INTO `user_settings` (`user_id`, `name`, `value`)
+            VALUES
+                ($i, 'city', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ');
+        ");
+
+        $this->query("
+            INSERT INTO `user_settings` (`user_id`, `name`, `value`)
+            VALUES
+                ($i, 'free_time', '1')
+        ");
+
+        $this->query("
+            INSERT INTO `user_settings` (`user_id`, `name`, `value`)
+            VALUES
+                ($i, 'foursquare_id', '$foursquare')
+        ");
+
+        $this->query("
+            INSERT INTO `user_settings` (`user_id`, `name`, `value`)
+            VALUES
+                ($i, 'offset', 10800)
+        ");
+
+        $this->query("
+            INSERT INTO `user_settings` (`user_id`, `name`, `value`)
+            VALUES
+                ($i, 'goal', '$goal')
+        ");
+        return true;
+    }
+
     public function deleteUser($i) {
         $this->query("
             DELETE FROM calendar
