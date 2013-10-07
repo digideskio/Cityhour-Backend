@@ -67,7 +67,7 @@ class DB {
     }
 
 
-    public function insertUser($i,$name,$industry,$goal,$is_free) {
+    public function insertUser($i,$name,$industry,$goal,$is_free,$offset = 0) {
 
         $this->deleteUser($i);
 
@@ -98,7 +98,7 @@ class DB {
         $this->query("
             INSERT INTO `user_settings` (`user_id`, `name`, `value`)
             VALUES
-                ($i, 'offset', '10800')
+                ($i, 'offset', '$offset')
         ");
 
         $this->query("
