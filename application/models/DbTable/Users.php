@@ -67,8 +67,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
         $userData = array();
         $validators = array(
-            '*' => array(),
-            'business_email' => new Zend_Validate_EmailAddress(),
+            '*' => array()
         );
         $filter_alnum = new Zend_Filter_Alnum(true);
         $filters = array(
