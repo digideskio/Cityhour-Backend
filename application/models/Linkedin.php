@@ -99,7 +99,7 @@ class Application_Model_Linkedin
             }
 
             //get jobs
-            $jobs = null;
+            $jobs = array();
             if (isset($user_profile['positions']['values'])) {
                 foreach ($user_profile['positions']['values'] as $num=>$row) {
                     $start_m =  (isset($row['startDate']['month'])) ? (int)$row['startDate']['month']:1;

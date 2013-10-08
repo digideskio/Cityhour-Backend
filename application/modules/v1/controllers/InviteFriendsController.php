@@ -42,9 +42,9 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="POST",
-     *       summary="Register.",
+     *       summary="Get friends from social networks.",
      *       responseClass="void",
-     *       nickname="Register",
+     *       nickname="inviteFriends",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -80,7 +80,7 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
 
 
         if (isset($data['type']) && is_numeric($data['type'])) $type = $data['type']; else $type = false;
-        if ($type == 3) {
+        if ($type == 3 || $type == 5) {
             $token = $data['token'];
         }
         else {

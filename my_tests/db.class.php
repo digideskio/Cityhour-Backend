@@ -56,6 +56,10 @@ class DB {
         die();
     }
 
+    public function clearTable($table) {
+        $this->query("truncate table $table");
+        return true;
+    }
 
     public function insertSlot($user_id, $user_id_second, $start_time, $end_time, $goal, $type, $status) {
         $this->query("
@@ -116,7 +120,7 @@ class DB {
         return true;
     }
 
-    public function insertCoolUser($i,$name,$surname,$email,$industry,$goal,$foursquare,$place,$summar,$photo,$phone,$lat,$lng,$skype,$rating,$experience) {
+    public function insertCoolUser($i,$name,$surname,$email,$industry,$goal,$foursquare,$place,$summar,$photo,$phone,$lat,$lng,$skype,$rating,$experience,$city,$city_name) {
 
         $this->deleteUser($i);
         $contacts = rand(1, 100);
@@ -125,7 +129,7 @@ class DB {
         $this->query("
             INSERT INTO `users` (`id`, `email`, `name`, `lastname`, `industry_id`, `summary`, `photo`, `phone`, `business_email`, `city`, `city_name`, `free_city`, `free_city_name`, `free_lat`, `free_lng`, `skype`, `rating`, `experience`, `completeness`, `contacts`, `meet_succesfull`, `meet_declined`, `facebook_key`, `facebook_id`, `linkedin_key`, `linkedin_id`, `private_key`, `status`, `free_foursquare_id`,`free_place`, `country`)
             VALUES
-                ($i,'$email', '$name', '$surname', $industry , '$summar', '$photo', '$phone', '$email', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, UA', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, UA', $lat, $lng, '$skype', $rating, $experience, $completnes, $contacts, $meet_succesfull, 0, null, null, null, null, '$i', 0,'$foursquare','$place','Ukraine')
+                ($i,'$email', '$name', '$surname', $industry , '$summar', '$photo', '$phone', '$email', '$city', '$city_name', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, UA', $lat, $lng, '$skype', $rating, $experience, $completnes, $contacts, $meet_succesfull, 0, null, null, null, null, '$i', 0,'$foursquare','$place','Ukraine')
         ");
 
         $this->query("
@@ -158,6 +162,14 @@ class DB {
                 ($i, 'goal', '$goal')
         ");
         return true;
+    }
+
+    public function addJob($user_id, $name, $company, $current, $start_time, $end_time, $type) {
+        $this->query("
+            INSERT INTO `user_jobs` (`user_id`, `name`, `company`, `current`, `start_time`, `end_time`, `type`)
+            VALUES
+                ($user_id, '$name', '$company', $current, '$start_time', '$end_time', $type)
+        ");
     }
 
     public function deleteUser($i) {
