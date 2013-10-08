@@ -6,6 +6,7 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
     protected $_name = 'user_photos';
 
     public function makePhoto($filename_o,$filename,$private_key,$config,$tmp_file) {
+
         $filename_o = 'circle_'.$filename_o.'.png';
         $filename_ot = '/tmp/'.$filename_o;
 
@@ -46,6 +47,20 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
                     'orig' => $filename,
                     'circle_260' => $filename_o
                 ),"id = $id");
+                $this->_db->update('users',array(
+                    'photo' => $filename_o
+                ),"id = $user_id");
+                return array(
+                    'id' => $id,
+                    'url' => $filename_o
+                );
+            }
+            else {
+                $id = $this->insert(array(
+                    'orig' => $filename,
+                    'circle_260' => $filename_o,
+                    'user_id' => $user_id
+                ));
                 $this->_db->update('users',array(
                     'photo' => $filename_o
                 ),"id = $user_id");
