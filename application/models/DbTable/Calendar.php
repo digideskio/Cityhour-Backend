@@ -687,7 +687,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
         if ((int)$data['rating'] < 3) {
             $user_id = $slot['user_id_second'];
-            $this->update(array(
+            $this->_db->update('users',array(
                 'meet_declined' => '`meet_declined`+1',
                 'meet_succesfull' => '`meet_succesfull`-1'
             ),"id = $user_id");
