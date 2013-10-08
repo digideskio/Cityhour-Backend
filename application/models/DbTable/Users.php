@@ -84,13 +84,13 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $input = new Zend_Filter_Input($filters, $validators, $data);
         $this->_db->beginTransaction();
         try {
-            if ($input->getEscaped('name')) $userData['name'] = $input->getEscaped('name');
-            if ($input->getEscaped('lastname')) $userData['lastname'] = $input->getEscaped('lastname');
-            if ($input->getEscaped('summary')) $userData['summary'] = $data['summary'];
-            if ($input->getEscaped('skype')) $userData['skype'] = $input->getEscaped('skype');
-            if ($input->getEscaped('phone')) $userData['phone'] = $input->getEscaped('phone');
-            if ($input->getEscaped('industry_id')) $userData['industry_id'] = $input->getEscaped('industry_id');
-            if ($input->getEscaped('business_email')) $userData['business_email'] = $input->getEscaped('business_email');
+            if (isset($data['name'])) $userData['name'] = $input->getEscaped('name');
+            if (isset($data['lastname'])) $userData['lastname'] = $input->getEscaped('lastname');
+            if (isset($data['summary'])) $userData['summary'] = $data['summary'];
+            if (isset($data['skype'])) $userData['skype'] = $input->getEscaped('skype');
+            if (isset($data['phone'])) $userData['phone'] = $input->getEscaped('phone');
+            if (isset($data['industry_id'])) $userData['industry_id'] = $input->getEscaped('industry_id');
+            if (isset($data['business_email'])) $userData['business_email'] = $input->getEscaped('business_email');
 
 
             //City
@@ -191,24 +191,28 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             }
 
             //Skills
-            if (isset($data['skills'][0]) && $data['skills'][0]) {
+            if (isset($data['skills'])) {
                 $this->_db->delete('user_skills',"user_id = $user_id");
-                foreach($data['skills'] as $num=>$row) {
-                    $this->_db->insert('user_skills',array(
-                        'user_id' => $user_id,
-                        'name' => $filter_alnum->filter($row),
-                    ));
+                if (isset($data['skills'][0]) && $data['skills'][0]) {
+                    foreach($data['skills'] as $num=>$row) {
+                        $this->_db->insert('user_skills',array(
+                            'user_id' => $user_id,
+                            'name' => $filter_alnum->filter($row),
+                        ));
+                    }
                 }
             }
 
             //Languages
-            if (isset($data['languages'][0]) && $data['languages'][0]) {
+            if (isset($data['languages'])) {
                 $this->_db->delete('user_languages',"user_id = $user_id");
-                foreach($data['languages'] as $num=>$row) {
-                    $this->_db->insert('user_languages',array(
-                        'user_id' => $user_id,
-                        'languages_id' => $filter_alnum->filter($row),
-                    ));
+                if (isset($data['languages'][0]) && $data['languages'][0]) {
+                    foreach($data['languages'] as $num=>$row) {
+                        $this->_db->insert('user_languages',array(
+                            'user_id' => $user_id,
+                            'languages_id' => $filter_alnum->filter($row),
+                        ));
+                    }
                 }
             }
 
