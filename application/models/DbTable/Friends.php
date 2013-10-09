@@ -132,7 +132,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 $user_id2 = $notification['from'];
 
                 if ($status == 1) {
-                    $text = '$$$name$$$ подтвердил ваш запрос';
+                    $text = '$$$name$$$ accepted invite';
                     $this->_db->insert('notifications',array(
                         'from' => $user_id,
                         'to' => $user_id2,
