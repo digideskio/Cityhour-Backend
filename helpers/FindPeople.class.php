@@ -656,7 +656,7 @@ class FindPeople extends Common {
                       else null
                     end as place,
                     case
-                      when (select count(o.id) from calendar o where o.user_id = $this->user_id and o.user_id_second = t.user_id and o.type = 2 and o.status = 1 and o.start_time > now()) > 0 then 1
+                      when (select count(o.id) from calendar o where o.user_id = $this->user_id and o.user_id_second = t.user_id and o.type = 2 and o.status = 1 and o.start_time > now() limit 1) > 0 then 1
                       else 0
                     end as request,
                     case
@@ -664,7 +664,7 @@ class FindPeople extends Common {
                             from user_friends f
                             where f.user_id = $this->user_id
                             and f.friend_id = t.user_id
-                            and f.status = 1) > 0 then 1
+                            and f.status = 1 limit 1) > 0 then 1
                       else 0
                     end as friend,
                     case
