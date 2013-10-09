@@ -8,7 +8,12 @@
       <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/collections" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/common" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/inflector" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/facebook/php-sdk" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/simukti/zf1" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/zircote/swagger-php" />
@@ -30,18 +35,28 @@
     <orderEntry type="module-library">
       <library name="PHP">
         <CLASSES>
-          <root url="file://$MODULE_DIR$/vendor/facebook/php-sdk" />
-          <root url="file://$MODULE_DIR$/vendor/composer" />
-          <root url="file://$MODULE_DIR$/vendor/simukti/zf1" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/cache" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/inflector" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/common" />
           <root url="file://$MODULE_DIR$/vendor/zircote/swagger-php" />
+          <root url="file://$MODULE_DIR$/vendor/facebook/php-sdk" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/simukti/zf1" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/collections" />
         </CLASSES>
         <SOURCES>
-          <root url="file://$MODULE_DIR$/vendor/facebook/php-sdk" />
-          <root url="file://$MODULE_DIR$/vendor/composer" />
-          <root url="file://$MODULE_DIR$/vendor/simukti/zf1" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/cache" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/lexer" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/inflector" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/common" />
           <root url="file://$MODULE_DIR$/vendor/zircote/swagger-php" />
+          <root url="file://$MODULE_DIR$/vendor/facebook/php-sdk" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
+          <root url="file://$MODULE_DIR$/vendor/composer" />
+          <root url="file://$MODULE_DIR$/vendor/simukti/zf1" />
+          <root url="file://$MODULE_DIR$/vendor/doctrine/collections" />
         </SOURCES>
       </library>
     </orderEntry>
