@@ -34,7 +34,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                             FROM   user_friends f
                             WHERE  f.user_id = n.to
                                AND f.friend_id = n.from
-                               AND f.status = 1) > 0 THEN Concat(u.name, ' ', u.lastname)
+                               AND f.status = 1 limit 1) > 0 THEN Concat(u.name, ' ', u.lastname)
                       ELSE Concat(u.name, ' ', Substr(u.lastname, 1, 1), '.')
                     end                     AS fullname,
                     Concat('$url', u.photo) AS photo,
@@ -78,7 +78,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                                 FROM   user_friends f
                                 WHERE  f.user_id = n.to
                                    AND f.friend_id = n.from
-                                   AND f.status = 1) > 0 THEN
+                                   AND f.status = 1 limit 1) > 0 THEN
                           Concat(u.name, ' ', u.lastname)
                           ELSE Concat(u.name, ' ', Substr(u.lastname, 1, 1), '.')
                         end
