@@ -73,7 +73,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 if ($validator_exist->isValid($user_id)) {
                     $this->_db->beginTransaction();
                     try {
-                        $text = $user['name'].' '.$user['lastname'].' хочет добавить вас в контакты';
+                        $text = 'Friend request';
                         $idn = (new Application_Model_DbTable_Notifications())->insertNotification(array(
                             'from' => $user_id,
                             'to' => $friend_id,

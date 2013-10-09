@@ -52,8 +52,7 @@ class databaseClass {
             return true;
         }
 
-        $text = mysql_real_escape_string($user_all['name']).' '.mysql_real_escape_string(substr($user_all['lastname'], 0, 1)).' прислал вам новое сообщение. '.$msg;
-        $text = mb_substr($text,0,25,'UTF-8');
+        $text = 'New message';
         $data = json_encode(array(
             'from' => $from,
             'type' => 5

@@ -135,7 +135,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'status' => 2
                 ),"id = $slot_id");
 
-                $text = '$$$name$$$ принял приглашение на встречу $$$date$$$ в '.$slot['place'];
+                $text = '$$$name$$$ accept meeting request $$$date$$$ at '.$slot['place'];
                 (new Application_Model_DbTable_Notifications())->insertNotification(array(
                     'from' => $user['id'],
                     'to' => $slot['user_id'],
@@ -146,7 +146,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $text = $user['name'].' принял приглашение на встречу '.$slot['start_time'].' в '.$slot['place'];
+                $text = 'Meeting Request Accepted';
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
                     'type' => 2,
@@ -244,7 +244,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'status' => 1
                 ),"id = $id");
 
-                $text = '$$$name$$$ принял приглашение на встречу $$$date$$$ в '.$slot['place'];
+                $text = '$$$name$$$ accept meeting request $$$date$$$ at '.$slot['place'];
                 (new Application_Model_DbTable_Notifications())->insertNotification(array(
                     'from' => $user['id'],
                     'to' => $slot['user_id'],
@@ -255,7 +255,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. принял приглашение на встречу '.$new_slot['start_time'].' в '.$slot['place'];
+                $text = 'New Meeting Request';
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
                     'type' => 2,
@@ -590,14 +590,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $data['hash'] = uniqid(sha1(time()), false);
             $id = $this->insert($data);
 
-            if (isset($data['place'])) {
-                $place = ' в '.$data['place'];
-            }
-            else {
-                $place = '';
-            }
-
-            $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. пригласил вас на встречу '.$data['start_time'].$place;
+            $text = 'New meeting request';
             if ($user_second_free) {
                 $nType = 3;
                 $pType = 0;
@@ -753,7 +746,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 }
             }
             else {
-                $text = '$$$name$$$ отменил встречу $$$date$$$ в '.$slot['place'];
+                $text = '$$$name$$$ canceled meeting $$$date$$$ at '.$slot['place'];
                 (new Application_Model_DbTable_Notifications())->insertNotification(array(
                     'from' => $user['id'],
                     'to' => $slot2['user_id'],
@@ -764,7 +757,6 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $text = $user['name'].' '.substr($user['lastname'], 0, 1).'. отменил встречу '.$slot['start_time'].' в '.$slot['place'];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,1,array(
                     'from' => $user['id'],
                     'type' => 1,

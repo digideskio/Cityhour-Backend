@@ -50,6 +50,17 @@ class DB {
     }
 
 
+    public function addLanguages($i,$langs) {
+        foreach ($langs as $row) {
+            $this->query("
+                INSERT INTO `user_languages` (`user_id`, `languages_id`)
+                VALUES
+                    ($i, '$row')
+            ");
+        }
+        return true;
+    }
+
     public function answer($result) {
         $this->mysql = null;
         var_dump($result);
