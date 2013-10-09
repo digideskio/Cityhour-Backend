@@ -132,6 +132,19 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 $user_id2 = $notification['from'];
 
                 if ($status == 1) {
+
+                    $friend = $this->_db->fetchRow("
+                        select id
+                        from user_friends f
+                        where (user_id = $user_id and friend_id = $user_id2) or (user_id = $user_id2 and friend_id = $user_id)
+                        limit 1
+                    ");
+
+                    if ($friend) {
+                        $this->_db->commit();
+                        return true;
+                    }
+
                     $text = '$$$name$$$ accepted invite';
                     $this->_db->insert('notifications',array(
                         'from' => $user_id,

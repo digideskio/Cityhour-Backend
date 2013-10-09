@@ -23,7 +23,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                                             from user_friends f
                                             where f.user_id = c.user_id
                                             and f.friend_id = u.id
-                                            and f.status = 1) > 0 then concat(u.name,' ',u.lastname)
+                                            and f.status = 1 limit 1) > 0 then concat(u.name,' ',u.lastname)
                                       else concat(u.name,' ',substr(u.lastname,1,1),'.')
                                     end
               else e.name
@@ -77,7 +77,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                                                                             from user_friends f
                                                                             where f.user_id = $user_id
                                                                             and f.friend_id = u.id
-                                                                            and f.status = 1) > 0 then concat(u.name,' ',u.lastname)
+                                                                            and f.status = 1 limit 1) > 0 then concat(u.name,' ',u.lastname)
                                                                       else concat(u.name,' ',substr(u.lastname,1,1),'.')
                                                                     end
               when user_id_second is not null then e.name

@@ -158,6 +158,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   	where f.user_id = $id
                   	and f.friend_id = u.id
                   	and f.status = 1
+                  	limit 1
                   	) > 0 then 2
                   	when ( select distinct(n.id)
                   	from notifications n
@@ -165,6 +166,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   	and n.to = u.id
                   	and n.type = 0
                   	and n.status = 0
+                  	limit 1
                   	) > 0 then 1
                  	else 0
                   END as status
