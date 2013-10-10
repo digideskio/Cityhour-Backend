@@ -245,7 +245,6 @@ class FindPeople extends Common {
     }
 
     public function getValues() {
-        $this->temp_t = '`'.uniqid().'`';
         $data = $this->data;
 
         if (!$this->map) {
@@ -260,10 +259,10 @@ class FindPeople extends Common {
             if (isset($data["goal"])) $this->goal = $data["goal"];
             if (isset($data["industry"])) $this->industry = $data["industry"];
 
-            if (isset($data["offset"])) {
-                $this->q_s = $this->q_s + $data["offset"];
-                $this->q_e = $this->q_e + $data["offset"];
-            }
+//            if (isset($data["offset"])) {
+//                $this->q_s = $this->q_s + $data["offset"];
+//                $this->q_e = $this->q_e + $data["offset"];
+//            }
 
             if (!$che) {
                 $this->answer('Not all params given',400);
@@ -322,13 +321,13 @@ class FindPeople extends Common {
                     $this->mapUpdate($user['id'],$lat,$lng,$offset);
 
                     $time = time();
-                    if (isset($data["offset"])) {
-                        $this->q_s = $time + $data["offset"];
-                        $this->q_e = $time + $data["offset"] + 7200;
-                    }
+//                    if (isset($data["offset"])) {
+//                        $this->q_s = $time + $data["offset"];
+//                        $this->q_e = $time + $data["offset"] + 7200;
+//                    }
 
-                    $this->q_s = date("Y-m-d H:i:s", $this->q_s );
-                    $this->q_e = date("Y-m-d H:i:s", $this->q_e );
+                    $this->q_s = date("Y-m-d H:i:s", $time );
+                    $this->q_e = date("Y-m-d H:i:s", $time );
 
                     $this->free = $this->checkFree();
 
@@ -370,19 +369,6 @@ class FindPeople extends Common {
     }
 
     public function createT() {
-//        echo("select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s'  + interval s3.value second ) as start_time, LEAST('$this->q_e', '$this->b_e'  + interval s3.value second) as end_time
-//
-//            from users u
-//            left join user_settings s on s.user_id = u.id and s.name = 'free_time'
-//            LEFT JOIN user_settings s3 ON s3.user_id = u.id AND s3.name = 'offset'
-//
-//            where
-//            s.value = '1'
-//            and u.status = 0
-//            and u.free_lng BETWEEN $this->s_lng AND $this->n_lng AND u.free_lat BETWEEN $this->s_lat AND $this->n_lat
-//            $this->industry_q
-//            $this->goal_fn
-//            having start_time != end_time;");
         $sql = "
             create table $this->temp_t (`id` bigint(20) unsigned DEFAULT NULL,
             `user_id` bigint(20) unsigned DEFAULT NULL,
@@ -481,11 +467,10 @@ class FindPeople extends Common {
 
 
             insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
-            select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s'  + interval s3.value second ) as start_time, LEAST('$this->q_e', '$this->b_e'  + interval s3.value second) as end_time
+            select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s') as start_time, LEAST('$this->q_e', '$this->b_e') as end_time
 
             from users u
             left join user_settings s on s.user_id = u.id and s.name = 'free_time'
-            LEFT JOIN user_settings s3 ON s3.user_id = u.id AND s3.name = 'offset'
 
             where
             s.value = '1'
@@ -508,6 +493,75 @@ class FindPeople extends Common {
             and mt.id is null
             );
         ";
+
+//        $this->query("
+//            create table $this->temp_t (`id` bigint(20) unsigned DEFAULT NULL,
+//            `user_id` bigint(20) unsigned DEFAULT NULL,
+//            `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
+//            `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
+//            `start_time` timestamp NULL DEFAULT NULL,
+//            `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
+//        ");
+//
+//        $this->query("
+//            create temporary table rSult (`id` bigint(20) unsigned DEFAULT NULL,
+//            `user_id` bigint(20) unsigned DEFAULT NULL,
+//            `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
+//            `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
+//            `start_time` timestamp NULL DEFAULT NULL,
+//            `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
+//            ");
+//
+//
+//        $this->query("
+//          create temporary table zSult (`id` bigint(20) unsigned DEFAULT NULL,
+//            `user_id` bigint(20) unsigned DEFAULT NULL,
+//            `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
+//            `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
+//            `start_time` timestamp NULL DEFAULT NULL,
+//            `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
+//        ");
+//        $this->query("
+//            create temporary table xSult (`id` bigint(20) unsigned DEFAULT NULL,
+//            `user_id` bigint(20) unsigned DEFAULT NULL,
+//            `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
+//            `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
+//            `start_time` timestamp NULL DEFAULT NULL,
+//            `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
+//        ");
+//
+//        $this->query("
+//              insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
+//            select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s'  + interval s3.value second ) as start_time, LEAST('$this->q_e', '$this->b_e'  + interval s3.value second) as end_time
+//
+//            from users u
+//            left join user_settings s on s.user_id = u.id and s.name = 'free_time'
+//            LEFT JOIN user_settings s3 ON s3.user_id = u.id AND s3.name = 'offset'
+//
+//            where
+//            s.value = '1'
+//            and u.status = 0
+//            and u.free_lng BETWEEN $this->s_lng AND $this->n_lng AND u.free_lat BETWEEN $this->s_lat AND $this->n_lat
+//            $this->industry_q
+//            $this->goal_fn
+//            having start_time != end_time;
+//        ");
+//        $this->query("
+//            insert into rSult (id, user_id, `type`, is_free, start_time, end_time)
+//            (
+//            select t.id, t.user_id, t.type, t.is_free, t.start_time, t.end_time
+//            from $this->temp_t t
+//            left outer JOIN $this->temp_t mt on t.user_id = mt.user_id
+//            and mt.type = 2
+//            and t.start_time <= mt.end_time
+//            and t.end_time >= mt.start_time
+//
+//            where t.type = 1
+//            and mt.id is null
+//            );
+//        ");
+
+
 
         try {
             $stmt = $this->mysql->prepare($sql);
@@ -844,11 +898,16 @@ class FindPeople extends Common {
     }
 
     public function find() {
+        $this->temp_t = '`'.uniqid().'`';
         $this->createT();
-//        var_dump($this->query("select * from rSult",false,true));
+
         // Case A
         $this->MeetFreeCross();
-
+//        echo " LOloloo
+//
+//
+//        ";
+//        print_r($this->query("select * from rSult",false,true));
         // Case B
 
         // Busy minus R
@@ -864,7 +923,7 @@ class FindPeople extends Common {
 
         // Get Result and Drop temporary data
         $result = $this->getResult();
-        $this->clearTempData();
+        $this->clearTempData(true);
         return $result;
     }
 }

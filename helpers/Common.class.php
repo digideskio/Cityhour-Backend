@@ -110,7 +110,13 @@ class Common {
         die();
     }
 
-    public function clearTempData() {
+    public function clearTempData($all = false) {
+        if ($all) {
+            $this->query("drop table $this->temp_t");
+//            $this->query("drop table rSult");
+//            $this->query("drop table zSult");
+//            $this->query("drop table xSult");
+        }
         if ($this->temp_t) {
             $sql = "drop table $this->temp_t";
             $this->query($sql);
