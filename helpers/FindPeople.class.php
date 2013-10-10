@@ -259,11 +259,6 @@ class FindPeople extends Common {
             if (isset($data["goal"])) $this->goal = $data["goal"];
             if (isset($data["industry"])) $this->industry = $data["industry"];
 
-//            if (isset($data["offset"])) {
-//                $this->q_s = $this->q_s + $data["offset"];
-//                $this->q_e = $this->q_e + $data["offset"];
-//            }
-
             if (!$che) {
                 $this->answer('Not all params given',400);
                 die();
@@ -321,10 +316,6 @@ class FindPeople extends Common {
                     $this->mapUpdate($user['id'],$lat,$lng,$offset);
 
                     $time = time();
-//                    if (isset($data["offset"])) {
-//                        $this->q_s = $time + $data["offset"];
-//                        $this->q_e = $time + $data["offset"] + 7200;
-//                    }
 
                     $this->q_s = date("Y-m-d H:i:s", $time );
                     $this->q_e = date("Y-m-d H:i:s", $time + 7200 );
@@ -369,37 +360,49 @@ class FindPeople extends Common {
     }
 
     public function createT() {
-        $sql = "
+
+
+        $this->query("
             create table $this->temp_t (`id` bigint(20) unsigned DEFAULT NULL,
             `user_id` bigint(20) unsigned DEFAULT NULL,
             `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
             `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
             `start_time` timestamp NULL DEFAULT NULL,
             `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
+        ");
 
+        $this->query("
             create temporary table rSult (`id` bigint(20) unsigned DEFAULT NULL,
             `user_id` bigint(20) unsigned DEFAULT NULL,
             `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
             `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
             `start_time` timestamp NULL DEFAULT NULL,
             `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
+        ");
 
+        $this->query("
             create temporary table zSult (`id` bigint(20) unsigned DEFAULT NULL,
             `user_id` bigint(20) unsigned DEFAULT NULL,
             `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
             `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
             `start_time` timestamp NULL DEFAULT NULL,
             `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
+        ");
 
+        $this->query("
             create temporary table xSult (`id` bigint(20) unsigned DEFAULT NULL,
             `user_id` bigint(20) unsigned DEFAULT NULL,
             `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
             `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
             `start_time` timestamp NULL DEFAULT NULL,
             `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
+        ");
 
+        $this->query("
             $this->goal_r
+        ");
 
+        $this->query("
             insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
             select c.id as id, c.user_id, c.type, s.value as is_free,
             CASE
@@ -428,8 +431,9 @@ class FindPeople extends Common {
             and (s.value is null or s.value = '0')
             and u.status = 0
             having start_time != end_time;
+        ");
 
-
+        $this->query("
             insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
             select c.id, c.user_id, c.type, s.value as is_free,
             CASE
@@ -464,8 +468,9 @@ class FindPeople extends Common {
             $this->goal_f
 
             having start_time != end_time;
+        ");
 
-
+        $this->query("
             insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
             select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s') as start_time, LEAST('$this->q_e', '$this->b_e') as end_time
 
@@ -492,18 +497,7 @@ class FindPeople extends Common {
             where t.type = 1
             and mt.id is null
             );
-        ";
-
-        try {
-            $stmt = $this->mysql->prepare($sql);
-            $stmt->execute();
-        }
-        catch(Exception $e)
-        {
-            $this->clearTempData();
-            $this->answer($e,500);
-            die();
-        }
+        ");
     }
 
     public function MeetFreeCross() {

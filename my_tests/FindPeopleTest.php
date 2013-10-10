@@ -54,7 +54,7 @@ $db->insertUser(6,'Slava',4,2,1,0);
 
 
 // Insert User Anton
-$db->insertUser(7,'Anton',2,2,0,0);
+$db->insertUser(7,'Anton',3,2,0,0);
 // Insert Calendar Slots
 $db->insertSlot(7,1,$day.'16:00:00',$day.'17:00:00',0,0,0);
 $db->insertSlot(7,1,$day.'10:00:00',$day.'14:45:00',0,0,0);
@@ -63,11 +63,11 @@ $db->insertSlot(7,1,$day.'12:00:00',$day.'13:00:00',2,2,2);
 $db->insertSlot(7,1,$day.'08:00:00',$day.'13:00:00',2,1,0);
 
 // Insert User Egor
-$db->insertUser(8,'Egor',2,2,0,0);
+$db->insertUser(8,'Egor',3,2,0,0);
 
 
 // Insert User Vitaly
-$db->insertUser(9,'Vitaly',2,2,0,0);
+$db->insertUser(9,'Vitaly',3,2,0,0);
 // Insert Calendar Slots
 $db->insertSlot(9,1,$day.'16:00:00',$day.'17:00:00',0,0,0);
 $db->insertSlot(9,1,$day.'10:00:00',$day.'14:45:00',0,0,0);
@@ -76,7 +76,7 @@ $db->insertSlot(9,1,$day.'12:00:00',$day.'13:00:00',2,2,2);
 $db->insertSlot(9,1,$day.'08:00:00',$day.'09:00:00',0,0,0);
 
 // Insert User Selvestor
-$db->insertUser(10,'Selvestor',2,2,1,0);
+$db->insertUser(10,'Selvestor',3,2,1,0);
 // Insert Calendar Slots
 $db->insertSlot(10,1,$day.'08:45:00',$day.'09:45:00',0,0,0);
 $db->insertSlot(10,1,$day.'10:00:00',$day.'14:45:00',0,0,0);
@@ -86,7 +86,7 @@ $db->insertSlot(10,1,$day.'16:00:00',$day.'17:00:00',2,1,0);
 
 
 // Insert User Janik
-$db->insertUser(11,'Janik',2,2,1,0);
+$db->insertUser(11,'Janik',3,2,1,0);
 // Insert Calendar Slots
 $db->insertSlot(11,1,$day.'08:45:00',$day.'09:45:00',0,0,0);
 $db->insertSlot(11,1,$day.'10:00:00',$day.'14:45:00',0,0,0);
