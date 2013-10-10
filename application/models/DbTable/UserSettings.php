@@ -26,7 +26,7 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                     'free_lat' => $city['lat'],
                     'free_lng' => $city['lng'],
                 );
-                if (array_key_exists('foursquare_id', $data)) {
+                if (array_key_exists('foursquare_id', $data) || $this->fetchRow("name = 'foursquare_id' and user_id = $user_id")) {
                     unset($ucity['lat']);
                     unset($ucity['lng']);
                 }
@@ -35,13 +35,29 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
             }
 
             if ($num == 'foursquare_id') {
-                $foursquare = Application_Model_Common::getPlace($row);
-                $ufoursquare = array(
-                    'free_foursquare_id' => $foursquare['foursquare_id'],
-                    'free_place' => $foursquare['place'],
-                    'free_lat' => $foursquare['lat'],
-                    'free_lng' => $foursquare['lng'],
-                );
+                if ($row) {
+                    $foursquare = Application_Model_Common::getPlace($row);
+                    $ufoursquare = array(
+                        'free_foursquare_id' => $foursquare['foursquare_id'],
+                        'free_place' => $foursquare['place'],
+                        'free_lat' => $foursquare['lat'],
+                        'free_lng' => $foursquare['lng'],
+                    );
+                }
+                else {
+                    $city = $this->_db->fetchRow("
+                        select c.lat,c.lng
+                        from user_settings us
+                        left join city c on us.user_id = $user_id and us.name = 'city' and us.value = c.city
+                    ");
+                    $ufoursquare = array(
+                        'free_foursquare_id' => null,
+                        'free_place' => null,
+                        'free_lat' => $city['lat'],
+                        'free_lng' => $city['lng'],
+                    );
+                    $row = null;
+                }
                 $this->_db->update('users',$ufoursquare,"id = $user_id");
             }
 
