@@ -757,6 +757,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
+                $text = 'Meeting canceled'.$slot['place'];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,1,array(
                     'from' => $user['id'],
                     'type' => 1,

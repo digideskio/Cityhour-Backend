@@ -22,7 +22,7 @@ if (!$result) {
 }
 
 if (mysql_num_rows($result) != 0) {
-    $text = 'Rate meeting!';
+    $text = 'Rate reminder';
     while ($row = mysql_fetch_assoc($result)) {
         $id = $row["id"];
         $user_id = $row["user_id"];
@@ -46,7 +46,7 @@ if (!$result) {
 
 
 if (mysql_num_rows($result) != 0) {
-    $text = 'Meeting COME!';
+    $text = 'Up-coming meeting';
     while ($row = mysql_fetch_assoc($result)) {
         $id = $row["id"];
         $user_id = $row["user_id"];
