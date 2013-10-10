@@ -63,11 +63,15 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         );
     }
 
-    public function getAll($user) {
+    public function getAll($user,$id) {
         $user_id = $user['id'];
         $start = gmdate('Y-m-d H:i:s',time()-86400);
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->userPhoto->url;
+
+        if ($id) {
+            return $this->getSlotID($id);
+        }
 
         $res = $this->_db->fetchAll("
             select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
