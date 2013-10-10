@@ -662,9 +662,17 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $res['offset'] = $data['offset'];
             }
 
-            if (isset($data['foursquare_id']) && $data['foursquare_id']) {
-                $place = Application_Model_Common::getPlace($data['foursquare_id']);
-                $res = array_merge($res,$place);
+            if (isset($data['foursquare_id'])) {
+                if ($data['foursquare_id']) {
+                    $place = Application_Model_Common::getPlace($data['foursquare_id']);
+                    $res = array_merge($res,$place);
+                }
+                else {
+                    $res = array_merge($res,array(
+                        'foursquare_id' => null,
+                        'place' => null
+                    ));
+                }
             }
 
         }
