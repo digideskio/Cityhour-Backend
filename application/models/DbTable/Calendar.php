@@ -667,16 +667,13 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     $place = Application_Model_Common::getPlace($data['foursquare_id']);
                     $res = array_merge($res,$place);
                 }
-                else {
-                    $res = array_merge($res,array(
-                        'foursquare_id' => null,
-                        'place' => null
-                    ));
-                }
+            }
+            else {
+                $res['foursquare_id'] = null;
+                $res['place'] = null;
             }
 
         }
-
         return $res;
     }
 
