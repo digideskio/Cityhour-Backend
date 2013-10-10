@@ -96,9 +96,12 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                     $res[$num]['value'] = $this->_db->fetchOne("select city_name from city where city = '$city' ");
                 }
 
-                if ($row['name'] == 'foursquare_id') {
+                if ($row['name'] == 'foursquare_id' && $row['value']) {
                     $foursquare_id = $row['value'];
                     $res[$num]['value'] = $this->_db->fetchOne("select place from place where foursquare_id = '$foursquare_id' ");
+                }
+                else {
+                    $res[$num]['value'] = '';
                 }
             }
 

@@ -191,7 +191,9 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                         $phones[$num] = $phone;
                     }
                 }
-                $phones = "u.phone like '%".implode("%' or u.phone like '%",$phones)."%'";
+                if ($phones) {
+                    $phones = "u.phone like '%".implode("%' or u.phone like '%",$phones)."%'";
+                }
             }
             else {
                 $phones = 0;
@@ -203,8 +205,11 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                         $emails[$num] = $row;
                     }
                 }
-                $business_emails = "u.business_email like '%".implode("%' or u.business_email like '%",$emails)."%'";
-                $emails = "u.email like '%".implode("%' or u.email like '%",$emails)."%'";
+
+                if ($emails) {
+                    $business_emails = "u.business_email like '%".implode("%' or u.business_email like '%",$emails)."%'";
+                    $emails = "u.email like '%".implode("%' or u.email like '%",$emails)."%'";
+                }
             }
             else {
                 $emails = 0;
