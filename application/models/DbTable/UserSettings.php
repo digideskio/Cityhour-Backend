@@ -100,7 +100,7 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                     $foursquare_id = $row['value'];
                     $res[$num]['value'] = $this->_db->fetchOne("select place from place where foursquare_id = '$foursquare_id' ");
                 }
-                else {
+                elseif ($row['name'] == 'foursquare_id') {
                     $res[$num]['value'] = '';
                 }
             }
