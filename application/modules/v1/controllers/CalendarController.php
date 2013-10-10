@@ -66,10 +66,9 @@ class V1_CalendarController extends Zend_Rest_Controller
     {
         $this->getResponse()->setHttpResponseCode(200);
         $user = Application_Model_DbTable_Users::authorize($this->_request->getParam('private_key'));
-        $id = Application_Model_DbTable_Users::authorize($this->_request->getParam('id'));
 
         $this->_helper->json->sendJson(array(
-            'body' => (new Application_Model_DbTable_Calendar())->getAll($user,$id),
+            'body' => (new Application_Model_DbTable_Calendar())->getAll($user,$this->_request->getParam('id')),
             'errorCode' => '200'
         ));
 
