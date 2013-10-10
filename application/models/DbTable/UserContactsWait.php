@@ -181,6 +181,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         //Address book
         else if ($type == 3) {
             $emails = array();
+            $phones = array();
             $filter_int = new Zend_Filter_Digits();
             $valid_email = new Zend_Validate_EmailAddress();
 
@@ -193,6 +194,9 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 }
                 if ($phones) {
                     $phones = "u.phone like '%".implode("%' or u.phone like '%",$phones)."%'";
+                }
+                else {
+                    $phones = '';
                 }
             }
             else {
@@ -210,6 +214,10 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     $business_emails = "u.business_email like '%".implode("%' or u.business_email like '%",$emails)."%'";
                     $emails = "u.email like '%".implode("%' or u.email like '%",$emails)."%'";
                 }
+                else {
+                    $business_emails = '';
+                    $emails = '';
+                }
             }
             else {
                 $emails = 0;
@@ -219,7 +227,8 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
             $url = $config->userPhoto->url;
 
-            $res = $this->_db->fetchAll("
+            if ($phones || $emails || $business_emails) {
+                $res = $this->_db->fetchAll("
                   select distinct(u.id), u.name, u.lastname, concat('$url',u.photo) as photo,
                   CASE
                   	when ( select distinct(f.id)
@@ -243,6 +252,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   and u.id != $id
                   having status != 2
             ");
+            }
         }
 
         // Email
