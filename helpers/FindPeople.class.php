@@ -327,7 +327,7 @@ class FindPeople extends Common {
 //                    }
 
                     $this->q_s = date("Y-m-d H:i:s", $time );
-                    $this->q_e = date("Y-m-d H:i:s", $time );
+                    $this->q_e = date("Y-m-d H:i:s", $time + 7200 );
 
                     $this->free = $this->checkFree();
 
