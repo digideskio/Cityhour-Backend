@@ -35,8 +35,8 @@ class Application_Model_DbTable_Complaints extends Zend_Db_Table_Abstract
         return $paginator;
     }
 
-    public function addComplaint($data,$from,$to) {
-        $che = $this->fetchRow(" `from` = $from and `to` = $to ");
+    public function addComplaint($data,$from,$to,$type) {
+        $che = $this->fetchRow(" `from` = $from and `to` = $to and type = $type");
         if ($che) {
             return 403;
         }

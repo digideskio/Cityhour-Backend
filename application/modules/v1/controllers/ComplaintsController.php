@@ -89,7 +89,7 @@ class V1_ComplaintsController extends Zend_Rest_Controller
                 'from' => $user['id'],
                 'to' => $data['to'],
                 'dscr' => $filter_alnum->filter($data['dscr'])
-            ), $user['id'], $data['to']);
+            ), $user['id'], $data['to'],$data['type']);
             if ($res === true) {
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '200'
