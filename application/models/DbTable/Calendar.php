@@ -5,7 +5,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     protected $_name = 'calendar';
 
-    public function getSlotID($id,$many = false) {
+    public function getSlotID($id,$many = false, $user_id = false) {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->userPhoto->url;
 
@@ -15,6 +15,14 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         else {
             $id = "c.id in ($id)";
         }
+
+        if ($user_id) {
+            $user_id = "and user_id = $user_id";
+        }
+        else {
+            $user_id = '';
+        }
+
         $res = $this->_db->fetchAll("
             select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
              case
@@ -37,6 +45,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             left join email_users e on c.user_id_second = e.id and c.email = 1
             where
             $id
+            $user_id
         ");
 
         if (!$many && isset($res[0])) {
@@ -70,7 +79,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $url = $config->userPhoto->url;
 
         if ($id) {
-            return $this->getSlotID($id);
+            return $this->getSlotID($id,false,$user_id);
         }
 
         $res = $this->_db->fetchAll("
