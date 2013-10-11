@@ -131,7 +131,13 @@ class V1_FriendsController extends Zend_Rest_Controller
         if (isset($data['private_key']) && $data['private_key'] && isset($data['id']) && is_numeric($data['id'])) {
             $user = Application_Model_DbTable_Users::authorize($data['private_key']);
             $db = new Application_Model_DbTable_Friends();
-            if ($db->addFriend($data['id'],$user)) {
+            $res = $db->addFriend($data['id'],$user);
+            if ($res === 301) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => '301'
+                ));
+            }
+            elseif ($res) {
                 $this->_helper->json->sendJson(array(
                     'errorCode' => '200'
                 ));

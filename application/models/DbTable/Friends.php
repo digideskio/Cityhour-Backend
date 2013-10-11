@@ -68,7 +68,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
                     'table' => 'notifications',
                     'field' => 'from',
-                    'exclude' => "`to` = $friend_id and type = 0 and status = 0"
+                    'exclude' => "`to` = $friend_id and type = 0"
                 ));
                 if ($validator_exist->isValid($user_id)) {
                     $this->_db->beginTransaction();
@@ -99,7 +99,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                     }
                 }
                 else {
-                    return true;
+                    return 301;
                 }
             }
             else {
