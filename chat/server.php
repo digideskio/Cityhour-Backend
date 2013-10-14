@@ -3,6 +3,7 @@
 //{ "type":"login", "private_key":"b4c43dd7e81870bfe42809cfc9ee686e551a51a751ee811062b7d" }
 //{ "type":"msg", "private_key":"b4c43dd7e81870bfe42809cfc9ee686e551a51a751ee811062b7d", "to":"31", "text":"Bla bla" }
 
+include_once("../application/models/Texts.php");
 date_default_timezone_set("UTC");
 $socket = stream_socket_server("tcp://0.0.0.0:3333", $errno, $err) or die($err);
 $conns = array($socket);
@@ -52,7 +53,7 @@ class databaseClass {
             return true;
         }
 
-        $text = 'New message';
+        $text = Application_Model_Texts::push()[5];
         $data = json_encode(array(
             'from' => $from,
             'type' => 5

@@ -49,6 +49,7 @@
         <modelFile modelName="Facebook"/>
         <modelFile modelName="Linkedin"/>
         <modelFile modelName="Status"/>
+        <modelFile modelName="Texts"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="default">

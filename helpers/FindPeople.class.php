@@ -472,10 +472,11 @@ class FindPeople extends Common {
 
         $this->query("
             insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
-            select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s') as start_time, LEAST('$this->q_e', '$this->b_e') as end_time
+            select u.id as id, u.id as user_id, 3 as type, s.value as is_free, GREATEST('$this->q_s', '$this->b_s' - s2.value) as start_time, LEAST('$this->q_e', '$this->b_e' - s2.value) as end_time
 
             from users u
             left join user_settings s on s.user_id = u.id and s.name = 'free_time'
+            left join user_settings s2 on s2.user_id = u.id and s2.name = 'offset'
 
             where
             s.value = '1'
@@ -484,7 +485,9 @@ class FindPeople extends Common {
             $this->industry_q
             $this->goal_fn
             having start_time != end_time;
+        ");
 
+        $this->query("
             insert into rSult (id, user_id, `type`, is_free, start_time, end_time)
             (
             select t.id, t.user_id, t.type, t.is_free, t.start_time, t.end_time

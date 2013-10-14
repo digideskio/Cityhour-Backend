@@ -41,14 +41,13 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 and u.status = 0
             ");
         if ($res) {
-            $text = '$$$name$$$ ваш друг c Linkedin и он зарегистрировался.';
             foreach ($res as $num=>$row) {
                 $this->_db->insert('notifications',array(
                     'from' => $id,
                     'to' => $row['id'],
                     'item' => $id,
                     'type' => 7,
-                    'text' => $text,
+                    'text' => Application_Model_Texts::notification()[7],
                     'template' => 0,
                     'action' => 6
                 ));
@@ -69,14 +68,13 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             and u.status = 0
         ");
         if ($res) {
-            $text = '$$$name$$$ ваш друг c Facebook и он зарегистрировался.';
             foreach ($res as $num=>$row) {
                 $this->_db->insert('notifications',array(
                     'from' => $id,
                     'to' => $row['id'],
                     'item' => $id,
                     'type' => 8,
-                    'text' => $text,
+                    'text' => Application_Model_Texts::notification()[8],
                     'template' => 0,
                     'action' => 6
                 ));

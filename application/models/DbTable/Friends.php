@@ -73,17 +73,17 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 if ($validator_exist->isValid($user_id)) {
                     $this->_db->beginTransaction();
                     try {
-                        $text = 'Friend request';
                         $idn = (new Application_Model_DbTable_Notifications())->insertNotification(array(
                             'from' => $user_id,
                             'to' => $friend_id,
                             'item' => $user_id,
                             'type' => 0,
-                            'text' => $text,
+                            'text' => Application_Model_Texts::notification()[0],
                             'template' => 2,
                             'action' => 2
                         ));
 
+                        $text = Application_Model_Texts::push()[4];
                         (new Application_Model_DbTable_Push())->sendPush($friend_id,$text,4,array(
                             'from' => $user_id,
                             'type' => 4,
@@ -145,13 +145,12 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         return true;
                     }
 
-                    $text = '$$$name$$$ accepted invite';
                     $this->_db->insert('notifications',array(
                         'from' => $user_id,
                         'to' => $user_id2,
                         'item' => $user_id,
                         'type' => 1,
-                        'text' => $text,
+                        'text' => Application_Model_Texts::notification()[1],
                         'template' => 0,
                         'action' => 3
                     ));
