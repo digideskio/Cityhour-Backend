@@ -151,9 +151,67 @@ class V1_ChatController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
     }
 
+    /**
+     *
+     * @SWG\Api(
+     *   path="/chat/",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       httpMethod="DELETE",
+     *       summary="Delete chat.",
+     *       responseClass="void",
+     *       nickname="DeleteChat",
+     *       notes="",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="401",
+     *            reason="Authentication failed."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="private_key",
+     *           description="private_key",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="string"
+     *         ),
+     * @SWG\Parameter(
+     *           name="id",
+     *           description="id",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="int"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function deleteAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $token = $this->_request->getParam('private_key');
+        $id = $this->_request->getParam('id');
+        if ($token && is_numeric($id)) {
+            $user = Application_Model_DbTable_Users::authorize($token);
+            $this->_helper->json->sendJson(array(
+                'errorCode' => (new Application_Model_DbTable_Chat())->deleteChat($user,$id)
+            ));
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                'errorCode' => '400'
+            ));
+        }
     }
 
     public function headAction()

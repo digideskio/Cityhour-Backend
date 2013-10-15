@@ -1,1 +1,108 @@
-{"basePath":"http://api.trubear.com//v1/","apiVersion":"1","resourcePath":"/complaints","apis":[{"path":"/complaints/","operations":[{"httpMethod":"POST","summary":"Add complaint.","nickname":"addComplaint","responseClass":"void","parameters":[{"name":"json","description":"json","allowMultiple":false,"dataType":"addComplaintParams","paramType":"body","required":true}],"errorResponses":[{"reason":"Not all params correct.","code":400},{"reason":"Have no permissions.","code":401},{"reason":"Already make complaint to this user.","code":403},{"reason":"You blocked.","code":407}],"notes":""},{"httpMethod":"PUT","summary":"Add feedback.","nickname":"addFeedback","responseClass":"void","parameters":[{"name":"json","description":"json","allowMultiple":false,"dataType":"addFeedbackParams","paramType":"body","required":true}],"errorResponses":[{"reason":"Not all params correct.","code":400},{"reason":"Have no permissions.","code":401},{"reason":"You blocked.","code":407}],"notes":""}]}],"models":{"addComplaintParams":{"id":"addComplaintParams","properties":{"private_key":{"type":"string"},"type":{"type":"string"},"to":{"type":"string"},"dscr":{"type":"string"}}},"addFeedbackParams":{"id":"addFeedbackParams","properties":{"private_key":{"type":"string"},"dscr":{"type":"string"}}}}}
+{
+    "basePath": "http://api.trubear.com/v1/",
+    "apiVersion": "1",
+    "resourcePath": "/complaints",
+    "apis": [
+        {
+            "path": "/complaints/",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Add complaint.",
+                    "nickname": "addComplaint",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "addComplaintParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "Already make complaint to this user.",
+                            "code": 403
+                        },
+                        {
+                            "reason": "You blocked.",
+                            "code": 407
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Add feedback.",
+                    "nickname": "addFeedback",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "addFeedbackParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "You blocked.",
+                            "code": 407
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "addComplaintParams": {
+            "id": "addComplaintParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "type": {
+                    "type": "string"
+                },
+                "to": {
+                    "type": "string"
+                },
+                "dscr": {
+                    "type": "string"
+                }
+            }
+        },
+        "addFeedbackParams": {
+            "id": "addFeedbackParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "dscr": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

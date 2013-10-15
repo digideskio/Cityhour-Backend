@@ -8,13 +8,10 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
 
     public function getMessages($user,$from) {
         $user_id = $user['id'];
-        if ($res = $this->fetchAll("(`from` = $from and `to` = $user_id) or (`from` = $user_id and `to` = $from)")->toArray()) {
+        if ($res = $this->_db->fetchAll("select id,unix_timestamp(`when`) as 'when',`from`,`to`,`text`,`status` from chat where ( `from` = $from and `to` = $user_id and deleted_one = 0) or ( `from` = $user_id and `to` = $from and deleted_two = 0)")) {
             $this->update(array(
                 'status' => 1
             ),"`from` = $from and `to` = $user_id");
-            foreach ($res as $num => $row) {
-                $res[$num]['when'] = strtotime($row['when']);
-            }
             return $res;
         }
         else {
@@ -37,6 +34,7 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
             from chat c
             where
             c.to = $user_id
+            and c.deleted_one = 0
             group by c.from
             )
             union
@@ -45,6 +43,7 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
             from chat c
             where
             c.from = $user_id
+            and c.deleted_two = 0
             group by c.to
             )
             ) as t
@@ -52,6 +51,17 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
             left join chat h on t.id = h.id
             group by user_id
         ");
+    }
+
+    public function deleteChat($user,$from) {
+        $user_id = $user['id'];
+        $this->update(array(
+            'deleted_one' => 1
+        ),"`from` = $from and `to` = $user_id");
+        $this->update(array(
+            'deleted_two' => 1
+        ),"`to` = $from and `from` = $user_id");
+        return 200;
     }
 
 }

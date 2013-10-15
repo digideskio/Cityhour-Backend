@@ -3,7 +3,7 @@ namespace Swagger\Annotations;
 
 /**
  * @license    http://www.apache.org/licenses/LICENSE-2.0
- *             Copyright [2013] [Robert Allen]
+ *             Copyright [2012] [Robert Allen]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,67 +44,39 @@ class Model extends AbstractAnnotation
     public $description;
 
     /**
+     * @var null|string
+     */
+    public $extends;
+
+    /**
      * @var array
      */
     public $properties = array();
 
-    /**
-     * @var array
-     */
-    public $required;
-
-    /**
-     * The PHP class connected to this model
-     * @var null|string
-     */
-    public $phpClass;
-
-    /**
-     * The superclass connected to this model.
-     * @var null|string
-     */
-    public $phpExtends;
-
-    protected static $mapAnnotations = array(
-        '\Swagger\Annotations\Property' => 'properties[]'
-    );
-
-    public function __construct(array $values = array()) {
-        parent::__construct($values);
-        if (is_string($this->required)) {
-            $this->required = $this->decode($this->required);
-        }
-    }
-
-    public function setNestedAnnotations($annotations)
+    protected function setNestedAnnotations($annotations)
     {
-        foreach ($annotations as $index => $annotation) {
-            if ($annotation instanceof Properties) {
+        foreach ($annotations as $annotation) {
+            if ($annotation instanceof Property) {
+                $this->properties[] = $annotation;
+            } elseif ($annotation instanceof Properties) {
                 foreach ($annotation->properties as $property) {
                     $this->properties[] = $property;
                 }
-                unset($annotations[$index]);
+            } else {
+                Logger::notice('Unexpected '.get_class($annotation).' in a '.get_class($this).' in '.AbstractAnnotation::$context);
             }
         }
-        return parent::setNestedAnnotations($annotations);
     }
 
     public function validate()
     {
         $properties = array();
-        $required = $this->required ?: array();
         foreach ($this->properties as $property) {
             if ($property->validate()) {
                 $properties[] = $property;
-                if ($property->required) {
-                    $required[] = $property->name;
-                }
             }
         }
         $this->properties = $properties;
-        if (count($required) > 0) {
-            $this->required = array_unique($required);
-        }
         return true;
     }
 
@@ -114,18 +86,11 @@ class Model extends AbstractAnnotation
     public function jsonSerialize()
     {
         $data = parent::jsonSerialize($this);
-        unset($data['phpClass'], $data['phpExtends']);
-        if (empty($data['required'])) {
-            unset($data['required']);
-        }
+        unset($data['extends']);
         $data['properties'] = array();
         foreach ($this->properties as $property) {
-            $data['properties'][$property->name] = $property->jsonSerialize();
+            $data['properties'][$property->name] = $property;
         }
         return $data;
-    }
-
-    public function identity() {
-        return '@SWG\Model(id="'.$this->id.'")';
     }
 }

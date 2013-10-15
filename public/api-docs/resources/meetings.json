@@ -1,1 +1,207 @@
-{"basePath":"http://api.trubear.com//v1/","apiVersion":"1","resourcePath":"/meetings","apis":[{"path":"/meetings/","operations":[{"httpMethod":"GET","summary":"Answer handler for email meeting request.","nickname":"AcceptEmailMeeting","responseClass":"void","parameters":[{"name":"answer","description":"answer","allowMultiple":false,"dataType":"int","paramType":"query","required":true},{"name":"sid","description":"Meeting id","allowMultiple":false,"dataType":"int","paramType":"query","required":true},{"name":"key","description":"User key","allowMultiple":false,"dataType":"string","paramType":"query","required":true}],"errorResponses":[{"reason":"Not all params correct.","code":400},{"reason":"Have no permissions.","code":401},{"reason":"User for meet blocked.","code":408},{"reason":"Request user have meeting on this time.","code":301}],"notes":""},{"httpMethod":"POST","summary":"Add meeting or free slot.","nickname":"addMeeting","responseClass":"void","parameters":[{"name":"json","description":"json","allowMultiple":false,"dataType":"addMeetingsParams","paramType":"body","required":true}],"errorResponses":[{"reason":"Not all params correct.","code":400},{"reason":"Have no permissions.","code":401},{"reason":"User for meet blocked.","code":408},{"reason":"User blocked.","code":407},{"reason":"You have meeting or free slot on this time.","code":300},{"reason":"You have meeting with this user on this time.","code":301}],"notes":""},{"httpMethod":"PUT","summary":"Answer on meeting request.","nickname":"addMeeting","responseClass":"void","parameters":[{"name":"json","description":"json","allowMultiple":false,"dataType":"answerMeetingsParams","paramType":"body","required":true}],"errorResponses":[{"reason":"Not all params correct.","code":400},{"reason":"Have no permissions.","code":401},{"reason":"User for meet blocked.","code":408},{"reason":"User blocked.","code":407},{"reason":"Right meeting not found.","code":404},{"reason":"You have meeting on this time.","code":300},{"reason":"Request user have meeting on this time.","code":301}],"notes":""}]}],"models":{"addMeetingsParams":{"id":"addMeetingsParams","properties":{"private_key":{"type":"string"},"date_from":{"type":"timestamp"},"date_to":{"type":"timestamp"},"city":{"type":"string"},"foursquare_id":{"type":"string"},"goal":{"type":"int"},"person":{"type":"int"},"person_value":{"type":"string"},"person_name":{"type":"string"}}},"answerMeetingsParams":{"id":"answerMeetingsParams","properties":{"private_key":{"type":"string"},"id":{"type":"int"},"status":{"type":"int"},"foursqure_id":{"type":"string"},"start_time":{"type":"string"}}}}}
+{
+    "basePath": "http://api.trubear.com/v1/",
+    "apiVersion": "1",
+    "resourcePath": "/meetings",
+    "apis": [
+        {
+            "path": "/meetings/",
+            "operations": [
+                {
+                    "httpMethod": "GET",
+                    "summary": "Answer handler for email meeting request.",
+                    "nickname": "AcceptEmailMeeting",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "answer",
+                            "description": "answer",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": true
+                        },
+                        {
+                            "name": "sid",
+                            "description": "Meeting id",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": true
+                        },
+                        {
+                            "name": "key",
+                            "description": "User key",
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "User for meet blocked.",
+                            "code": 408
+                        },
+                        {
+                            "reason": "Request user have meeting on this time.",
+                            "code": 301
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "httpMethod": "POST",
+                    "summary": "Add meeting or free slot.",
+                    "nickname": "addMeeting",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "addMeetingsParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "User for meet blocked.",
+                            "code": 408
+                        },
+                        {
+                            "reason": "User blocked.",
+                            "code": 407
+                        },
+                        {
+                            "reason": "You have meeting or free slot on this time.",
+                            "code": 300
+                        },
+                        {
+                            "reason": "You have meeting with this user on this time.",
+                            "code": 301
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Answer on meeting request.",
+                    "nickname": "addMeeting",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "answerMeetingsParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "User for meet blocked.",
+                            "code": 408
+                        },
+                        {
+                            "reason": "User blocked.",
+                            "code": 407
+                        },
+                        {
+                            "reason": "Right meeting not found.",
+                            "code": 404
+                        },
+                        {
+                            "reason": "You have meeting on this time.",
+                            "code": 300
+                        },
+                        {
+                            "reason": "Request user have meeting on this time.",
+                            "code": 301
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "addMeetingsParams": {
+            "id": "addMeetingsParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "date_from": {
+                    "type": "timestamp"
+                },
+                "date_to": {
+                    "type": "timestamp"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "foursquare_id": {
+                    "type": "string"
+                },
+                "goal": {
+                    "type": "int"
+                },
+                "person": {
+                    "type": "int"
+                },
+                "person_value": {
+                    "type": "string"
+                },
+                "person_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "answerMeetingsParams": {
+            "id": "answerMeetingsParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "int"
+                },
+                "status": {
+                    "type": "int"
+                },
+                "foursqure_id": {
+                    "type": "string"
+                },
+                "start_time": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

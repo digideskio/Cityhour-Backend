@@ -1,10 +1,9 @@
 <?php
-
 namespace Swagger\Annotations;
 
 /**
  * @license    http://www.apache.org/licenses/LICENSE-2.0
- *             Copyright [2013] [Robert Allen]
+ *             Copyright [2012] [Robert Allen]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,7 +22,7 @@ namespace Swagger\Annotations;
  * @subpackage
  */
 use Swagger\Annotations\Parameters;
-use Swagger\Annotations\ResponseMessages;
+use Swagger\Annotations\ErrorResponses;
 use Swagger\Logger;
 
 /**
@@ -37,123 +36,99 @@ use Swagger\Logger;
 class Operation extends AbstractAnnotation
 {
     /**
-     * This is the HTTP method required to invoke this operation--the allowable values are GET, POST, PUT, DELETE.
+     * The http verb of the operation
      * @var string
      */
-    public $method;
+    public $httpMethod;
 
     /**
-     * This is a short summary of what the operation does.
+     * The summary of the operation, the text that is displayed on the bar-like container,
+     * it is advisable to be short otherwise will not fit.
      * @var string (max 60 characters)
      */
     public $summary;
 
     /**
-     * This is a required field provided by the server for the convenience of the UI and client code generator, and is used to provide a shebang in the swagger-ui.
+     * The description is displayed once the bar-like container is clicked.
+     * @var string
+     */
+    public $description;
+
+    /**
      * @var string
      */
     public $nickname;
 
     /**
-     * This is what is returned from the method--in short, it's either void, a simple-type, a complex or a container return value.
      * @var string
      */
-    public $type;
+    public $responseClass;
 
     /**
-     * @var Items
-     */
-    public $items;
-
-    /**
-     * These are the inputs to the operation.
+     * Parameters of the operation.
      * @var array|Parameter
      */
     public $parameters = array();
 
     /**
-     * An array describing the responseMessage cases returned by the operation.
-     * @var array|ResponseMessage
+     * ErrorResponses of the operation.
+     * @var array|ErrorResponse
      */
-    public $responseMessages = array();
+    public $errorResponses = array();
 
     /**
-     * A longer text field to explain the behavior of the operation.
      * @var string
      */
     public $notes;
 
     /**
-     * @var array|Produces
-     */
-    public $produces;
-
-    /**
-     * @var array|Consumes
-     */
-    public $consumes;
-
-    /**
-     * Undocumented
      * @var bool
      */
     public $deprecated;
 
-    protected static $mapAnnotations = array(
-        '\Swagger\Annotations\Parameter' => 'parameters[]',
-        '\Swagger\Annotations\ResponseMessage' => 'responseMessages[]',
-        '\Swagger\Annotations\Produces' => 'produces[]',
-        '\Swagger\Annotations\Consumes' => 'consumes[]',
-        '\Swagger\Annotations\Items' => 'items',
-    );
-
     /**
      * @param array $values
      */
-    public function __construct(array $values = array()) {
+    public function __construct($values)
+    {
         parent::__construct($values);
         $this->notes = $this->removePreamble($this->notes);
     }
 
-    public function setNestedAnnotations($annotations)
+    protected function setNestedAnnotations($annotations)
     {
-        foreach ($annotations as $index => $annotation) {
-            if ($annotation instanceof Parameters) {
+        foreach ($annotations as $annotation) {
+            if ($annotation instanceof Parameter) {
+                $this->parameters[] = $annotation;
+            } elseif ($annotation instanceof Parameters) {
                 foreach ($annotation->parameters as $parameter) {
                     $this->parameters[] = $parameter;
                 }
-                unset($annotations[$index]);
-            } elseif ($annotation instanceof ResponseMessages) {
-                foreach ($annotation->responseMessages as $responseMessage) {
-                    $this->responseMessages[] = $responseMessage;
+            } elseif ($annotation instanceof ErrorResponse) {
+                $this->errorResponses[] = $annotation;
+            } elseif ($annotation instanceof ErrorResponses) {
+                foreach ($annotation->errorResponses as $errorResponse) {
+                    $this->errorResponses[] = $errorResponse;
                 }
-                unset($annotations[$index]);
+            } else {
+                Logger::notice('Unexpected '.get_class($annotation).' in a '.get_class($this).' in '.AbstractAnnotation::$context);
             }
         }
-        return parent::setNestedAnnotations($annotations);
     }
 
     public function validate()
     {
         if (empty($this->nickname)) {
-            Logger::notice('Required field "nickname" is missing for "'.$this->identity().'" in '.AbstractAnnotation::$context);
+            Logger::notice('The optional field "nickname" is required for the swagger-ui client for an "'.get_class($this).'" in '.AbstractAnnotation::$context);
         }
-        foreach ($this->parameters as $parameter) {
-            if ($parameter->validate() == false) {
-                return false;
-            }
-        }
-        Items::validateContainer($this);
-        Produces::validateContainer($this);
-        Consumes::validateContainer($this);
         return true;
     }
 
     public function jsonSerialize()
     {
         $data = parent::jsonSerialize();
-        if (count($this->responseMessages) === 0) {
-            unset($data['responseMessages']);
+        if (count($this->errorResponses) === 0) {
+            unset($data['errorResponses']);
         }
         if (count($this->parameters) === 0) {
             unset($data['parameters']);

@@ -3,7 +3,7 @@ namespace Swagger;
 
 /**
  * @license    http://www.apache.org/licenses/LICENSE-2.0
- *             Copyright [2013] [Robert Allen]
+ *             Copyright [2012] [Robert Allen]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -49,12 +49,6 @@ class Parser
     protected $models = array();
 
     /**
-     * All detected annotation partials;
-     * @var array|Annotations\AbstractAnnotation
-     */
-    protected $partials = array();
-
-    /**
      * Current model
      * @var Annotations\Model
      */
@@ -94,7 +88,7 @@ class Parser
             }
         }
         $this->resources = $resources;
-        Annotations\AbstractAnnotation::$context = 'unknown';
+        Annotations\AbstractAnnotation::$context = '';
         return $resources;
     }
 
@@ -112,19 +106,9 @@ class Parser
             }
         }
         $this->models = $models;
-        Annotations\AbstractAnnotation::$context = 'unknown';
+        Annotations\AbstractAnnotation::$context = '';
         return $models;
     }
-
-    /**
-     * Get all annotation partials.
-     * @return  array|Annotations\AbstractAnnotation
-     */
-    public function getPartials()
-    {
-        return $this->partials;
-    }
-
 
     /**
      * Extract and process all doc-comments.
@@ -133,14 +117,10 @@ class Parser
     {
         $tokenParser = new TokenParser(file_get_contents($this->filename));
         $token = $tokenParser->next(false);
-        $namespace = '';
+        $namespace = '\\';
         $class = false;
 
-        $imports = array(
-            'swg' => 'Swagger\Annotations' // Use @SWG\* for swagger annotations (unless overwrittemn by a use statement)
-        );
-        $this->docParser->setImports($imports);
-        $uses = array();
+        $imports = array();
         $docComment = false;
         while ($token != null) {
             $token = $tokenParser->next(false);
@@ -156,18 +136,15 @@ class Parser
                 $docComment = $token[1];
                 continue;
             }
-            if ($token[0] === T_ABSTRACT) {
-                $token = $tokenParser->next(false); // Skip "abstract" keyword
-            }
             if ($token[0] === T_CLASS) { // Doc-comment before a class?
                 $token = $tokenParser->next();
-                $class = $namespace ? $namespace.'\\'.$token[1] : $token[1];
+                $class = $token[1];
                 // @todo detect end-of-class and reset $class
                 if ($docComment) {
                     $extends = null;
                     $token = $tokenParser->next(false);
                     if ($token[0] === T_EXTENDS) {
-                        $extends = $this->prefixNamespace($namespace, $tokenParser->parseClass(), $uses);
+                        $extends = $tokenParser->parseClass();
                     }
                     Annotations\AbstractAnnotation::$context = $class.' in '.$location;
                     $this->parseClass($class, $extends, $docComment);
@@ -224,12 +201,8 @@ class Parser
             if ($token[0] === T_USE) {
                 $nsLength = strlen(__NAMESPACE__);
                 foreach ($tokenParser->parseUseStatement() as $alias => $target) {
-                    $uses[$alias] = $target;
-                    if ($target[0] === '\\') {
-                        $uses[$alias] = substr($target, 1);
-                    }
-                    if ($target[0] === '\\' && substr($target, 1, $nsLength + 1) === __NAMESPACE__.'\\') {
-                        $imports[$alias] = substr($target, 1);
+                    if ($target[0] === '/' && substr($target, 1, $nsLength + 1) === __NAMESPACE__.'\\') {
+                        $imports[$alias] = $target;
                     } elseif (substr($target, 0, $nsLength + 1) === __NAMESPACE__.'\\') {
                         $imports[$alias] = $target;
                     }
@@ -238,10 +211,7 @@ class Parser
                 continue;
             }
         }
-        if ($docComment) { // File ends with a T_DOC_COMMENT
-            $this->parseDocComment($docComment);
-        }
-        Annotations\AbstractAnnotation::$context = 'unknown';
+        Annotations\AbstractAnnotation::$context = '';
     }
 
     /**
@@ -258,14 +228,7 @@ class Parser
             return array();
         }
         foreach ($annotations as $annotation) {
-            if ($annotation instanceof Annotations\Partial) {
-                Logger::notice('Unexpected "'.get_class($annotation).'", @SWG\Partial is a pointer to a partial and should inside another annotation in '.Annotations\AbstractAnnotation::$context);
-            } elseif ($annotation->_partialId !== null) {
-                if (isset($this->partials[$annotation->_partialId])) {
-                    Logger::notice('partial="'.$annotation->_partialId.'" is not unique. another was found in '.Annotations\AbstractAnnotation::$context);
-                }
-                $this->partials[$annotation->_partialId] = $annotation;
-            } elseif ($annotation instanceof Annotations\Resource) {
+            if ($annotation instanceof Annotations\Resource) {
                 $this->resource = $annotation;
                 $this->resources[] = $this->resource;
             } elseif ($annotation instanceof Annotations\Model) {
@@ -284,7 +247,7 @@ class Parser
                     Logger::notice('Unexpected "'.get_class($annotation).'", should be inside or after a "Model" declaration in '.Annotations\AbstractAnnotation::$context);
                 }
             } elseif ($annotation instanceof Annotations\AbstractAnnotation) { // A Swagger notation?
-                Logger::notice('Unexpected "'.get_class($annotation).'", Expecting a "Resource", "Model" or partial declaration in '.Annotations\AbstractAnnotation::$context);
+                Logger::notice('Unexpected "'.get_class($annotation).'", Expecting a "Resource" or "Model" in '.Annotations\AbstractAnnotation::$context);
             }
         }
         return $annotations;
@@ -304,16 +267,15 @@ class Parser
                 // Resource
                 if ($annotation->resourcePath === null) { // No resourcePath give?
                     // Assume Classname (without Controller suffix) matches the base route.
-                    $annotation->resourcePath = '/'.lcfirst(basename(str_replace('\\', '/', $class)));
+                    $annotation->resourcePath = '/'.lcfirst($class);
                     $annotation->resourcePath = preg_replace('/Controller$/i', '', $annotation->resourcePath);
                 }
             } elseif ($annotation instanceof Annotations\Model) {
                 // Model
-                $annotation->phpClass = $class;
                 if ($annotation->id === null) {
-                    $annotation->id = basename(str_replace('\\', '/', $class));
+                    $annotation->id = $class;
                 }
-                $annotation->phpExtends = $extends;
+                $annotation->extends = $extends;
             }
         }
         return $annotations;
@@ -360,31 +322,24 @@ class Parser
                     if (preg_match('/@var\s+(\w+)/i', $docComment, $matches)) {
                         $type = (string) array_pop($matches);
                         $map = array(
-                            'array' => 'array',
-                            'byte' => array('string', 'byte'),
+                            'array' => 'Array',
+                            'byte' => 'byte',
                             'boolean' => 'boolean',
                             'bool' => 'boolean',
-                            'int' => 'integer',
-                            'integer' => 'integer',
-                            'long' => array('integer', 'long'),
-                            'float' => array('number', 'float'),
-                            'double' => array('number', 'double'),
+                            'int' => 'int',
+                            'integer' => 'int',
+                            'long' => 'long',
+                            'float' => 'float',
+                            'double' => 'double',
                             'string' => 'string',
-                            'date' => array('string', 'date'),
-                            'datetime' => array('string', 'date-time'),
-                            '\\datetime' => array('string', 'date-time'),
-                            'byte' => array('string', 'byte'),
-                            'number' => 'number',
-                            'object' => 'object'
+                            'date' => 'Date',
+                            'datetime' => 'Date',
+                            '\\datetime' => 'Date',
+                            'list' => 'List',
+                            'set' => 'Set',
                         );
                         if (array_key_exists(strtolower($type), $map)) {
                             $type = $map[strtolower($type)];
-                            if (is_array($type)) {
-                                if ($annotation->format === null) {
-                                    $annotation->format = $type[1];
-                                }
-                                $type = $type[0];
-                            }
                         }
                         $annotation->type = $type;
                     }
@@ -393,42 +348,5 @@ class Parser
             }
         }
         return $annotations;
-    }
-
-    /**
-     * Resolve the full classname.
-     *
-     * @param string $namespace  Active namespace
-     * @param string $class  The class name
-     * @param array $uses  Active USE statements.
-     * @return string
-     */
-    private function prefixNamespace($namespace, $class, $uses = array())
-    {
-        $pos = strpos($class, '\\');
-        if ($pos !== false) {
-            if ($pos === 0) {
-                // Fully qualified name (\Foo\Bar)
-                return substr($class, 1);
-            }
-            // Qualified name (Foo\Bar)
-            foreach ($uses as $alias => $aliasedNamespace) {
-                $alias .= '\\';
-                if (strtolower(substr($class, 0, strlen($alias))) === $alias) {
-                    // Aliased namespace (use \Long\Namespace as Foo)
-                    return $aliasedNamespace.substr($class, strlen($alias) - 1);
-                }
-            }
-        } else {
-            // Unqualified name (Foo)
-            $alias = strtolower($class);
-            if (isset($uses[$alias])) { // Is an alias?
-                return $uses[$alias];
-            }
-        }
-        if ($namespace == '') {
-            return $class;
-        }
-        return $namespace.'\\'.$class;
     }
 }

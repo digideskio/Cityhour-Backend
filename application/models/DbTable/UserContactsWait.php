@@ -115,8 +115,12 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             if ($token) {
                 $facebook = new Application_Model_Facebook();
                 $facebook->storeInfo($token,$id,$user);
+
+                $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+                $url = $config->userPhoto->url;
+
                 $res = $this->_db->fetchAll("
-                    select u.id, w.name, w.lastname, w.photo, CASE
+                    select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, w.photo, CASE
                         when ( select distinct(f.id)
                         from user_friends f
                         where f.user_id = $id
@@ -149,8 +153,12 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             $token =  $user['linkedin_key'];
             $linkedin = new Application_Model_Linkedin();
             $linkedin->storeInfo($token,$id);
+
+            $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+            $url = $config->userPhoto->url;
+
             $res = $this->_db->fetchAll("
-                select u.id, w.name, w.lastname, w.photo, CASE
+                select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, w.photo, CASE
                   	when ( select distinct(f.id)
                   	from user_friends f
                   	where f.user_id = $id
@@ -227,7 +235,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
 
             if ($phones || $emails || $business_emails) {
                 $res = $this->_db->fetchAll("
-                  select distinct(u.id), u.name, u.lastname, concat('$url',u.photo) as photo,
+                  select distinct(u.id), u.name, u.lastname, concat('$url', u.photo) AS photo,
                   CASE
                   	when ( select distinct(f.id)
                   	from user_friends f

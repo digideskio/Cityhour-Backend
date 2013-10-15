@@ -1,10 +1,9 @@
 <?php
-
 namespace Swagger;
 
 /**
  * @license    http://www.apache.org/licenses/LICENSE-2.0
- *             Copyright [2013] [Robert Allen]
+ *             Copyright [2012] [Robert Allen]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,160 +19,121 @@ namespace Swagger;
  * @category   Swagger
  * @package    Swagger
  */
-use Swagger\Annotations\Resource;
+use Doctrine\Common\Cache\ArrayCache;
+use Doctrine\Common\Cache\CacheProvider;
 use Swagger\Annotations\Model;
+use Swagger\Annotations\Resource;
+use Swagger\Annotations\Property;
 
 /**
  * @category   Swagger
  * @package    Swagger
  */
-class Swagger
+class Swagger implements \Serializable
 {
     /**
-     * @var array|Resource
+     *
+     * @var Array
      */
-    public $registry = array();
+    protected $fileList = array();
 
     /**
-     * @var array|Model
+     * @var string
      */
-    public $models = array();
+    protected $path;
+
+    /**
+     * @var null|string
+     */
+    protected $excludePath;
+
+    /**
+     * @var null|string
+     */
+    protected $defaultBasePath;
+
+    /**
+     * @var null|string
+     */
+    protected $defaultApiVersion;
+
+    /**
+     * @var null|string
+     */
+    protected $defaultSwaggerVersion;
 
     /**
      * @var array
      */
-    public $partials = array();
+    public $resourceList = array();
 
     /**
-     *
-     * @param string $path Project root folder
-     * @param string $excludePath Exclude paths
-     * )
+     * @var array
      */
-    public function __construct($path = null, $excludePath = null)
-    {
-        if ($path !== null) {
-            $this->scan($path, $excludePath);
-        }
-    }
+    public $registry = array();
 
     /**
-     * @static
-     *
-     * @param      $path
+     * @var array
+     */
+    public $models = array();
+
+    /**
+     * @var \Doctrine\Common\Cache\CacheProvider
+     */
+    protected $cache;
+
+    /**
+     * @var string
+     */
+    protected $cacheKey;
+
+    /**
+     * @param null $path
      * @param null $excludePath
+     * @param \Doctrine\Common\Cache\CacheProvider $cache
+     */
+    public function __construct($path = null, $excludePath = null, CacheProvider $cache = null)
+    {
+        if (null == $cache) {
+            $this->setCache(new ArrayCache());
+        } else {
+            $this->setCache($cache);
+        }
+        if ($path) {
+            $this->path = $path;
+            $this->excludePath = $excludePath;
+            $this->cacheKey = sha1($this->path.$this->excludePath);
+            if ($this->cache->contains($this->cacheKey)) {
+                $this->unserialize($this->cache->fetch($this->cacheKey));
+            } else {
+                $this->discoverServices();
+            }
+        }
+    }
+
+    /**
+     * @return Swagger
+     */
+    public function reset()
+    {
+        $this->excludePath = null;
+        $this->classList = array();
+        $this->fileList = array();
+        $this->registry = array();
+        $this->models = array();
+        $this->cacheKey = null;
+        return $this;
+    }
+
+    /**
      *
      * @return Swagger
      */
-    public static function discover($path, $excludePath = null)
+    protected function discoverServices()
     {
-        Logger::warning('Swagger::discover($path) is deprecated, use new Swagger($path)');
-        return new self($path, $excludePath);
-    }
-
-    /**
-     *
-     * @return mixed
-     */
-    public function getResourceList($options = array())
-    {
-        self::parseOptions($options, array(
-            'prefix' => '/',
-            'suffix' => '',
-            'basePath' => null,
-            'apiVersion' => null,
-            'swaggerVersion' => '1.2',
-            'output' => 'array',
-            'json_pretty_print' => true, // for outputtype 'json'
-        ));
-        $result = array(
-            'basePath' => $options['basePath'],
-            'apiVersion' => $options['apiVersion'],
-            'swaggerVersion' => $options['swaggerVersion'],
-            'apis' => array()
-        );
-        foreach ($this->registry as $resource) {
-            if ($resource->swaggerVersion > $result['swaggerVersion']) {
-                $result['swaggerVersion'] = $resource->swaggerVersion;
-            }
-            if ($options['apiVersion'] === null && $resource->apiVersion > $result['apiVersion']) {
-                $result['apiVersion'] = $resource->apiVersion;
-            }
-            $path = $options['prefix'].str_replace('/', '-', ltrim($resource->resourcePath, '/')).$options['suffix'];
-            $result['apis'][] = array(
-                'path' => $path,
-                'description' => $resource->getDescription()
-            );
-        }
-        if ($result['basePath'] === null) {
-            unset($result['basePath']);
-        }
-        switch ($options['output']) {
-            case 'array':
-                return $result;
-            case 'json':
-                return self::jsonEncode($result, $options['json_pretty_print']);
-            default:
-                throw new \Exception('Invalid output type "'.$options['ouput'].'"');
-        }
-    }
-
-    /**
-     * @param $resourceName
-     * @return mixed
-     */
-    public function getResource($resourceName, $options = array())
-    {
-        self::parseOptions($options, array(
-            'output' => 'array',
-            'json_pretty_print' => true, // for outputtype 'json'
-            'defaultBasePath' => null,
-            'defaultApiVersion' => null,
-            'defaultSwaggerVersion' => '1.2',
-        ));
-
-        if (array_key_exists($resourceName, $this->registry) === false) {
-            Logger::warning('Resource "'.$resourceName.'" not found, try "'.implode('", "', $this->getResourceNames()).'"');
-            return false;
-        }
-        $resource = $this->registry[$resourceName];
-        // Apply defaults
-        if ($resource->basePath === null) {
-            $resource->basePath = $options['defaultBasePath'];
-        }
-        if ($resource->apiVersion === null) {
-            $resource->apiVersion = $options['defaultApiVersion'];
-        }
-        if ($resource->swaggerVersion === null) {
-            $resource->swaggerVersion = $options['defaultSwaggerVersion'];
-        }
-        // Sort operation paths alphabetically with shortest first
-        $apis = $resource->apis;
-
-        $paths = array();
-        foreach ($apis as $key => $api) {
-            $paths[$key] = $api->path;
-        }
-        array_multisort($paths, SORT_ASC, $apis);
-        $resource->apis = $apis;
-
-        switch ($options['output']) {
-            case 'array':
-                return self::export($resource);
-            case 'json':
-                return $this->jsonEncode($resource, $options['json_pretty_print']);
-            case 'object':
-                return $resource;
-        }
-    }
-
-    /**
-     * Add resources to the registry and collect models.
-     * @return Swagger
-     */
-    public function scan($path, $excludePath = null)
-    {
-        foreach ($this->getFiles($path, $excludePath) as $filename) {
+        $this->registry = array();
+        // Add resoures to the registry and collect models
+        foreach ($this->getFileList() as $filename) {
             $parser = new Parser($filename);
             foreach ($parser->getResources() as $resource) {
                 if (array_key_exists($resource->resourcePath, $this->registry)) {
@@ -184,20 +144,6 @@ class Swagger
             }
             foreach ($parser->getModels() as $model) {
                 $this->models[$model->id] = $model;
-            }
-            foreach ($parser->getPartials() as $id => $partial) {
-                if (isset($this->partials[$id])) {
-                    Logger::notice('partial="'.$id.'" is not unique.');
-                }
-                $this->partials[$id] = $partial;
-            }
-        }
-
-        $this->applyPartials($this->registry);
-        $this->applyPartials($this->models);
-        foreach ($this->partials as $partial) {
-            if ($partial->_partialId !== null) {
-                Logger::notice('partial="'.$partial->_partialId.'" is was not used.');
             }
         }
 
@@ -210,24 +156,18 @@ class Swagger
             $models = array();
             foreach ($resource->apis as $api) {
                 foreach ($api->operations as $operation) {
-                    $model = $this->resolveModel($operation->type);
+                    $model = $this->resolveModel($operation->responseClass);
                     if ($model) {
                         $models[] = $model;
                     }
                     foreach ($operation->parameters as $parameter) {
-                        $model = $this->resolveModel($parameter->type);
-                        if ($model) {
-                            $models[] = $model;
-                        }
-                    }
-                    foreach ($operation->responseMessages as $responseMessage) {
-                        $model = $this->resolveModel($responseMessage->responseModel);
+                        $model = $this->resolveModel($parameter->dataType);
                         if ($model) {
                             $models[] = $model;
                         }
                     }
                 }
-                $models = $this->resolveModels($models);
+                $models = array_merge($models, $this->resolveModels($models));
                 foreach (array_unique($models) as $model) {
                     $resource->models[$model] = $this->models[$model];
                 }
@@ -235,60 +175,27 @@ class Swagger
         }
 
         ksort($this->registry, SORT_ASC);
+        if ($this->getCache()) {
+            $this->getCache()->save($this->cacheKey, $this->serialize());
+        }
         return $this;
     }
 
     /**
-     * Resolve and apply all partials in the given nodetree.
-     * @param Annotations\AbstractAnnotation|array $node
+     * @param Resource $resource
      */
-    protected function applyPartials($node, $depth = 0)
+    protected function applyDefaults($resource)
     {
-        static $active = array();
-
-        if (is_array($node)) {
-            foreach ($node as $annotation) {
-                $this->applyPartials($annotation, $depth + 1);
-            }
-        } else if ($node instanceof Annotations\AbstractAnnotation) {
-            foreach ($node->_partials as $i => $id) {
-                unset($node->_partials[$i]);
-                if (empty($this->partials[$id])) {
-                    Logger::notice('Partial "'.$id.'" not found.');
-                    continue;
-                }
-                $partial = $this->partials[$id];
-                $partial->_partialId = null; // Mark as used.
-                if (isset($active[$id])) {
-                    Logger::notice('Cyclic dependancy for partial "'.$id.'" detected.');
-                    return;
-                }
-                $active[$id] = true;
-                $this->applyPartials($partial, $depth + 1); // Resolve any partials inside the partial
-                unset($active[$id]);
-                if ($partial instanceof $node) { // Same type?
-                    // Overwrite empty properties with the properties in the partial
-                    foreach ($partial as $property => $value) {
-                        if (!empty($value) && empty($node->$property)) {
-                            $node->$property = $value;
-                        }
-                    }
-                } else {
-                    $node->setNestedAnnotations(array($partial));
-                }
-            }
-
-            foreach ($node as $property => $value) {
-                if (is_array($value) || is_object($value)) {
-                    $this->applyPartials($value, $depth + 1);
-                }
-            }
-            if ($node instanceof Annotations\Resource || $node instanceof Annotations\Model) {
-                $node->validate();
-            }
+        if ($resource->basePath === null) {
+            $resource->basePath = $this->getDefaultBasePath();
+        }
+        if ($resource->swaggerVersion === null) {
+            $resource->swaggerVersion = $this->getDefaultSwaggerVersion();
+        }
+        if ($resource->apiVersion === null) {
+            $resource->apiVersion = $this->getDefaultApiVersion();
         }
     }
-
     /**
      *
      * @param string|null $model
@@ -315,10 +222,10 @@ class Swagger
      */
     protected function resolveModels($input)
     {
-        $models = $input;
-        foreach ($input as $name) {
+        $models = array();
+        foreach ($input as $v) {
             $type = false;
-            foreach ($this->models[$name]->properties as $property) {
+            foreach ($this->models[$v]->properties as $property) {
                 if ($property->items !== null && self::isPrimitive($property->items->type) === false) {
                     if (isset($property->items->type)) {
                         $type = $property->items->type;
@@ -327,7 +234,7 @@ class Swagger
                     $type = $property->type;
                 }
                 $model = $this->resolveModel($type);
-                if ($model && !in_array($model, $models)) {
+                if ($model && !in_array($type, $models)) {
                     array_push($models, $model);
                     $models = array_merge($models, $this->resolveModels($models));
                 }
@@ -337,19 +244,54 @@ class Swagger
     }
 
     /**
-     * @param string $path
-     * @param string $excludePaths
+     * @static
+     *
+     * @param      $path
+     * @param null $excludePath
+     *
+     * @return Swagger
+     */
+    public static function discover($path, $excludePath = null)
+    {
+        $swagger = new self($path, $excludePath, null);
+        return $swagger;
+    }
+
+    /**
      *
      * @return array
      */
-    protected function getFiles($path, $excludePaths = null)
+    public function getFileList()
     {
-        if (is_string($excludePaths)) {
-            $excludePaths = explode(':', $excludePaths);
-        } elseif (is_array($excludePaths) === false) {
-            $excludePaths = array();
+        if (!$this->fileList) {
+            $this->setFileList($this->getFiles());
         }
+        return $this->fileList;
+    }
 
+    /**
+     *
+     * @param  array $fileList
+     *
+     * @return Swagger
+     */
+    public function setFileList($fileList)
+    {
+        $this->fileList = $fileList;
+        return $this;
+    }
+
+    /**
+     * @param null $path
+     *
+     * @return array
+     */
+    protected function getFiles($path = null)
+    {
+        if (!$path) {
+            $path = $this->path;
+        }
+        $excludePaths = isset($this->excludePath) ? explode(':', $this->excludePath) : array();
         $files = array();
         $dir = new \DirectoryIterator($path);
         /* @var $fileInfo \DirectoryIterator */
@@ -387,15 +329,58 @@ class Swagger
     }
 
     /**
+     * @param bool $prettyPrint
+     * @param bool $serialize
+     * @return mixed|null|string
+     */
+    public function getResourceList($prettyPrint = true, $serialize = true)
+    {
+        if ($this->registry) {
+            $result = array();
+            foreach ($this->registry as $resource) {
+                if (!$result) {
+                    $result = array(
+                        'apiVersion' => $this->getDefaultApiVersion() ?: $resource->apiVersion,
+                        'swaggerVersion' => $this->getDefaultSwaggerVersion() ?: $resource->swaggerVersion,
+                        'apis' => array()
+                    );
+                }
+                $path = '/resources/'.str_replace('/', '-', ltrim($resource->resourcePath, '/')).'.{format}';
+                $result['apis'][] = array(
+                    'path' => $path,
+                    'description' => $resource->apis[0]->description
+                );
+            }
+            $this->resourceList = $result;
+        }
+
+        if ($serialize) {
+            return $this->jsonEncode($this->resourceList, $prettyPrint);
+        }
+
+        return $this->resourceList;
+    }
+
+    /**
      * Checks if the type is a Swagger primitive (case-insensitive)
      * @param string $type
      * @return bool
      */
     public static function isPrimitive($type)
     {
-        $primitiveTypes = array('boolean', 'integer', 'number', 'string');
-        $primitiveTypes = array_merge($primitiveTypes, array('byte', 'long', 'float', 'double', 'date', 'int', 'bool')); // Invalid notation, but meant to be primitive type
+        $primitiveTypes = array('byte', 'boolean', 'int', 'long', 'float', 'double', 'string', 'date');
+        $primitiveTypes[] = 'integer'; // Should be int
+        $primitiveTypes[] = 'bool';
         return in_array(strtolower($type), $primitiveTypes);
+    }
+
+    /**
+     * @param string $type
+     * @return bool
+     */
+    public static function isContainer($type)
+    {
+        return in_array(strtolower($type), array('array', 'set', 'list'));
     }
 
     /**
@@ -408,35 +393,23 @@ class Swagger
     public static function checkDataType($type)
     {
         $map = array(
-            // primitive types
-            'integer' => 'integer', // formats 'int32' or 'int64' for long,
-            'number' => 'number', // formats 'float' or 'double'
-            'string' => 'string', // formats '', 'byte', 'date' or 'date-time'
-            'boolean' => 'boolean',
-            // complex types
-            'object' => 'object',
-            'array' => 'array',
-            // common mistakes
-            'int' => 'integer',
-            'long' => 'integer',
-            'bool' => 'boolean',
-            'date' => 'string',
-            'datetime' => 'string',
-            'byte' => 'string',
-        );
-        $mapFormats = array(
-            'long' => 'int64',
+            'array' => 'Array',
             'byte' => 'byte',
-            'date' => 'date',
-            'datetime' => 'date-format',
+            'boolean' => 'boolean',
+            'bool' => 'boolean',
+            'int' => 'int',
+            'integer' => 'int',
+            'long' => 'long',
+            'float' => 'float',
+            'double' => 'double',
+            'string' => 'string',
+            'date' => 'Date',
+            'list' => 'List',
+            'set' => 'Set',
         );
-        if (array_key_exists(strtolower($type), $map) && array_search($type, $map) === false) { // Invalid notation for a primitive?
-            if (array_key_exists(strtolower($type), $mapFormats)) { //
-                Logger::notice('Invalid `type="'.$type.'"` use `type="'.$map[strtolower($type)].'",format="'.$mapFormats[strtolower($type)].'"` in '.Annotations\AbstractAnnotation::$context);
-            } else {
-                // Don't automaticly correct the type, this creates the incentive to use consistent naming in the doc comments.
-                Logger::notice('Invalid `type="'.$type.'"` use `type="'.$map[strtolower($type)].'"` in '.Annotations\AbstractAnnotation::$context);
-            }
+        if (array_key_exists(strtolower($type), $map) && array_search($type, $map) === false) {
+            // Don't correct the type, this creates the incentive to use consistent naming in the doc comments.
+            Logger::notice('Encountered type "'.$type.'", did you mean "'.$map[strtolower($type)].'" in '.Annotations\AbstractAnnotation::$context);
         }
     }
 
@@ -465,21 +438,16 @@ class Swagger
     }
 
     /**
-     * @param Resource $resource
+     * @param      $data
      * @param bool $prettyPrint
      *
      * @return mixed|null|string
      */
-    public static function jsonEncode($resource, $prettyPrint = false)
+    public function jsonEncode($resource, $prettyPrint = false)
     {
         $data = self::export($resource);
         if (version_compare(PHP_VERSION, '5.4', '>=')) {
-            $options = JSON_UNESCAPED_SLASHES;
-            if ($prettyPrint) {
-                $options |= JSON_PRETTY_PRINT;
-            }
-
-            return json_encode($data, $options);
+            return json_encode($data, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES);
         } else {
             $json = str_replace('\/', '/', json_encode($data));
         }
@@ -528,11 +496,56 @@ class Swagger
     }
 
     /**
+     * @param $resourceName
+     * @param bool $prettyPrint
+     * @return bool|mixed|null|string
+     */
+    public function getResource($resourceName, $prettyPrint = true, $serialize = true)
+    {
+        if (array_key_exists($resourceName, $this->registry)) {
+            $resource = $this->registry[$resourceName];
+            $this->applyDefaults($resource);
+            // Sort operation paths alphabetically with shortest first
+            $apis = $resource->apis;
+
+            $paths = array();
+            foreach ($apis as $key => $api) {
+                $paths[$key] = str_replace('.{format}', '', $api->path);
+            }
+            array_multisort($paths, SORT_ASC, $apis);
+
+            $resource->apis = $apis;
+            return $this->jsonEncode($resource, $prettyPrint);
+        }
+        Logger::warning('Resource "'.$resourceName.'" not found, try "'.implode('", "', $this->getResourceNames()).'"');
+        return false;
+    }
+
+    /**
      * @return array
      */
     public function getRegistry()
     {
         return $this->registry;
+    }
+
+    /**
+     * @return null
+     */
+    public function getExcludePath()
+    {
+        return $this->excludePath;
+    }
+
+    /**
+     *
+     * @param null $excludePath
+     * @return Swagger
+     */
+    public function setExcludePath($excludePath)
+    {
+        $this->excludePath = $excludePath;
+        return $this;
     }
 
     /**
@@ -546,22 +559,139 @@ class Swagger
         return $this;
     }
 
-    protected function inheritProperties($model)
+    /**
+     * @param $path
+     *
+     * @return Swagger
+     */
+    public function setPath($path)
     {
-        if ($model->phpExtends === null) {
-            return; // model doesn't have a superclass (or is already resolved)
+        $this->path = $path;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $url
+     * @return Swagger fluent api
+     */
+    public function setDefaultBasePath($url)
+    {
+        $this->defaultBasePath = $url;
+        return $this;
+    }
+
+    public function getDefaultBasePath()
+    {
+        return $this->defaultBasePath;
+    }
+
+    /**
+     * @param string $version
+     * @return Swagger fluent api
+     */
+    public function setDefaultApiVersion($version)
+    {
+        $this->defaultApiVersion = $version;
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getDefaultApiVersion()
+    {
+        return $this->defaultApiVersion;
+    }
+
+    /**
+     * @param string $version
+     * @return Swagger fluent api
+     */
+    public function setDefaultSwaggerVersion($version)
+    {
+        $this->defaultSwaggerVersion= $version;
+        return $this;
+    }
+    /**
+     * @return null|string
+     */
+    public function getDefaultSwaggerVersion()
+    {
+        return $this->defaultSwaggerVersion;
+    }
+
+    /**
+     * @return Swagger
+     */
+    public function flushCache()
+    {
+        $this->getCache()->delete($this->cacheKey);
+        $this->discoverServices();
+        return $this;
+    }
+
+    /**
+     * @return \Doctrine\Common\Cache\CacheProvider
+     */
+    public function getCache()
+    {
+        return $this->cache;
+    }
+
+    /**
+     * @param \Doctrine\Common\Cache\CacheProvider $cache
+     * @return Swagger
+     */
+    public function setCache(\Doctrine\Common\Cache\CacheProvider $cache)
+    {
+        $this->cache = $cache;
+        $this->cache->save($this->cacheKey, $this->serialize());
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function serialize()
+    {
+        return serialize(
+            array(
+                'registry' => $this->registry,
+                'models' => $this->models,
+                'path' => $this->path,
+                'excludePath' => $this->excludePath
+            )
+        );
+    }
+
+    /**
+     * @param string $serialized
+     * @return Swagger
+     */
+    public function unserialize($serialized)
+    {
+        $data = unserialize($serialized);
+        $this->registry = $data['registry'];
+        $this->models = $data['models'];
+        $this->path = $data['path'];
+        $this->excludePath = $data['excludePath'];
+        return $this;
+    }
+
+    protected function inheritProperties($model) {
+        if ($model->extends === null || array_key_exists($model->extends, $this->models) === false) {
+            return; // Superclass is not a swagger model.
         }
-        $parent = false;
-        foreach ($this->models as $super) {
-            if ($model->phpExtends === $super->phpClass) {
-                $parent = $super;
-                break;
-            }
-        }
-        if ($parent === false) {
-            return; // Superclass not discoved or doesn't have annotations
-        }
-        $model->phpExtends = null;
+        $parent = $this->models[$model->extends];
+		$model->extends = null;
         $this->inheritProperties($parent);
         foreach ($parent->properties as $parentProperty) {
             $exists = false;
@@ -575,27 +705,5 @@ class Swagger
                 $model->properties[] = clone $parentProperty; // Inherit property
             }
         }
-    }
-
-    /**
-     * Validate options and apply default values.
-     *
-     * @param array $options Given options.
-     * @param array $defaults Available options and their default values.
-     * @return void
-     */
-    static function parseOptions(&$options, $defaults)
-    {
-        if (is_array($options) === false) {
-            $backtrace = debug_backtrace();
-            throw new \InvalidArgumentException('Expecting an options-array for '.$backtrace[1]['function'].'()');
-        }
-        foreach (array_keys($options) as $option) {
-            if (array_key_exists($option, $defaults) === false) {
-                $backtrace = debug_backtrace();
-                throw new \InvalidArgumentException('Invalid option "'.$option.'" for '.$backtrace[1]['function'].'(), expecting "'.implode('", "', array_keys($defaults)).'"');
-            }
-        }
-        $options = array_merge($defaults, $options);
     }
 }
