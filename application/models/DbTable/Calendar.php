@@ -843,14 +843,13 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $calendars = "'".implode("','",$calendars)."'";
 
                 // Fetch busy slots of user specified calendar
-                $old_slots = $this->_db->fetchOne("
-                    select group_concat(`hash`)
+                $che_slots = $this->_db->fetchCol("
+                    select `hash`
                     from calendar
                     where user_id = $user_id
                     and `type` = 0
                     and calendar_name in ($calendars)
                 ");
-                $che_slots = explode(',',$old_slots);
                 $old_slots = array();
 
                 foreach ($slots as $num => $row ) {

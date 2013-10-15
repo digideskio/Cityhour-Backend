@@ -130,7 +130,9 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     }
                     if (isset($row['id']) && is_numeric($row['id'])) {
                         $job_id = $row['id'];
-                        unset($jj["$job_id"]);
+                        if(($key = array_search($row['id'], $jj)) !== false) {
+                            unset($jj[$key]);
+                        }
                         $this->_db->update('user_jobs',array(
                             'name' => $row['name'],
                             'company' => $row['company'],
@@ -177,7 +179,9 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
 
                         if (isset($row['id']) && is_numeric($row['id'])) {
                             $job_id = $row['id'];
-                            unset($edu["$job_id"]);
+                            if(($key = array_search($row['id'], $edu)) !== false) {
+                                unset($edu[$key]);
+                            }
                             $this->_db->update('user_jobs',array(
                                 'name' => $row['name'],
                                 'company' => $row['company'],

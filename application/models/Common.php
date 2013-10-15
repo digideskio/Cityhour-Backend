@@ -45,6 +45,7 @@ class Application_Model_Common
     }
 
     public static function UpdateExperience($id) {
+        $all = false;
         $res = Zend_Db_Table::getDefaultAdapter()->fetchAll("
             select j.id, j.user_id, j.name, j.company, j.current, j.start_time, j.end_time
             from user_jobs j
@@ -71,8 +72,13 @@ class Application_Model_Common
                 }
             }
         }
-        $all = (int)$all->format('%y')*12 + (int)$all->format('%m') - $month;
-        return round($all/12);
+        if ($all) {
+            $all = (int)$all->format('%y')*12 + (int)$all->format('%m') - $month;
+            return round($all/12);
+        }
+        else {
+            return 0;
+        }
     }
 
     public static function getCity($city) {
