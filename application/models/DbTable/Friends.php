@@ -32,6 +32,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
 
             try {
                 $this->delete("(user_id = $user_id and friend_id = $id) or (user_id = $id and friend_id = $user_id)");
+                $this->_db->delete('notifications'," (( `from` = $user_id and `to` = $id ) or ( `to` = $user_id and `from` = $id )) and type = 0");
                 Application_Model_Common::updateContacts($user_id.','.$id,false);
 
                 $this->_db->commit();
