@@ -109,7 +109,7 @@ class Application_Model_Linkedin
                         'name' => $row['title'],
                         'company' => (isset($row['company']['name']) && $row['company']['name']) ? $row['company']['name'] : '',
                         'current' => $row['isCurrent'],
-                        'start_time' => (isset($row['startDate']['year'])) ? (int)date('Y-m-d',mktime(0,0,0,$start_m,1,(int)$row['startDate']['year'])):null
+                        'start_time' => (isset($row['startDate']['year'])) ? date('Y-m-d',mktime(0,0,0,$start_m,1,(int)$row['startDate']['year'])):null
                     );
                     if ($row['isCurrent']) {
                         $jobs[$num]['end_time'] = null;
