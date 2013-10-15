@@ -100,7 +100,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             }
 
             //Jobs
-            if (isset($data['jobs'])) {
+            if (isset($data['jobs'][0])) {
                 $validators = array(
                     '*' => array()
                 );
@@ -110,6 +110,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     'end_time' => array('StringTrim','HtmlEntities'),
                 );
 
+                $jj = $this->_db->fetchCol("select id from user_jobs where user_id = $user_id and type = 0");
                 foreach($data['jobs'] as $num=>$row) {
                     $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
 
@@ -129,6 +130,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     }
                     if (isset($row['id']) && is_numeric($row['id'])) {
                         $job_id = $row['id'];
+                        unset($jj["$job_id"]);
                         $this->_db->update('user_jobs',array(
                             'name' => $row['name'],
                             'company' => $row['company'],
@@ -149,43 +151,59 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         ));
                     }
                 }
+                if ($jj) {
+                    $jj = implode(',', $jj);
+                    $this->_db->delete('user_jobs',"id in ($jj)");
+                }
                 $userData['experience'] = Application_Model_Common::UpdateExperience($user_id);
             }
 
 
             //Education
             if (isset($data['education'])) {
-                $validators = array(
-                    '*' => array()
-                );
-                $filters = array(
-                    'current' => array('StringTrim','HtmlEntities','Int'),
-                    'start_time' => array('StringTrim','HtmlEntities'),
-                    'end_time' => array('StringTrim','HtmlEntities'),
-                );
+                if (isset($data['education'][0])) {
+                    $validators = array(
+                        '*' => array()
+                    );
+                    $filters = array(
+                        'current' => array('StringTrim','HtmlEntities','Int'),
+                        'start_time' => array('StringTrim','HtmlEntities'),
+                        'end_time' => array('StringTrim','HtmlEntities'),
+                    );
 
-                foreach($data['education'] as $num=>$row) {
-                    $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
+                    $edu = $this->_db->fetchCol("select id from user_jobs where user_id = $user_id and type = 1");
+                    foreach($data['education'] as $num=>$row) {
+                        $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
 
-                    if (isset($row['id']) && is_numeric($row['id'])) {
-                        $job_id = $row['id'];
-                        $this->_db->update('user_jobs',array(
-                            'name' => $row['name'],
-                            'company' => $row['company'],
-                            'start_time' => $jobs_input->getEscaped('start_time'),
-                            'end_time' => $jobs_input->getEscaped('end_time')
-                        ),"id = $job_id");
+                        if (isset($row['id']) && is_numeric($row['id'])) {
+                            $job_id = $row['id'];
+                            unset($edu["$job_id"]);
+                            $this->_db->update('user_jobs',array(
+                                'name' => $row['name'],
+                                'company' => $row['company'],
+                                'start_time' => $jobs_input->getEscaped('start_time'),
+                                'end_time' => $jobs_input->getEscaped('end_time')
+                            ),"id = $job_id");
+                        }
+                        else {
+                            $this->_db->insert('user_jobs',array(
+                                'user_id' => $user_id,
+                                'name' => $row['name'],
+                                'company' => $row['company'],
+                                'start_time' => $jobs_input->getEscaped('start_time'),
+                                'end_time' => $jobs_input->getEscaped('end_time'),
+                                'type' => 1
+                            ));
+                        }
                     }
-                    else {
-                        $this->_db->insert('user_jobs',array(
-                            'user_id' => $user_id,
-                            'name' => $row['name'],
-                            'company' => $row['company'],
-                            'start_time' => $jobs_input->getEscaped('start_time'),
-                            'end_time' => $jobs_input->getEscaped('end_time'),
-                            'type' => 1
-                        ));
+
+                    if ($edu) {
+                        $edu = implode(',', $edu);
+                        $this->_db->delete('user_jobs',"id in ($edu)");
                     }
+                }
+                else {
+                    $this->_db->delete('user_jobs',"user_id = $user_id");
                 }
             }
 
