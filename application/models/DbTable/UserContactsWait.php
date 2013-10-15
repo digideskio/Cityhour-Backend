@@ -120,7 +120,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 $url = $config->userPhoto->url;
 
                 $res = $this->_db->fetchAll("
-                    select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, w.photo, CASE
+                    select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, w.photo, j.name as job, j.company, CASE
                         when ( select distinct(f.id)
                         from user_friends f
                         where f.user_id = $id
@@ -138,6 +138,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                       END as status
                     from users u
                     left join user_contacts_wait w on u.facebook_id = w.linkedin_id
+                    LEFT JOIN user_jobs j ON u.id = j.user_id AND j.current = 1 AND j.type = 0
                     where
                       user_id = $id and w.type = 1
                     having status != 2
@@ -158,7 +159,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             $url = $config->userPhoto->url;
 
             $res = $this->_db->fetchAll("
-                select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, w.photo, CASE
+                select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, w.photo, j.name as job, j.company, CASE
                   	when ( select distinct(f.id)
                   	from user_friends f
                   	where f.user_id = $id
@@ -178,6 +179,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   END as status
                 from users u
                 left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
+                LEFT JOIN user_jobs j ON u.id = j.user_id AND j.current = 1 AND j.type = 0
                 where
                   user_id = $id and w.type = 2
                 having status != 2
@@ -235,7 +237,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
 
             if ($phones || $emails || $business_emails) {
                 $res = $this->_db->fetchAll("
-                  select distinct(u.id), u.name, u.lastname, concat('$url', u.photo) AS photo,
+                  select distinct(u.id), u.name, u.lastname, concat('$url', u.photo) AS photo, j.name as job, j.company,
                   CASE
                   	when ( select distinct(f.id)
                   	from user_friends f
@@ -253,6 +255,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                  	else 0
                   END as status
                   from users u
+                  LEFT JOIN user_jobs j ON u.id = j.user_id AND j.current = 1 AND j.type = 0
                   where
                   ( $phones  $emails  $business_emails )
                   and u.id != $id
