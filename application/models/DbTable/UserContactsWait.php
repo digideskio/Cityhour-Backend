@@ -194,11 +194,11 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     $phones = "u.phone like '%".implode("%' or u.phone like '%",$phones)."%'";
                 }
                 else {
-                    $phones = '';
+                    $phones = 'u.id = 0';
                 }
             }
             else {
-                $phones = 0;
+                $phones = 'u.id = 0';
             }
 
             if (isset($token['emails'])) {
@@ -209,8 +209,8 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 }
 
                 if ($emails) {
-                    $business_emails = "u.business_email like '%".implode("%' or u.business_email like '%",$emails)."%'";
-                    $emails = "u.email like '%".implode("%' or u.email like '%",$emails)."%'";
+                    $business_emails = "or u.business_email like '%".implode("%' or u.business_email like '%",$emails)."%'";
+                    $emails = "or u.email like '%".implode("%' or u.email like '%",$emails)."%'";
                 }
                 else {
                     $business_emails = '';
@@ -218,8 +218,8 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 }
             }
             else {
-                $emails = 0;
-                $business_emails = 0;
+                $emails = '';
+                $business_emails = '';
             }
 
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
@@ -246,7 +246,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   END as status
                   from users u
                   where
-                  ( $phones or $emails or $business_emails )
+                  ( $phones  $emails  $business_emails )
                   and u.id != $id
                   having status != 2
             ");

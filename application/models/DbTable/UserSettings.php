@@ -56,7 +56,7 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                         'free_lat' => $city['lat'],
                         'free_lng' => $city['lng'],
                     );
-                    $row = null;
+                    $row = '';
                 }
                 $this->_db->update('users',$ufoursquare,"id = $user_id");
             }
