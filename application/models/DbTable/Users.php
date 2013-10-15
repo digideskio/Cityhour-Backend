@@ -71,8 +71,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         );
         $filter_alnum = new Zend_Filter_Alnum(true);
         $filters = array(
-            'name' => array('StringTrim','HtmlEntities',$filter_alnum),
-            'lastname' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'name' => array('StringTrim','HtmlEntities'),
+            'lastname' => array('StringTrim','HtmlEntities'),
             'summary' => array('StringTrim','HtmlEntities'),
             'skype' => array('StringTrim','HtmlEntities'),
             'phone' => array('StringTrim','HtmlEntities'),
@@ -271,9 +271,9 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         );
         $filter_alnum = new Zend_Filter_Alnum(true);
         $filters = array(
-            'name' => array('StringTrim','HtmlEntities',$filter_alnum),
-            'lastname' => array('StringTrim','HtmlEntities',$filter_alnum),
-            'country' => array('StringTrim','HtmlEntities',$filter_alnum),
+            'name' => array('StringTrim','HtmlEntities'),
+            'lastname' => array('StringTrim','HtmlEntities'),
+            'country' => array('StringTrim','HtmlEntities'),
             'summary' => array('StringTrim','HtmlEntities'),
             'skype' => array('StringTrim','HtmlEntities'),
             'phone' => array('StringTrim','HtmlEntities'),
