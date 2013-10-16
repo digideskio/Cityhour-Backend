@@ -140,7 +140,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     left join user_contacts_wait w on u.facebook_id = w.linkedin_id
                     LEFT JOIN user_jobs j ON u.id = j.user_id AND j.current = 1 AND j.type = 0
                     where
-                      user_id = $id and w.type = 1
+                      w.user_id = $id and w.type = 1
                     having status != 2
                 ");
             }
@@ -181,7 +181,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 left join user_contacts_wait w on u.linkedin_id = w.linkedin_id
                 LEFT JOIN user_jobs j ON u.id = j.user_id AND j.current = 1 AND j.type = 0
                 where
-                  user_id = $id and w.type = 2
+                  w.user_id = $id and w.type = 2
                 having status != 2
             ");
         }
