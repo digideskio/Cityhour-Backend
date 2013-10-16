@@ -222,7 +222,6 @@ class Application_Model_Linkedin
             if (isset($user_profile['summary'])) {
                 $summary = $user_profile['summary'];
             }
-
             return array(
                 'name' => $user_profile['firstName'],
                 'linkedin_id' => $user_profile['id'],

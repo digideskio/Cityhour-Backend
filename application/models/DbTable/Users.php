@@ -106,9 +106,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             if (isset($data['skype'])) $userData['skype'] = $input->getEscaped('skype');
             if (isset($data['phone'])) $userData['phone'] = $input->getEscaped('phone');
             if (isset($data['industry_id'])) $userData['industry_id'] = $input->getEscaped('industry_id');
-            if (isset($data['business_email'])) $userData['business_email'] = $input->getEscaped('business_email');
+            if (isset($data['business_email']) && !$linkedin) $userData['business_email'] = $input->getEscaped('business_email'); else $userData['business_email'] = $data['business_email'];
             if (isset($data['country'])) $userData['country'] = $input->getEscaped('country');
-
 
             //City
             if ($input->getEscaped('city')) {
