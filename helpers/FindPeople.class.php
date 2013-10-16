@@ -352,7 +352,7 @@ class FindPeople extends Common {
             $this->goal_fn = " and (select cast(s3.value as unsigned) from user_settings s3 where s3.user_id = u.id and s3.name = 'goal') in (@goals) ";
         }
         else {
-            $this->goal_r = " ";
+            $this->goal_r = "";
             $this->goal_nf = " ";
             $this->goal_f = " ";
             $this->goal_fn = " ";
@@ -399,9 +399,12 @@ class FindPeople extends Common {
             `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
         ");
 
-        $this->query("
-            $this->goal_r
-        ");
+        if ($this->goal_r) {
+            $this->query("
+                $this->goal_r
+            ");
+        }
+
 
         $this->query("
             insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
@@ -742,10 +745,15 @@ class FindPeople extends Common {
                           when r.type = 3 then u.free_place
                           else null
                         end as place,
-                        c.offset
+                        case
+                          when r.type = 1 then c.offset
+                          when r.type = 3 then s2.value
+                          else 0
+                        end as 'offset'
                         from rSult r
                         left join calendar c on r.id = c.id
                         left join users u on r.user_id = u.id
+                        left join user_settings s2 on r.user_id = s2.user_id and r.type = 3 and s2.name = 'offset'
                         where (UNIX_TIMESTAMP(r.end_time) - UNIX_TIMESTAMP(r.start_time)) >= 3600
                     )
                 ) as t
