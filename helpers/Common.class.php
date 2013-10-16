@@ -88,14 +88,10 @@ class Common {
     public function answer($result,$code) {
         $this->mysql = null;
         if (!$this->debug) {
-            $now = time();
             foreach ($result as $num => $row) {
                 $result[$num]['start_time'] = strtotime($row['start_time']);
                 if (!$this->map) {
                     $result[$num]['end_time'] = strtotime($row['end_time']);
-                }
-                elseif (!$row['start_time']) {
-                    $result[$num]['start_time'] = $now;
                 }
 
                 if (!$row['foursquare_id']) {

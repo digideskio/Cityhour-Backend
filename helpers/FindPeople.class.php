@@ -711,7 +711,7 @@ class FindPeople extends Common {
                 select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, t.start_time, u.city_name, offset
                 from (
                     (
-                        SELECT m.user_id, m.lat, m.lng, unix_timestamp(now()) as start_time,
+                        SELECT m.user_id, m.lat, m.lng, now() as start_time,
                         null as foursquare_id,
                         null as place,
                         m.offset
