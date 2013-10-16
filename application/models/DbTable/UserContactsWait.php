@@ -141,6 +141,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     LEFT JOIN user_jobs j ON u.id = j.user_id AND j.current = 1 AND j.type = 0
                     where
                       w.user_id = $id and w.type = 1
+                    group by u.id
                     having status != 2
                 ");
             }
@@ -182,6 +183,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 LEFT JOIN user_jobs j ON u.id = j.user_id AND j.current = 1 AND j.type = 0
                 where
                   w.user_id = $id and w.type = 2
+                group by u.id
                 having status != 2
             ");
         }
@@ -259,6 +261,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                   where
                   ( $phones  $emails  $business_emails )
                   and u.id != $id
+                  group by u.id
                   having status != 2
             ");
             }
