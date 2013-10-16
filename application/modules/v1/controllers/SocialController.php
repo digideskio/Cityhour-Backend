@@ -202,7 +202,8 @@ class V1_SocialController extends Zend_Rest_Controller
         $body = $this->getRequest()->getRawBody();
         $data = Zend_Json::decode($body);
         $user = Application_Model_DbTable_Users::authorize($data['private_key']);
-//        (new Application_Model_Linkedin())->updateUser($user);
+        $config = $this->getInvokeArg('bootstrap')->getOption('userPhoto');
+        (new Application_Model_Linkedin())->updateUser($user,$config);
         $this->_helper->json->sendJson(array(
             'body' => (new Application_Model_DbTable_Users())->getUser($user['id'],$user),
             'errorCode' => 200

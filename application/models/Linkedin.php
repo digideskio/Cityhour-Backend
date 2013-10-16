@@ -48,21 +48,17 @@ class Application_Model_Linkedin
     }
 
 
-    public function updateUser($user) {
+    public function updateUser($user,$config) {
         if ($user_linkedin = $this->getUser($user['linkedin_key'])) {
 
             if ($user_linkedin['photo']) {
-                $client = new Zend_Http_Client($user_linkedin['photo']);
-                file_put_contents("",$client->request('GET')->getBody());
-
-                $tmp_name = '';
-                $file_name = '';
                 $rrr = uniqid(time(), false);
-                $ext = pathinfo($file_name);
+                $tmp_name = '/tmp/tmp_'.$rrr.'.jpg';
+                $client = new Zend_Http_Client($user_linkedin['photo']);
+                file_put_contents($tmp_name,$client->request('GET')->getBody());
+
+                $ext = pathinfo($tmp_name);
                 $filename = 'userPic_'.$rrr.'.'.$ext['extension'];
-
-                $config = $this->getInvokeArg('bootstrap')->getOption('userPhoto');
-
 
                 (new Application_Model_DbTable_UserPhotos())->makePhoto($rrr,$filename,$user['private_key'],$config,$tmp_name);
             }

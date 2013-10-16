@@ -83,6 +83,21 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $input = new Zend_Filter_Input($filters, $validators, $data);
         $this->_db->beginTransaction();
         try {
+            if ($linkedin) {
+                $this->update(array(
+                    'name' => '',
+                    'lastname' => '',
+                    'summary' => '',
+                    'skype' => '',
+                    'phone' => '',
+                    'industry_id' => '',
+                    'business_email' => '',
+                ),"id = $user_id");
+
+                $this->_db->delete('user_jobs',"user_id = $user_id and current = 0");
+            }
+
+
             if (isset($data['name'])) $userData['name'] = $input->getEscaped('name');
             if (isset($data['lastname'])) $userData['lastname'] = $input->getEscaped('lastname');
             if (isset($data['summary'])) $userData['summary'] = $data['summary'];
