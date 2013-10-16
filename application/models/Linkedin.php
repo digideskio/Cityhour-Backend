@@ -47,6 +47,37 @@ class Application_Model_Linkedin
         return 200;
     }
 
+
+    public function updateUser($user) {
+        if ($user_linkedin = $this->getUser($user['linkedin_key'])) {
+
+            if ($user_linkedin['photo']) {
+                $client = new Zend_Http_Client($user_linkedin['photo']);
+                file_put_contents("",$client->request('GET')->getBody());
+
+                $tmp_name = '';
+                $file_name = '';
+                $rrr = uniqid(time(), false);
+                $ext = pathinfo($file_name);
+                $filename = 'userPic_'.$rrr.'.'.$ext['extension'];
+
+                $config = $this->getInvokeArg('bootstrap')->getOption('userPhoto');
+
+
+                (new Application_Model_DbTable_UserPhotos())->makePhoto($rrr,$filename,$user['private_key'],$config,$tmp_name);
+            }
+
+            (new Application_Model_DbTable_Users())->updateUser($user,$user_linkedin,true);
+            return true;
+        }
+        else {
+            Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
+                'errorCode' => '405'
+            ));
+        }
+    }
+
+
     public function getUser($token) {
         $params = array(
             'oauth2_access_token' => $token,

@@ -154,9 +154,59 @@ class V1_SocialController extends Zend_Rest_Controller
         }
     }
 
+
+    /**
+     *
+     * @SWG\Model(id="UpdateFromLinkedin")
+     * @SWG\Property(name="private_key",type="string")
+     *
+     *
+     * @SWG\Api(
+     *   path="/social/",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       httpMethod="PUT",
+     *       summary="Update user info from linkedin.",
+     *       responseClass="void",
+     *       nickname="UpdateUserFromLinkedin",
+     *       notes="",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="401",
+     *            reason="Authentication failed."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="405",
+     *            reason="User not found socNetwork."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="UpdateFromLinkedin"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function putAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+        $user = Application_Model_DbTable_Users::authorize($data['private_key']);
+//        (new Application_Model_Linkedin())->updateUser($user);
+        $this->_helper->json->sendJson(array(
+            'body' => (new Application_Model_DbTable_Users())->getUser($user['id'],$user),
+            'errorCode' => 200
+        ));
     }
 
     public function deleteAction()

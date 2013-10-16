@@ -62,7 +62,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         ");
     }
 
-    public function updateUser($user,$data) {
+    public function updateUser($user,$data,$linkedin = false) {
         $user_id = $user['id'];
 
         $userData = array();

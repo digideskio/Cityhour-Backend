@@ -75,6 +75,37 @@
                         }
                     ],
                     "notes": ""
+                },
+                {
+                    "httpMethod": "PUT",
+                    "summary": "Update user info from linkedin.",
+                    "nickname": "UpdateUserFromLinkedin",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "UpdateFromLinkedin",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Authentication failed.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "You blocked.",
+                            "code": 407
+                        },
+                        {
+                            "reason": "User not found socNetwork.",
+                            "code": 405
+                        }
+                    ],
+                    "notes": ""
                 }
             ]
         }
@@ -88,6 +119,14 @@
                 },
                 "id": {
                     "type": "int"
+                }
+            }
+        },
+        "UpdateFromLinkedin": {
+            "id": "UpdateFromLinkedin",
+            "properties": {
+                "private_key": {
+                    "type": "string"
                 }
             }
         }
