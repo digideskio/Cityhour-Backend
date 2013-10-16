@@ -120,7 +120,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 $url = $config->userPhoto->url;
 
                 $res = $this->_db->fetchAll("
-                    select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, w.photo, j.name as job, j.company, CASE
+                    select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, j.name as job, j.company, CASE
                         when ( select distinct(f.id)
                         from user_friends f
                         where f.user_id = $id
@@ -159,7 +159,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             $url = $config->userPhoto->url;
 
             $res = $this->_db->fetchAll("
-                select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, w.photo, j.name as job, j.company, CASE
+                select u.id, concat('$url', u.photo) AS photo, w.name, w.lastname, j.name as job, j.company, CASE
                   	when ( select distinct(f.id)
                   	from user_friends f
                   	where f.user_id = $id
