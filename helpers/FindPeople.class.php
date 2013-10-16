@@ -315,8 +315,7 @@ class FindPeople extends Common {
                 if ($user) {
                     $this->mapUpdate($user['id'],$lat,$lng,$offset);
 
-                    $time = time() - $offset;
-//                    $time = time();
+                    $time = time();
 
                     $this->q_s = date("Y-m-d H:i:s", $time );
                     $this->q_e = date("Y-m-d H:i:s", $time + 7200 );
