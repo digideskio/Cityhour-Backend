@@ -92,11 +92,11 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     'skype' => '',
                     'phone' => '',
                     'industry_id' => '',
-                    'business_email' => '',
                     'country' => '',
                 ),"id = $user_id");
 
                 $this->_db->delete('user_jobs',"user_id = $user_id and current = 0");
+                $data['business_email'] = $data['email'];
             }
 
 
