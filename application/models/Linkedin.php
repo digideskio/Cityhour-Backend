@@ -62,7 +62,6 @@ class Application_Model_Linkedin
 
                 (new Application_Model_DbTable_UserPhotos())->makePhoto($rrr,$filename,$user['private_key'],$config,$tmp_name);
             }
-
             (new Application_Model_DbTable_Users())->updateUser($user,$user_linkedin,true);
             return true;
         }

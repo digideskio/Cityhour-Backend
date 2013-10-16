@@ -79,6 +79,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             'industry_id' => array('StringTrim','HtmlEntities','Int'),
             'business_email' => array('StringTrim','HtmlEntities'),
             'city' => array('StringTrim','HtmlEntities'),
+            'country' => array('StringTrim','HtmlEntities'),
         );
         $input = new Zend_Filter_Input($filters, $validators, $data);
         $this->_db->beginTransaction();
@@ -92,6 +93,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     'phone' => '',
                     'industry_id' => '',
                     'business_email' => '',
+                    'country' => '',
                 ),"id = $user_id");
 
                 $this->_db->delete('user_jobs',"user_id = $user_id and current = 0");
@@ -105,6 +107,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             if (isset($data['phone'])) $userData['phone'] = $input->getEscaped('phone');
             if (isset($data['industry_id'])) $userData['industry_id'] = $input->getEscaped('industry_id');
             if (isset($data['business_email'])) $userData['business_email'] = $input->getEscaped('business_email');
+            if (isset($data['country'])) $userData['country'] = $input->getEscaped('country');
 
 
             //City
@@ -175,7 +178,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 $userData['experience'] = Application_Model_Common::UpdateExperience($user_id);
             }
 
-
             //Education
             if (isset($data['education'])) {
                 if (isset($data['education'][0])) {
@@ -222,7 +224,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     }
                 }
                 else {
-                    $this->_db->delete('user_jobs',"user_id = $user_id");
+                    $this->_db->delete('user_jobs',"user_id = $user_id and type = 1");
                 }
             }
 
