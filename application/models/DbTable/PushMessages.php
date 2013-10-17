@@ -70,7 +70,7 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
                         $message = new Zend_Mobile_Push_Message_Apns();
                         $message->setAlert($row['alert']);
                         $message->setBadge(0);
-                        $message->setSound('default');
+                        $message->setSound('s.aiff');
                         $message->setId(time());
                         $message->setToken($row['deviceToken']);
                         $message->addCustomData('info', $row['data']);

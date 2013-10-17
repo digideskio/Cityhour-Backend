@@ -47,6 +47,7 @@ class Common {
     }
 
     public function query($sql,$fetch = false,$fetchAll = false){
+//        print_r($sql);
         try {
             $result = $this->mysql->query($sql);
             if ($fetch) {

@@ -404,7 +404,6 @@ class FindPeople extends Common {
             ");
         }
 
-
         $this->query("
             insert into $this->temp_t (id, user_id, `type`, is_free, start_time, end_time)
             select c.id as id, c.user_id, c.type, s.value as is_free,
@@ -489,6 +488,7 @@ class FindPeople extends Common {
             $this->goal_fn
             having start_time != end_time;
         ");
+//        die();
 
         $this->query("
             insert into rSult (id, user_id, `type`, is_free, start_time, end_time)
