@@ -44,6 +44,8 @@ window.addEventListener('load', function(){
 
   tip.id = 'rTip';
   document.body.appendChild(tip);
+
+  console.log('test');
 });
 
 window.addEventListener('keydown', function(e){

@@ -4,12 +4,7 @@ $data = file_get_contents("php://input");
 $data = json_decode($data,true);
 
 // Debug ?
-if (isset($data["debug"]) && $data["debug"]) {
-    $debug = true;
-}
-else {
-    $debug = false;
-}
+$debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
 
 if ($debug) {
     $time = microtime();

@@ -353,7 +353,7 @@ class V1_CalendarController extends Zend_Rest_Controller
         $this->getResponse()->setHttpResponseCode(200);
         $token = $this->_request->getParam('private_key');
         $id = $this->_request->getParam('id');
-        if ($token && is_numeric($id)) {
+        if ($token && $id) {
             $user = Application_Model_DbTable_Users::authorize($token);
             $this->_helper->json->sendJson(array(
                 'errorCode' => (new Application_Model_DbTable_Calendar())->deleteSlot($user,$id)
