@@ -14,22 +14,20 @@ class UpdateAll extends Common {
 
     public function __construct($debug) {
         $this->debug = $debug;
-        $this->q_s = strtotime('+15 days');
-        $this->q_e = strtotime('+16 days');
+        $this->start();
+        $this->q_s = strtotime(date('m/d/Y', time()));
+        $this->q_e = strtotime('+16 days', $this->q_s);
     }
 
     public function getAllData() {
-        r($this->q_s);
-        ~r((string)$this->q_e);
-
-        return $this->query("
-            select c.id, c.user_id, GREATEST('$this->q_s', c.start_time), LEAST('$this->q_e', c.end_time), c.type, s.value as is_free, i.lat, i.lng
+        $allData = $this->query("
+            select c.id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time))  as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time, c.type, s.value as is_free, i.lat, i.lng
             from calendar c
             left join user_settings s on s.user_id = c.user_id and s.name = 'free_time'
             left join calendar i on c.id = i.id
             where
             (
-                (c.start_time between '$this->q_s' and '$this->q_e') or (c.end_time between '$this->q_s' and '$this->q_e') or (c.start_time >= '$this->q_s' and c.end_time <= '$this->q_e')
+                (unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
             )
             and
             (
@@ -38,6 +36,8 @@ class UpdateAll extends Common {
                 or c.type = 1
             )
         ",false,true);
+
+        return $allData;
     }
 
 }

@@ -370,6 +370,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         if (isset($data['goal']) && is_numeric($data['goal'])) {
             $res['goal'] = $data['goal'];
         }
+        else {
+            $res['goal'] = null;
+        }
 
         if (isset($data['offset']) && is_numeric($data['offset'])) {
             $res['offset'] = $data['offset'];

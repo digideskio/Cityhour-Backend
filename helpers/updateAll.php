@@ -9,6 +9,6 @@ $cls = new UpdateAll($debug);
 $cls->connect();
 
 $AllData = $cls->getAllData();
+r($AllData);
 
-
-if ($debug) $com->stopTimer();
+if ($debug) $cls->stopTimer();

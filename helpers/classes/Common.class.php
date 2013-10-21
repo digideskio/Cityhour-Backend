@@ -16,9 +16,8 @@ class Common {
     /** @var int $start When script start working */
     var $start;
 
-    public function __construct ($debug) {
-        if ($debug) {
-            $this->debug = $debug;
+    public function start() {
+        if ($this->debug) {
             $time = microtime();
             $time = explode(' ', $time);
             $time = $time[1] + $time[0];
@@ -44,6 +43,7 @@ class Common {
     }
 
     public function query($sql,$fetch = false,$fetchAll = false){
+        r($sql);
         try {
             return $this->db->query($sql,$fetch,$fetchAll);
         }
