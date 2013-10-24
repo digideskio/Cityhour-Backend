@@ -56,7 +56,7 @@ class Common {
     }
 
     public function query($sql,$fetch = false,$fetchAll = false){
-        // r($sql);
+//        r($sql);
         
 		try {
             return $this->db->query($sql,$fetch,$fetchAll);
@@ -107,7 +107,7 @@ class Common {
 			                  AND friend_id = c.user_id
 			               LIMIT  1) > 0 THEN 1
 			         ELSE 0
-			       end                                                     AS friend,
+			       end                                                     AS friends,
 			       u.country,
 			       u.name,
 			       u.lastname,
@@ -128,8 +128,8 @@ class Common {
 			       u.meet_declined,
 			       Group_concat(DISTINCT s.name SEPARATOR '$$$$$')         AS skills,
 			       Group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') AS languages,
-			       c.start_time,
-			       c.end_time,
+			       unix_timestamp(c.start_time) as start_time,
+			       unix_timestamp(c.end_time) as end_time,
 			       c.foursquare_id,
 			       c.place,
 			       c.city,
@@ -173,7 +173,7 @@ class Common {
 	        }
 			
 			// Friends ?
-            if ($friends) {
+            if ($res['friends']) {
                 $result[$num]['friend'] = true;
             }
             else {
@@ -271,7 +271,7 @@ class Common {
         return $this->getMoreThanHourClear($slots);
     }
 
-    public function getMoreThanHourClear($slots) {
+    private function getMoreThanHourClear($slots) {
         $result = array();
         foreach ($slots as $row) {
             $time = (int)$row['end_time']-(int)$row['start_time'];
@@ -310,69 +310,7 @@ class Common {
         return true;
     }
 
-    public function getCity($city) {
-        $sql = "
-            select city, n_lat, n_lng, s_lat, s_lng
-            from city
-            where city = '$city'
-        ";
 
-        $result = $this->query($sql,true);
-
-        if (isset($result['city'])) {
-            return $result;
-        }
-        else {
-            $url = $this->config['google.url'].(string)$city;
-            $req = json_decode(file_get_contents($url), true);
-
-            if ($req['status'] == 'OK') {
-                $data['city'] = $city;
-                $lat = $req['result']['geometry']['location']['lat'];
-                $lng = $req['result']['geometry']['location']['lng'];
-
-                foreach ($req['result']['address_components'] as $row) {
-                    if ($row['types']) {
-                        foreach ($row['types'] as $row2) {
-                            if ($row2 == 'country') {
-                                $name = $req['result']['name'].', '.$row['short_name'];
-                            }
-                        }
-                    }
-                }
-
-                if (isset($req['result']['geometry']['viewport'])) {
-                    $data['n_lng'] = $req['result']['geometry']['viewport']['northeast']['lng'];
-                    $data['s_lng'] = $req['result']['geometry']['viewport']['southwest']['lng'];
-                    $data['n_lat'] = $req['result']['geometry']['viewport']['northeast']['lat'];
-                    $data['s_lat'] = $req['result']['geometry']['viewport']['southwest']['lat'];
-                }
-                else {
-                    $data['n_lng'] = (float)$data['lng']+0.1;
-                    $data['s_lng'] = (float)$data['lng']-0.1;
-                    $data['n_lat'] = (float)$data['lat']+0.1;
-                    $data['s_lat'] = (float)$data['lat']-0.1;
-                }
-
-                $s_lng = $data['s_lng'];
-                $n_lng = $data['n_lng'];
-                $n_lat = $data['n_lat'];
-                $s_lat = $data['s_lat'];
-
-                $sql = "
-                    INSERT INTO `city` (`city`, `city_name`, `lat`, `lng`, `n_lat`, `n_lng`, `s_lat`, `s_lng`)
-                    VALUES
-	                ('$city', '$name', $lat, $lng, $n_lat, $n_lng, $s_lat, $s_lng)
-                ";
-                $this->query($sql);
-
-                return $data;
-            }
-            else {
-                return false;
-            }
-        }
-    }
 
     public function getUser($token) {
         $token = $this->db->quote($token);

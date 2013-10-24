@@ -25,7 +25,7 @@ include_once 'Common.class.php';
  *
  *
  * @SWG\Api(
- *   path="/findpeople.php",
+ *   path="/findPeople.php",
  *   @SWG\Operations(
  *     @SWG\Operation(
  *       httpMethod="POST",
@@ -103,6 +103,70 @@ class FindPeople extends Common {
         $this->start();
     }
 
+    private function getCity($city) {
+        $sql = "
+            select city, n_lat, n_lng, s_lat, s_lng
+            from city
+            where city = '$city'
+        ";
+
+        $result = $this->query($sql,true);
+
+        if (isset($result['city'])) {
+            return $result;
+        }
+        else {
+            $url = $this->config['google.url'].(string)$city;
+            $req = json_decode(file_get_contents($url), true);
+
+            if ($req['status'] == 'OK') {
+                $data['city'] = $city;
+                $lat = $req['result']['geometry']['location']['lat'];
+                $lng = $req['result']['geometry']['location']['lng'];
+
+                foreach ($req['result']['address_components'] as $row) {
+                    if ($row['types']) {
+                        foreach ($row['types'] as $row2) {
+                            if ($row2 == 'country') {
+                                $name = $req['result']['name'].', '.$row['short_name'];
+                            }
+                        }
+                    }
+                }
+
+                if (isset($req['result']['geometry']['viewport'])) {
+                    $data['n_lng'] = $req['result']['geometry']['viewport']['northeast']['lng'];
+                    $data['s_lng'] = $req['result']['geometry']['viewport']['southwest']['lng'];
+                    $data['n_lat'] = $req['result']['geometry']['viewport']['northeast']['lat'];
+                    $data['s_lat'] = $req['result']['geometry']['viewport']['southwest']['lat'];
+                }
+                else {
+                    $data['n_lng'] = (float)$data['lng']+0.1;
+                    $data['s_lng'] = (float)$data['lng']-0.1;
+                    $data['n_lat'] = (float)$data['lat']+0.1;
+                    $data['s_lat'] = (float)$data['lat']-0.1;
+                }
+
+                $s_lng = $data['s_lng'];
+                $n_lng = $data['n_lng'];
+                $n_lat = $data['n_lat'];
+                $s_lat = $data['s_lat'];
+
+                $sql = "
+                    INSERT INTO `city` (`city`, `city_name`, `lat`, `lng`, `n_lat`, `n_lng`, `s_lat`, `s_lng`)
+                    VALUES
+	                ('$city', '$name', $lat, $lng, $n_lat, $n_lng, $s_lat, $s_lng)
+                ";
+                $this->query($sql);
+
+                return $data;
+            }
+            else {
+                return false;
+            }
+        }
+    }
+
     public function getValues($data) {
         $this->data = $data;
         $che = true;
@@ -144,16 +208,17 @@ class FindPeople extends Common {
 
     public function findUsers() {
         return $this->query("
-            select c.id as id, c.user_id, c.start_time, c.end_time
+            select c.id as id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time
             from free_slots c
             left join users u on c.user_id = u.id
             where
             ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e'))
             and c.lng BETWEEN $this->s_lng AND $this->n_lng AND c.lat BETWEEN $this->s_lat AND $this->n_lat
 			and u.status = 0
+			and u.id != $this->user_id
             $this->industry
             $this->goal
-			having ( Unix_timestamp(end_time) - Unix_timestamp(start_time) ) > 3600
+            having start_time != end_time;
         ",false,true);
     }
 	

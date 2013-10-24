@@ -23,25 +23,25 @@ $cls = new FindPeople($debug);
 $cls->start();
 $cls->connect();
 $cls->getValues($data);
-$result = $cls->findUsers();
+
 if ($result = $cls->findUsers()) {
-		// Get slots
-		$slots = array();
-		$first = array();
-		$users = array();
-		$i = 0;
-		foreach ($result as $row) {			
-			if ($i < 25) {
-				array_push($first,$row['id']);
-			}
-			else {
-				array_push($slots,$row['id']);
-			}
-			if (!in_array($row['user_id'],$users)) {
-				$i++;
-				array_push($users,$row['user_id']);
-			}
-		}
+    // Get slots
+    $slots = array();
+    $first = array();
+    $users = array();
+    $i = 0;
+    foreach ($result as $row) {
+        if ($i < 25) {
+            array_push($first,$row['id']);
+        }
+        else {
+            array_push($slots,$row['id']);
+        }
+        if (!in_array($row['user_id'],$users)) {
+            $i++;
+            array_push($users,$row['user_id']);
+        }
+    }
 	$cls->answer(array(	
 		'users' => $cls->getUsers($first),
 		'data' => $slots,
@@ -51,5 +51,3 @@ if ($result = $cls->findUsers()) {
 else {
 	$cls->answer('No one found.',410);
 }
-
-
