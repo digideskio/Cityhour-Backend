@@ -1,6 +1,8 @@
 <?php
 
-$debug = true;
+// Debug ?
+$debug = false;
+
 if ($debug) require_once '../vendor/ref/ref.php';
 
 include_once 'classes/UpdateAll.class.php';
@@ -9,6 +11,9 @@ $cls = new UpdateAll($debug);
 $cls->connect();
 
 $AllData = $cls->getAllData();
-r($AllData);
+$magicSlots = $cls->makeMagic($AllData);
 
-if ($debug) $cls->stopTimer();
+if ($cls->storeMagic($magicSlots))
+    $cls->answer('Done',200);
+else
+    $cls->answer('Server error',500);

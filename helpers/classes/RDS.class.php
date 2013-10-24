@@ -30,7 +30,6 @@ class RDS {
         try {
             $this->mysql = new PDO("mysql:host=$host;dbname=$dbname", "$username", "$password");
             $this->mysql->exec("SET NAMES utf8, time_zone = '+0:00'");
-            date_default_timezone_set("UTC");
             if ($this->debug) {
                 $this->mysql->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             }
@@ -51,5 +50,21 @@ class RDS {
             $result = $result->fetchAll(PDO::FETCH_ASSOC);
         }
         return $result;
+    }
+
+    public function startTransaction() {
+        $this->mysql->beginTransaction();
+    }
+
+    public function commit() {
+        $this->mysql->commit();
+    }
+
+    public function rollBack() {
+        $this->mysql->rollBack();
+    }
+
+    public function quote($data) {
+        return $this->mysql->quote($data);
     }
 }

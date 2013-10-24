@@ -208,6 +208,11 @@ class DB {
             DELETE FROM user_jobs
             WHERE user_id = $i
         ");
+
+        $this->query("
+            DELETE FROM user_languages
+            WHERE user_id = $i
+        ");
         return true;
     }
 

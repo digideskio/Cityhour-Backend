@@ -667,7 +667,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $meet = $this->_db->fetchOne("
                 select id
                 from calendar
-                where ( (user_id = $user_id and user_id_second = $friend_id) or (user_id = $friend_id and user_id_second = $user_id) )
+                where user_id = $user_id and user_id_second = $friend_id
                 and `type` = 2
                 and `status` = 2
                 limit 1
@@ -683,7 +683,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $meet = $this->_db->fetchOne("
                 select id
                 from calendar
-                where ( (user_id = $user_id and user_id_second = $friend_id) or (user_id = $friend_id and user_id_second = $user_id) )
+                where user_id = $user_id and user_id_second = $friend_id
                 and `type` = 2
                 and `status` = 1
                 limit 1

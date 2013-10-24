@@ -1,7 +1,7 @@
 <?php
 include_once 'Common.class.php';
 
-class UpdateAll extends Common {
+class UpdateOne extends Common {
 
     /** @var int $q_s Query time start */
     /** @var int $q_e Query time end */
@@ -15,16 +15,13 @@ class UpdateAll extends Common {
         $this->q_e = strtotime('+16 days', $this->q_s);
     }
 
-    public function getAllData() {
-        $allData = $this->getSlots();
-        $allData = array_merge($allData, $this->getFreeSlots());
+    public function getAllData($id) {
+        $allData = $this->getSlots($id);
+        $allData = array_merge($allData, $this->getFreeSlots($id));
         return $allData;
     }
 
     public function makeMagic($AllData) {
-        // Sort by user
-        $AllData = $this->sortByUser($AllData);
-
         // Free slots not cross Meet slots
         $rSlots = $this->findCrossOrNot($AllData,1,2,false);
 
@@ -33,9 +30,13 @@ class UpdateAll extends Common {
         $slots = $this->sortById($slots);
         $rSlots = array_merge($rSlots,$this->addOrRemoveTime($slots,false));
 
+        if ($AllData[0]['is_free'] == 0) {
+            return $rSlots;
+        }
+
         // Busy slots not cross Free slots
         $bSlots = $this->getSlotsByType($AllData,0);
-        $slots = $this->sortByUser(array_merge($bSlots,$rSlots));
+        $slots = array_merge($bSlots,$rSlots);
         $zSlots = $this->findCrossOrNot($slots,0,1,false);
 
         // Busy slots cross Free slots
@@ -46,7 +47,7 @@ class UpdateAll extends Common {
         // Busy slots plus Meet slots
         //Not cross
         $mSlots = $this->getSlotsByType($AllData,2);
-        $slots = $this->sortByUser(array_merge($mSlots,$zSlots));
+        $slots = array_merge($mSlots,$zSlots);
         $xSlots = $this->findCrossOrNot($slots,2,0,false);
         $xSlots = array_merge($xSlots,$this->findCrossOrNot($slots,0,2,false));
 
@@ -60,7 +61,7 @@ class UpdateAll extends Common {
 
         //All freetime slots not cross Meet+Busy slots
         $slots = $this->getSlotsByType($AllData,3);
-        $slots = $this->sortByUser(array_merge($slots,$xSlots));
+        $slots = array_merge($slots,$xSlots);
         $rSlots = array_merge($rSlots,$this->findCrossOrNot($slots,3,2,false));
 
         //All freetime slots cross Meet+Busy slots
@@ -71,18 +72,23 @@ class UpdateAll extends Common {
         return $rSlots;
     }
 
-    public function storeMagic($magicSlots) {
-        $this->db->startTransaction();
-        try {
-            $this->query("truncate table free_slots");
-            $this->insertIntoFree($magicSlots,'free_slots');
+    public function storeOneMagic($magicSlots,$id) {
+        if ($magicSlots) {
+            $this->db->startTransaction();
+            try {
+                $this->query("delete from free_slots where user_id = $id");
+                $this->insertIntoFree($magicSlots,'free_slots');
 
-            $this->db->commit();
-            return true;
+                $this->db->commit();
+                return true;
+            }
+            catch (Exception $e) {
+                $this->db->rollBack();
+                return false;
+            }
         }
-        catch (Exception $e) {
-            $this->db->rollBack();
-            return false;
+        else {
+            return true;
         }
     }
 
