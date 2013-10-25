@@ -173,6 +173,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 return 500;
             }
 
+            // Update User free time
+            Application_Model_Common::updateUserFreeSlots($user['id']);
+            Application_Model_Common::updateUserFreeSlots($slot['user_id']);
             return 200;
         }
 
@@ -290,6 +293,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $this->_db->rollBack();
                 return 500;
             }
+
+            // Update User free time
+            Application_Model_Common::updateUserFreeSlots($user['id']);
+            Application_Model_Common::updateUserFreeSlots($slot['user_id']);
 
             return 200;
         }
@@ -479,6 +486,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             }
             $id = $this->insert($data);
             $this->_db->commit();
+
+            // Update User free time
+            Application_Model_Common::updateUserFreeSlots($user['id']);
             return $this->getSlotID($id);
         }
         catch (Exception $e) {
@@ -792,6 +802,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             }
 
             $this->_db->commit();
+
+            // Update User free time
+            Application_Model_Common::updateUserFreeSlots($user['id']);
+            Application_Model_Common::updateUserFreeSlots($slot['user_id']);
             return 200;
         }
         catch (Exception $e) {
@@ -891,6 +905,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 if ($old_slots) {
                     $this->delete("user_id = $user_id and `hash` not in ($old_slots) and type = 0");
                 }
+
+                // Update User free time
+                Application_Model_Common::updateUserFreeSlots($user_id);
                 return true;
             }
         }

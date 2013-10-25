@@ -81,6 +81,9 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                 $this->update($row,"user_id = $user_id and name = '$num' ");
             }
         }
+
+        // Update User free time
+        Application_Model_Common::updateUserFreeSlots($user_id);
         return true;
     }
 

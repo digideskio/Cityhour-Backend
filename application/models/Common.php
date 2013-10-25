@@ -14,6 +14,11 @@ class Application_Model_Common
     }
 
 
+    public static function updateUserFreeSlots($id) {
+        exec("curl http://helpers.truebear.com/updateOne.php?id=$id > /dev/null 2>&1 &");
+        return true;
+    }
+
     public static function UpdateCompleteness($id) {
 //        $first_name = 5;
 //        $last_name = 5;

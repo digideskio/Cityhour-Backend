@@ -503,10 +503,15 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 'photo' => $photo
             ),"id = $id");
             $this->_db->commit();
+
         } catch (Exception $e){
             $this->_db->rollBack();
             return $e->getMessage();
         }
+
+        // Update User free time
+        Application_Model_Common::updateUserFreeSlots($id);
+
         return $id;
     }
 
