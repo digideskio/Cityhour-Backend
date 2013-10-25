@@ -488,12 +488,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/zircote/swagger-php.git",
-                "reference": "79eeb072345945d6d89c1d3eed60f0980d5b57a1"
+                "reference": "c4449feaebd88521e09d7dbfb96038b614b10e6f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/79eeb072345945d6d89c1d3eed60f0980d5b57a1",
-                "reference": "79eeb072345945d6d89c1d3eed60f0980d5b57a1",
+                "url": "https://api.github.com/repos/zircote/swagger-php/zipball/c4449feaebd88521e09d7dbfb96038b614b10e6f",
+                "reference": "c4449feaebd88521e09d7dbfb96038b614b10e6f",
                 "shasum": ""
             },
             "require": {
@@ -536,7 +536,7 @@
                 "json",
                 "service discovery"
             ],
-            "time": "2013-10-08 19:35:16"
+            "time": "2013-10-16 12:11:32"
         }
     ],
     "packages-dev": [

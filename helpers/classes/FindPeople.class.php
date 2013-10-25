@@ -91,9 +91,6 @@ class FindPeople extends Common {
     var $n_lng;
     var $s_lng;
 
-    /** @var array $data Income paramms */
-    var $data;
-
     /** @var int $user_id Id of user */
     var $user_id;
 
@@ -168,7 +165,6 @@ class FindPeople extends Common {
     }
 
     public function getValues($data) {
-        $this->data = $data;
         $che = true;
 
         // Get all params
@@ -218,7 +214,7 @@ class FindPeople extends Common {
 			and u.id != $this->user_id
             $this->industry
             $this->goal
-            having start_time != end_time;
+            having ( Unix_timestamp(end_time) - Unix_timestamp(start_time) ) > 3600
         ",false,true);
     }
 	

@@ -85,9 +85,6 @@ class Map extends Common {
     var $n_lng;
     var $s_lng;
 
-    /** @var array $data Income paramms */
-    var $data;
-
     /** @var int $user_id Id of user */
     var $user_id;
 
@@ -122,7 +119,6 @@ class Map extends Common {
     }
 
     public function getValues($data) {
-        $this->data = $data;
         $che = true;
 
         // Get all params

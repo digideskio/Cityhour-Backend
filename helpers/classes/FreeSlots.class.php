@@ -19,7 +19,7 @@ include_once 'Common.class.php';
  *
  *
  * @SWG\Api(
- *   path="/freeslots.php",
+ *   path="/freeSlots.php",
  *   @SWG\Operations(
  *     @SWG\Operation(
  *       httpMethod="POST",
@@ -62,131 +62,73 @@ class FreeSlots extends Common {
     /** @var int $n_id request user_id */
     var $n_id;
 
-    public function __construct($debug,$data) {
+    /** @var int $q_s Query time start */
+    /** @var int $q_e Query time end */
+    var $q_s;
+    var $q_e;
+
+    public function __construct($debug) {
         $this->debug = $debug;
-        $this->data = $data;
-        $this->mainWork();
+        $this->start();
     }
 
-    public function mainWork() {
-        $this->connect();
-        $this->getValues();
-        $res = $this->getFreeSlots();
-        $this->answer($res,200);
-    }
-
-    public function getValues() {
+    public function getValues($data) {
         $che = true;
-        if (isset($this->data["private_key"])) $token = $this->data["private_key"]; else $che = false;
-        if (isset($this->data["user_id"])) $this->n_id = $this->data["user_id"]; else $che = false;
+        if (isset($data["private_key"])) $token = $data["private_key"]; else $che = false;
+        if (isset($data["user_id"])) $this->n_id = $data["user_id"]; else $che = false;
 
         if (!$che) {
             $this->answer('Not all params given',400);
-            die();
         }
 
-        if ( $token != null && $token != '' && is_numeric($this->n_id)) {
+        if ( $token && is_numeric($this->n_id)) {
             $this->getUser($token);
+            $this->q_s = time();
+            $this->q_e = strtotime('+16 days', $this->q_s);
         }
         else {
             $this->answer('Not all params given',400);
-            die();
         }
     }
 
-    public function getFreeSlots() {
-        $this->query("
-            create temporary table rSult (`id` bigint(20) unsigned DEFAULT NULL,
-            `user_id` bigint(20) unsigned DEFAULT NULL,
-            `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
-            `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
-            `start_time` timestamp NULL DEFAULT NULL,
-            `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
-        ");
-        $this->query("
-            insert into rSult (id, user_id, `type`, is_free, start_time, end_time)
-            (
-                select t.id, t.user_id, t.type, 0 as is_free, t.start_time, t.end_time
-                from calendar t
-                left outer JOIN calendar mt on t.user_id = mt.user_id
-                and mt.type = 2
-                and mt.status = 2
-                and t.start_time <= mt.end_time
-                and t.end_time >= mt.start_time
+    public function getFree() {
+        $rSlots =array();
+        $freeSlots = $this->query("
+                select c.id, 1 as user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time))  as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time, c.type, c.lat, c.lng, c.goal, c.offset, c.foursquare_id, c.place, c.city, c.city_name
+                from free_slots c
+                where
+                (
+                    (unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
+                )
+                and c.type = 1
+                and c.user_id = $this->n_id
+            ",false,true);
+        if ($freeSlots) {
+            $meet = $this->query("
+                select c.id, 1 as user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time))  as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time, c.type, c.lat, c.lng, c.goal, c.offset, c.foursquare_id, c.place, c.city, c.city_name
+                from calendar c
+                where
+                (
+                    (unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
+                )
+                and c.type = 2
+                and c.user_id = $this->user_id
+            ",false,true);
 
-                where t.type = 1
-                and t.user_id = $this->n_id
-                and t.start_time >= now()
-                and mt.id is null
-            )
-        ");
-        $cross = $this->query("
-            select t.id, t.user_id, t.type, 0 as is_free, UNIX_TIMESTAMP(t.start_time) AS start_time, UNIX_TIMESTAMP(t.end_time) as end_time,  UNIX_TIMESTAMP(mt.start_time) AS second_start_time, UNIX_TIMESTAMP(mt.end_time) as second_end_time
-            from calendar t
-            inner JOIN calendar mt on t.user_id = mt.user_id
-            and mt.type = 2
-            and mt.status = 2
-            and t.start_time <= mt.end_time
-            and t.end_time >= mt.start_time
+            $AllData = array_merge($freeSlots,$meet);
+            // Free slots not cross Meet slots
+            $rSlots = $this->findCrossOrNot($AllData,1,2,false);
 
-            where t.type = 1
-            and t.user_id = $this->n_id
-            and t.start_time >= now()
-            order by t.id,mt.start_time
-        ");
-        $res = $this->getFreeArray($cross);
-        $this->insertInto($res,'rSult');
+            // Free slots cross Meet slots
+            $slots = $this->findCrossOrNot($AllData,1,2,true);
+            $slots = $this->sortById($slots);
+            $rSlots = array_merge($rSlots,$this->addOrRemoveTime($slots,false));
 
-
-        $this->query("
-            create temporary table zSult (`id` bigint(20) unsigned DEFAULT NULL,
-            `user_id` bigint(20) unsigned DEFAULT NULL,
-            `type` tinyint(4) unsigned NOT NULL DEFAULT '0',
-            `is_free` tinyint(4) unsigned NOT NULL DEFAULT '0',
-            `start_time` timestamp NULL DEFAULT NULL,
-            `end_time` timestamp NULL DEFAULT NULL) ENGINE=MEMORY;
-        ");
-        $this->query("
-            insert into zSult (id, user_id, `type`, is_free, start_time, end_time)
-            (
-                select t.id, t.user_id, t.type, 0 as is_free, t.start_time, t.end_time
-                from rSult t
-                left outer JOIN calendar mt on mt.user_id = $this->user_id
-                and mt.type = 2
-                and mt.status = 2
-                and t.start_time <= mt.end_time
-                and t.end_time >= mt.start_time
-
-                where t.type = 1
-                and t.user_id = $this->n_id
-                and t.start_time >= now()
-                and mt.id is null
-            )
-        ");
-        $cross = $this->query("
-            select t.id, t.user_id, t.type, 0 as is_free, UNIX_TIMESTAMP(t.start_time) AS start_time, UNIX_TIMESTAMP(t.end_time) as end_time,  UNIX_TIMESTAMP(mt.start_time) AS second_start_time, UNIX_TIMESTAMP(mt.end_time) as second_end_time
-            from rSult t
-            inner JOIN calendar mt on mt.user_id = $this->user_id
-            and mt.type = 2
-            and mt.status = 2
-            and t.start_time <= mt.end_time
-            and t.end_time >= mt.start_time
-
-            where t.type = 1
-            and t.user_id = $this->n_id
-            and t.start_time >= now()
-            order by t.id,mt.start_time
-        ");
-        $res = $this->getFreeArray($cross);
-        $this->insertInto($res,'zSult');
-
-        return $this->query("
-            select r.id, r.start_time, r.end_time, c.foursquare_id, c.place, c.lat, c.lng, c.offset, c.city_name, c.city
-            from zSult r
-            left join calendar c on r.id = c.id
-            where (UNIX_TIMESTAMP(r.end_time) - UNIX_TIMESTAMP(r.start_time)) >= 3600
-            order by r.start_time asc
-        ",false,true);
+            return $rSlots;
+        }
+        else {
+            return $rSlots;
+        }
     }
 
 

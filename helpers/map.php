@@ -18,7 +18,6 @@ if ($debug) require_once '../vendor/ref/ref.php';
 include_once 'classes/Map.class.php';
 $cls = new Map($debug);
 
-$cls->start();
 $cls->connect();
 $cls->getValues($data);
 
