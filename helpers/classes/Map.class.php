@@ -181,7 +181,7 @@ class Map extends Common {
                 and u.status = 0
                 and u.id != $this->user_id
                 group by t.user_id
-                having ( Unix_timestamp(end_time) - Unix_timestamp(start_time) ) > 3600
+                having ( end_time - start_time ) > 3600
         ",false,true);
     }
 

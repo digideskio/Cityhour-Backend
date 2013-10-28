@@ -285,6 +285,18 @@ class Common {
         return $result;
     }
 
+    public function countUsers($slots) {
+        $slots = implode(',',$slots);
+        return (int)$this->query("
+			select count(id) as id
+			from
+			(select user_id as id
+			from free_slots
+			where id in ( $slots )
+			group by user_id) as t
+		",true,false)['id'];
+    }
+
     public function insertIntoFree($data,$db) {
         if ($data) {
             /** @var $db string Name of DB */

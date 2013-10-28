@@ -17,7 +17,7 @@ include_once 'Common.class.php';
  * @SWG\Property(name="debug",type="boolean")
  *
  * @SWG\Property(name="data_from",type="timestamp")
- * @SWG\Property(name="data_to",type="timestamp") *
+ * @SWG\Property(name="data_to",type="timestamp")
  * @SWG\Property(name="city",type="string")
  * @SWG\Property(name="goal",type="int")
  * @SWG\Property(name="industry",type="int")
@@ -214,20 +214,8 @@ class FindPeople extends Common {
 			and u.id != $this->user_id
             $this->industry
             $this->goal
-            having ( Unix_timestamp(end_time) - Unix_timestamp(start_time) ) > 3600
+            having ( end_time - start_time ) > 3600
         ",false,true);
     }
-	
-	public function countUsers($slots) {		
-		$slots = implode(',',$slots);
-		return (int)$this->query("
-			select count(id) as id
-			from
-			(select user_id as id
-			from free_slots
-			where id in ( $slots )
-			group by user_id) as t
-		",true,false)['id'];
-	}
 
 }
