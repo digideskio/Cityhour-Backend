@@ -183,17 +183,14 @@ class FindPeople extends Common {
             $this->getUser($token);
             $city = $this->getCity($city);
             if ($city) {
-                if ($this->free = $this->checkFree()) {
-                    $this->n_lat = $city['n_lat'];
-                    $this->s_lat = $city['s_lat'];
-                    $this->n_lng = $city['n_lng'];
-                    $this->s_lng = $city['s_lng'];
+                $this->free = $this->checkFree();
+                $this->n_lat = $city['n_lat'];
+                $this->s_lat = $city['s_lat'];
+                $this->n_lng = $city['n_lng'];
+                $this->s_lng = $city['s_lng'];
 
-                    $this->goal = ($this->goal) ? "and c.goal = $this->goal":' ';
-                    $this->industry = ($this->industry) ? "and u.industry_id = $this->industry":' ';
-                }
-                else
-                    $this->answer('You have`n free time. for request period.',404);
+                $this->goal = ($this->goal) ? "and c.goal = $this->goal":' ';
+                $this->industry = ($this->industry) ? "and u.industry_id = $this->industry":' ';
             }
             else
                 $this->answer('Bad city',400);
@@ -203,19 +200,26 @@ class FindPeople extends Common {
     }
 
     public function findUsers() {
-        return $this->query("
-            select c.id as id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time
-            from free_slots c
-            left join users u on c.user_id = u.id
-            where
-            ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e'))
-            and c.lng BETWEEN $this->s_lng AND $this->n_lng AND c.lat BETWEEN $this->s_lat AND $this->n_lat
-			and u.status = 0
-			and u.id != $this->user_id
-            $this->industry
-            $this->goal
-            having ( end_time - start_time ) > 3600
-        ",false,true);
+        $result = array();
+        foreach ($this->free as $row) {
+            $this->q_s = $row['start_time'];
+            $this->q_e = $row['end_time'];
+            $find = $this->query("
+                select c.id as id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time
+                from free_slots c
+                left join users u on c.user_id = u.id
+                where
+                ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e'))
+                and c.lng BETWEEN $this->s_lng AND $this->n_lng AND c.lat BETWEEN $this->s_lat AND $this->n_lat
+                and u.status = 0
+                and u.id != $this->user_id
+                $this->industry
+                $this->goal
+                having ( end_time - start_time ) > 3600
+            ",false,true);
+            $result = array_merge($result,$find);
+        }
+        return $result;
     }
 
 }

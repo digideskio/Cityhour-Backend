@@ -86,10 +86,16 @@ class DB {
 
         $this->deleteUser($i);
 
+//        $lat = rand(484521, 534521)/10000;
+//        $lng = rand(275263, 335263)/10000;
+
+        $lat = rand(502521, 505521)/10000;
+        $lng = rand(301263, 306263)/10000;
+
         $this->query("
             INSERT INTO `users` (`id`, `email`, `name`, `lastname`, `industry_id`, `summary`, `photo`, `phone`, `business_email`, `city`, `city_name`, `free_city`, `free_city_name`, `free_lat`, `free_lng`, `skype`, `rating`, `experience`, `completeness`, `contacts`, `meet_succesfull`, `meet_declined`, `facebook_key`, `facebook_id`, `linkedin_key`, `linkedin_id`, `private_key`, `status`, `free_foursquare_id`,`free_place`)
             VALUES
-                ($i,'Dummy$i@gmail.com', '$name', 'Badum$i', $industry , 'Summar', '1.jpg', '+1234567890', 'Dummy$i@gmail.com', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, Kyiv city, Ukraine', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, Kyiv city, Ukraine', 50.4521, 30.5263, 'dumbldore', 0, 3, 100, 5, 0, 0, null, null, null, null, '$i', 0,'4cb580693ac937047b93cc0a','Мафия / Mafia')
+                ($i,'Dummy$i@gmail.com', '$name', 'Badum$i', $industry , 'Summar', '1.png', '+1234567890', 'Dummy$i@gmail.com', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, Kyiv city, Ukraine', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, Kyiv city, Ukraine', $lat, $lng, 'dumbldore', 0, 3, 100, 5, 0, 0, null, null, null, null, '$i', 0,'4cb580693ac937047b93cc0a','Мафия / Mafia')
         ");
 
         $this->query("

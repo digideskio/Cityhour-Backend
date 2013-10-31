@@ -10,15 +10,16 @@ class Application_Model_DbTable_UserPhotos extends Zend_Db_Table_Abstract
         $filename_o = 'circle_'.$filename_o.'.png';
         $filename_ot = '/tmp/'.$filename_o;
 
-        $size = getimagesize($tmp_file);
-        $width_h = $size[0]/2;
-        $height_h = $size[1]/2;
 
         $config2 = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
-        $convert = $config2->server->convert;
+        $convert_gm = $config2->server->convert_gm;
+        $convert_magick = $config2->server->convert_magick;
+        $post_convert = $config2->server->post_convert;
 
-        exec("$convert -size $size[0]x$size[1] xc:none -fill $tmp_file -draw \"circle $width_h,$height_h $width_h,1\" $filename_ot");
-        exec("$convert $filename_ot -filter Lanczos -distort resize 266 $filename_ot");
+        $size = getimagesize($tmp_file);
+        exec("$convert_gm convert -size ".$size[0]."x".$size[1]." $tmp_file -thumbnail 266x266^ -gravity center -extent 266x266 +profile \"*\" $filename_ot");
+        exec("$convert_magick -size 266x266 xc:none -fill $filename_ot -draw \"circle 133,133 133,1\" $filename_ot");
+        exec("$post_convert --speed 1 -f --ext '.png' $filename_ot ");
 
         $s3 = new Zend_Service_Amazon_S3($config['my_aws_key'], $config['my_aws_secret_key']);
         $s3->putFile($tmp_file, $config['bucket'].$filename,

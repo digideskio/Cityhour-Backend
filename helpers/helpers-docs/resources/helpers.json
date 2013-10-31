@@ -140,6 +140,54 @@
             ]
         },
         {
+            "path": "/suggest.php",
+            "operations": [
+                {
+                    "httpMethod": "POST",
+                    "summary": "Suggest people.",
+                    "nickname": "Suggest",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "SuggestParams",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "Current user blocked.",
+                            "code": 407
+                        },
+                        {
+                            "reason": "You have`n free time. for request period.",
+                            "code": 404
+                        },
+                        {
+                            "reason": "No one found.",
+                            "code": 410
+                        },
+                        {
+                            "reason": "Server side problem.",
+                            "code": 500
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        },
+        {
             "path": "/users.php",
             "operations": [
                 {
@@ -236,6 +284,29 @@
                 },
                 "offset": {
                     "type": "int"
+                },
+                "lat": {
+                    "type": "float"
+                },
+                "lng": {
+                    "type": "float"
+                }
+            }
+        },
+        "SuggestParams": {
+            "id": "SuggestParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "debug": {
+                    "type": "boolean"
+                },
+                "data_from": {
+                    "type": "timestamp"
+                },
+                "data_to": {
+                    "type": "timestamp"
                 },
                 "lat": {
                     "type": "float"

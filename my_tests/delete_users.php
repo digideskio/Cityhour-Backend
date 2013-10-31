@@ -5,12 +5,10 @@ include_once 'db.class.php';
 $db = new DB();
 $db->connect();
 
-$i = 1;
+$i = 2000;
 
-while ($i < 40) {
-    $industry = rand(4,5);
-
-    // Insert Users
+while ($i < 2500) {
+    // Delete Users
     $db->deleteUser($i);
 
     $i = $i+1;

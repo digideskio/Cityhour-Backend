@@ -34,6 +34,7 @@ if ($result = $cls->findUsers()) {
     $users = array();
     $count = array();
     $i = 0;
+    $enough = 0;
     foreach ($result as $row) {
         if ($i < 25) {
             array_push($first,$row['id']);
@@ -45,6 +46,11 @@ if ($result = $cls->findUsers()) {
         if (!in_array($row['user_id'],$users)) {
             $i++;
             array_push($users,$row['user_id']);
+
+            if ($enough > 500) {
+                break;
+            }
+            $enough++;
         }
     }
 	$cls->answer(array(	

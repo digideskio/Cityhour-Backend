@@ -136,16 +136,13 @@ class Map extends Common {
             $this->q_s = time();
             $this->q_e = $this->q_s + 7200;
 
-            if ($this->free = $this->checkFree()) {
-                $this->mapUpdate($lat,$lng,$offset);
+            $this->free = $this->checkFree();
+            $this->mapUpdate($lat,$lng,$offset);
 
-                $this->n_lat = (float)$lat+1.5;
-                $this->s_lat = (float)$lat-1.5;
-                $this->n_lng = (float)$lng+1.5;
-                $this->s_lng = (float)$lng-1.5;
-            }
-            else
-                $this->answer('You have`n free time. for request period.',404);
+            $this->n_lat = (float)$lat+1.5;
+            $this->s_lat = (float)$lat-1.5;
+            $this->n_lng = (float)$lng+1.5;
+            $this->s_lng = (float)$lng-1.5;
         }
         else
             $this->answer('Not all params given',400);
@@ -153,36 +150,44 @@ class Map extends Common {
 
     public function findUsers() {
         $url = $this->config['userPhoto.url'];
-        return $this->query("
-			select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, GREATEST('$this->q_s', unix_timestamp(t.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(t.end_time)) as end_time, u.city_name, offset
-                from (
-                    (
-                        SELECT m2.user_id, m.lat, m.lng, now() as start_time, now()+3600 as end_time, null as foursquare_id, null as place, m2.offset
-                        FROM map m
-                        left join map m2 on m.id=m2.id
-                        WHERE
-                        m.time > now() - interval 10 MINUTE
-                        and m.lng BETWEEN $this->s_lng AND $this->n_lng AND m.lat BETWEEN $this->s_lat AND $this->n_lat
-                    )
-                    union
-                    (
-                        select c.user_id, c.lng, c.lng, c.start_time, c.end_time, c2.foursquare_id, c2.place, c2.offset
-                        from free_slots c
-                        left join free_slots c2 on c.id = c2.id
-                        where
-                            ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e'))
-                            and c.lng BETWEEN $this->s_lng AND $this->n_lng AND c.lat BETWEEN $this->s_lat AND $this->n_lat
-                    )
-                ) as t
-                left join users u on t.user_id = u.id
-                left join user_jobs j on t.user_id = j.user_id
-                WHERE
-                j.current=1
-                and u.status = 0
-                and u.id != $this->user_id
-                group by t.user_id
-                having ( end_time - start_time ) > 3600
-        ",false,true);
+        $result = array();
+        foreach ($this->free as $row) {
+            $this->q_s = $row['start_time'];
+            $this->q_e = $row['end_time'];
+            $find = $this->query("
+                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, GREATEST('$this->q_s', unix_timestamp(t.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(t.end_time)) as end_time, u.city_name, offset
+                    from (
+                        (
+                            SELECT m2.user_id, m.lat, m.lng, now() as start_time, now()+3600 as end_time, null as foursquare_id, null as place, m2.offset
+                            FROM map m
+                            left join map m2 on m.id=m2.id
+                            WHERE
+                            m.time > now() - interval 10 MINUTE
+                            and m.lng BETWEEN $this->s_lng AND $this->n_lng AND m.lat BETWEEN $this->s_lat AND $this->n_lat
+                        )
+                        union
+                        (
+                            select c.user_id, c.lat, c.lng, c.start_time, c.end_time, c2.foursquare_id, c2.place, c2.offset
+                            from free_slots c
+                            left join free_slots c2 on c.id = c2.id
+                            where
+                                ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e'))
+                                and c.lng BETWEEN $this->s_lng AND $this->n_lng AND c.lat BETWEEN $this->s_lat AND $this->n_lat
+                        )
+                    ) as t
+                    left join users u on t.user_id = u.id
+                    left join user_jobs j on t.user_id = j.user_id
+                    WHERE
+                    j.current=1
+                    and u.status = 0
+                    and u.id != $this->user_id
+                    group by t.user_id
+                    having ( end_time - start_time ) > 3600
+                    limit 500
+            ",false,true);
+            $result = array_merge($result,$find);
+        }
+        return $result;
     }
 
 }

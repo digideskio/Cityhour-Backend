@@ -5,13 +5,14 @@ include_once 'db.class.php';
 $db = new DB();
 $db->connect();
 
-$i = 1;
+$i = 2000;
 
-while ($i < 10) {
+while ($i < 2500) {
     $industry = rand(4,5);
+    $goal = rand(1,3);
 
     // Insert Users
-    $db->insertUser($i,'Pmpum'.$i,$industry,2,1,10800);
+    $db->insertUser($i,'Auto User'.$i,$industry,$goal,1,7200);
 
     $i = $i+1;
 }

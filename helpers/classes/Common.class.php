@@ -214,24 +214,56 @@ class Common {
         return $result;
     }
 
-    public function checkFree(){
-        $allFree = array(
-            "id" => 0,
-			"user_id" => $this->user_id,
-			"start_time" => $this->q_s,
-			"end_time" => $this->q_e,
-			"type" => 1,
-			"is_free" => 0,
-			"lat" => 0,
-			"lng" => 0,
-			"goal" => 0,
-			"offset" => 0,
-			"foursquare_id" => '',
-			"place" => '',
-			"city" => '',
-			"city_name" => ''
-        );
-        $slots = $this->query("
+    public function checkFree() {
+        $s_date = getdate($this->q_s);
+        $s_date = mktime(0,0,0,$s_date['mon'],$s_date['mday'],$s_date['year']);
+        $e_date = getdate($this->q_e);
+        $e_date = mktime(0,0,0,$e_date['mon'],$e_date['mday'],$e_date['year']);
+
+        if ($s_date == $e_date) {
+            $time = array(array(
+                'start_time' => $this->q_s,
+                'end_time' => $this->q_e,
+            ));
+        }
+        else {
+            $s_time = getdate($this->q_s);
+            $s_time = $s_time['hours']*3600 + $s_time['minutes']*60 + $s_time['seconds'];
+            $e_time = getdate($this->q_e);
+            $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
+            while ($s_date < $e_date) {
+                $time[] = array(
+                    'start_time' => (int)($s_date + $s_time),
+                    'end_time' => (int)($s_date + $e_time),
+                );
+
+                $s_date = (int)$s_date + 86400;
+            }
+        }
+
+        $slots_all = array();
+        $meet_slots_all = array();
+        foreach ($time as $row) {
+            $this->q_s = $row['start_time'];
+            $this->q_e = $row['end_time'];
+
+            $allFree = array(array(
+                "id" => 0,
+                "user_id" => $this->user_id,
+                "start_time" => $this->q_s,
+                "end_time" => $this->q_e,
+                "type" => 1,
+                "is_free" => 0,
+                "lat" => 0,
+                "lng" => 0,
+                "goal" => 0,
+                "offset" => 0,
+                "foursquare_id" => '',
+                "place" => '',
+                "city" => '',
+                "city_name" => ''
+            ));
+            $meet_slots = $this->query("
             select c.id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time))  as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time, c.type, s.value as is_free, i.lat, i.lng, i.goal, i.offset, i.foursquare_id, i.place, i.city, i.city_name
             from calendar c
             left join user_settings s on s.user_id = c.user_id and s.name = 'free_time'
@@ -244,12 +276,23 @@ class Common {
             and c.status = 2
             and c.user_id = $this->user_id
         ",false,true);
-        if ($slots) {
-            $slots = array_merge($allFree,$slots);
-            $slots = $this->findCrossOrNot($slots,1,2,true);
-            if ($slots) {
-                $slots = $this->sortById($slots);
-                $slots = $this->addOrRemoveTime($slots,false);
+
+            if ($meet_slots) {
+                $slots = array_merge($allFree,$meet_slots);
+                $slots = $this->findCrossOrNot($slots,1,2,true);
+                if ($slots) {
+                    $slots = $this->sortById($slots);
+                    $slots = $this->addOrRemoveTime($slots,false);
+                }
+                else {
+                    $slots = array(
+                        array(
+                            "start_time" => $this->q_s,
+                            "end_time" => $this->q_e
+                        )
+                    );
+                }
+                $meet_slots_all = array_merge($meet_slots_all,$meet_slots);
             }
             else {
                 $slots = array(
@@ -259,19 +302,13 @@ class Common {
                     )
                 );
             }
+
+            $slots_all = array_merge($slots_all,$slots);
         }
-        else {
-            $slots = array(
-                array(
-                    "start_time" => $this->q_s,
-                    "end_time" => $this->q_e
-                )
-            );
-        }
-        return $this->getMoreThanHourClear($slots);
+        return $this->getMoreThanHourClear($slots_all,$meet_slots_all);
     }
 
-    private function getMoreThanHourClear($slots) {
+    private function getMoreThanHourClear($slots,$meet_slots) {
         $result = array();
         foreach ($slots as $row) {
             $time = (int)$row['end_time']-(int)$row['start_time'];
@@ -282,7 +319,41 @@ class Common {
                 ));
             }
         }
-        return $result;
+        if ($result) {
+            return $result;
+        }
+        else {
+            $meet_slots_id = array();
+            foreach ($meet_slots as $row) {
+                array_push($meet_slots_id,$row['id']);
+            }
+            $meet_slots_id = implode(',',$meet_slots_id);
+            $url = $this->config['userPhoto.url'];
+            $meet_slots = $this->query("
+               select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
+                 case
+                  when c.email = 0 then case
+                                          when (select distinct(f.id)
+                                                from user_friends f
+                                                where f.user_id = c.user_id
+                                                and f.friend_id = u.id
+                                                and f.status = 1 limit 1) > 0 then concat(u.name,' ',u.lastname)
+                                          else concat(u.name,' ',substr(u.lastname,1,1),'.')
+                                        end
+                  else e.name
+                 end as fullname,
+                case
+                  when c.email = 0 then concat('$url',u.photo)
+                  else ''
+                end as photo
+                from calendar c
+                left join users u on c.user_id_second = u.id and c.email = 0
+                left join email_users e on c.user_id_second = e.id and c.email = 1
+                where
+                c.id in ($meet_slots_id)
+            ",false,true);
+            $this->answer($meet_slots,404);
+        }
     }
 
     public function countUsers($slots) {

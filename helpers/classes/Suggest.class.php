@@ -107,25 +107,30 @@ class Suggest extends Common {
         if ( $token != null && $token != '' && is_numeric($this->lat) && is_numeric($this->lng) && is_numeric($this->q_s) && is_numeric($this->q_e)) {
             $this->getUser($token);
             $this->free = $this->checkFree();
-            if (!$this->free) $this->answer('You have`n free time. for request period.',404);
         }
         else
             $this->answer('Not all params given',400);
     }
 
     public function findUsers() {
-
-        return $this->query("
-            select c.id as id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time
-            from free_slots c
-            left join users u on c.user_id = u.id
-            where
-            ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e'))
-			and u.status = 0
-			and u.id != $this->user_id
-           having ( end_time - start_time ) > 3600
-           ORDER BY acos(sin($this->lat) * sin(c.lat) + cos($this->lat) * cos(c.lat) * cos(c.lng - ($this->lng))) asc
-        ",false,true);
+        $result = array();
+        foreach ($this->free as $row) {
+            $this->q_s = $row['start_time'];
+            $this->q_e = $row['end_time'];
+            $find = $this->query("
+                select c.id as id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time
+                from free_slots c
+                left join users u on c.user_id = u.id
+                where
+                ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e'))
+                and u.status = 0
+                and u.id != $this->user_id
+               having ( end_time - start_time ) > 3600
+               ORDER BY acos(sin($this->lat) * sin(c.lat) + cos($this->lat) * cos(c.lat) * cos(c.lng - ($this->lng))) asc
+            ",false,true);
+            $result = array_merge($result,$find);
+        }
+        return $result;
     }
 
 }

@@ -1,18 +1,18 @@
 <?php
 
- $data = '
- {
-      "private_key": "42530ec9ae353de65dbc386b8d9bd9449ac99b845231c239d9c6a",
-      "debug": false,
-      "data_from": "1383672800",
-      "data_to": "1384339600",
-      "lat": "50.4362640380859400",
-      "lng": "30.5156993865966800"
- }
- ';
+// $data = '
+// {
+//      "private_key": "42530ec9ae353de65dbc386b8d9bd9449ac99b845231c239d9c6a",
+//      "debug": false,
+//      "data_from": "1383672800",
+//      "data_to": "1384339600",
+//      "lat": "50.4362640380859400",
+//      "lng": "30.5156993865966800"
+// }
+// ';
 
 
-//$data = file_get_contents("php://input");
+$data = file_get_contents("php://input");
 $data = json_decode($data,true);
 $debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
 
@@ -29,6 +29,7 @@ if ($result = $cls->findUsers()) {
     $users = array();
     $count = array();
     $i = 0;
+    $enough = 0;
     foreach ($result as $row) {
         if (!in_array($row['user_id'],$users)) {
             $i++;
@@ -41,6 +42,11 @@ if ($result = $cls->findUsers()) {
                 array_push($slots,$row);
                 array_push($count,$row['id']);
             }
+
+            if ($enough > 500) {
+                break;
+            }
+            $enough++;
         }
     }
 	$cls->answer(array(	

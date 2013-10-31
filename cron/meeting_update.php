@@ -37,7 +37,7 @@ mysql_free_result($result);
 $result = mysql_query("
                         select id,user_id
                         from calendar c
-                        where start_time between now() + interval 55 minute and now() + interval 1 hour
+                        where start_time between now() + interval 85 minute and now() + interval 90 minute
                         and type = 2
                         and status = 2
                        ");

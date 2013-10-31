@@ -50,7 +50,6 @@ class Application_Model_Linkedin
 
     public function updateUser($user,$config) {
         if ($user_linkedin = $this->getUser($user['linkedin_key'])) {
-
             if ($user_linkedin['photo']) {
                 $rrr = uniqid(time(), false);
                 $tmp_name = '/tmp/tmp_'.$rrr.'.jpg';
@@ -170,7 +169,7 @@ class Application_Model_Linkedin
             $skype = null;
             if (isset($user_profile['imAccounts']['values'])) {
                 foreach ($user_profile['imAccounts']['values'] as $num=>$row) {
-                    if ($row['imAccountType']) {
+                    if (isset($row['imAccountType']) && $row['imAccountType'] == 'skype') {
                         $skype = $row['imAccountName'];
                     }
                 }
