@@ -24,39 +24,49 @@ $cls = new Suggest($debug);
 
 $cls->connect();
 $cls->getValues($data);
-if ($result = $cls->findUsers()) {
-    // Get slots
-    $slots = array();
-    $first = array();
-    $users = array();
-    $count = array();
-    $i = 0;
-    $enough = 0;
-    foreach ($result as $row) {
-        if (!in_array($row['user_id'],$users)) {
-            $i++;
-            array_push($users,$row['user_id']);
 
-            if ($i < 25) {
-                array_push($first,$row['id']);
-            }
-            else {
-                array_push($slots,$row);
-                array_push($count,$row['id']);
-            }
+$result = $cls->findUsers();
+if (!$result) {
+    $now = time();
+    $f = $now - 43200;
+    $e = $now + 43200;
+    $data['data_from'] = $f;
+    $data['time_from'] = $f;
+    $data['data_to'] = $e;
+    $data['time_to'] = $e;
+    $cls->getValues($data);
+    $result = $cls->findUsers();
+}
 
-            if ($enough > 500) {
-                break;
-            }
-            $enough++;
+
+// Get slots
+$slots = array();
+$first = array();
+$users = array();
+$count = array();
+$i = 0;
+$enough = 0;
+foreach ($result as $row) {
+    if (!in_array($row['user_id'],$users)) {
+        $i++;
+        array_push($users,$row['user_id']);
+
+        if ($i < 25) {
+            array_push($first,$row['id']);
         }
+        else {
+            array_push($slots,$row);
+            array_push($count,$row['id']);
+        }
+
+        if ($enough > 500) {
+            break;
+        }
+        $enough++;
     }
-	$cls->answer(array(	
-		'users' => $cls->getUsers($first),
-		'data' => $slots,
-		'count' => $cls->countUsers(array_merge($first,$count))
-	),200);
 }
-else {
-	$cls->answer('No one found.',410);
-}
+$cls->answer(array(
+    'users' => $cls->getUsers($first),
+    'data' => $slots,
+    'count' => $cls->countUsers(array_merge($first,$count))
+),200);
