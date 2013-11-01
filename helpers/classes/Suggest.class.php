@@ -18,6 +18,8 @@ include_once 'Common.class.php';
  *
  * @SWG\Property(name="data_from",type="timestamp")
  * @SWG\Property(name="data_to",type="timestamp")
+ * @SWG\Property(name="time_from",type="timestamp")
+ * @SWG\Property(name="time_to",type="timestamp")
  * @SWG\Property(name="lat",type="float")
  * @SWG\Property(name="lng",type="float")
  *
@@ -77,6 +79,11 @@ class Suggest extends Common {
     var $q_s;
     var $q_e;
 
+    /** @var int $t_s Query time start */
+    /** @var int $t_e Query time end */
+    var $t_s;
+    var $t_e;
+
     /** @var float $lat Query lat */
     /** @var float $lng Query lng */
     var $lat;
@@ -100,11 +107,13 @@ class Suggest extends Common {
         if (isset($data["lng"])) $this->lng = $data["lng"]; else $che = false;
         if (isset($data["data_from"])) $this->q_s = $data["data_from"]; else $che = false;
         if (isset($data["data_to"])) $this->q_e = $data["data_to"]; else $che = false;
+        if (isset($data["time_from"])) $this->t_s = $data["time_from"]; else $che = false;
+        if (isset($data["time_to"])) $this->t_e = $data["time_to"]; else $che = false;
 
         if (!$che) $this->answer('Not all params given',400);
 
         // Check params
-        if ( $token != null && $token != '' && is_numeric($this->lat) && is_numeric($this->lng) && is_numeric($this->q_s) && is_numeric($this->q_e)) {
+        if ( $token != null && $token != '' && is_numeric($this->t_s) && is_numeric($this->t_e) && is_numeric($this->lat) && is_numeric($this->lng) && is_numeric($this->q_s) && is_numeric($this->q_e)) {
             $this->getUser($token);
             $this->free = $this->checkFree();
         }

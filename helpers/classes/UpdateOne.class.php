@@ -11,7 +11,7 @@ class UpdateOne extends Common {
     public function __construct($debug) {
         $this->debug = $debug;
         $this->start();
-        $this->q_s = strtotime(date('m/d/Y', time()));
+        $this->q_s = strtotime(date('m/d/Y', time()-43200));
         $this->q_e = strtotime('+16 days', $this->q_s);
     }
 

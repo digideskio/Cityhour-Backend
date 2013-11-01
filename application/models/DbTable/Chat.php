@@ -56,7 +56,8 @@ class Application_Model_DbTable_Chat extends Zend_Db_Table_Abstract
     public function deleteChat($user,$from) {
         $user_id = $user['id'];
         $this->update(array(
-            'deleted_one' => 1
+            'deleted_one' => 1,
+            'status' => 1
         ),"`from` = $from and `to` = $user_id");
         $this->update(array(
             'deleted_two' => 1

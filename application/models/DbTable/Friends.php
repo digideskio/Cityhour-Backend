@@ -54,7 +54,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
             from users
             where id = $fid
         ");
-        if ($invite != null) {
+        if ($invite) {
             $user_id = $user['id'];
             $friend_id = $invite['id'];
 
@@ -69,7 +69,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
                     'table' => 'notifications',
                     'field' => 'from',
-                    'exclude' => "`to` = $friend_id and type = 0"
+                    'exclude' => "`to` = $friend_id and type = 0 and status = 0"
                 ));
                 if ($validator_exist->isValid($user_id)) {
                     $this->_db->beginTransaction();

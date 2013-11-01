@@ -214,30 +214,68 @@ class Common {
         return $result;
     }
 
+    public function oldTime($s_full,$e_full) {
+        $now = time();
+
+        if ($e_full < $now) {
+            return false;
+        }
+
+        if ($s_full < $now) {
+            $s_full = $now;
+        }
+
+        $s_e = $e_full - $s_full;
+        if ($s_e < 3600) {
+            return false;
+        }
+
+        return array(
+            'start' => $s_full,
+            'end' => $e_full
+        );
+    }
+
     public function checkFree() {
+        // Get date
         $s_date = getdate($this->q_s);
         $s_date = mktime(0,0,0,$s_date['mon'],$s_date['mday'],$s_date['year']);
         $e_date = getdate($this->q_e);
         $e_date = mktime(0,0,0,$e_date['mon'],$e_date['mday'],$e_date['year']);
 
-        if ($s_date == $e_date) {
-            $time = array(array(
-                'start_time' => $this->q_s,
-                'end_time' => $this->q_e,
-            ));
+        // Get time
+        $s_time = getdate($this->t_s);
+        $s_time = $s_time['hours']*3600 + $s_time['minutes']*60 + $s_time['seconds'];
+        $e_time = getdate($this->t_e);
+        $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
+
+        $s_full = $s_date + $s_time;
+        $e_full = $e_date + $e_time;
+
+        $s_e = $e_full - $s_full;
+        if ($s_e < 86400 && $s_e > 3600) {
+            if ($good = $this->oldTime($s_full,$e_full)) {
+                $time = array(array(
+                    'start_time' => $good['start'],
+                    'end_time' => $good['end'],
+                ));
+            }
+            else {
+                $this->answer('Bad time',414);
+            }
+        }
+        elseif ($s_e < 3600) {
+            $this->answer('Bad time',414);
         }
         else {
-            $s_time = getdate($this->q_s);
-            $s_time = $s_time['hours']*3600 + $s_time['minutes']*60 + $s_time['seconds'];
-            $e_time = getdate($this->q_e);
-            $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
-            while ($s_date < $e_date) {
-                $time[] = array(
-                    'start_time' => (int)($s_date + $s_time),
-                    'end_time' => (int)($s_date + $e_time),
-                );
-
-                $s_date = (int)$s_date + 86400;
+            while ($s_full < $e_full) {
+                if ($good = $this->oldTime($s_full,$e_full)) {
+                    $time[] = array(
+                        'start_time' => $good['start'],
+                        'end_time' => $good['end'],
+                    );
+                }
+                $s_full = $s_full + 86400;
             }
         }
 

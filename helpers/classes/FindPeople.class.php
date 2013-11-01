@@ -18,6 +18,8 @@ include_once 'Common.class.php';
  *
  * @SWG\Property(name="data_from",type="timestamp")
  * @SWG\Property(name="data_to",type="timestamp")
+ * @SWG\Property(name="time_from",type="timestamp")
+ * @SWG\Property(name="time_to",type="timestamp")
  * @SWG\Property(name="city",type="string")
  * @SWG\Property(name="goal",type="int")
  * @SWG\Property(name="industry",type="int")
@@ -54,6 +56,10 @@ include_once 'Common.class.php';
  *            code="410",
  *            reason="No one found."
  *          ),
+ *			@SWG\ErrorResponse(
+ *            code="414",
+ *            reason="Bad time."
+ *          ),
  *           @SWG\ErrorResponse(
  *            code="500",
  *            reason="Server side problem."
@@ -73,10 +79,15 @@ include_once 'Common.class.php';
  */
 class FindPeople extends Common {
 
-    /** @var int $q_s Query time start */
-    /** @var int $q_e Query time end */
+    /** @var int $q_s Query date start */
+    /** @var int $q_e Query date end */
     var $q_s;
     var $q_e;
+
+    /** @var int $t_s Query time start */
+    /** @var int $t_e Query time end */
+    var $t_s;
+    var $t_e;
 
     /** @var int $goal Query goal */
     /** @var int $industry Query industry */
@@ -171,6 +182,8 @@ class FindPeople extends Common {
         if (isset($data["private_key"])) $token = $data["private_key"]; else $che = false;
         if (isset($data["data_from"])) $this->q_s = $data["data_from"]; else $che = false;
         if (isset($data["data_to"])) $this->q_e = $data["data_to"]; else $che = false;
+        if (isset($data["time_from"])) $this->t_s = $data["time_from"]; else $che = false;
+        if (isset($data["time_to"])) $this->t_e = $data["time_to"]; else $che = false;
         if (isset($data["city"])) $city = $data["city"]; else $che = false;
 
         if (isset($data["goal"])) $this->goal = $data["goal"];
@@ -179,7 +192,7 @@ class FindPeople extends Common {
         if (!$che) $this->answer('Not all params given',400);
 
         // Check params
-        if ( $token != null && $token != '' && is_numeric($this->q_s) && is_numeric($this->q_e) &&  $city != null && $city != '') {
+        if ( $token != null && $token != '' && is_numeric($this->t_s) && is_numeric($this->t_e) && is_numeric($this->q_s) && is_numeric($this->q_e) &&  $city != null && $city != '') {
             $this->getUser($token);
             $city = $this->getCity($city);
             if ($city) {

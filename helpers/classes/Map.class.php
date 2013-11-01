@@ -76,6 +76,11 @@ class Map extends Common {
     var $q_s;
     var $q_e;
 
+    /** @var int $t_s Query time start */
+    /** @var int $t_e Query time end */
+    var $t_s;
+    var $t_e;
+
     /** @var float $n_lat Query square */
     /** @var float $s_lat Query square */
     /** @var float $n_lng Query square */
@@ -135,6 +140,9 @@ class Map extends Common {
 
             $this->q_s = time();
             $this->q_e = $this->q_s + 7200;
+
+            $this->t_s = $this->q_s;
+            $this->t_e = $this->q_e;
 
             $this->free = $this->checkFree();
             $this->mapUpdate($lat,$lng,$offset);
