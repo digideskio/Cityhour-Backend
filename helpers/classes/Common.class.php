@@ -29,6 +29,11 @@ class Common {
     var $s_full;
     var $e_full;
 
+    /** @var int $cs_full Constant Full time start */
+    /** @var int $ce_full Constant Full time end */
+    var $cs_full;
+    var $ce_full;
+
     public function start() {
         date_default_timezone_set("UTC");
         $this->b_s = '09:00:00';
@@ -133,8 +138,8 @@ class Common {
 			       u.meet_declined,
 			       Group_concat(DISTINCT s.name SEPARATOR '$$$$$')         AS skills,
 			       Group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') AS languages,
-			       GREATEST('$this->s_full', unix_timestamp(c.start_time)) as fp_start_time,
-			       LEAST('$this->e_full', unix_timestamp(c.end_time))  as fp_end_time,
+			       GREATEST('$this->cs_full', unix_timestamp(c.start_time)) as fp_start_time,
+			       LEAST('$this->ce_full', unix_timestamp(c.end_time))  as fp_end_time,
 			       c.foursquare_id as fp_foursquare_id,
 			       c.place as fp_place,
 			       c.city as fp_city,
@@ -178,7 +183,7 @@ class Common {
 	        }
 			
 			// Friends ?
-            if ($res['friends']) {
+            if ($res['friend']) {
                 $result[$num]['friend'] = true;
             }
             else {
@@ -254,8 +259,8 @@ class Common {
         $e_time = getdate($this->t_e);
         $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
 
-        $this->s_full = $s_date + $s_time;
-        $this->e_full = $e_date + $e_time;
+        $this->cs_full = $this->s_full = $s_date + $s_time;
+        $this->ce_full = $this->e_full = $e_date + $e_time;
     }
 
     public function checkFree() {
