@@ -88,7 +88,7 @@ class Common {
 			                  AND `status` = 1
 			               LIMIT  1) > 0 THEN 1
 			         ELSE 0
-			       end                                                     AS request,
+			       end                                                     AS fp_request,
 			       CASE
 			         WHEN (SELECT id
 			               FROM   calendar
@@ -107,7 +107,7 @@ class Common {
 			                  AND friend_id = c.user_id
 			               LIMIT  1) > 0 THEN 1
 			         ELSE 0
-			       end                                                     AS friends,
+			       end                                                     AS friend,
 			       u.country,
 			       u.name,
 			       u.lastname,
@@ -128,14 +128,14 @@ class Common {
 			       u.meet_declined,
 			       Group_concat(DISTINCT s.name SEPARATOR '$$$$$')         AS skills,
 			       Group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') AS languages,
-			       unix_timestamp(c.start_time) as start_time,
-			       unix_timestamp(c.end_time) as end_time,
-			       c.foursquare_id,
-			       c.place,
-			       c.city,
-			       c.goal,
-			       c.offset,
-			       c.city_name
+			       unix_timestamp(c.start_time) as fp_start_time,
+			       unix_timestamp(c.end_time) as fp_end_time,
+			       c.foursquare_id as fp_foursquare_id,
+			       c.place as fp_place,
+			       c.city as fp_city,
+			       c.goal as fp_goal,
+			       c.offset as fp_offset,
+			       c.city_name as fp_city_name
 			FROM   free_slots c
 			       INNER JOIN (SELECT Min(start_time) AS start_time,
 			                          type,
