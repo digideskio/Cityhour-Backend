@@ -38,7 +38,7 @@ if ($result = $cls->findUsers()) {
     $i = 0;
     $enough = 0;
     foreach ($result as $row) {
-        if ($i < 25) {
+        if ($i < 20) {
             array_push($first,$row['id']);
         }
         else {

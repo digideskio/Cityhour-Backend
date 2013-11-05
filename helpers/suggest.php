@@ -51,7 +51,7 @@ foreach ($result as $row) {
         $i++;
         array_push($users,$row['user_id']);
 
-        if ($i < 25) {
+        if ($i < 20) {
             array_push($first,$row['id']);
         }
         else {
