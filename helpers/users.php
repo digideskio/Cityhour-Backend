@@ -94,12 +94,12 @@ foreach ($ids as $row) {
     if ($i < 25) {
         array_push($first,$row['id']);
     }
+    else {
+        array_push($slots,$row);
+    }
 
     if (!in_array($row['user_id'],$users)) {
         $i++;
-        unset($row['start_time']);
-        unset($row['end_time']);
-        array_push($slots,$row);
         array_push($users,$row['user_id']);
     }
 }
