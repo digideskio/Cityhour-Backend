@@ -222,7 +222,10 @@ class FindPeople extends Common {
                 from free_slots c
                 left join users u on c.user_id = u.id
                 where
-                ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) >= '$this->q_e'))
+                ((unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e')
+                or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e')
+                or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
+                or (unix_timestamp(c.start_time) <= '$this->q_s' and unix_timestamp(c.end_time) >= '$this->q_e'))
                 and c.lng BETWEEN $this->s_lng AND $this->n_lng AND c.lat BETWEEN $this->s_lat AND $this->n_lat
                 and u.status = 0
                 and u.id != $this->user_id
