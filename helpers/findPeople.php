@@ -42,6 +42,8 @@ if ($result = $cls->findUsers()) {
             array_push($first,$row['id']);
         }
         else {
+            unset($row['start_time']);
+            unset($row['end_time']);
             array_push($slots,$row);
             array_push($count,$row['id']);
         }
