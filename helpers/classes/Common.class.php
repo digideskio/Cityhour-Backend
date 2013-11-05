@@ -24,6 +24,11 @@ class Common {
     var $b_s;
     var $b_e;
 
+    /** @var int $s_full Full time start */
+    /** @var int $e_full Full time end */
+    var $s_full;
+    var $e_full;
+
     public function start() {
         date_default_timezone_set("UTC");
         $this->b_s = '09:00:00';
@@ -128,8 +133,8 @@ class Common {
 			       u.meet_declined,
 			       Group_concat(DISTINCT s.name SEPARATOR '$$$$$')         AS skills,
 			       Group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') AS languages,
-			       unix_timestamp(c.start_time) as fp_start_time,
-			       unix_timestamp(c.end_time) as fp_end_time,
+			       GREATEST('$this->s_full', unix_timestamp(c.start_time)) as fp_start_time,
+			       LEAST('$this->e_full', unix_timestamp(c.end_time))  as fp_end_time,
 			       c.foursquare_id as fp_foursquare_id,
 			       c.place as fp_place,
 			       c.city as fp_city,
@@ -236,7 +241,7 @@ class Common {
         );
     }
 
-    public function checkFree() {
+    public function getFullTime() {
         // Get date
         $s_date = getdate($this->q_s);
         $s_date = mktime(0,0,0,$s_date['mon'],$s_date['mday'],$s_date['year']);
@@ -249,12 +254,16 @@ class Common {
         $e_time = getdate($this->t_e);
         $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
 
-        $s_full = $s_date + $s_time;
-        $e_full = $e_date + $e_time;
+        $this->s_full = $s_date + $s_time;
+        $this->e_full = $e_date + $e_time;
+    }
 
-        $s_e = $e_full - $s_full;
+    public function checkFree() {
+        $this->getFullTime();
+
+        $s_e = $this->e_full - $this->s_full;
         if ($s_e < 86400 && $s_e > 3600) {
-            if ($good = $this->oldTime($s_full,$e_full)) {
+            if ($good = $this->oldTime($this->s_full,$this->e_full)) {
                 $time = array(array(
                     'start_time' => $good['start'],
                     'end_time' => $good['end'],
@@ -265,14 +274,14 @@ class Common {
             $this->answer('Bad time',414);
         }
         else {
-            while ($s_full < $e_full) {
-                if ($good = $this->oldTime($s_full,$e_full)) {
+            while ($this->s_full < $this->e_full) {
+                if ($good = $this->oldTime($this->s_full,$this->e_full)) {
                     $time[] = array(
                         'start_time' => $good['start'],
                         'end_time' => $good['end'],
                     );
                 }
-                $s_full = $s_full + 86400;
+                $this->s_full = $this->s_full + 86400;
             }
         }
 
