@@ -50,7 +50,8 @@ class Application_Model_Types
             0 => 'Standart',
             1 => 'Red',
             2 => 'Requests',
-            3 => 'System'
+            3 => 'System',
+            4 => 'Rate meeting'
         );
     }
 

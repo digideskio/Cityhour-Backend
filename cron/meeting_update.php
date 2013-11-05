@@ -28,7 +28,7 @@ if (mysql_num_rows($result) != 0) {
     while ($row = mysql_fetch_assoc($result)) {
         $id = $row["id"];
         $user_id = $row["user_id"];
-        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','11','1','3','$id','$text')");
+        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','11','1','4','$id','$text')");
     }
 }
 mysql_free_result($result);
