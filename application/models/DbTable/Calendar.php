@@ -403,6 +403,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
         $data['date_to'] = (int)$data['date_from'] + 3600;
 
+        if (Application_Model_Common::validTime($data['date_from'],$data['date_to'])) {
+            return 414;
+        }
+
         if ($bid = $this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'],true)) {
             $bid = implode(',',$bid);
             return array(
@@ -584,6 +588,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     public function createMeeting($user,$data) {
 
+        if (Application_Model_Common::validTime($data['date_from'],$data['date_to'])) {
+            return 414;
+        }
 
         if (isset($data['person_value']) && is_numeric($data['person_value']) && Application_Model_DbTable_Users::isValidUser($data['person_value'])) {
             $user_second = $data['person_value'];
