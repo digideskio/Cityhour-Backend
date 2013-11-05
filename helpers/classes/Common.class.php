@@ -260,9 +260,6 @@ class Common {
                     'end_time' => $good['end'],
                 ));
             }
-            else {
-                $this->answer('Bad time',414);
-            }
         }
         elseif ($s_e < 3600) {
             $this->answer('Bad time',414);
@@ -277,6 +274,10 @@ class Common {
                 }
                 $s_full = $s_full + 86400;
             }
+        }
+
+        if (!isset($time[0])) {
+            $this->answer('Bad time',414);
         }
 
         $slots_all = array();

@@ -43,6 +43,10 @@
                             "code": 410
                         },
                         {
+                            "reason": "Bad time.",
+                            "code": 414
+                        },
+                        {
                             "reason": "Server side problem.",
                             "code": 500
                         }
@@ -248,6 +252,12 @@
                 "data_to": {
                     "type": "timestamp"
                 },
+                "time_from": {
+                    "type": "timestamp"
+                },
+                "time_to": {
+                    "type": "timestamp"
+                },
                 "city": {
                     "type": "string"
                 },
@@ -306,6 +316,12 @@
                     "type": "timestamp"
                 },
                 "data_to": {
+                    "type": "timestamp"
+                },
+                "time_from": {
+                    "type": "timestamp"
+                },
+                "time_to": {
                     "type": "timestamp"
                 },
                 "lat": {
