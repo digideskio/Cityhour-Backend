@@ -107,7 +107,7 @@ if ($first) {
     $cls->getFullTime();
     $cls->answer(array(
         'users' => $cls->getUsers($first),
-        'date' => $slots
+        'data' => $slots
     ),200);
 }
 else {

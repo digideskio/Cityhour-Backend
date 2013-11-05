@@ -61,7 +61,7 @@ class Common {
     }
 
     public function query($sql,$fetch = false,$fetchAll = false){
-//        r($sql);
+//        rt($sql);
         
 		try {
             return $this->db->query($sql,$fetch,$fetchAll);
