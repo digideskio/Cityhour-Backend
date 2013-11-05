@@ -424,6 +424,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             ");
 
             if (is_numeric($che)) {
+                if ($che == $user['id']) {
+                    return 415;
+                }
+
                 $data['person_value'] = $che;
                 return $this->createMeeting($user,$data);
             }
@@ -597,6 +601,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
         else {
             return 408;
+        }
+
+        if ($user_second == $user['id']) {
+            return 415;
         }
 
         if ($bid = $this->userBusyOrFree($data['date_from'],$data['date_to'],$user['id'],true)) {

@@ -149,6 +149,10 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *			@SWG\ErrorResponse(
      *            code="414",
      *            reason="Bad time."
+     *          ),     *
+     *			@SWG\ErrorResponse(
+     *            code="415",
+     *            reason="Same user."
      *          ),
      *           @SWG\ErrorResponse(
      *            code="301",

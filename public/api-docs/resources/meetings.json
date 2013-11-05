@@ -94,6 +94,14 @@
                             "code": 300
                         },
                         {
+                            "reason": "Bad time.",
+                            "code": 414
+                        },
+                        {
+                            "reason": "Same user.",
+                            "code": 415
+                        },
+                        {
                             "reason": "You have meeting with this user on this time.",
                             "code": 301
                         }
