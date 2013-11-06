@@ -259,8 +259,12 @@ class Common {
         $e_time = getdate($this->t_e);
         $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
 
-        $this->cs_full = $this->s_full = $s_date + $s_time;
-        $this->ce_full = $this->e_full = $e_date + $e_time;
+        $this->s_full = $s_date + $s_time;
+        $this->e_full = $e_date + $e_time;
+
+        $good = $this->oldTime($this->s_full,$this->e_full);
+        $this->cs_full = $good['start'];
+        $this->ce_full = $good['end'];
     }
 
     public function checkFree($suggest = false) {
