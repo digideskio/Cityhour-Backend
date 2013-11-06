@@ -259,6 +259,10 @@ class Common {
         $e_time = getdate($this->t_e);
         $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
 
+        if ( $s_time > $e_time ) {
+            $s_date = $s_date - 86400;
+        }
+
         $this->s_full = $s_date + $s_time;
         $this->e_full = $e_date + $e_time;
 
