@@ -48,14 +48,6 @@ include_once 'Common.class.php';
  *            reason="Current user blocked."
  *          ),
  *           @SWG\ErrorResponse(
- *            code="404",
- *            reason="You have`n free time. for request period."
- *          ),
- *			@SWG\ErrorResponse(
- *            code="410",
- *            reason="No one found."
- *          ),
- *           @SWG\ErrorResponse(
  *            code="500",
  *            reason="Server side problem."
  *          )
@@ -115,7 +107,9 @@ class Suggest extends Common {
         // Check params
         if ( $token != null && $token != '' && is_numeric($this->t_s) && is_numeric($this->t_e) && is_numeric($this->lat) && is_numeric($this->lng) && is_numeric($this->q_s) && is_numeric($this->q_e)) {
             $this->getUser($token);
-            $this->free = $this->checkFree();
+            if ($this->free = $this->checkFree(true)) {
+                return false;
+            }
         }
         else
             $this->answer('Not all params given',400);

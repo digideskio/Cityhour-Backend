@@ -263,7 +263,7 @@ class Common {
         $this->ce_full = $this->e_full = $e_date + $e_time;
     }
 
-    public function checkFree() {
+    public function checkFree($suggest = false) {
         $this->getFullTime();
 
         $s_e = $this->e_full - $this->s_full;
@@ -276,7 +276,12 @@ class Common {
             }
         }
         elseif ($s_e < 3600) {
-            $this->answer('Bad time',414);
+            if ($suggest) {
+                return false;
+            }
+            else {
+                $this->answer('Bad time',414);
+            }
         }
         else {
             while ($this->s_full < $this->e_full) {
@@ -291,7 +296,12 @@ class Common {
         }
 
         if (!isset($time[0])) {
-            $this->answer('Bad time',414);
+            if ($suggest) {
+                return false;
+            }
+            else {
+                $this->answer('Bad time',414);
+            }
         }
 
         $slots_all = array();

@@ -23,13 +23,13 @@ include_once 'classes/Suggest.class.php';
 $cls = new Suggest($debug);
 
 $cls->connect();
-$cls->getValues($data);
-
-$result = $cls->findUsers();
-if (!$result) {
+if ($cls->getValues($data)) {
+    $result = $cls->findUsers();
+}
+else {
     $now = time();
-    $f = $now - 43200;
-    $e = $now + 43200;
+    $f = $now - 86400;
+    $e = $now + 86400;
     $data['data_from'] = $f;
     $data['time_from'] = $f;
     $data['data_to'] = $e;
