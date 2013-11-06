@@ -275,13 +275,12 @@ class Common {
         $this->getFullTime();
 
         $s_e = $this->e_full - $this->s_full;
-        if ($s_e < 86400 && $s_e > 3600) {
-            if ($good = $this->oldTime($this->s_full,$this->e_full)) {
-                $time = array(array(
-                    'start_time' => $good['start'],
-                    'end_time' => $good['end'],
-                ));
-            }
+        if ($s_e < 86400 && $s_e >= 3600) {
+            $good = $this->oldTime($this->s_full,$this->e_full);
+            $time = array(array(
+                'start_time' => $good['start'],
+                'end_time' => $good['end'],
+            ));
         }
         elseif ($s_e < 3600) {
             if ($suggest) {
@@ -340,14 +339,14 @@ class Common {
             left join user_settings s on s.user_id = c.user_id and s.name = 'free_time'
             left join calendar i on c.id = i.id
             where
-            (
-                (unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
-            )
+                ((unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.start_time) <= '$this->q_e')
+                or (unix_timestamp(c.end_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
+                or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
+                or (unix_timestamp(c.start_time) <= '$this->q_s' and unix_timestamp(c.end_time) >= '$this->q_e'))
             and c.type = 2
             and c.status = 2
             and c.user_id = $this->user_id
         ",false,true);
-
             if ($meet_slots) {
                 $slots = array_merge($allFree,$meet_slots);
                 $slots = $this->findCrossOrNot($slots,1,2,true);
@@ -636,7 +635,7 @@ class Common {
                     foreach ($B as $Bkey => $Bval) {
                         if ($Aval['start_time'] <= $Bval['end_time'] && $Aval['end_time'] >= $Bval['start_time']) {
                             $was[$Bkey] = $Akey;
-                            break;
+//                            break;
                         }
                     }
                 }
@@ -685,7 +684,7 @@ class Common {
                 foreach ($B as $Bkey => $Bval) {
                     if ($Aval['start_time'] <= $Bval['end_time'] && $Aval['end_time'] >= $Bval['start_time']) {
                         $was[$Bkey] = $Akey;
-                        break;
+//                        break;
                     }
                 }
             }
