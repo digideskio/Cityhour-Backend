@@ -303,7 +303,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return 400;
     }
 
-    public function expireMeeting($ids,$slot) {
+    public function expireMeeting($ids,$slot,$un = false) {
         $q_in = $slot['start_time'];
         $q_out = $slot['end_time'];
         $items = $this->_db->fetchOne("
@@ -322,13 +322,16 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
               and c.status = 1
         ");
         if ($items) {
-            $this->_db->update('notifications',array(
-                'status' => 2
-            ),"`item` in ($items)");
-
-            $this->update(array(
-                'status' => 5
-            ),"id in ($items)");
+            if ($un) {
+                $this->_db->update('notifications',array(
+                    'status' => 0
+                ),"`item` in ($items) and `status` = 3");
+            }
+            else {
+                $this->_db->update('notifications',array(
+                    'status' => 3
+                ),"`item` in ($items)");
+            }
         }
         return true;
     }
@@ -786,6 +789,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'status' => 2
             ),"(item = $sid1 or item = $sid2) and type = 4");
 
+            $ids = $uid.','.$slot2['user_id'];
+            $this->expireMeeting($ids,$slot,true);
 
             if ($slot['email'] == 1) {
                 if ( $user_email = Application_Model_DbTable_EmailUsers::getUserId($slot2['user_id']) ) {

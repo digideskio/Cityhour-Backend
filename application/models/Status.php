@@ -24,7 +24,8 @@ class Application_Model_Status
         return array(
             0 => 'Sent',
             1 => 'Read',
-            2 => 'Not correct now'
+            2 => 'Not correct now',
+            3 => 'Have meeting on same time'
         );
     }
 
@@ -35,7 +36,7 @@ class Application_Model_Status
             2 => 'Meeting Accepted',
             3 => 'Meeting Rejected',
             4 => 'Meeting Canceled',
-            5 => 'Meeting Expired',
+            5 => 'Meeting Expired'
         );
     }
 
