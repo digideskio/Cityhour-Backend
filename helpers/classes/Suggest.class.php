@@ -131,7 +131,7 @@ class Suggest extends Common {
                 or (unix_timestamp(c.start_time) <= '$this->q_s' and unix_timestamp(c.end_time) >= '$this->q_e'))
                 and u.status = 0
                 and u.id != $this->user_id
-               having ( end_time - start_time ) > 3600
+               having ( end_time - start_time ) >= 3600
                ORDER BY acos(sin($this->lat) * sin(c.lat) + cos($this->lat) * cos(c.lat) * cos(c.lng - ($this->lng))) asc
             ",false,true);
             $result = array_merge($result,$find);

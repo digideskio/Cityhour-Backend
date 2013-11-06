@@ -193,7 +193,7 @@ class Map extends Common {
                     and u.status = 0
                     and u.id != $this->user_id
                     group by t.user_id
-                    having ( end_time - start_time ) > 3600
+                    having ( end_time - start_time ) >= 3600
                     limit 500
             ",false,true);
             $result = array_merge($result,$find);
