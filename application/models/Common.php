@@ -152,7 +152,7 @@ class Application_Model_Common
 
     public static function validTime($date_from,$date_to) {
         $time_m = $date_to-$date_from;
-        if (time() < $date_from && $time_m > 3600) {
+        if (time() < $date_from && $time_m >= 3600) {
             return true;
         }
         return false;
