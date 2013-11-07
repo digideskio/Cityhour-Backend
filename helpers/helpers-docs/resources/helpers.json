@@ -175,14 +175,6 @@
                             "code": 407
                         },
                         {
-                            "reason": "You have`n free time. for request period.",
-                            "code": 404
-                        },
-                        {
-                            "reason": "No one found.",
-                            "code": 410
-                        },
-                        {
                             "reason": "Server side problem.",
                             "code": 500
                         }
@@ -245,6 +237,9 @@
                 },
                 "debug": {
                     "type": "boolean"
+                },
+                "offset": {
+                    "type": "int"
                 },
                 "data_from": {
                     "type": "timestamp"
@@ -312,6 +307,9 @@
                 "debug": {
                     "type": "boolean"
                 },
+                "offset": {
+                    "type": "int"
+                },
                 "data_from": {
                     "type": "timestamp"
                 },
@@ -340,6 +338,21 @@
                 },
                 "data": {
                     "type": "Array"
+                },
+                "offset": {
+                    "type": "int"
+                },
+                "data_from": {
+                    "type": "timestamp"
+                },
+                "data_to": {
+                    "type": "timestamp"
+                },
+                "time_from": {
+                    "type": "timestamp"
+                },
+                "time_to": {
+                    "type": "timestamp"
                 }
             }
         }

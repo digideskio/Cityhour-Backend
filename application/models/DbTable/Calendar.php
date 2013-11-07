@@ -72,6 +72,23 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         );
     }
 
+    public function deleteMeetRequest($user,$id) {
+        $user_id = $user['id'];
+        $notification = $this->_db->fetchOne("
+            select n.id
+            from notifications n
+            where n.id = $id and `from` = $user_id
+        ");
+        if ($notification) {
+            $this->_db->update("notifications",array(
+                'status' => 2
+            ),"id = $id");
+            return 200;
+        }
+        else
+            return 404;
+    }
+
     public function getAll($user,$id) {
         $user_id = $user['id'];
         $start = gmdate('Y-m-d H:i:s',time()-86400);
