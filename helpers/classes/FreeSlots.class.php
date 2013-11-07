@@ -123,7 +123,7 @@ class FreeSlots extends Common {
             $slots = $this->findCrossOrNot($AllData,1,2,true);
             $slots = $this->sortById($slots);
             $rSlots = array_merge($rSlots,$this->addOrRemoveTime($slots,false));
-
+            $rSlots = $this->getMoreThanHour($rSlots);
             return $rSlots;
         }
         else {

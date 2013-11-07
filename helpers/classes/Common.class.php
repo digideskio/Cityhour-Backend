@@ -276,11 +276,12 @@ class Common {
 
         $s_e = $this->e_full - $this->s_full;
         if ($s_e < 86400 && $s_e >= 3600) {
-            $good = $this->oldTime($this->s_full,$this->e_full);
-            $time = array(array(
-                'start_time' => $good['start'],
-                'end_time' => $good['end'],
-            ));
+            if ($good = $this->oldTime($this->s_full,$this->e_full)) {
+                $time = array(array(
+                    'start_time' => $good['start'],
+                    'end_time' => $good['end'],
+                ));
+            }
         }
         elseif ($s_e < 3600) {
             if ($suggest) {
@@ -316,7 +317,6 @@ class Common {
         foreach ($time as $row) {
             $this->q_s = $row['start_time'];
             $this->q_e = $row['end_time'];
-
             $allFree = array(array(
                 "id" => 0,
                 "user_id" => $this->user_id,
@@ -381,17 +381,7 @@ class Common {
     }
 
     private function getMoreThanHourClear($slots,$meet_slots) {
-        $result = array();
-        foreach ($slots as $row) {
-            $time = (int)$row['end_time']-(int)$row['start_time'];
-            if ($time >= 3600) {
-                array_push($result,array(
-                    'start_time' => $row['start_time'],
-                    'end_time' => $row['end_time']
-                ));
-            }
-        }
-        if ($result) {
+        if ($result = $this->getMoreThanHour($slots)) {
             return $result;
         }
         else {
@@ -426,6 +416,17 @@ class Common {
             ",false,true);
             $this->answer($meet_slots,404);
         }
+    }
+
+    public function getMoreThanHour($slots) {
+        $result = array();
+        foreach ($slots as $row) {
+            $time = (int)$row['end_time']-(int)$row['start_time'];
+            if ($time >= 3600) {
+                array_push($result,$row);
+            }
+        }
+        return $result;
     }
 
     public function countUsers($slots) {
