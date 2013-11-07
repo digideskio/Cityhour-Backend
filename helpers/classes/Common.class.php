@@ -261,6 +261,7 @@ class Common {
 
         if ( $s_time > $e_time ) {
             $s_date = $s_date - 86400;
+            $e_date = $e_date + 86400;
         }
 
         $this->s_full = $s_date + $s_time;
