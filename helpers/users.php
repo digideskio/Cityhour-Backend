@@ -13,6 +13,7 @@ use Swagger\Annotations as SWG;
  * @SWG\Property(name="private_key",type="string")
  * @SWG\Property(name="data",type="Array")
  *
+ * @SWG\Property(name="offset",type="int")
  * @SWG\Property(name="data_from",type="timestamp")
  * @SWG\Property(name="data_to",type="timestamp")
  * @SWG\Property(name="time_from",type="timestamp")
@@ -79,6 +80,7 @@ if (isset($data["data_from"])) $cls->q_s = $data["data_from"]; else $che = false
 if (isset($data["data_to"])) $cls->q_e = $data["data_to"]; else $che = false;
 if (isset($data["time_from"])) $cls->t_s = $data["time_from"]; else $che = false;
 if (isset($data["time_to"])) $cls->t_e = $data["time_to"]; else $che = false;
+if (isset($data["offset"])) $cls->offset = $data["offset"]; else $che = false;
 
 if (!$che) $this->answer('Not all params given',400);
 

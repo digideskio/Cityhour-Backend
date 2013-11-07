@@ -34,6 +34,9 @@ class Common {
     var $cs_full;
     var $ce_full;
 
+    /** @var int $offset Time offset */
+    var $offset;
+
     public function start() {
         date_default_timezone_set("UTC");
         $this->b_s = '09:00:00';
@@ -260,8 +263,12 @@ class Common {
         $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
 
         if ( $s_time > $e_time ) {
-            $s_date = $s_date - 86400;
-            $e_date = $e_date + 86400;
+            if ($this->offset > 0) {
+                $s_date = $s_date - 86400;
+            }
+            elseif ($this->offset < 0) {
+                $e_date = $e_date + 86400;
+            }
         }
 
         $this->s_full = $s_date + $s_time;

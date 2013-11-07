@@ -16,6 +16,7 @@ include_once 'Common.class.php';
  * @SWG\Property(name="private_key",type="string")
  * @SWG\Property(name="debug",type="boolean")
  *
+ * @SWG\Property(name="offset",type="int")
  * @SWG\Property(name="data_from",type="timestamp")
  * @SWG\Property(name="data_to",type="timestamp")
  * @SWG\Property(name="time_from",type="timestamp")
@@ -101,6 +102,7 @@ class Suggest extends Common {
         if (isset($data["data_to"])) $this->q_e = $data["data_to"]; else $che = false;
         if (isset($data["time_from"])) $this->t_s = $data["time_from"]; else $che = false;
         if (isset($data["time_to"])) $this->t_e = $data["time_to"]; else $che = false;
+        if (isset($data["offset"])) $this->offset = $data["offset"]; else $che = false;
 
         if (!$che) $this->answer('Not all params given',400);
 
