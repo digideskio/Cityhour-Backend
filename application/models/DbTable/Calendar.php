@@ -767,6 +767,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $data = $this->prepeareUpdate($data);
                 if ($data) {
                     $this->update($data,"id = $sid");
+
+                    // Update User free time
+                    Application_Model_Common::updateUserFreeSlots($user['id']);
                 }
                 return $this->getSlotID($sid);
             }
@@ -783,6 +786,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $this->delete("id = $sid");
             }
 
+            // Update User free time
+            Application_Model_Common::updateUserFreeSlots($user['id']);
             return $res;
         }
 
@@ -857,6 +862,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         if ($slot) {
             if ($slot['type'] === '1') {
                 $this->delete("id = $id");
+                // Update User free time
+                Application_Model_Common::updateUserFreeSlots($user['id']);
                 return 200;
             }
             elseif ($slot['type'] === '2') {
