@@ -331,7 +331,7 @@ class Common {
                 $s = $s_date + $s_time;
                 $e = $s_date + $e_time;
 
-                if ($e < $s) {
+                if ($e <= $s) {
                     $e = $e + 86400;
                 }
 
