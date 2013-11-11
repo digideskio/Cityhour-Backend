@@ -82,7 +82,7 @@ if (isset($data["time_from"])) $cls->t_s = $data["time_from"]; else $che = false
 if (isset($data["time_to"])) $cls->t_e = $data["time_to"]; else $che = false;
 if (isset($data["offset"])) $cls->offset = $data["offset"]; else $che = false;
 
-if (!$che) $this->answer('Not all params given',400);
+if (!$che) $cls->answer('Not all params given',400);
 
 $cls->start();
 $cls->connect();
