@@ -105,7 +105,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                            ON n.from = u.id
                               AND c.email = 0
                     LEFT JOIN email_users e
-                           ON c.user_id = e.id
+                           ON c.user_id_second = e.id
                               AND c.email = 1
                     LEFT JOIN user_jobs j
                            ON u.id = j.user_id
@@ -161,7 +161,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                            ON n.to = u.id
                               AND c.email = 0
                     LEFT JOIN email_users e
-                           ON c.user_id = e.id
+                           ON c.user_id_second = e.id
                               AND c.email = 1
                     LEFT JOIN user_jobs j
                            ON u.id = j.user_id
