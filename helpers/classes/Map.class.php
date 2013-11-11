@@ -163,10 +163,10 @@ class Map extends Common {
             $this->q_s = $row['start_time'];
             $this->q_e = $row['end_time'];
             $find = $this->query("
-                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, GREATEST('$this->q_s', unix_timestamp(t.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(t.end_time)) as end_time, u.city_name, offset
+                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, GREATEST('$this->q_s', unix_timestamp(t.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(t.end_time)) as end_time, u.city_name, offset, t.goal
                     from (
                         (
-                            SELECT m2.user_id, m.lat, m.lng, now() as start_time, now()+3600 as end_time, null as foursquare_id, null as place, m2.offset
+                            SELECT m2.user_id, m.lat, m.lng, now() as start_time, now()+3600 as end_time, null as foursquare_id, null as place, m2.offset, 0 as goal
                             FROM map m
                             left join map m2 on m.id=m2.id
                             WHERE
@@ -175,7 +175,7 @@ class Map extends Common {
                         )
                         union
                         (
-                            select c.user_id, c.lat, c.lng, c.start_time, c.end_time, c2.foursquare_id, c2.place, c2.offset
+                            select c.user_id, c.lat, c.lng, c.start_time, c.end_time, c2.foursquare_id, c2.place, c2.offset, c2.goal as goal
                             from free_slots c
                             left join free_slots c2 on c.id = c2.id
                             where
