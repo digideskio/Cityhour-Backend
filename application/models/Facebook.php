@@ -52,12 +52,7 @@ class Application_Model_Facebook
         ));
 
         $db = new Application_Model_DbTable_UserContactsWait();
-        $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
-            'table' => 'user_contacts_wait',
-            'field' => 'linkedin_id',
-            'exclude' => "user_id = $id"
-
-        ));
+        $validator_exist = $db->getByUser($id,1);
         $db->userUpdateInfo($id,$user,$token,1,$user_real);
 
         foreach ($friends as $row) {
@@ -69,12 +64,13 @@ class Application_Model_Facebook
                 'user_id' => $id,
                 'type' => 1
             );
-            if ($validator_exist->isValid($row['linkedin_id'])) {
+            if (!in_array($row['linkedin_id'],$validator_exist)) {
                 $db->add($row);
             }
-            else {
-                $db->updateFacebookData($row,$row['linkedin_id'],$id);
-            }
+            // If will need
+//            else {
+//                $db->updateFacebookData($row,$row['linkedin_id'],$id);
+//            }
         }
         return true;
     }

@@ -7,11 +7,12 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
 
     public function updateSettings($user,$data) {
         $user_id = $user['id'];
-        $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
-            'table' => 'user_settings',
-            'field' => 'name',
-            'exclude' => "user_id = $user_id"
-        ));
+        
+        $validator_exist = $this->_db->fetchCol("
+            select `name`
+            from user_settings
+            where user_id = $user_id
+        ");
 
         $filter = new Zend_Filter_HtmlEntities();
         foreach ($data as $num => $row ) {
@@ -65,7 +66,7 @@ class Application_Model_DbTable_UserSettings extends Zend_Db_Table_Abstract
                 $row = (int)$row;
             }
 
-            if ($validator_exist->isValid($num)) {
+            if (!in_array($num,$validator_exist)) {
                 $row = array(
                     'user_id' => $user_id,
                     'name' => $num,

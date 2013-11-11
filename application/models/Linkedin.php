@@ -269,12 +269,8 @@ class Application_Model_Linkedin
         }
         $friends = $friends['values'];
         $db = new Application_Model_DbTable_UserContactsWait();
-        $validator_exist = new Zend_Validate_Db_NoRecordExists(array(
-            'table' => 'user_contacts_wait',
-            'field' => 'linkedin_id',
-            'exclude' => "user_id = $id"
 
-        ));
+        $validator_exist = $db->getByUser($id);
 
         foreach ($friends as $row) {
             if ($row['id'] != 'private') {
@@ -288,12 +284,14 @@ class Application_Model_Linkedin
                     'user_id' => $id,
                     'type' => 2
                 );
-                if ($validator_exist->isValid($row['linkedin_id'])) {
+                if (!in_array($row['linkedin_id'],$validator_exist)) {
                     $db->add($row);
                 }
-                else {
-                    $db->updateLinkedinData($row,$row['linkedin_id'],$id);
-                }
+
+                // If will need
+//                else {
+//                    $db->updateLinkedinData($row,$row['linkedin_id'],$id);
+//                }
             }
         }
         return true;

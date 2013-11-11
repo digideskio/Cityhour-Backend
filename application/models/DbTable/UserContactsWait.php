@@ -10,6 +10,14 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         return true;
     }
 
+    public function getByUser($id,$type = 2) {
+        return $this->_db->fetchCol("
+            select linkedin_id
+            from $this->_name
+            where user_id = $id and `type` = $type
+        ");
+    }
+
     public function userUpdateInfo($id,$user,$token,$type,$user_real) {
         if ($type == 1) {
             if (!$user_real['facebook_key']) {
