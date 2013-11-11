@@ -10,7 +10,7 @@ mysql_set_charset('utf8',$db);
 mysql_query("SET NAMES utf8, time_zone = '+0:00'");
 
 $result = mysql_query("
-                        select id,user_id
+                        select id,user_id,place
                         from calendar c
                         where end_time between now() - interval 1445 minute and now() - interval 24 hour
                         and type = 2
@@ -24,8 +24,9 @@ if (!$result) {
 }
 
 if (mysql_num_rows($result) != 0) {
-    $text = Application_Model_Texts::notification()[11];
     while ($row = mysql_fetch_assoc($result)) {
+        $data['place'] = $row['place'];
+        $text = Application_Model_Texts::notification($data)[11];
         $id = $row["id"];
         $user_id = $row["user_id"];
         mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','11','1','4','$id','$text')");
@@ -35,7 +36,7 @@ mysql_free_result($result);
 
 
 $result = mysql_query("
-                        select id,user_id
+                        select id,user_id,place
                         from calendar c
                         where start_time between now() + interval 85 minute and now() + interval 90 minute
                         and type = 2
@@ -48,9 +49,10 @@ if (!$result) {
 
 
 if (mysql_num_rows($result) != 0) {
-    $text = Application_Model_Texts::notification()[10];
     $text2 = Application_Model_Texts::push()[8];
     while ($row = mysql_fetch_assoc($result)) {
+        $data['place'] = $row['place'];
+        $text = Application_Model_Texts::notification($data)[10];
         $id = $row["id"];
         $user_id = $row["user_id"];
         $data = array(
