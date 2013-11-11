@@ -39,7 +39,7 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
                 //Connect
                 $apns = new Zend_Mobile_Push_Apns();
                 $apns->setCertificate($pcrt);
-                $apns->setCertificatePassphrase('gfhjkm');
+                $apns->setCertificatePassphrase('gfhjkm'); // Push Pass
                 try {
                     $apns->connect(Zend_Mobile_Push_Apns::SERVER_PRODUCTION_URI);
                 } catch (Zend_Mobile_Push_Exception_ServerUnavailable $e) {
@@ -52,7 +52,7 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
 
                 $dapns = new Zend_Mobile_Push_Apns();
                 $dapns->setCertificate($dcrt);
-                $dapns->setCertificatePassphrase('gfhjkm');
+                $dapns->setCertificatePassphrase('gfhjkm');  // Push Pass
                 try {
                     $dapns->connect(Zend_Mobile_Push_Apns::SERVER_SANDBOX_URI);
                 } catch (Zend_Mobile_Push_Exception_ServerUnavailable $e) {
