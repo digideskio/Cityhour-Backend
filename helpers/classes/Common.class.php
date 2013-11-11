@@ -249,6 +249,24 @@ class Common {
         );
     }
 
+    private function correctTimeOffset($s_time,$e_time,$s_date,$e_date) {
+        if ( $s_time > $e_time ) {
+            if ($this->offset > 0) {
+                $s_date = $s_date - 86400;
+            }
+            elseif ($this->offset < 0) {
+                $e_date = $e_date + 86400;
+            }
+        }
+
+        return array(
+            's_time' => $s_time,
+            'e_time' => $e_time,
+            's_date' => $s_date,
+            'e_date' => $e_date,
+        );
+    }
+
     public function getFullTime() {
         // Get date
         $s_date = getdate($this->q_s);
@@ -262,14 +280,11 @@ class Common {
         $e_time = getdate($this->t_e);
         $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
 
-        if ( $s_time > $e_time ) {
-            if ($this->offset > 0) {
-                $s_date = $s_date - 86400;
-            }
-            elseif ($this->offset < 0) {
-                $e_date = $e_date + 86400;
-            }
-        }
+        $dt = $this->correctTimeOffset($s_time,$e_time,$s_date,$e_date);
+        $s_time = $dt['s_time'];
+        $e_time = $dt['e_time'];
+        $s_date = $dt['s_date'];
+        $e_date = $dt['e_date'];
 
         $this->s_full = $s_date + $s_time;
         $this->e_full = $e_date + $e_time;
@@ -277,10 +292,17 @@ class Common {
         $good = $this->oldTime($this->s_full,$this->e_full);
         $this->cs_full = $good['start'];
         $this->ce_full = $good['end'];
+
+        return array(
+            's_date' => $s_date,
+            's_time' => $s_time,
+            'e_time' => $e_time,
+        );
     }
 
     public function checkFree($suggest = false) {
-        $this->getFullTime();
+        $dt = $this->getFullTime();
+        $time = array();
 
         $s_e = $this->e_full - $this->s_full;
         if ($s_e < 86400 && $s_e >= 3600) {
@@ -300,17 +322,29 @@ class Common {
             }
         }
         else {
-            while ($this->s_full < $this->e_full) {
-                if ($good = $this->oldTime($this->s_full,$this->e_full)) {
+            $s_date = $dt['s_date'];
+            $s_time = $dt['s_time'];
+            $e_time = $dt['e_time'];
+
+
+            while ($s_date < $this->e_full) {
+                $s = $s_date + $s_time;
+                $e = $s_date + $e_time;
+
+                if ($e < $s) {
+                    $e = $e + 86400;
+                }
+
+                if ($good = $this->oldTime($s,$e)) {
                     $time[] = array(
                         'start_time' => $good['start'],
                         'end_time' => $good['end'],
                     );
                 }
-                $this->s_full = $this->s_full + 86400;
+                $s_date = $s_date + 86400;
             }
         }
-
+        
         if (!isset($time[0])) {
             if ($suggest) {
                 return false;
