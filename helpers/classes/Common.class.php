@@ -344,7 +344,6 @@ class Common {
                 $s_date = $s_date + 86400;
             }
         }
-        
         if (!isset($time[0])) {
             if ($suggest) {
                 return false;

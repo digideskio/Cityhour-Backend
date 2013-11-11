@@ -28,8 +28,8 @@ if ($cls->getValues($data)) {
 }
 else {
     $now = time();
-    $f = $now + 86400 + $cls->offset;
-    $e = $now + 172800 + $cls->offset;
+    $f = $now + $cls->offset;
+    $e = $now + 172800;
     $data['data_from'] = $f;
     $data['time_from'] = $f;
     $data['data_to'] = $e;
