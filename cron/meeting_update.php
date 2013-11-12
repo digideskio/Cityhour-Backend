@@ -10,7 +10,7 @@ mysql_set_charset('utf8',$db);
 mysql_query("SET NAMES utf8, time_zone = '+0:00'");
 
 $result = mysql_query("
-                        select id,user_id,place
+                        select id,user_id,place,user_id_second
                         from calendar c
                         where end_time between now() - interval 1445 minute and now() - interval 24 hour
                         and type = 2
@@ -30,7 +30,8 @@ if (mysql_num_rows($result) != 0) {
         $text = mysql_real_escape_string($text);
         $id = $row["id"];
         $user_id = $row["user_id"];
-        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','11','1','4','$id','$text')");
+        $user_id_second = $row["user_id_second"];
+        mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('$user_id_second','$user_id','11','1','0','$id','$text')");
     }
 }
 mysql_free_result($result);
