@@ -112,6 +112,7 @@ class FreeSlots extends Common {
                     (unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
                 )
                 and c.type = 2
+                and c.status = 2
                 and c.user_id = $this->user_id
             ",false,true);
 
