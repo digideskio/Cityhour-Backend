@@ -15,7 +15,7 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
         }
         $ids = implode(',',$good_ids);
         $tokens = $this->_db->fetchAll("
-            select m.alert, m.data, p.debug, p.deviceToken, p.id, m.id as mid
+            select m.alert, m.data, p.debug, p.deviceToken, p.id, m.id as mid, m.user_id
             from push_messages m
             inner join push p on m.user_id = p.user_id
             left join users u on m.user_id = u.id
@@ -69,7 +69,7 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
                     try {
                         $message = new Zend_Mobile_Push_Message_Apns();
                         $message->setAlert($row['alert']);
-                        $message->setBadge(0);
+                        $message->setBadge((new Application_Model_DbTable_Notifications())->getSumCounters($row['user_id']));
                         $message->setSound('s.aiff');
                         $message->setId(time());
                         $message->setToken($row['deviceToken']);

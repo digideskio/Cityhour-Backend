@@ -235,5 +235,24 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
         return $this->insert($data);
     }
 
+    public function getSumCounters($user_id) {
+        $not = $this->_db->fetchOne("
+            select count(id)
+                from notifications
+                where `to` = $user_id
+                and type in (0,3,9,1,4,5,6,7,8)
+                and status = 0
+        ");
+        $chat = $this->_db->fetchOne("
+            select count(chat) as chat
+                from
+                (select count(id) as chat
+                from chat
+                where `to` = $user_id
+                and `status` = 0
+                GROUP BY `from`) as t");
+        return (int)($not + $chat);
+    }
+
 
 }
