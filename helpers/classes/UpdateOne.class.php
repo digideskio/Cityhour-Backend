@@ -92,4 +92,8 @@ class UpdateOne extends Common {
         }
     }
 
+    public function clearUserData($id) {
+        return $this->query("delete from free_slots where user_id = $id");
+    }
+
 }

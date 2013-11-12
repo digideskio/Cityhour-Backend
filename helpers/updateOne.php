@@ -26,5 +26,6 @@ if (isset($AllData[0])) {
         $cls->answer('Server error',500);
 }
 else {
+    $cls->clearUserData($id);
     $cls->answer('Done',200);
 }
