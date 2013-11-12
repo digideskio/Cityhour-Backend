@@ -289,6 +289,11 @@ class Common {
         $this->s_full = $s_date + $s_time;
         $this->e_full = $e_date + $e_time;
 
+        $s_e = $this->e_full - $this->s_full;
+        if ((int)$s_e === 0) {
+            $this->s_full = $this->s_full - 86400;
+        }
+
         $good = $this->oldTime($this->s_full,$this->e_full);
         $this->cs_full = $good['start'];
         $this->ce_full = $good['end'];
@@ -305,7 +310,7 @@ class Common {
         $time = array();
 
         $s_e = $this->e_full - $this->s_full;
-        if ($s_e < 86400 && $s_e >= 3600) {
+        if ($s_e <= 86400 && $s_e >= 3600) {
             if ($good = $this->oldTime($this->s_full,$this->e_full)) {
                 $time = array(array(
                     'start_time' => $good['start'],
