@@ -333,9 +333,8 @@ class Common {
             while ($s_date < $this->e_full) {
                 $s = $s_date + $s_time;
                 $e = $s_date + $e_time;
-
                 if ($e <= $s) {
-                    $e = $e + 86400;
+                    $s = $s - 86400;
                 }
 
                 if ($good = $this->oldTime($s,$e)) {
