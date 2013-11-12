@@ -496,11 +496,15 @@ class Common {
                 $row['city'] = $this->db->quote($row['city']);
                 $row['city_name'] = $this->db->quote($row['city_name']);
 
-                if (!$first) {
-                    $sql .= ',';
-                };
-                $first = false;
-                $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['type']."','".$row['is_free']."','".$row['lat']."','".$row['lng']."','".$row['goal']."','".$row['offset']."',".$row['foursquare_id'].",".$row['place'].",".$row['city'].",".$row['city_name'].")";
+                if ($row['user_id'] && $row['start_time'] && $row['end_time'] && $row['type'] && $row['is_free'] && $row['lat'] && $row['lng'] && $row['goal'] && $row['offset'] && $row['foursquare_id'] && $row['place'] && $row['city'] && $row['city_name']) {
+                    if (!$first) {
+                        $sql .= ',';
+                    }
+                    else {
+                        $first = false;
+                    };
+                    $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['type']."','".$row['is_free']."','".$row['lat']."','".$row['lng']."','".$row['goal']."','".$row['offset']."',".$row['foursquare_id'].",".$row['place'].",".$row['city'].",".$row['city_name'].")";
+                }
             }
             $this->query($sql);
         }
