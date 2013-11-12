@@ -183,6 +183,12 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
+                unset($slot['id']);
+                $slot['user_id_second'] = $slot['user_id'];
+                $slot['user_id'] = $user['id'];
+                $slot['status'] = 2;
+                $this->insert($slot);
+
                 $this->_db->commit();
             }
             catch (Exception $e) {
@@ -192,7 +198,6 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
             // Update User free time
             Application_Model_Common::updateUserFreeSlots($user['id']);
-            Application_Model_Common::updateUserFreeSlots($slot['user_id']);
             return 200;
         }
 
@@ -817,7 +822,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             if ($slot['email'] == 1) {
                 if ( $user_email = Application_Model_DbTable_EmailUsers::getUserId($slot2['user_id']) ) {
                     $options = array(
-                        'name' => $user_email['name'],
+                        'name' => $user['name'],
                     );
                     Application_Model_Common::sendEmail($user_email['email'], "Митинг отменен!", null, null, null, "meeting_canceled.phtml", $options, 'meeting_canceled');
                 }
