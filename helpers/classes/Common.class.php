@@ -291,7 +291,6 @@ class Common {
 
         if ($s_time == $e_time) {
             $this->s_full = $this->s_full - 86400;
-            $s_date = $s_date - 86400;
         }
 
         $good = $this->oldTime($this->s_full,$this->e_full);
@@ -330,10 +329,6 @@ class Common {
             $s_date = $dt['s_date'];
             $s_time = $dt['s_time'];
             $e_time = $dt['e_time'];
-
-            if ($s_time == $e_time) {
-                $s_date = $s_date - 86400;
-            }
 
             while ($s_date < $this->e_full) {
                 $s = $s_date + $s_time;
