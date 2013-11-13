@@ -155,6 +155,9 @@ function login ($recv) {
     return false;
 }
 
+// Send to user push or no
+$push_users = array();
+
 // server loop
 while (true) {
     $reads = $conns;
@@ -230,6 +233,11 @@ while (true) {
                                 $when = time();
                                 if (isset($conn_user[$target])) {
                                     $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text'],1);
+                                    $push_users[$user_all['id']][] = $target_all['id'];
+
+                                    if (in_array($user_all['id'],$push_users[$target_all['id']])) {
+                                        $db_class->sendPush($user_all['id'],$target_all['id'],$recv['text'],$user_all);
+                                    }
                                 }
                                 else {
                                     $db_class->sendPush($user_all['id'],$target_all['id'],$recv['text'],$user_all);
