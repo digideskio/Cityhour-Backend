@@ -82,20 +82,58 @@ class DB {
     }
 
 
-    public function insertUser($i,$name,$industry,$goal,$is_free,$offset = 0) {
+    public function insertUser($i,$name,$industry,$goal,$is_free,$offset = 0,$city = 0) {
 
         $this->deleteUser($i);
 
-//        $lat = rand(484521, 534521)/10000;
-//        $lng = rand(275263, 335263)/10000;
+        // Kiev
+        if ($city === 0) {
+            $city_id = 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ';
+            $city_name = 'Kiev, UA';
+            $foursquare_id = '4cb580693ac937047b93cc0a';
+            $foursquare_name = 'Мафия / Mafia';
+            $lat = rand(502521, 505521)/10000;
+            $lng = rand(301263, 306263)/10000;
+            $offset = 7200;
+        }
+        // New York
+        elseif ($city === 1) {
+            $city_id = 'CjQuAAAA_AceaICSw-gXqX1F3tn6w0E6UR5Vz4TYG8jufIELDRrxN5zakqlcEkGlliQnZUjrEhA5NQTNQHWPfYzbDcU8pLYBGhQQja2U1Cn_gP3NrPVfgV2R6qyy5A';
+            $city_name = 'New York, US';
+            $foursquare_id = '44c91345f964a520f3351fe3';
+            $foursquare_name = 'Max Brenner';
+            $lat = rand(513849, 516723)/10000;
+            $lng = rand(737003,742557)/10000;
+            $lng = (float)-$lng;
+            $offset = -18000;
+        }
+        // London
+        elseif ($city === 2) {
+            $city_id = 'CjQuAAAAmHGV3zPaj2a-U2_MppLxfIUkKCKR0UJQw8vcRcB9-e7sa2PngbT4dVUxy4eBZ4YxEhBiSdBrnd8-38NqBLedM4YMGhQNsl-6lVDLnrx0r56lpSePtB0x5Q';
+            $city_name = 'London, GB';
+            $foursquare_id = '51065455e4b06f162ac7a347';
+            $foursquare_name = 'Balthazar';
+            $lat = rand(404960, 409153)/10000;
+            $lng = rand(-3514,1482)/10000;
+            $offset = 0;
+        }
+        // LA
+        elseif ($city === 3) {
+            $city_id = 'CkQ2AAAAuA0PZXI4tyFumXKB9rZ875QWqXNIcCCwClBtqiTdqp8Kfk81trtf4DpcQWnhxd7xSNw2pv_2T3nUjB7Wj6VZbBIQ4smK_Lq4xD3VIAgggtGMKhoUjaHqMFtkzEH6jMP_Hx9720I9q7Q';
+            $city_name = 'Los Angeles, US';
+            $foursquare_id = '4a596c45f964a5205fb91fe3';
+            $foursquare_name = 'Club Nokia';
+            $lat = rand(337037, 343373)/10000;
+            $lng = rand(118155,118668)/10000;
+            $lng = (float)-$lng;
+            $offset = -28800;
+        }
 
-        $lat = rand(502521, 505521)/10000;
-        $lng = rand(301263, 306263)/10000;
 
         $this->query("
             INSERT INTO `users` (`id`, `email`, `name`, `lastname`, `industry_id`, `summary`, `photo`, `phone`, `business_email`, `city`, `city_name`, `free_city`, `free_city_name`, `free_lat`, `free_lng`, `skype`, `rating`, `experience`, `completeness`, `contacts`, `meet_succesfull`, `meet_declined`, `facebook_key`, `facebook_id`, `linkedin_key`, `linkedin_id`, `private_key`, `status`, `free_foursquare_id`,`free_place`)
             VALUES
-                ($i,'Dummy$i@gmail.com', '$name', 'Badum$i', $industry , 'Summar', '1.png', '+1234567890', 'Dummy$i@gmail.com', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, Kyiv city, Ukraine', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ', 'Kiev, Kyiv city, Ukraine', $lat, $lng, 'dumbldore', 0, 3, 100, 5, 0, 0, null, null, null, null, '$i', 0,'4cb580693ac937047b93cc0a','Мафия / Mafia')
+                ($i,'Dummy$i@gmail.com', '$name', 'Badum$i', $industry , 'Summar', '1.png', '+1234567890', 'Dummy$i@gmail.com', '$city_id', '$city_name', '$city_id', '$city_name', $lat, $lng, 'dumbldore', 0, 3, 100, 5, 0, 0, null, null, null, null, '$i', 0,'$foursquare_id','$foursquare_name')
         ");
 
         $this->query("
