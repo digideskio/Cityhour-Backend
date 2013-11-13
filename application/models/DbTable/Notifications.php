@@ -121,7 +121,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
          (SELECT n.id,
                     n.from,
                     n.to,
-                    n.type,
+                    3 as type,
                     n.item,
                     n.text,
                     n.template,
