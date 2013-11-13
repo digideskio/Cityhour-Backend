@@ -479,6 +479,18 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $data['hash'] = uniqid(sha1(time()), false);
             $id = $this->insert($data);
 
+
+            (new Application_Model_DbTable_Notifications())->insertNotification(array(
+                'from' => $user['id'],
+                'to' => $user_second,
+                'type' => 13,
+                'item' => $id,
+                'text' => Application_Model_Texts::notification()[3],
+                'template' => 2,
+                'action' => 0
+            ));
+
+
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
             $url = $config->email->url;
 

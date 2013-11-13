@@ -41,7 +41,8 @@ class Application_Model_Types
             9 => 'Meeting request user not free',
             10 => 'Meeting come',
             11 => 'Rate meeting',
-            12 => 'System'
+            12 => 'System',
+            13 => 'Email meetings'
         );
     }
 
