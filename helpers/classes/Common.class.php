@@ -490,6 +490,7 @@ class Common {
             $sql = "insert into $db (`user_id`, `start_time`, `end_time`, `type`, `is_free`, `lat`, `lng`, `goal`, `offset`, `foursquare_id`, `place`, `city`, `city_name`) VALUES ";
 
             $first = true;
+            $i = 0;
             foreach ($data as $row) {
                 $row['start_time'] = date('Y-m-d H:i:s',(int)$row['start_time']);
                 $row['end_time'] = date('Y-m-d H:i:s',(int)$row['end_time']);
@@ -507,6 +508,15 @@ class Common {
                     };
                     $sql .= "(".$row['user_id'].",'".$row['start_time']."','".$row['end_time']."','".$row['type']."','".$row['is_free']."','".$row['lat']."','".$row['lng']."','".$row['goal']."','".$row['offset']."',".$row['foursquare_id'].",".$row['place'].",".$row['city'].",".$row['city_name'].")";
                 }
+
+                if ($i > 1000 && !$first) {
+                    $this->query($sql);
+                    $i = 0;
+                    $first = true;
+                    $sql = "insert into $db (`user_id`, `start_time`, `end_time`, `type`, `is_free`, `lat`, `lng`, `goal`, `offset`, `foursquare_id`, `place`, `city`, `city_name`) VALUES ";
+                }
+
+                $i++;
             }
             if (!$first) {
                 $this->query($sql);
