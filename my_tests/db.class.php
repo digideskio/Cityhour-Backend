@@ -139,7 +139,7 @@ class DB {
         $this->query("
             INSERT INTO `user_settings` (`user_id`, `name`, `value`)
             VALUES
-                ($i, 'city', 'CjQwAAAAJHPmzNEn1Cua_WzzFbYs-GYddXWorsn7RDUkiv5q43UggZSn4m8opMwDXHqvr-lCEhCuJnsTC4WpqcTN_4U1TNmQGhRgnGNUy37EyI6l_HbuGuQ_wt7tbQ');
+                ($i, 'city', '$city_id');
         ");
 
         $this->query("
@@ -151,7 +151,7 @@ class DB {
         $this->query("
             INSERT INTO `user_settings` (`user_id`, `name`, `value`)
             VALUES
-                ($i, 'foursquare_id', '4cb580693ac937047b93cc0a')
+                ($i, 'foursquare_id', '$foursquare_id')
         ");
 
         $this->query("
@@ -169,7 +169,7 @@ class DB {
         $this->query("
             INSERT INTO `user_jobs` (`user_id`, `name`, `company`, `current`, `start_time`, `end_time`, `type`)
             VALUES
-                ($i, 'IOS Developer', 'Alterplay', 1, '2012-11-01', '2012-11-01', 0)
+                ($i, 'Back-end Developer', 'Alterplay', 1, '2012-11-01', '2012-11-01', 0)
 
         ");
         return true;
@@ -208,7 +208,7 @@ class DB {
         $this->query("
             INSERT INTO `user_settings` (`user_id`, `name`, `value`)
             VALUES
-                ($i, 'offset', 10800)
+                ($i, 'offset', 7200)
         ");
 
         $this->query("
