@@ -102,7 +102,7 @@ class DB {
             $city_name = 'New York, US';
             $foursquare_id = '44c91345f964a520f3351fe3';
             $foursquare_name = 'Max Brenner';
-            $lat = rand(513849, 516723)/10000;
+            $lat = rand(404960, 409153)/10000;
             $lng = rand(737003,742557)/10000;
             $lng = (float)-$lng;
             $offset = -18000;
@@ -113,7 +113,7 @@ class DB {
             $city_name = 'London, GB';
             $foursquare_id = '51065455e4b06f162ac7a347';
             $foursquare_name = 'Balthazar';
-            $lat = rand(404960, 409153)/10000;
+            $lat = rand(513849, 516723)/10000;
             $lng = rand(-3514,1482)/10000;
             $offset = 0;
         }
@@ -124,7 +124,7 @@ class DB {
             $foursquare_id = '4a596c45f964a5205fb91fe3';
             $foursquare_name = 'Club Nokia';
             $lat = rand(337037, 343373)/10000;
-            $lng = rand(118155,118668)/10000;
+            $lng = rand(1181550,1186680)/10000;
             $lng = (float)-$lng;
             $offset = -28800;
         }
