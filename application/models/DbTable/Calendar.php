@@ -764,13 +764,18 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $this->update(array(
             'rating' => $data['rating']
         ),"id = $sid");
+        $user_id = $slot['user_id_second'];
 
-        if ((int)$data['rating'] < 3) {
-            $user_id = $slot['user_id_second'];
-            $this->_db->update('users',array(
-                'meet_declined' => '`meet_declined`+1',
-                'meet_succesfull' => '`meet_succesfull`-1'
-            ),"id = $user_id");
+        $rating_old = $slot['rating'];
+
+        if ((int)$data['rating'] < 3 && $rating_old >= 3) {
+            $this->_db->query("update users set meet_declined = `meet_declined`+1, meet_succesfull = `meet_succesfull`-1 where id = $user_id");
+        }
+        elseif ((int)$data['rating'] < 3 && $rating_old == 0) {
+            $this->_db->query("update users set meet_declined = `meet_declined`+1, meet_succesfull = `meet_succesfull`-1 where id = $user_id");
+        }
+        elseif ((int)$data['rating'] >= 3 && $rating_old < 3 && $rating_old != 0) {
+            $this->_db->query("update users set meet_declined = `meet_declined`-1, meet_succesfull = `meet_succesfull`+1 where id = $user_id");
         }
 
         return $this->getSlotID($sid);
