@@ -215,6 +215,7 @@ while (true) {
 
                 if (empty($conn_user[$user])) {
                     unset($conn_user[$user]);
+                    unset($push_users[$user]);
                 }
             }
             else {
@@ -235,9 +236,15 @@ while (true) {
                                     $id = $db_class->storeMSG($when,$user_all['id'],$target_all['id'],$recv['text'],1);
                                     $push_users[$user_all['id']][] = $target_all['id'];
 
-                                    if (in_array($user_all['id'],$push_users[$target_all['id']])) {
+                                    if (isset($push_users[$target_all['id']])) {
+                                        if (!in_array($user_all['id'],$push_users[$target_all['id']])) {
+                                            $db_class->sendPush($user_all['id'],$target_all['id'],$recv['text'],$user_all);
+                                        }
+                                    }
+                                    else {
                                         $db_class->sendPush($user_all['id'],$target_all['id'],$recv['text'],$user_all);
                                     }
+
                                 }
                                 else {
                                     $db_class->sendPush($user_all['id'],$target_all['id'],$recv['text'],$user_all);
