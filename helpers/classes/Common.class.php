@@ -499,7 +499,7 @@ class Common {
                 $row['city'] = $this->db->quote($row['city']);
                 $row['city_name'] = $this->db->quote($row['city_name']);
 
-                if ($row['user_id'] && $row['start_time'] && $row['end_time'] && $row['type'] && $row['offset'] && $row['city'] && $row['city_name']) {
+                if ($row['user_id'] && $row['start_time'] && $row['end_time'] && $row['type'] && is_numeric($row['offset']) && $row['city'] && $row['city_name']) {
                     if (!$first) {
                         $sql .= ',';
                     }
