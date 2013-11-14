@@ -358,7 +358,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return true;
     }
 
-    public function getSlot($sid, $user_id, $meet_notStart = false, $second_user = false) {
+    public function getSlot($sid, $user_id, $meet_notStart = false, $second_user = false, $start_time = false) {
         if (!$second_user) {
             $res = $this->fetchRow("id = $sid and user_id = $user_id");
         }
@@ -371,6 +371,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 return $res;
             }
             elseif (!$meet_notStart && $res['type'] == 2 && $res['status'] == 2 && strtotime($res['end_time']) < time()) {
+                return $res;
+            }
+            elseif (!$meet_notStart && $res['type'] == 2 && $res['status'] == 2 && $start_time && strtotime($res['start_time']) < time()) {
                 return $res;
             }
             elseif ($meet_notStart && $res['type'] == 2 && $res['status'] == 1 && strtotime($res['end_time']) > time()+3600) {

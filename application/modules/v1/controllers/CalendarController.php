@@ -225,7 +225,7 @@ class V1_CalendarController extends Zend_Rest_Controller
             $user = Application_Model_DbTable_Users::authorize($data['private_key']);
 
             $db = new Application_Model_DbTable_Calendar();
-            if ($res = $db->getSlot($data['id'],$user['id'])) {
+            if ($res = $db->getSlot($data['id'],$user['id'],false,false,true)) {
                 if ($res['type'] == 2 && isset($data['rating']) && is_numeric($data['rating']) ) {
                     $res = $db->updateRating($data,$res);
                     if (isset($res['id'])) {
