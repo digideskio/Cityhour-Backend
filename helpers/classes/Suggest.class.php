@@ -134,7 +134,7 @@ class Suggest extends Common {
                 and u.status = 0
                 and u.id != $this->user_id
                having ( end_time - start_time ) >= 3600
-               ORDER BY acos(sin($this->lat) * sin(c.lat) + cos($this->lat) * cos(c.lat) * cos(c.lng - ($this->lng))) asc
+               ORDER BY (3959 * acos(cos(radians($this->lat)) * cos(radians(lat)) * cos( radians(lng) - radians($this->lng)) + sin(radians($this->lat)) * sin(radians(lat)))) asc
             ",false,true);
             $result = array_merge($result,$find);
         }
