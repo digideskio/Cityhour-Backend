@@ -38,24 +38,23 @@ if ($result = $cls->findUsers()) {
     $i = 0;
     $enough = 0;
     foreach ($result as $row) {
-        if ($i < 20) {
-            array_push($first,$row['id']);
-        }
-        else {
-            array_push($count,$row['id']);
-        }
         if (!in_array($row['user_id'],$users)) {
             $i++;
-
-            unset($row['start_time']);
-            unset($row['end_time']);
-            array_push($slots,$row);
             array_push($users,$row['user_id']);
+
+            if ($i < 20) {
+                array_push($first,$row['id']);
+            }
+            else {
+                unset($row['start_time']);
+                unset($row['end_time']);
+                array_push($slots,$row);
+                array_push($count,$row['id']);
+            }
 
             if ($enough > 500) {
                 break;
             }
-
             $enough++;
         }
     }
