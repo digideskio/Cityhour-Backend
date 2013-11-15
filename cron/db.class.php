@@ -53,6 +53,10 @@ class DBcron {
         return $result;
     }
 
+    public function quote($data) {
+        return $this->mysql->quote($data);
+    }
+
     public function answer($result) {
         $this->mysql = null;
         var_dump($result);

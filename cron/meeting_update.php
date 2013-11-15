@@ -18,7 +18,7 @@ $result = $db->query("
 foreach ($result as $row) {
     $data['place'] = $row['place'];
     $text = Application_Model_Texts::notification($data)[11];
-    $text = mysql_real_escape_string($text);
+    $text = $db->quote($text);
     $id = $row["id"];
     $user_id = $row["user_id"];
     $user_id_second = $row["user_id_second"];
@@ -42,7 +42,7 @@ $text2 = Application_Model_Texts::push()[8];
 foreach ($result as $row) {
     $data['place'] = $row['place'];
     $text = Application_Model_Texts::notification($data)[10];
-    $text = mysql_real_escape_string($text);
+    $text = $db->quote($text);
     $id = $row["id"];
     $user_id = $row["user_id"];
     $data = array(
