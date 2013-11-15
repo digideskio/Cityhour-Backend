@@ -7,7 +7,7 @@ use Swagger\Annotations as SWG;
  * )
  */
 
-include_once 'Common.class.php';
+require 'Common.class.php';
 
 
 /**
@@ -184,6 +184,7 @@ class Map extends Common {
                                 or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
                                 or (unix_timestamp(c.start_time) <= '$this->q_s' and unix_timestamp(c.end_time) >= '$this->q_e'))
                                 and c.lng BETWEEN $this->s_lng AND $this->n_lng AND c.lat BETWEEN $this->s_lat AND $this->n_lat
+                            limit 200
                         )
                     ) as t
                     left join users u on t.user_id = u.id
@@ -194,7 +195,6 @@ class Map extends Common {
                     and u.id != $this->user_id
                     group by t.user_id
                     having ( end_time - start_time ) >= 3600
-                    limit 500
             ",false,true);
             $result = array_merge($result,$find);
         }

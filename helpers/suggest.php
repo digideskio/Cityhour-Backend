@@ -20,7 +20,7 @@ $data = json_decode($data,true);
 $debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
 
 if ($debug) require_once '../vendor/ref/ref.php';
-include_once 'classes/Suggest.class.php';
+require 'classes/Suggest.class.php';
 $cls = new Suggest($debug);
 
 $cls->connect();

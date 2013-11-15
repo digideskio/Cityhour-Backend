@@ -15,7 +15,7 @@ $data = json_decode($data,true);
 $debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
 
 if ($debug) require_once '../vendor/ref/ref.php';
-include_once 'classes/FreeSlots.class.php';
+require 'classes/FreeSlots.class.php';
 $cls = new FreeSlots($debug);
 
 $cls->connect();

@@ -1,5 +1,5 @@
 <?php
-include_once 'Common.class.php';
+require 'Common.class.php';
 
 class UpdateOne extends Common {
 

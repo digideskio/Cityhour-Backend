@@ -15,7 +15,7 @@ $data = json_decode($data,true);
 $debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
 
 if ($debug) require_once '../vendor/ref/ref.php';
-include_once 'classes/Map.class.php';
+require 'classes/Map.class.php';
 $cls = new Map($debug);
 
 $cls->connect();

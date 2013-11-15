@@ -7,7 +7,7 @@ use Swagger\Annotations as SWG;
  * )
  */
 
-include_once 'Common.class.php';
+require 'Common.class.php';
 
 
 /**

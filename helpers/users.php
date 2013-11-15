@@ -70,7 +70,7 @@ $data = json_decode($data,true);
 $debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
 
 if ($debug) require_once '../vendor/ref/ref.php';
-include_once 'classes/Common.class.php';
+require 'classes/Common.class.php';
 $cls = new Common($debug);
 
 $che = true;

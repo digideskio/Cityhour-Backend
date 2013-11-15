@@ -1,6 +1,6 @@
 <?php
 
-include_once 'RDS.class.php';
+require 'RDS.class.php';
 
 class Common {
 

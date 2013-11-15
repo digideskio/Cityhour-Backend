@@ -4,7 +4,7 @@
 $debug = false;
 
 if ($debug) require_once '../vendor/ref/ref.php';
-include_once 'classes/UpdateOne.class.php';
+require 'classes/UpdateOne.class.php';
 $cls = new UpdateOne($debug);
 
 

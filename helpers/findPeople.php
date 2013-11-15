@@ -23,7 +23,7 @@ $data = json_decode($data,true);
 $debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
 
 if ($debug) require_once '../vendor/ref/ref.php';
-include_once 'classes/FindPeople.class.php';
+require 'classes/FindPeople.class.php';
 $cls = new FindPeople($debug);
 
 $cls->connect();
