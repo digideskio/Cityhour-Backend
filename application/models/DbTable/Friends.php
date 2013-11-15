@@ -103,7 +103,7 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                 }
             }
             else {
-                if ($this->answer($che,2,$user)) {
+                if ($this->answer($che,1,$user)) {
                     return true;
                 }
                 return false;
