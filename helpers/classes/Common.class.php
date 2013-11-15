@@ -606,6 +606,7 @@ class Common {
             from calendar c
             left join user_settings s on s.user_id = c.user_id and s.name = 'free_time'
             left join calendar i on c.id = i.id
+            left join users u on c.user_id = u.id
             where
             (
                 (unix_timestamp(c.start_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.end_time) between '$this->q_s' and '$this->q_e') or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
@@ -616,6 +617,7 @@ class Common {
                 or (c.type = 2 and c.status = 2)
                 or c.type = 1
             )
+            and u.status = 0
             $id
         ",false,true);
 
@@ -640,6 +642,7 @@ class Common {
             where
  			s.value = '1'
  			and s.name = 'free_time'
+ 			and u.status = 0
  			$id
         ",false,true);
         $result = $data;

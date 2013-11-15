@@ -23,6 +23,7 @@
                 <td><?php echo $item['city_name'];?></td>
                 <td><?php if ($item['status']==0) echo "Active";
                     elseif ($item['status']==1) echo "Blocked";
+                    elseif ($item['status']==2) echo "Deleted";
                     else echo $item['status'];
                     ?></td>
                 <td><a class="btn btn-default " href="<?php echo $this->url(array(

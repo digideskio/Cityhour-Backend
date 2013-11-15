@@ -21,8 +21,79 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         return $paginator;
     }
 
+    public function getUserAdmin($id) {
+        return $this->_db->fetchRow("
+            select u.email, u.id, u.status, s.value as reason
+            from users u
+            left join user_settings s on u.id = s.user_id and s.name = 'blocked'
+            where u.id = $id
+        ");
+    }
+
     public function saveUser($data,$id) {
+        $user = $this->fetchRow("id = $id")->toArray();
+
+        if ($data['status'] == 1 && $user['status'] == 0) {
+            (new Application_Model_DbTable_UserSettings())->updateSettings(array(
+                'id' => $id
+            ),array(
+                'blocked' => $data['reason'],
+                'hours' => 0
+            ));
+            $data = array(
+                'status' => 1
+            );
+        }
+        elseif ($data['status'] == 2 && $user['status'] != 2) {
+            $this->_db->insert('deleted_users',$user);
+            $data = array(
+                'email' => null,
+                'name' => 'Deleted',
+                'lastname' => ' User',
+                'industry_id' => null,
+                'summary' => '',
+                'photo' => '1.png',
+                'phone' => null,
+                'business_email' => null,
+                'free_foursquare_id' => null,
+                'free_place' => null,
+                'free_city' => null,
+                'free_city_name' => null,
+                'free_lat' => null,
+                'free_lng' => null,
+                'country' => null,
+                'city' => null,
+                'city_name' => null,
+                'skype' => null,
+                'rating' => 0,
+                'experience' => 0,
+                'completeness' => 0,
+                'contacts' => 0,
+                'meet_succesfull' => 0,
+                'meet_declined' => 0,
+                'facebook_key' => null,
+                'facebook_id' => null,
+                'linkedin_key' => null,
+                'linkedin_id' => null,
+                'private_key' => null,
+                'status' => 2
+            );
+        }
+        elseif ($user['status'] == 1 ) {
+                $data = array(
+                    'status' => 0
+                );
+        }
+        else {
+            return true;
+        }
+
+
         $this->update($data,"id = $id");
+
+        // Update User free time
+        Application_Model_Common::updateUserFreeSlots($id);
+
         return true;
     }
 

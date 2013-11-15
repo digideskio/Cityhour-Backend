@@ -47,7 +47,7 @@ class Admin_UsersController extends Zend_Controller_Action
                 }
             }
             else {
-                $form->populate($db->getUser($id,false,'id',true,true));
+                $form->populate($db->getUserAdmin($id));
             }
             $this->view->form = $form;
         }

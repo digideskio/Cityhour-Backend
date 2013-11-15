@@ -128,6 +128,16 @@ class DB {
             $lng = (float)-$lng;
             $offset = -28800;
         }
+        // Moscow
+        elseif ($city === 4) {
+            $city_id = 'CjQmAAAA0PyA3BoSklzQzZY8tn_bnxY7N6YbD1UN4dysIO-7bDIVdw4wfhvCLxNc56ZL-1v7EhAl1I_hpFHXPz1RH5bcYOcgGhSFsv59Kc_JFHXvkpttjq4_lS3EtQ';
+            $city_name = 'Moscow, RU';
+            $foursquare_id = '4b7757e8f964a5209b932ee3';
+            $foursquare_name = 'Hard Rock Cafe Москва';
+            $lat = rand(554899, 560097)/10000;
+            $lng = rand(373193,379457)/10000;
+            $offset = 14400;
+        }
 
 
         $this->query("

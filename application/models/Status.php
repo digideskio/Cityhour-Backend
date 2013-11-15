@@ -51,6 +51,7 @@ class Application_Model_Status
         return array(
             0 => 'Active',
             1 => 'Block',
+            2 => 'Deleted',
         );
     }
 

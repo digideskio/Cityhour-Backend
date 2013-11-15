@@ -67,6 +67,28 @@ class Admin_Form_User extends Zend_Form
             ));
         $this->addElement($status);
 
+
+        $validator = new Zend_Validate_StringLength(array(
+            'max' => 200,
+            'encoding' => 'UTF-8'
+        ));
+        $reason_blocked = new Zend_Form_Element_Text('reason');
+        $reason_blocked->setLabel('Reason to block:')
+            ->setRequired(false)
+            ->addFilter("StripTags")
+            ->addFilter('StringTrim')
+            ->setAttrib('size','200')
+            ->setAttrib('class','form-control')
+            ->addValidator($validator)
+            ->setDecorators(array(
+                'ViewHelper', 'Errors',
+                array('HtmlTag', array('tag' => 'div','class' => 'form-group')),
+                array('Label', array('tag' => 'label'))
+
+            ));
+        $this->addElement($reason_blocked);
+
+
         $this->addElement('hidden', 'html_2', array(
             'description' => '<br><br>
                 <a class="btn btn-danger pull-left" href="/admin/users/">Cancel</a>
