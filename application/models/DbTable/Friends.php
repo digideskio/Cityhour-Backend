@@ -49,14 +49,13 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
     }
 
     public function addFriend($fid, $user) {
-        $invite = $this->_db->fetchRow("
-            select *
+        $friend_id = $this->_db->fetchOne("
+            select id
             from users
             where id = $fid
         ");
-        if ($invite) {
+        if ($friend_id) {
             $user_id = $user['id'];
-            $friend_id = $invite['id'];
 
             $che = $this->_db->fetchOne("
                 select id
