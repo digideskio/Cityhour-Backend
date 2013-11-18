@@ -25,7 +25,8 @@ class Application_Model_Status
             0 => 'Sent',
             1 => 'Read',
             2 => 'Not correct now',
-            3 => 'Have meeting on same time'
+            3 => 'Have meeting on same time',
+            4 => 'Deleted'
         );
     }
 

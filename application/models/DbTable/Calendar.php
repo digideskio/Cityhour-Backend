@@ -74,17 +74,27 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     public function deleteMeetRequest($user,$id) {
         $user_id = $user['id'];
-        $cid = $this->_db->fetchOne("
-            select n.item
+        $cid = $this->_db->fetchRow("
+            select n.item, n.status
             from notifications n
             where n.id = $id and `from` = $user_id
         ");
-        if ($cid) {
+        if (isset($cid['item'])) {
+            $status = $cid['status'];
+            if ($status) {
+                $s_n = 4;
+                $s_c = 3;
+            }
+            else {
+                $s_n = 2;
+                $s_c = 3;
+            }
+            $cid = $cid['item'];
             $this->_db->update("notifications",array(
-                'status' => 2
+                'status' => $s_n
             ),"id = $id");
             $this->update(array(
-                'status' => 3
+                'status' => $s_c
             ),"id = $cid");
             return 200;
         }
