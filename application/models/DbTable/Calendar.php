@@ -143,10 +143,14 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function answerMeetingEmail($user,$slot_id,$status) {
+        $user_id = $user['id'];
         if ($status == 5) {
             $this->update(array(
                 'status' => 3
             ),"id = $slot_id");
+            $this->_db->update('notifications',array(
+                'status' => 1
+            ),"`item` = $slot_id and type = 13 and `from` = $user_id");
             return 200;
         }
         elseif ($status == 4) {
@@ -167,6 +171,10 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $this->update(array(
                     'status' => 2
                 ),"id = $slot_id");
+
+                $this->_db->update('notifications',array(
+                    'status' => 1
+                ),"`item` = $slot_id and type = 13 and `from` = $user_id");
 
                 (new Application_Model_DbTable_Notifications())->insertNotification(array(
                     'from' => $user['id'],
