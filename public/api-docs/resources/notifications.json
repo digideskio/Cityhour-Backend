@@ -27,6 +27,14 @@
                             "dataType": "int",
                             "paramType": "query",
                             "required": false
+                        },
+                        {
+                            "name": "item",
+                            "description": "item",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": false
                         }
                     ],
                     "errorResponses": [

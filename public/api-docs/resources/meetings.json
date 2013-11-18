@@ -53,6 +53,14 @@
                         {
                             "reason": "Request user have meeting on this time.",
                             "code": 301
+                        },
+                        {
+                            "reason": "Meeting expired",
+                            "code": 404
+                        },
+                        {
+                            "reason": "Time for meet expired",
+                            "code": 412
                         }
                     ],
                     "notes": ""

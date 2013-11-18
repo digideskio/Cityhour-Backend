@@ -161,19 +161,31 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             $this->_db->update('notifications',array(
                 'status' => 1
             ),"`item` = $slot_id and type = 13 and `to` = $user_id");
-            return 200;
+            return array(
+                'code' => 200,
+                'body' => $this->getSlotID($slot_id,true)
+            );
         }
         elseif ($status == 4) {
             if (!$slot = $this->getSlot($slot_id,$user['id'],true,true)) {
-                return 404;
+                return array(
+                    'code' => 404,
+                    'body' => $this->getSlotID($slot_id,true)
+                );
             }
 
             if (!Application_Model_DbTable_Users::isValidUser($slot['user_id'])) {
-                return 408;
+                return array(
+                    'code' => 408,
+                    'body' => array()
+                );
             }
 
             if ($this->userBusyOrFree(strtotime($slot['start_time']),strtotime($slot['end_time']),$slot['user_id'])) {
-                return 301;
+                return array(
+                    'code' => 301,
+                    'body' => $this->getSlotID($slot_id,true)
+                );
             }
 
             $this->_db->beginTransaction();
@@ -214,15 +226,24 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             }
             catch (Exception $e) {
                 $this->_db->rollBack();
-                return 500;
+                return array(
+                    'code' => 500,
+                    'body' => array()
+                );
             }
 
             // Update User free time
             Application_Model_Common::updateUserFreeSlots($user['id']);
-            return 200;
+            return array(
+                'code' => 301,
+                'body' => $this->getSlotID($slot_id,true)
+            );
         }
 
-        return 400;
+        return array(
+            'code' => 400,
+            'body' => array()
+        );
     }
 
     public function answerMeeting($user,$id,$status,$foursqure_id,$start_time) {

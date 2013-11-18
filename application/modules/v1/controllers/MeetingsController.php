@@ -49,6 +49,14 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *           @SWG\ErrorResponse(
      *            code="301",
      *            reason="Request user have meeting on this time."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="404",
+     *            reason="Meeting expired"
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="412",
+     *            reason="Time for meet expired"
      *          )
      *       ),
      * @SWG\Parameter(
@@ -85,8 +93,10 @@ class V1_MeetingsController extends Zend_Rest_Controller
         $data = $this->_request->getParams();
         if (isset($data['key']) && $data['key'] && isset($data['sid']) && is_numeric($data['sid']) && isset($data['answer']) && is_numeric($data['answer']) ) {
             if ($user = Application_Model_DbTable_EmailUsers::getUser($data['key'])) {
+                $res = (new Application_Model_DbTable_Calendar())->answerMeetingEmail($user,$data['sid'],$data['answer']);
                 $this->_helper->json->sendJson(array(
-                    'errorCode' => (new Application_Model_DbTable_Calendar())->answerMeetingEmail($user,$data['sid'],$data['answer'])
+                    'body' => $res['body'],
+                    'errorCode' => $res['code']
                 ));
             }
             else {
