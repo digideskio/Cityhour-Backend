@@ -61,6 +61,14 @@ class V1_NotificationsController extends Zend_Rest_Controller
      *           required="false",
      *           allowMultiple="false",
      *           dataType="int"
+     *         ),
+     * @SWG\Parameter(
+     *           name="item",
+     *           description="item",
+     *           paramType="query",
+     *           required="false",
+     *           allowMultiple="false",
+     *           dataType="int"
      *         )
      *     )
      *   )
@@ -72,8 +80,9 @@ class V1_NotificationsController extends Zend_Rest_Controller
         if ($token = $this->_request->getParam('private_key')) {
             $user = Application_Model_DbTable_Users::authorize($token);
             $id = $this->_request->getParam('id');
+            $item = $this->_request->getParam('item');
             $this->_helper->json->sendJson(array(
-                'body' => (new Application_Model_DbTable_Notifications())->getAll($user,$id),
+                'body' => (new Application_Model_DbTable_Notifications())->getAll($user,$id,$item),
                 'errorCode' => '200'
             ));
         }
