@@ -148,7 +148,9 @@ class Common {
 			       c.city as fp_city,
 			       c.goal as fp_goal,
 			       c.offset as fp_offset,
-			       c.city_name as fp_city_name
+			       c.city_name as fp_city_name,
+			       c.lat,
+			       c.lng
 			FROM   free_slots c
 			       INNER JOIN (SELECT Min(start_time) AS start_time,
 			                          type,
