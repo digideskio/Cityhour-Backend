@@ -94,6 +94,8 @@ class Common {
     public function getUsers($slots) {
 		$slots = implode(',',$slots);
         $result = array();
+        $uid = array();
+        $uids = '';
         foreach ($this->free as $row) {
             $q_s = $row['start_time'];
             $q_e = $row['end_time'];
@@ -175,10 +177,20 @@ class Common {
                               ON u.id = s.user_id
                        LEFT JOIN user_languages l
                               ON u.id = l.user_id
+                $uids
                 GROUP  BY c.user_id
                 ORDER  BY c.type,
                           c.start_time
             ",false,true);
+
+            foreach ($find as $row) {
+                array_push($uid,$row['id']);
+            }
+
+            if ($uid) {
+                $tp = implode(',',$uid);
+                $uids = "WHERE u.id not in ($tp)";
+            }
 
             $result = array_merge($result,$find);
         }

@@ -1,20 +1,18 @@
 <?php
 
-//   ,
-//   "goal": 1,
-//   "industry": 4
-// $data = '
-// {
-//   "private_key": "c3077d5cd3efe0797fb516b3cb216b3d55242f425221f6a71b83c",
-//   "debug": true,
-//   "data_from": "1382662800",
-//   "data_to": "1383339600",
-//   "time_from": "1382662800",
-//   "time_to": "1383339600",
-//   "city": "CjQwAAAAH897OFbrjeYH1ckvtO-CVX0D9dunM_5kprcHoc84YKHpG4vJDaeUGJTLV8DwsjveEhDroDqGwmH07wrceET28fqiGhTDQYRBJx20UWSjGW_3gLPaOsF9wQ"
-//
-// }
-// ';
+//$data = '
+//    {
+//        "private_key": "42530ec9ae353de65dbc386b8d9bd9449ac99b845231c239d9c6a",
+//        "debug": true,
+//        "data_to": 1385078400,
+//        "time_to": 1384984800,
+//        "time_from":  1384873200,
+//        "data_from": 1384819200,
+//        "offset": 7200,
+//       "goal": null,
+//       "city": "CjQwAAAADRVm3LP2MJiiUqyCzTak3UGrrcb6XLsoVNJJfmbuPzZ8jGIwq7puO87X0QTFGE7PEhDGXt1jrTvvNw_mTqtqKwmXGhRrDgdTKXVUjAS8zr0gsk4awH3NJg"
+//    }
+//';
 
 
 
