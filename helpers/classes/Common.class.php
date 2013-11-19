@@ -92,6 +92,7 @@ class Common {
 	}
 	
     public function getUsers($slots) {
+        r($this->free);
 		$slots = implode(',',$slots);
         $result = array();
         $uid = array();
@@ -179,6 +180,7 @@ class Common {
                               ON u.id = l.user_id
                 $uids
                 GROUP  BY c.user_id
+                having ( fp_end_time - fp_start_time ) >= 3600
                 ORDER  BY c.type,
                           c.start_time
             ",false,true);
@@ -194,6 +196,9 @@ class Common {
 
             $result = array_merge($result,$find);
         }
+
+//        ~r($result);
+
 		foreach($result as $num=>$res) {
 	        //Prepare Languages,Skills
 	        if ($res['skills'] != null && $res['skills'] != '') {
