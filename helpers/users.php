@@ -107,7 +107,7 @@ foreach ($ids as $row) {
 }
 
 if ($first) {
-    $cls->getFullTime();
+    $cls->free = $cls->checkFree();
     $cls->answer(array(
         'users' => $cls->getUsers($first),
         'data' => $slots

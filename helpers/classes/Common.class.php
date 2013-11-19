@@ -19,6 +19,9 @@ class Common {
     /** @var int $start When script start working */
     var $start;
 
+    /** @var int $free Array of user free time intervals */
+    var $free;
+
     /** @var int $b_s Bussines time start */
     /** @var int $b_e Bussines time end */
     var $b_s;
@@ -90,88 +93,95 @@ class Common {
 	
     public function getUsers($slots) {
 		$slots = implode(',',$slots);
-		$result = $this->query("
-			SELECT c.user_id                                               AS id,
-			       CASE
-			         WHEN (SELECT id
-			               FROM   calendar
-			               WHERE  user_id = $this->user_id
-			                  AND user_id_second = c.user_id
-			                  AND `type` = 2
-			                  AND `status` = 1
-			               LIMIT  1) > 0 THEN 1
-			         ELSE 0
-			       end                                                     AS fp_request,
-			       CASE
-			         WHEN (SELECT id
-			               FROM   calendar
-			               WHERE  user_id = $this->user_id
-			                  AND user_id_second = c.user_id
-			                  AND `type` = 2
-			                  AND `status` = 2
-			               LIMIT  1) > 0 THEN 1
-			         ELSE 0
-			       end                                                     AS meet,
-			       CASE
-			         WHEN (SELECT id
-			               FROM   user_friends
-			               WHERE  user_id = $this->user_id
-			                  AND `status` = 1
-			                  AND friend_id = c.user_id
-			               LIMIT  1) > 0 THEN 1
-			         ELSE 0
-			       end                                                     AS friend,
-			       u.country,
-			       u.name,
-			       u.lastname,
-			       u.email,
-			       u.city_name,
-			       u.city,
-			       u.industry_id,
-			       u.summary,
-			       u.photo,
-			       u.phone,
-			       u.business_email,
-			       u.skype,
-			       u.rating,
-			       u.experience,
-			       u.completeness,
-			       u.contacts,
-			       u.meet_succesfull,
-			       u.meet_declined,
-			       Group_concat(DISTINCT s.name SEPARATOR '$$$$$')         AS skills,
-			       Group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') AS languages,
-			       GREATEST('$this->cs_full', unix_timestamp(c.start_time)) as fp_start_time,
-			       LEAST('$this->ce_full', unix_timestamp(c.end_time))  as fp_end_time,
-			       c.foursquare_id as fp_foursquare_id,
-			       c.place as fp_place,
-			       c.city as fp_city,
-			       c.goal as fp_goal,
-			       c.offset as fp_offset,
-			       c.city_name as fp_city_name,
-			       c.lat as fp_lat,
-			       c.lng as fp_lng
-			FROM   free_slots c
-			       INNER JOIN (SELECT Min(start_time) AS start_time,
-			                          type,
-			                          user_id
-			                   FROM   free_slots
-			                   WHERE  id IN ( $slots )
-			                   GROUP  BY `type`,
-			                             user_id) f
-			               ON c.user_id = f.user_id
-			                  AND c.start_time = f.start_time
-			                  AND c.type = f.type
-			       LEFT JOIN users u
-			              ON c.user_id = u.id
-			       LEFT JOIN user_skills s
-			              ON u.id = s.user_id
-			       LEFT JOIN user_languages l
-			              ON u.id = l.user_id
-			GROUP  BY c.user_id
-			ORDER  BY c.type,
-			          c.start_time
-		",false,true);
+        $result = array();
+        foreach ($this->free as $row) {
+            $q_s = $row['start_time'];
+            $q_e = $row['end_time'];
+            $find = $this->query("
+                SELECT c.user_id                                               AS id,
+                       CASE
+                         WHEN (SELECT id
+                               FROM   calendar
+                               WHERE  user_id = $this->user_id
+                                  AND user_id_second = c.user_id
+                                  AND `type` = 2
+                                  AND `status` = 1
+                               LIMIT  1) > 0 THEN 1
+                         ELSE 0
+                       end                                                     AS fp_request,
+                       CASE
+                         WHEN (SELECT id
+                               FROM   calendar
+                               WHERE  user_id = $this->user_id
+                                  AND user_id_second = c.user_id
+                                  AND `type` = 2
+                                  AND `status` = 2
+                               LIMIT  1) > 0 THEN 1
+                         ELSE 0
+                       end                                                     AS meet,
+                       CASE
+                         WHEN (SELECT id
+                               FROM   user_friends
+                               WHERE  user_id = $this->user_id
+                                  AND `status` = 1
+                                  AND friend_id = c.user_id
+                               LIMIT  1) > 0 THEN 1
+                         ELSE 0
+                       end                                                     AS friend,
+                       u.country,
+                       u.name,
+                       u.lastname,
+                       u.email,
+                       u.city_name,
+                       u.city,
+                       u.industry_id,
+                       u.summary,
+                       u.photo,
+                       u.phone,
+                       u.business_email,
+                       u.skype,
+                       u.rating,
+                       u.experience,
+                       u.completeness,
+                       u.contacts,
+                       u.meet_succesfull,
+                       u.meet_declined,
+                       Group_concat(DISTINCT s.name SEPARATOR '$$$$$')         AS skills,
+                       Group_concat(DISTINCT l.languages_id SEPARATOR '$$$$$') AS languages,
+                       GREATEST('$q_s', unix_timestamp(c.start_time)) as fp_start_time,
+                       LEAST('$q_e', unix_timestamp(c.end_time))  as fp_end_time,
+                       c.foursquare_id as fp_foursquare_id,
+                       c.place as fp_place,
+                       c.city as fp_city,
+                       c.goal as fp_goal,
+                       c.offset as fp_offset,
+                       c.city_name as fp_city_name,
+                       c.lat as fp_lat,
+                       c.lng as fp_lng
+                FROM   free_slots c
+                       INNER JOIN (SELECT Min(start_time) AS start_time,
+                                          type,
+                                          user_id
+                                   FROM   free_slots
+                                   WHERE  id IN ( $slots )
+                                   GROUP  BY `type`,
+                                             user_id) f
+                               ON c.user_id = f.user_id
+                                  AND c.start_time = f.start_time
+                                  AND c.type = f.type
+                       LEFT JOIN users u
+                              ON c.user_id = u.id
+                       LEFT JOIN user_skills s
+                              ON u.id = s.user_id
+                       LEFT JOIN user_languages l
+                              ON u.id = l.user_id
+                GROUP  BY c.user_id
+                ORDER  BY c.type,
+                          c.start_time
+            ",false,true);
+
+            $result = array_merge($result,$find);
+        }
 		foreach($result as $num=>$res) {
 	        //Prepare Languages,Skills
 	        if ($res['skills'] != null && $res['skills'] != '') {
@@ -294,10 +304,6 @@ class Common {
         if ($s_time == $e_time) {
             $this->s_full = $this->s_full - 86400;
         }
-
-        $good = $this->oldTime($this->s_full,$this->e_full);
-        $this->cs_full = $good['start'];
-        $this->ce_full = $good['end'];
 
         return array(
             's_date' => $s_date,
