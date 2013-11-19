@@ -226,7 +226,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                                ON u.id = j.user_id
                                   AND j.current = 1
                                   AND j.type = 0
-                 WHERE  n.from = $user_id and n.type in (3,13) and n.status = 0
+                 WHERE  n.from = $user_id and n.type in (3,13) and n.status not in (2,4)
                     $id
                  GROUP  BY n.id
                  order by n.id desc
