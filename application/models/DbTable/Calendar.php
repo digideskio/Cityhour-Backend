@@ -247,16 +247,25 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function answerMeeting($user,$id,$status,$foursqure_id,$start_time) {
-        if (!$slot_id = $this->_db->fetchOne("select `item` from notifications where id = $id and type in (3,9)")) {
+        if (!$cid = $this->_db->fetchOne("select n.item, n.status from notifications n where n.id = $id and n.type in (3,9)")) {
             return 400;
         }
+        $slot_id = $cid['item'];
 
         // If meeting reject
         if ($status == 5) {
             $this->_db->beginTransaction();
             try {
+                $status = $cid['status'];
+                if ($status) {
+                    $s_n = 4;
+                }
+                else {
+                    $s_n = 1;
+                }
+
                 $this->_db->update('notifications',array(
-                    'status' => 1
+                    'status' => $s_n
                 ),"id = $id");
                 $this->update(array(
                     'status' => 3
