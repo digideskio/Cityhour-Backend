@@ -184,7 +184,7 @@ class Map extends Common {
                                 or (unix_timestamp(c.start_time) >= '$this->q_s' and unix_timestamp(c.end_time) <= '$this->q_e')
                                 or (unix_timestamp(c.start_time) <= '$this->q_s' and unix_timestamp(c.end_time) >= '$this->q_e'))
                                 and c.lng BETWEEN $this->s_lng AND $this->n_lng AND c.lat BETWEEN $this->s_lat AND $this->n_lat
-                            limit 200
+                            limit 1
                         )
                     ) as t
                     left join users u on t.user_id = u.id
