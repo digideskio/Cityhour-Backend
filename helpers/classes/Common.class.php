@@ -92,7 +92,6 @@ class Common {
 	}
 	
     public function getUsers($slots) {
-        r($this->free);
 		$slots = implode(',',$slots);
         $result = array();
         $uid = array();
@@ -197,7 +196,6 @@ class Common {
             $result = array_merge($result,$find);
         }
 
-//        ~r($result);
 
 		foreach($result as $num=>$res) {
 	        //Prepare Languages,Skills
