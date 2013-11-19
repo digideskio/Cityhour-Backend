@@ -247,7 +247,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
     }
 
     public function answerMeeting($user,$id,$status,$foursqure_id,$start_time) {
-        if (!$cid = $this->_db->fetchOne("select n.item, n.status from notifications n where n.id = $id and n.type in (3,9)")) {
+        $cid = $this->_db->fetchRow("select n.item, n.status from notifications n where n.id = $id and n.type in (3,9)");
+        if (!$cid) {
             return 400;
         }
         $slot_id = $cid['item'];
