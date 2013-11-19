@@ -170,7 +170,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                                ON u.id = j.user_id
                                   AND j.current = 1
                                   AND j.type = 0
-                 WHERE n.to = $user_id AND ( n.type IN ( 4, 5, 6, 10, 11 ) or (n.type IN ( 3,9 ) and n.status != 1) )
+                 WHERE n.to = $user_id AND ( n.type IN ( 4, 5, 6, 10, 11 ) or (n.type IN ( 3,9 ) and n.status not in (1,4) ) )
                     $id
                  GROUP  BY n.id
                  order by n.id desc
