@@ -152,6 +152,24 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         return $res;
     }
 
+
+    public function getEmailSlot($id) {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        $url = $config->userPhoto->url;
+        return $this->_db->fetchRow("
+            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.offset,
+            concat(u.name,' ',substr(u.lastname,1,1),'.') as fullname,
+            concat('$url',u.photo) as photo,
+            j.name as job,
+            j.company as company
+            from calendar c
+            left join users u on c.user_id = u.id
+            left join user_jobs j on c.user_id = j.user_id and j.type = 0 and j.current = 1
+            where
+            c.id = $id
+        ");
+    }
+
     public function answerMeetingEmail($user,$slot_id,$status) {
         $user_id = $user['id'];
         if ($status == 5) {
@@ -163,14 +181,14 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             ),"`item` = $slot_id and type = 13 and `to` = $user_id");
             return array(
                 'code' => 200,
-                'body' => $this->getSlotID($slot_id,true)
+                'body' => $this->getEmailSlot($slot_id)
             );
         }
         elseif ($status == 4) {
             if (!$slot = $this->getSlot($slot_id,$user['id'],true,true)) {
                 return array(
                     'code' => 404,
-                    'body' => $this->getSlotID($slot_id,true)
+                    'body' => $this->getEmailSlot($slot_id)
                 );
             }
 
@@ -184,7 +202,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             if ($this->userBusyOrFree(strtotime($slot['start_time']),strtotime($slot['end_time']),$slot['user_id'])) {
                 return array(
                     'code' => 301,
-                    'body' => $this->getSlotID($slot_id,true)
+                    'body' => $this->getEmailSlot($slot_id)
                 );
             }
 
@@ -236,7 +254,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             Application_Model_Common::updateUserFreeSlots($user['id']);
             return array(
                 'code' => 301,
-                'body' => $this->getSlotID($slot_id,true)
+                'body' => $this->getEmailSlot($slot_id)
             );
         }
 
