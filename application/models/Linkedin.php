@@ -297,7 +297,7 @@ class Application_Model_Linkedin
         return true;
     }
 
-    public function getFriends($token) {
+    public function getFriends($token,$registration = false) {
         $params = array('oauth2_access_token' => $token,
             'format' => 'json',
         );
@@ -346,6 +346,32 @@ class Application_Model_Linkedin
                     ));
                 }
             }
+            if ($registration) {
+                $users_ids = array();
+                $b = array();
+                foreach ($res as $row) {
+                    array_push($users_ids,$row['id']);
+                    $b['z'.$row['id']] = $row;
+                }
+                if ($users_ids) {
+                    $jobs = $db->getUserJobs($users_ids);
+
+                    $a = array();
+                    foreach ($jobs as $row) {
+                        $a['z'.$row['user_id']] = array(
+                            'company' => $row['company'],
+                            'job' => $row['name'],
+                        );
+                    }
+
+                    $res = array_merge_recursive($a, $b);
+                    $res = array_values($res);
+                }
+            }
+
+
+
+
         }
         else {
             $res = array();

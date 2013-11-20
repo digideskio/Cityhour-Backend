@@ -107,7 +107,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         // If registration using linkedin
         if ($type == 4 && $user == false) {
             $linkedin = new Application_Model_Linkedin();
-            $res = $linkedin->getFriends($token);
+            $res = $linkedin->getFriends($token,true);
 
             if (isset($res) && $res != null) {
                 return $res;

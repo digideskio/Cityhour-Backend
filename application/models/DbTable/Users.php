@@ -30,6 +30,17 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         ");
     }
 
+    public function getUserJobs($users_ids) {
+        $users_ids = implode(',',$users_ids);
+        return $this->_db->fetchAll("
+            select j.user_id, j.name, j.company
+            from user_jobs j
+            where j.current = 1 and j.type = 0
+            and j.user_id in ($users_ids)
+            group by j.user_id
+        ");
+    }
+
     public function saveUser($data,$id) {
         $user = $this->fetchRow("id = $id")->toArray();
 
