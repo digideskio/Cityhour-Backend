@@ -172,12 +172,26 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     public function answerMeetingEmail($user,$slot_id,$status) {
         $user_id = $user['id'];
+        $cid = $this->_db->fetchRow("select n.item, n.status from notifications n where `item` = $slot_id and type = 13 and `to` = $user_id");
+        if (!$cid) {
+            return 400;
+        }
+
         if ($status == 5) {
             $this->update(array(
                 'status' => 3
             ),"id = $slot_id");
+
+            $status = $cid['status'];
+            if ($status) {
+                $s_n = 4;
+            }
+            else {
+                $s_n = 1;
+            }
+
             $this->_db->update('notifications',array(
-                'status' => 1
+                'status' => $s_n
             ),"`item` = $slot_id and type = 13 and `to` = $user_id");
             return array(
                 'code' => 200,
@@ -213,7 +227,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 ),"id = $slot_id");
 
                 $this->_db->update('notifications',array(
-                    'status' => 1
+                    'status' => 4
                 ),"`item` = $slot_id and type = 13 and `to` = $user_id");
 
                 (new Application_Model_DbTable_Notifications())->insertNotification(array(
@@ -348,7 +362,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 $this->expireMeeting($user['id'],$slot);
 
                 $this->_db->update('notifications',array(
-                    'status' => 1
+                    'status' => 4
                 ),"id = $id");
 
 
