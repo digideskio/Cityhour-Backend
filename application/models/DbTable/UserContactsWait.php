@@ -279,11 +279,15 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         else if ($type == 5) {
             $validator = new Zend_Validate_EmailAddress();
             if (isset($token['emails'][0]) && isset($token['name']) && $validator->isValid($token['emails'][0])) {
+
+                $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+                $url = $config->userPhoto->url;
+
                 $options = array(
-                    'name' => $token['name'],
-                    'user_name' => $user['name'].' '.$user['lastname']
+                    'name' => $user['name'].' '.$user['lastname'],
+                    'photo' => $url.$user['photo']
                 );
-                Application_Model_Common::sendEmail($token['emails'][0], "Скачай приложение!", null, null, null, "invite_email.phtml", $options, 'invite');
+                Application_Model_Common::sendEmail($token['emails'][0], "Download App!", null, null, null, "invite_email.phtml", $options, 'invite');
 
                 $res = true;
             }

@@ -580,24 +580,20 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
             $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
             $url = $config->email->url;
+            $url2 = $config->userPhoto->url;
 
-            if (isset($data['place'])) {
-                $place = ' в '.$data['place'];
-            }
-            else {
-                $place = '';
-            }
-            $time = strtotime($data['start_time'])+$data['offset'];
-            $time = gmdate('Y-m-d H:i:s',(int)$time);
+            $job = (new Application_Model_DbTable_Users())->getUserJobs(array($user['id']))[0];
             $options = array(
                 'name' => $user['name'],
-                'lastname' => substr($user['lastname'], 0, 1),
-                'time' => $time,
-                'place' => $place,
+                'photo' => $url2.$user['photo'],
+                'place' => $data['place'],
+                'date' => Application_Model_Common::makeCoolDate($data['start_time'],$data['offset']),
+                'company' => $job['company'],
+                'job' => $job['name'],
                 'url_ok' => $url.'meetings/?answer=4&sid='.$id.'&key='.$key,
                 'url_nok' => $url.'meetings/?answer=5&sid='.$id.'&key='.$key
             );
-            Application_Model_Common::sendEmail($email, "Реквест Митинг!", null, null, null, "meeting_request.phtml", $options, 'meeting_request');
+            Application_Model_Common::sendEmail($email, "Meeting request.", null, null, null, "meeting_request.phtml", $options, 'meeting_request');
 
 
             $this->_db->commit();
@@ -925,10 +921,19 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
             if ($slot['email'] == 1) {
                 if ( $user_email = Application_Model_DbTable_EmailUsers::getUserId($slot2['user_id']) ) {
+
+                    $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+                    $url = $config->userPhoto->url;
+                    $job = (new Application_Model_DbTable_Users())->getUserJobs(array($user['id']))[0];
                     $options = array(
                         'name' => $user['name'],
+                        'photo' => $url.$user['photo'],
+                        'place' => $slot['place'],
+                        'date' => Application_Model_Common::makeCoolDate($slot['start_time'],$slot['offset']),
+                        'company' => $job['company'],
+                        'job' => $job['name']
                     );
-                    Application_Model_Common::sendEmail($user_email['email'], "Митинг отменен!", null, null, null, "meeting_canceled.phtml", $options, 'meeting_canceled');
+                    Application_Model_Common::sendEmail($user_email['email'], "Meeting canceled.", null, null, null, "meeting_canceled.phtml", $options, 'meeting_canceled');
                 }
             }
             else {

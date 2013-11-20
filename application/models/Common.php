@@ -13,6 +13,18 @@ class Application_Model_Common
         return true;
     }
 
+    public static function makeCoolDate($date,$offset) {
+        if (!is_numeric($date)) {
+            $date = strtotime($date);
+        }
+        if (!is_numeric($offset)) {
+            $offset = 0;
+        }
+        $time = (int)$date+(int)$offset;
+        // format date to August 12, 11:00 AM
+        return gmdate('F d, h:s A',$time);
+    }
+
 
     public static function updateUserFreeSlots($id) {
         exec("curl http://helpers.truebear.com/updateOne.php?id=$id > /dev/null 2>&1 &");
