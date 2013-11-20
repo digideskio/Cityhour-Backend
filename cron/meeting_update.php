@@ -23,7 +23,7 @@ foreach ($result as $row) {
     $user_id = $row["user_id"];
     $user_id_second = $row["user_id_second"];
     if ($id && $user_id && $user_id_second) {
-        $db->query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('$user_id_second','$user_id','11','1','0','$id','$text')");
+        $db->query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('$user_id_second','$user_id','11','1','0','$id',$text)");
     }
 }
 
@@ -53,5 +53,5 @@ foreach ($result as $row) {
     );
     $data = json_encode($data);
     mysql_query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$user_id','8','$text2','$data')");
-    mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','10','7','0','$id','$text')");
+    mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','10','7','0','$id',$text)");
 }
