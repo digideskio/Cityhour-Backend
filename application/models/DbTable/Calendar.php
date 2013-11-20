@@ -584,7 +584,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
             $job = (new Application_Model_DbTable_Users())->getUserJobs(array($user['id']))[0];
             $options = array(
-                'name' => $user['name'],
+                'name' => $user['name'].' '.$user['lastname'],
                 'photo' => $url2.$user['photo'],
                 'place' => $data['place'],
                 'date' => Application_Model_Common::makeCoolDate($data['start_time'],$data['offset']),
@@ -926,7 +926,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     $url = $config->userPhoto->url;
                     $job = (new Application_Model_DbTable_Users())->getUserJobs(array($user['id']))[0];
                     $options = array(
-                        'name' => $user['name'],
+                        'name' => $user['name'].' '.$user['lastname'],
                         'photo' => $url.$user['photo'],
                         'place' => $slot['place'],
                         'date' => Application_Model_Common::makeCoolDate($slot['start_time'],$slot['offset']),
