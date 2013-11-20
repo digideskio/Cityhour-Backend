@@ -267,7 +267,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             // Update User free time
             Application_Model_Common::updateUserFreeSlots($user['id']);
             return array(
-                'code' => 301,
+                'code' => 200,
                 'body' => $this->getEmailSlot($slot_id)
             );
         }
