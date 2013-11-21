@@ -5,7 +5,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
 
     protected $_name = 'calendar';
 
-    public function getSlotID($id,$many = false, $user_id = false) {
+    public function getSlotID($id,$many = false, $user_id = false, $job = false) {
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->userPhoto->url;
 
@@ -17,10 +17,19 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
 
         if ($user_id) {
-            $user_id = "and user_id = $user_id";
+            $user_id = "and c.user_id = $user_id";
         }
         else {
             $user_id = '';
+        }
+
+        if ($job) {
+            $job_params = ',j.name as job, j.company';
+            $job_join = 'left join user_jobs j on c.user_id_second = j.user_id and c.email = 0 and j.current = 1 and j.type = 0';
+        }
+        else {
+            $job_params = '';
+            $job_join = '';
         }
 
         $res = $this->_db->fetchAll("
@@ -40,12 +49,15 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
               when c.email = 0 then concat('$url',u.photo)
               else ''
             end as photo
+            $job_params
             from calendar c
             left join users u on c.user_id_second = u.id and c.email = 0
             left join email_users e on c.user_id_second = e.id and c.email = 1
+            $job_join
             where
             $id
             $user_id
+            group by c.id
         ");
 
         if (!$many && isset($res[0])) {
@@ -109,7 +121,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $url = $config->userPhoto->url;
 
         if ($id) {
-            return $this->getSlotID($id,false,$user_id);
+            return $this->getSlotID($id,false,$user_id,true);
         }
 
         $res = $this->_db->fetchAll("
