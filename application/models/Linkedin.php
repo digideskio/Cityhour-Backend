@@ -3,7 +3,8 @@
 class Application_Model_Linkedin
 {
 
-    public function makePost($token,$id) {
+    public function makePost($user,$id) {
+        $token = $user['linkedin_key'];
         if (!$slot = (new Application_Model_DbTable_Calendar())->getSlotID($id)) {
             return 404;
         }
@@ -19,14 +20,16 @@ class Application_Model_Linkedin
             'oauth2_access_token' => $token,
             'format' => 'json',
         ));
+        $user_id = $user['id'];
+        $slot_id = $slot['id'];
         $data = "
             <share>
               <comment>Hello Linkedin</comment>
               <content>
                 <title>Test share API</title>
                 <description>Test description</description>
-                <submitted-url>http://google.com</submitted-url>
-                <submitted-image-url>http://toplogos.ru/images/logo-chrome.png</submitted-image-url>
+                <submitted-url>http://cityhour.com/meeting/?uid=$user_id&amp;id=$slot_id</submitted-url>
+                <submitted-image-url>http://cityhour.com/site/img/logo.png</submitted-image-url>
               </content>
               <visibility>
                 <code>anyone</code>
@@ -41,8 +44,7 @@ class Application_Model_Linkedin
         $client = new Zend_Http_Client('https://api.linkedin.com/v1/people/~/shares?'.$params,$config);
         $client->setRawData($data,'text/xml');
         $client->setHeaders('Content-Type', 'text/xml');
-        $response = $client->request('POST');
-//        var_dump($response->getBody());
+        $client->request('POST');
 
         return 200;
     }
