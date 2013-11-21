@@ -602,8 +602,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'date' => Application_Model_Common::makeCoolDate($data['start_time'],$data['offset']),
                 'company' => $job['company'],
                 'job' => $job['name'],
-                'url_ok' => $url.'meetings/?answer=4&sid='.$id.'&key='.$key,
-                'url_nok' => $url.'meetings/?answer=5&sid='.$id.'&key='.$key
+                'url_ok' => $url.'?answer=4&sid='.$id.'&key='.$key,
+                'url_nok' => $url.'?answer=5&sid='.$id.'&key='.$key
             );
             Application_Model_Common::sendEmail($email, "Meeting request.", null, null, null, "meeting_request.phtml", $options, 'meeting_request');
 
