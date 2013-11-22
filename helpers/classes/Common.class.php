@@ -277,7 +277,7 @@ class Common {
     }
 
     private function correctTimeOffset($s_time,$e_time,$s_date,$e_date) {
-        if ( $s_time > $e_time ) {
+        if ( $s_time >= $e_time ) {
             if ($this->offset > 0) {
                 $s_date = $s_date - 86400;
             }
@@ -315,10 +315,6 @@ class Common {
 
         $this->s_full = $s_date + $s_time;
         $this->e_full = $e_date + $e_time;
-
-        if ($s_time == $e_time) {
-            $this->s_full = $this->s_full - 86400;
-        }
 
         return array(
             's_date' => $s_date,

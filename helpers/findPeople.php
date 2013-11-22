@@ -2,15 +2,15 @@
 
 //$data = '
 //    {
-//        "private_key": "42530ec9ae353de65dbc386b8d9bd9449ac99b845231c239d9c6a",
-//        "debug": true,
-//        "data_to": 1385078400,
-//        "time_to": 1384984800,
-//        "time_from":  1384873200,
-//        "data_from": 1384819200,
-//        "offset": 7200,
+//       "private_key": "42530ec9ae353de65dbc386b8d9bd9449ac99b845231c239d9c6a",
+//       "debug": true,
+//        "data_to": 1385251200,
+//        "time_to": 1385193600,
+//        "time_from":  1385020800,
+//        "data_from": 1385251200,
+//        "offset": -28800,
 //       "goal": null,
-//       "city": "CjQwAAAADRVm3LP2MJiiUqyCzTak3UGrrcb6XLsoVNJJfmbuPzZ8jGIwq7puO87X0QTFGE7PEhDGXt1jrTvvNw_mTqtqKwmXGhRrDgdTKXVUjAS8zr0gsk4awH3NJg"
+//       "city": "CkQ4AAAAxEAshjU6kEmbt5og8GXX79BtJAJTLoKmrzTGsoBrP-v9J0RI59cbco_zkCj_D6cFHiInEh8Rq4gQ94v5DtYJnBIQOl0aoj8YWGvJGZXrz61QPxoUBUYu28d_kJ8C_HbGcuTzbZDfb9E"
 //    }
 //';
 
