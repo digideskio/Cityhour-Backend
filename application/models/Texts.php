@@ -3,11 +3,11 @@
 class Application_Model_Texts
 {
 
-    public static function push() {
+    public static function push($data = false) {
         return array(
-            0 => 'New meeting request', // 'Meeting request',
+            0 => $data['name'].' invited you to a meeting', // 'Meeting request',
             1 => 'Meeting canceled', // 'Meeting canceled',
-            2 => 'Meeting Request Accepted', // 'Meeting request accepted',
+            2 => $data['name'].' accepted your meeting invitation', // 'Meeting request accepted',
             3 => 'New message', // Not Used
             4 => 'Friend request', // 'Friend request',
             5 => 'New message', // 'Chat message',

@@ -252,7 +252,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $text = Application_Model_Texts::push(false)[2];
+                $fullName['name'] = $user['name'].' '.$user['lastname'];
+                $text = Application_Model_Texts::push($fullName)[2];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
                     'type' => 2,
@@ -388,7 +389,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $text = Application_Model_Texts::push(false)[2];
+                $fullName['name'] = $user['name'].' '.$user['lastname'];
+                $text = Application_Model_Texts::push($fullName)[2];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
                     'type' => 2,
@@ -783,7 +785,8 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'action' => 0
             ));
 
-            $text = Application_Model_Texts::push()[0];
+            $fullName['name'] = $user['name'].' '.$user['lastname'];
+            $text = Application_Model_Texts::push($fullName)[0];
             (new Application_Model_DbTable_Push())->sendPush($user_second,$text,0,array(
                 'from' => $user['id'],
                 'type' => $pType,
