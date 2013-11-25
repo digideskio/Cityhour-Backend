@@ -54,7 +54,7 @@ class Application_Model_DbTable_Push extends Zend_Db_Table_Abstract
 
     public function sendPush($user_id,$alert,$type,$data) {
         $data = json_encode($data);
-        $alert = mb_substr($alert,0,15,'UTF-8');
+        $alert = mb_substr($alert,0,110,'UTF-8');
         if ($this->checkSettings($user_id,$type)) {
             $this->_db->insert('push_messages',array(
                 'user_id' => $user_id,
