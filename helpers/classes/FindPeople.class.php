@@ -199,7 +199,7 @@ class FindPeople extends Common {
             $city = $this->getCity($city);
             if ($city) {
                 $this->free = $this->checkFree();
-//                rt($this->free);
+//                ~rt($this->free);
                 $this->n_lat = $city['n_lat'];
                 $this->s_lat = $city['s_lat'];
                 $this->n_lng = $city['n_lng'];

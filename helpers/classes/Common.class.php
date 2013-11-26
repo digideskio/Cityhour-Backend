@@ -301,12 +301,15 @@ class Common {
         $e_time = getdate($this->t_e);
         $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
 
+        $st_off = $s_time + $this->offset;
+        if ($st_off < 0) {
+            $this->q_s = $this->q_s + 86400;
+            $this->q_e = $this->q_e + 86400;
+        }
+
         // Get date
-        $this->q_s = $this->q_s - $s_time;
         $s_date = getdate($this->q_s);
         $s_date = mktime(0,0,0,$s_date['mon'],$s_date['mday'],$s_date['year']);
-
-        $this->q_e = $this->q_e - $e_time;
         $e_date = getdate($this->q_e);
         $e_date = mktime(0,0,0,$e_date['mon'],$e_date['mday'],$e_date['year']);
 
