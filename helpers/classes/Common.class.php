@@ -295,17 +295,21 @@ class Common {
     }
 
     public function getFullTime() {
-        // Get date
-        $s_date = getdate($this->q_s);
-        $s_date = mktime(0,0,0,$s_date['mon'],$s_date['mday'],$s_date['year']);
-        $e_date = getdate($this->q_e);
-        $e_date = mktime(0,0,0,$e_date['mon'],$e_date['mday'],$e_date['year']);
-
         // Get time
         $s_time = getdate($this->t_s);
         $s_time = $s_time['hours']*3600 + $s_time['minutes']*60 + $s_time['seconds'];
         $e_time = getdate($this->t_e);
         $e_time = $e_time['hours']*3600 + $e_time['minutes']*60 + $e_time['seconds'];
+
+        // Get date
+        $this->q_s = $this->q_s - $s_time;
+        $s_date = getdate($this->q_s);
+        $s_date = mktime(0,0,0,$s_date['mon'],$s_date['mday'],$s_date['year']);
+
+        $this->q_e = $this->q_e - $e_time;
+        $e_date = getdate($this->q_e);
+        $e_date = mktime(0,0,0,$e_date['mon'],$e_date['mday'],$e_date['year']);
+
 
         $dt = $this->correctTimeOffset($s_time,$e_time,$s_date,$e_date);
         $s_time = $dt['s_time'];
