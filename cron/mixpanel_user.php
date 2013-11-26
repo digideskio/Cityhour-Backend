@@ -5,7 +5,7 @@ $db = new DBcron();
 
 //  file here
 require '../vendor/mixpanel/mixpanel-php/lib/Mixpanel.php';
-$mp = Mixpanel::getInstance("1af3248e8eb303cec662f90b15a20026");
+$mp = Mixpanel::getInstance("a77be1f360ca8017da9603631231f524");
 
 $result = $db->query("
                         select u.id, u.name, u.meet_declined, u.meet_succesfull, (

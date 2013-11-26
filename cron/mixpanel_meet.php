@@ -5,7 +5,7 @@ $db = new DBcron();
 
 //  file here
 require '../vendor/mixpanel/mixpanel-php/lib/Mixpanel.php';
-$mp = Mixpanel::getInstance("1af3248e8eb303cec662f90b15a20026");
+$mp = Mixpanel::getInstance("a77be1f360ca8017da9603631231f524");
 
 $result = $db->query("
                         select c.id,c.start_time,c.end_time,c.place,c.city_name,u.industry_id,c.lat,c.lng,c.goal,c.offset,c.email,c.user_id,c.user_id_second, i.name as industry
