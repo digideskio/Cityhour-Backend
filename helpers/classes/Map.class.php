@@ -163,7 +163,27 @@ class Map extends Common {
             $this->q_s = $row['start_time'];
             $this->q_e = $row['end_time'];
             $find = $this->query("
-                select t.user_id, t.lat, t.lng, u.name, u.lastname, concat('$url',u.photo) as photo, j.name as job_name, j.company, u.industry_id, u.rating, t.foursquare_id, t.place, GREATEST('$this->q_s', t.start_time) as start_time, LEAST('$this->q_e', t.end_time) as end_time, u.city_name, offset, t.goal
+                select
+                  t.user_id,
+                  t.lat,
+                  t.lng,
+                  u.name,
+                  concat('$url',u.photo) as photo,
+                  j.name as job_name,
+                  j.company,
+                  u.industry_id,
+                  u.rating,
+                  t.foursquare_id,
+                  t.place,
+                  GREATEST('$this->q_s', t.start_time) as start_time,
+                  LEAST('$this->q_e', t.end_time) as end_time,
+                  u.city_name,
+                  offset,
+                  t.goal,
+                  case
+                	when f.id > 0 then u.lastname
+                	else Concat(Substr(u.lastname, 1, 1), '.')
+               	  end as lastname
                     from (
                         (
                             SELECT m2.user_id, m.lat, m.lng, unix_timestamp() as start_time, unix_timestamp()+3900 as end_time, null as foursquare_id, null as place, m2.offset, 0 as goal
@@ -189,6 +209,7 @@ class Map extends Common {
                     ) as t
                     left join users u on t.user_id = u.id
                     left join user_jobs j on t.user_id = j.user_id
+                    left join user_friends f on t.user_id = f.user_id AND f.friend_id = $this->user_id AND f.status = 1
                     WHERE
                     j.current=1
                     and u.status = 0
