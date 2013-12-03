@@ -117,15 +117,32 @@ class Application_Model_Common
                 $data['city'] = $city;
                 $data['lat'] = $req['result']['geometry']['location']['lat'];
                 $data['lng'] = $req['result']['geometry']['location']['lng'];
+
+                $country = '';
+                $region = '';
                 foreach ($req['result']['address_components'] as $row) {
                     if ($row['types']) {
                         foreach ($row['types'] as $row2) {
                             if ($row2 == 'country') {
-                                $data['city_name'] = $req['result']['name'].', '.$row['short_name'];
+                                $country = $row['short_name'];
+                            }
+                            elseif ($row2 == 'administrative_area_level_1') {
+                                $region = $row['short_name'];
                             }
                         }
                     }
                 }
+
+                if ($region && $country) {
+                    $data['city_name'] = $req['result']['name'].', '.$region.', '.$country;
+                }
+                elseif($country) {
+                    $data['city_name'] = $req['result']['name'].', '.$country;
+                }
+                else {
+                    $data['city_name'] = $req['result']['formatted_address'];
+                }
+
                 if (isset($req['result']['geometry']['viewport'])) {
                     $data['n_lng'] = $req['result']['geometry']['viewport']['northeast']['lng'];
                     $data['s_lng'] = $req['result']['geometry']['viewport']['southwest']['lng'];
