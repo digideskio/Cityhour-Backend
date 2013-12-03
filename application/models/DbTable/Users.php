@@ -284,6 +284,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                                 'name' => $row['name'],
                                 'company' => $row['company'],
                                 'start_time' => $jobs_input->getEscaped('start_time'),
+                                'current' => $jobs_input->getEscaped('current'),
                                 'end_time' => $jobs_input->getEscaped('end_time')
                             ),"id = $job_id");
                         }
@@ -293,6 +294,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                                 'name' => $row['name'],
                                 'company' => $row['company'],
                                 'start_time' => $jobs_input->getEscaped('start_time'),
+                                'current' => $jobs_input->getEscaped('current'),
                                 'end_time' => $jobs_input->getEscaped('end_time'),
                                 'type' => 1
                             ));
@@ -507,7 +509,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         'user_id' => $id,
                         'name' => $row['name'],
                         'company' => $row['company'],
-                        'current' => 0,
+                        'current' => $jobs_input->getEscaped('current'),
                         'start_time' => $jobs_input->getEscaped('start_time'),
                         'end_time' => $jobs_input->getEscaped('end_time'),
                         'type' => 1
