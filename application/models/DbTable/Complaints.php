@@ -58,7 +58,7 @@ class Application_Model_DbTable_Complaints extends Zend_Db_Table_Abstract
                 'email' => $user['email'],
                 'dscr' => $dscr
             );
-            Application_Model_Common::sendEmail('bukashk0zzz@me.com', "ФидаБЕк", null, null, null, "feedback.phtml", $options, 'feedback');
+            Application_Model_Common::sendEmail('support@truebear.com', "Feedback", null, null, null, "feedback.phtml", $options, 'feedback');
             return true;
         } catch (Exception $e) {
             return $e->getMessage();
