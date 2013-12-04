@@ -197,6 +197,7 @@ class V1_MeetingsController extends Zend_Rest_Controller
                 'offset' => array('StringTrim','HtmlEntities','Int'),
                 'foursquare_id' => array('StringTrim','HtmlEntities'),
                 'city' => array('StringTrim','HtmlEntities'),
+                'goal_s' => array('SttringTrim','HtmlEntities'),
                 'person_value' => array('StringTrim','HtmlEntities'),
                 'person_name' => array('StringTrim','HtmlEntities'),
             );

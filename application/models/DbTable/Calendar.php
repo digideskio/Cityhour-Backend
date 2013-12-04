@@ -986,7 +986,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $text = Application_Model_Texts::push($slot)[1];
+                $text = Application_Model_Texts::push()[1];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,1,array(
                     'from' => $user['id'],
                     'type' => 1,
