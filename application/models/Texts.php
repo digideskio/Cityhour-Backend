@@ -4,6 +4,9 @@ class Application_Model_Texts
 {
 
     public static function push($data = false) {
+        if (!$data) {
+            $data['name'] = '';
+        }
         return array(
             0 => $data['name'].' invited you to a meeting', // 'Meeting request',
             1 => 'Meeting canceled', // 'Meeting canceled',
@@ -19,6 +22,9 @@ class Application_Model_Texts
 
 
     public static function notification($data = false) {
+        if (!$data) {
+            $data['place'] = '';
+        }
         return array(
             0 => 'Friend request', // 'Friend request',
             1 => '$$$name$$$ accepted your contact request', // 'Friends accept',
