@@ -33,6 +33,7 @@
       <column name="start_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
       <column name="end_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
       <column name="goal" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="goal_str" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="offset" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="city_name" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
@@ -47,6 +48,7 @@
       <column name="email" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="ind_hash" unique="false" columns="hash"/>
+      <index name="ind_find" unique="false" columns="user_id,start_time,end_time,type,status"/>
     </table>
     <table name="chat" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
