@@ -165,8 +165,8 @@
                 },
                 {
                     "httpMethod": "DELETE",
-                    "summary": "Cancel meet request slot.",
-                    "nickname": "CancelMeetRequest",
+                    "summary": "Stop meeting.",
+                    "nickname": "StopMeeting",
                     "responseClass": "void",
                     "parameters": [
                         {
@@ -196,7 +196,7 @@
                             "code": 400
                         },
                         {
-                            "reason": "Not found request that you can cancel.",
+                            "reason": "Not found meeting that you can stop.",
                             "code": 404
                         },
                         {

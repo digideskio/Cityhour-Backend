@@ -360,9 +360,9 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="DELETE",
-     *       summary="Cancel meet request slot.",
+     *       summary="Stop meeting.",
      *       responseClass="void",
-     *       nickname="CancelMeetRequest",
+     *       nickname="StopMeeting",
      *       notes="",
      *       @SWG\ErrorResponses(
      *          @SWG\ErrorResponse(
@@ -375,7 +375,7 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *          ),
      *          @SWG\ErrorResponse(
      *            code="404",
-     *            reason="Not found request that you can cancel."
+     *            reason="Not found meeting that you can stop."
      *          ),
      *          @SWG\ErrorResponse(
      *            code="407",
@@ -410,7 +410,7 @@ class V1_MeetingsController extends Zend_Rest_Controller
         if ($token && is_numeric($id)) {
             $user = Application_Model_DbTable_Users::authorize($token);
             $this->_helper->json->sendJson(array(
-                'errorCode' => (new Application_Model_DbTable_Calendar())->deleteMeetRequest($user,$id)
+                'errorCode' => (new Application_Model_DbTable_Calendar())->stopMeeting($user,$id)
             ));
         }
         else {

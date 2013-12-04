@@ -217,9 +217,71 @@ class V1_NotificationsController extends Zend_Rest_Controller
         }
     }
 
+    /**
+     *
+     * @SWG\Api(
+     *   path="/notifications/",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       httpMethod="DELETE",
+     *       summary="Cancel meet request slot.",
+     *       responseClass="void",
+     *       nickname="CancelMeetRequest",
+     *       notes="",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="401",
+     *            reason="Authentication failed."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params given."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="404",
+     *            reason="Not found request that you can cancel."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="You blocked."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="private_key",
+     *           description="private_key",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="string"
+     *         ),
+     * @SWG\Parameter(
+     *           name="id",
+     *           description="id",
+     *           paramType="query",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="int"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function deleteAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $token = $this->_request->getParam('private_key');
+        $id = $this->_request->getParam('id');
+        if ($token && is_numeric($id)) {
+            $user = Application_Model_DbTable_Users::authorize($token);
+            $this->_helper->json->sendJson(array(
+                'errorCode' => (new Application_Model_DbTable_Calendar())->deleteMeetRequest($user,$id)
+            ));
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                'errorCode' => '400'
+            ));
+        }
     }
 
     public function headAction()

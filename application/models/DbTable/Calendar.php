@@ -33,7 +33,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
 
         $res = $this->_db->fetchAll("
-            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
+            select c.id,c.hash,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
              case
               when c.email = 0 then case
                                       when (select distinct(f.id)
@@ -82,6 +82,29 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
             'slot' => $slot,
             'second_user' => $db->getUser($slot['user_id_second'],false,'id',true,false)
         );
+    }
+
+    public function stopMeeting($user,$id) {
+        if ($slot = $this->getSlotID($id,false,$user['id'])) {
+            $time = time();
+            if ($slot['start_time'] < $time && $slot['start_time']+3600 > $time && $slot['status'] == 2) {
+                $hash = $this->_db->quote($slot['hash']);
+                $this->update(array(
+                    'end_time' => gmdate('Y-m-d H:i:s',$time)
+                ),"`hash` = $hash");
+
+                // Update User free time
+                Application_Model_Common::updateUserFreeSlots($slot['user_id']);
+                Application_Model_Common::updateUserFreeSlots($slot['user_id_second']);
+                return 200;
+            }
+            else {
+                return 404;
+            }
+        }
+        else {
+            return 404;
+        }
     }
 
     public function deleteMeetRequest($user,$id) {

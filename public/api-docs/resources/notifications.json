@@ -114,6 +114,49 @@
                         }
                     ],
                     "notes": ""
+                },
+                {
+                    "httpMethod": "DELETE",
+                    "summary": "Cancel meet request slot.",
+                    "nickname": "CancelMeetRequest",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "private_key",
+                            "description": "private_key",
+                            "allowMultiple": false,
+                            "dataType": "string",
+                            "paramType": "query",
+                            "required": true
+                        },
+                        {
+                            "name": "id",
+                            "description": "id",
+                            "allowMultiple": false,
+                            "dataType": "int",
+                            "paramType": "query",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Authentication failed.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "Not all params given.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Not found request that you can cancel.",
+                            "code": 404
+                        },
+                        {
+                            "reason": "You blocked.",
+                            "code": 407
+                        }
+                    ],
+                    "notes": ""
                 }
             ]
         }
