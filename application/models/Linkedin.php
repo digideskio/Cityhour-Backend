@@ -127,6 +127,7 @@ class Application_Model_Linkedin
 
             //get jobs
             $jobs = array();
+            $last_job = false;
             if (isset($user_profile['positions']['values'])) {
                 foreach ($user_profile['positions']['values'] as $num=>$row) {
                     $start_m =  (isset($row['startDate']['month'])) ? (int)$row['startDate']['month']:1;
@@ -135,10 +136,12 @@ class Application_Model_Linkedin
                     $jobs[$num] = array(
                         'name' => $row['title'],
                         'company' => (isset($row['company']['name']) && $row['company']['name']) ? $row['company']['name'] : '',
-                        'current' => $row['isCurrent'],
+                        'current' => 0,
+                        'active' => $row['isCurrent'],
                         'start_time' => (isset($row['startDate']['year'])) ? date('Y-m-d',mktime(0,0,0,$start_m,1,(int)$row['startDate']['year'])):null
                     );
                     if ($row['isCurrent']) {
+                        $last_job = $num;
                         $jobs[$num]['end_time'] = null;
                         if (!$industry_id) {
                             $industry_id = $row['company']['industry'];
@@ -147,6 +150,9 @@ class Application_Model_Linkedin
                     else {
                         $jobs[$num]['end_time'] = (isset($row['endDate']['year'])) ? date('Y-m-d',mktime(0,0,0,$end_m,1,(int)$row['endDate']['year'])):null;
                     }
+                }
+                if ($last_job) {
+                    $jobs[$last_job]['current'] = 1;
                 }
             }
 
@@ -203,6 +209,8 @@ class Application_Model_Linkedin
                     $education[$num] = array(
                         'name' => (isset($row['fieldOfStudy']) && $row['fieldOfStudy']) ? $row['fieldOfStudy'] : '',
                         'company' => (isset($row['schoolName']) && $row['schoolName']) ? $row['schoolName'] : '',
+                        'current' => 0,
+                        'active' => 0,
                         'start_time' => (isset($row['startDate']['year']) && $row['startDate']['year']) ? date('Y-m-d',mktime(0,0,0,1,1,(int)$row['startDate']['year'])) : null,
                         'end_time' => (isset($row['endDate']['year']) && $row['endDate']['year']) ? date('Y-m-d',mktime(0,0,0,1,1,(int)$row['endDate']['year'])) : null
                     );

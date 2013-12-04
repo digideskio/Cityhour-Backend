@@ -205,6 +205,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 );
                 $filters = array(
                     'current' => array('StringTrim','HtmlEntities','Int'),
+                    'active' => array('StringTrim','HtmlEntities','Int'),
                     'start_time' => array('StringTrim','HtmlEntities'),
                     'end_time' => array('StringTrim','HtmlEntities'),
                 );
@@ -213,20 +214,6 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 foreach($data['jobs'] as $num=>$row) {
                     $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
 
-                    if (!$row['current'] || $row['current'] === false ) {
-                        $row['current'] = 0;
-                    }
-                    elseif ($row['current'] === true) {
-                        $row['current'] = 1;
-                    }
-                    if (!isset($row['end_time'])) {
-                        if (isset($row['start_time'])) {
-                            $row['end_time'] = $row['start_time'];
-                        }
-                        else {
-                            $row['end_time'] = null;
-                        }
-                    }
                     if (isset($row['id']) && is_numeric($row['id'])) {
                         $job_id = $row['id'];
                         if(($key = array_search($row['id'], $jj)) !== false) {
@@ -236,6 +223,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                             'name' => $row['name'],
                             'company' => $row['company'],
                             'current' => $jobs_input->getEscaped('current'),
+                            'active' => $jobs_input->getEscaped('active'),
                             'start_time' => $jobs_input->getEscaped('start_time'),
                             'end_time' => $jobs_input->getEscaped('end_time')
                         ),"id = $job_id");
@@ -246,6 +234,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                             'name' => $row['name'],
                             'company' => $row['company'],
                             'current' => $jobs_input->getEscaped('current'),
+                            'active' => $jobs_input->getEscaped('active'),
                             'start_time' => $jobs_input->getEscaped('start_time'),
                             'end_time' => $jobs_input->getEscaped('end_time'),
                             'type' => 0
@@ -267,6 +256,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     );
                     $filters = array(
                         'current' => array('StringTrim','HtmlEntities','Int'),
+                        'active' => array('StringTrim','HtmlEntities','Int'),
                         'start_time' => array('StringTrim','HtmlEntities'),
                         'end_time' => array('StringTrim','HtmlEntities'),
                     );
@@ -285,6 +275,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                                 'company' => $row['company'],
                                 'start_time' => $jobs_input->getEscaped('start_time'),
                                 'current' => $jobs_input->getEscaped('current'),
+                                'active' => $jobs_input->getEscaped('active'),
                                 'end_time' => $jobs_input->getEscaped('end_time')
                             ),"id = $job_id");
                         }
@@ -295,6 +286,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                                 'company' => $row['company'],
                                 'start_time' => $jobs_input->getEscaped('start_time'),
                                 'current' => $jobs_input->getEscaped('current'),
+                                'active' => $jobs_input->getEscaped('active'),
                                 'end_time' => $jobs_input->getEscaped('end_time'),
                                 'type' => 1
                             ));
@@ -467,26 +459,18 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 );
                 $filters = array(
                     'current' => array('StringTrim','HtmlEntities','Int'),
+                    'active' => array('StringTrim','HtmlEntities','Int'),
                     'start_time' => array('StringTrim','HtmlEntities'),
                     'end_time' => array('StringTrim','HtmlEntities'),
                 );
                 foreach($data['jobs'] as $num=>$row) {
                     $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
-
-                    if (!$row['current'] || $row['current'] === false ) {
-                        $row['current'] = 0;
-                    }
-                    elseif ($row['current'] === true) {
-                        $row['current'] = 1;
-                    }
-                    if (!isset($row['end_time'])) {
-                        $row['end_time'] = $row['start_time'];
-                    }
                     $this->_db->insert('user_jobs',array(
                         'user_id' => $id,
                         'name' => $row['name'],
                         'company' => $row['company'],
                         'current' => $jobs_input->getEscaped('current'),
+                        'active' => $jobs_input->getEscaped('active'),
                         'start_time' => $jobs_input->getEscaped('start_time'),
                         'end_time' => $jobs_input->getEscaped('end_time'),
                         'type' => 0
@@ -500,6 +484,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 );
                 $filters = array(
                     'current' => array('StringTrim','HtmlEntities','Int'),
+                    'active' => array('StringTrim','HtmlEntities','Int'),
                     'start_time' => array('StringTrim','HtmlEntities'),
                     'end_time' => array('StringTrim','HtmlEntities'),
                 );
@@ -510,6 +495,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         'name' => $row['name'],
                         'company' => $row['company'],
                         'current' => $jobs_input->getEscaped('current'),
+                        'active' => $jobs_input->getEscaped('active'),
                         'start_time' => $jobs_input->getEscaped('start_time'),
                         'end_time' => $jobs_input->getEscaped('end_time'),
                         'type' => 1

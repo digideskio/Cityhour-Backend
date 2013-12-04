@@ -85,7 +85,7 @@ class Common {
 	
 	private function getJobs($id) {
 		return $this->query("
-			select id,user_id,name,company,current,start_time,end_time,type
+			select id,user_id,name,company,current,active,start_time,end_time,type
 			from user_jobs
 			where user_id = $id
 			",false,true);

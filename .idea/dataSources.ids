@@ -93,6 +93,40 @@
       <column name="name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
+    <table name="deleted_users" schema="" catalog="truebear" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="email" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="lastname" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="industry_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="summary" sqlType="TEXT" length="65535" precision="0" nullable="true" jdbcType="-1"/>
+      <column name="photo" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="phone" sqlType="VARCHAR" length="20" precision="0" nullable="true" jdbcType="12"/>
+      <column name="business_email" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_foursquare_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_place" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_city_name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="free_lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="free_lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="country" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="city_name" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
+      <column name="skype" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
+      <column name="rating" sqlType="FLOAT UNSIGNED" length="12" precision="0" nullable="false" jdbcType="7" def="MA=="/>
+      <column name="experience" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="completeness" sqlType="FLOAT UNSIGNED" length="12" precision="0" nullable="false" jdbcType="7" def="MA=="/>
+      <column name="contacts" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="meet_succesfull" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="meet_declined" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="facebook_key" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="facebook_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="linkedin_key" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="linkedin_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="private_key" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
     <table name="email_users" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="email" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
@@ -100,6 +134,26 @@
       <column name="key" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="BIT" length="0" precision="0" nullable="true" jdbcType="-7" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="free_slots" schema="" catalog="truebear" type="TABLE">
+      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
+      <column name="user_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
+      <column name="start_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
+      <column name="end_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
+      <column name="type" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="is_free" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" def="MA=="/>
+      <column name="lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="goal" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4"/>
+      <column name="offset" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="foursquare_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="place" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
+      <column name="city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
+      <column name="city_name" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="ind_findPeople" unique="false" columns="start_time,end_time,user_id,lat,lng,goal"/>
+      <index name="ind_user_id" unique="false" columns="user_id"/>
+      <index name="ind_getUsers" unique="false" columns="start_time,type,user_id"/>
     </table>
     <table name="goals" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
@@ -133,19 +187,7 @@
       <column name="offset" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
       <column name="time" sqlType="TIMESTAMP" length="19" precision="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
       <primary-key name="PRIMARY" columns="id"/>
-    </table>
-    <table name="meetings" schema="" catalog="truebear" type="TABLE">
-      <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
-      <column name="user_id" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <column name="user_id_second" sqlType="BIGINT" length="19" precision="0" nullable="true" jdbcType="-5"/>
-      <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="true" jdbcType="-6"/>
-      <column name="foursquare_id" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
-      <column name="when" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
-      <column name="rating" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
-      <column name="rating_second" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
-      <primary-key name="PRIMARY" columns="id"/>
-      <index name="fk_meetings_users1_idx" unique="false" columns="user_id"/>
-      <index name="fk_meetings_users2_idx" unique="false" columns="user_id_second"/>
+      <index name="ind_find_map" unique="false" columns="lat,lng,time"/>
     </table>
     <table name="notifications" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
@@ -218,8 +260,10 @@
       <column name="current" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" def="MA=="/>
       <column name="start_time" sqlType="DATE" length="10" precision="0" nullable="true" jdbcType="91"/>
       <column name="end_time" sqlType="DATE" length="10" precision="0" nullable="true" jdbcType="91"/>
-      <column name="type" sqlType="TINYINT UNSIGNED" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="type" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" def="MA=="/>
+      <column name="active" sqlType="BIT" length="0" precision="0" nullable="false" jdbcType="-7" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
+      <index name="ind_user_id" unique="false" columns="user_id"/>
     </table>
     <table name="user_languages" schema="" catalog="truebear" type="TABLE">
       <column name="languages_id" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4"/>
@@ -243,13 +287,16 @@
       <column name="name" sqlType="VARCHAR" length="45" precision="0" nullable="true" jdbcType="12"/>
       <column name="value" sqlType="VARCHAR" length="255" precision="0" nullable="false" jdbcType="12" def="Jyc="/>
       <primary-key name="PRIMARY" columns="id"/>
+      <index name="ind_user_id" unique="false" columns="user_id"/>
+      <index name="ind_user_name" unique="false" columns="user_id,name"/>
+      <index name="ind_name_value" unique="false" columns="name,value"/>
     </table>
     <table name="user_skills" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
       <column name="user_id" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
       <column name="name" sqlType="VARCHAR" length="150" precision="0" nullable="true" jdbcType="12"/>
       <primary-key name="PRIMARY" columns="id"/>
-      <index name="ind_user_id" unique="false" columns="user_id"/>
+      <index name="ind_name_user" unique="false" columns="user_id,name"/>
     </table>
     <table name="users" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="BIGINT" length="19" precision="0" nullable="false" jdbcType="-5" autoIncrement="true"/>
