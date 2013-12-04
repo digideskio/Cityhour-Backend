@@ -123,7 +123,7 @@ class Suggest extends Common {
             $this->q_s = $row['start_time'];
             $this->q_e = $row['end_time'];
             $find = $this->query("
-                select c.id as id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time
+                select c.id as id, c.user_id, GREATEST('$this->q_s', unix_timestamp(c.start_time)) as start_time, LEAST('$this->q_e', unix_timestamp(c.end_time)) as end_time, (3959 * acos(cos(radians($this->lat)) * cos(radians(lat)) * cos( radians(lng) - radians($this->lng)) + sin(radians($this->lat)) * sin(radians(lat)))) as dist
                 from free_slots c
                 left join users u on c.user_id = u.id
                 where
@@ -134,11 +134,19 @@ class Suggest extends Common {
                 and u.status = 0
                 and u.id != $this->user_id
                having ( end_time - start_time ) >= 3600
-               ORDER BY (3959 * acos(cos(radians($this->lat)) * cos(radians(lat)) * cos( radians(lng) - radians($this->lng)) + sin(radians($this->lat)) * sin(radians(lat)))) asc
+               ORDER BY dist asc
             ",false,true);
             $result = array_merge($result,$find);
         }
+        $result = $this->sortByDist($result);
         return $result;
+    }
+
+    private function sortByDist ($data) {
+        usort($data, function ($a, $b) {
+            return strcmp($a["dist"], $b["dist"]);
+        });
+        return $data;
     }
 
 }
