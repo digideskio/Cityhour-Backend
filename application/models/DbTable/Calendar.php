@@ -513,6 +513,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $res['user_id'] = $user['id'];
         $res['type'] = $type;
         $res['status'] = $status;
+        $res['goal_str'] = $data['goal_str'];
         $res = array_merge($res,Application_Model_Common::getCity($data['city']));
 
         if (isset($data['foursquare_id']) && $data['foursquare_id']) {
