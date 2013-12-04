@@ -411,9 +411,18 @@ class V1_MeetingsController extends Zend_Rest_Controller
         $id = $this->_request->getParam('id');
         if ($token && is_numeric($id)) {
             $user = Application_Model_DbTable_Users::authorize($token);
-            $this->_helper->json->sendJson(array(
-                'errorCode' => (new Application_Model_DbTable_Calendar())->stopMeeting($user,$id)
-            ));
+            $res = (new Application_Model_DbTable_Calendar())->stopMeeting($user,$id);
+            if (is_numeric($res)) {
+                $this->_helper->json->sendJson(array(
+                    'errorCode' => $res
+                ));
+            }
+            else {
+                $this->_helper->json->sendJson(array(
+                    'body' => $res,
+                    'errorCode' => 200
+                ));
+            }
         }
         else {
             $this->_helper->json->sendJson(array(

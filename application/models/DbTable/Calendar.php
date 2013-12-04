@@ -33,7 +33,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
 
         $res = $this->_db->fetchAll("
-            select c.id,c.hash,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
+            select c.id,c.hash,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.goal_str,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
              case
               when c.email = 0 then case
                                       when (select distinct(f.id)
@@ -96,7 +96,9 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 // Update User free time
                 Application_Model_Common::updateUserFreeSlots($slot['user_id']);
                 Application_Model_Common::updateUserFreeSlots($slot['user_id_second']);
-                return 200;
+
+                $slot['end_time'] = gmdate('Y-m-d H:i:s',$time);
+                return $slot;
             }
             else {
                 return 404;
@@ -148,7 +150,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         }
 
         $res = $this->_db->fetchAll("
-            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
+            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.goal_str,c.city,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.type,c.status,c.email,c.offset,
              case
               when c.email = 0 and user_id_second is not null then case
                                                                       when (select distinct(f.id)
@@ -192,7 +194,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
         $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
         $url = $config->userPhoto->url;
         return $this->_db->fetchRow("
-            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.offset,
+            select c.id,c.user_id,c.user_id_second,unix_timestamp(c.start_time) as start_time,unix_timestamp(c.end_time) as end_time,c.goal,c.goal_str,c.city_name,c.foursquare_id,c.place,c.lat,c.lng,c.rating,c.offset,
             concat(u.name,' ',substr(u.lastname,1,1),'.') as fullname,
             concat('$url',u.photo) as photo,
             j.name as job,

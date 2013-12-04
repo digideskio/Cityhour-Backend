@@ -48,7 +48,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         unix_timestamp(c.end_time) as end_time,
                         c.offset as offset,
                         c.city_name as city_name,
-                        c.goal as goal
+                        c.goal as goal,
+                        c.goal_str as goal_str
                  FROM   notifications n
                         LEFT JOIN calendar c
                                ON n.item = c.id
@@ -105,7 +106,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         null as end_time,
                         null as offset,
                         null as city_name,
-                        null as goal
+                        null as goal,
+                        null as goal_str
                  FROM   notifications n
                         LEFT JOIN users u
                                ON n.from = u.id
@@ -156,7 +158,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         unix_timestamp(c.end_time) as end_time,
                         c.offset as offset,
                         c.city_name as city_name,
-                        c.goal as goal
+                        c.goal as goal,
+                        c.goal_str as goal_str
                  FROM   notifications n
                         LEFT JOIN calendar c
                                ON n.item = c.id
@@ -212,7 +215,8 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         unix_timestamp(c.end_time) as end_time,
                         c.offset as offset,
                         c.city_name as city_name,
-                        c.goal as goal
+                        c.goal as goal,
+                        c.goal_str as goal_str
                  FROM   notifications n
                         LEFT JOIN calendar c
                                ON n.item = c.id
