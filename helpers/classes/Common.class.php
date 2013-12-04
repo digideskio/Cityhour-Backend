@@ -96,6 +96,14 @@ class Common {
         $result = array();
         $uid = array();
         $uids = '';
+
+        if ($this->lat && $this->lng) {
+            $order = "(3959 * acos(cos(radians($this->lat)) * cos(radians(lat)) * cos( radians(lng) - radians($this->lng)) + sin(radians($this->lat)) * sin(radians(lat))))";
+        }
+        else {
+            $order = 'c.type, c.start_time';
+        }
+
         foreach ($this->free as $row) {
             $q_s = $row['start_time'];
             $q_e = $row['end_time'];
@@ -180,8 +188,7 @@ class Common {
                 $uids
                 GROUP  BY c.user_id
                 having ( fp_end_time - fp_start_time ) >= 3600
-                ORDER  BY c.type,
-                          c.start_time
+                ORDER  BY $order asc
             ",false,true);
 
             foreach ($find as $row) {
