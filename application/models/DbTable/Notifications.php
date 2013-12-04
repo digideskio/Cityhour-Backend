@@ -40,7 +40,10 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                           WHEN c.email = 0 THEN Concat('$url', u.photo)
                           ELSE ''
                         end                    AS photo,
-                        j.name                 AS job,
+                        case
+                          when j.active = 0 then concat('Former ',j.name)
+                          else j.name
+                        end as job,
                         j.company,
                         c.place as place,
                         c.foursquare_id as foursquare_id,
@@ -98,7 +101,10 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                           ELSE Concat(u.name, ' ', Substr(u.lastname, 1, 1), '.')
                         end                     AS fullname,
                         Concat('$url', u.photo) AS photo,
-                        j.name                  AS job,
+                        case
+                          when j.active = 0 then concat('Former ',j.name)
+                          else j.name
+                        end as job,
                         j.company,
                         null as place,
                         null as foursquare_id,
@@ -150,7 +156,10 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                           WHEN c.email = 0 THEN Concat('$url', u.photo)
                           ELSE ''
                         end                    AS photo,
-                        j.name                 AS job,
+                        case
+                          when j.active = 0 then concat('Former ',j.name)
+                          else j.name
+                        end as job,
                         j.company,
                         c.place as place,
                         c.foursquare_id as foursquare_id,
@@ -207,7 +216,10 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                           WHEN c.email = 0 THEN Concat('$url', u.photo)
                           ELSE ''
                         end                    AS photo,
-                        j.name                 AS job,
+                        case
+                          when j.active = 0 then concat('Former ',j.name)
+                          else j.name
+                        end as job,
                         j.company,
                         c.place as place,
                         c.foursquare_id as foursquare_id,

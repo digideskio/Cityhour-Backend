@@ -169,7 +169,10 @@ class Map extends Common {
                   t.lng,
                   u.name,
                   concat('$url',u.photo) as photo,
-                  j.name as job_name,
+                  case
+                    when j.active = 0 then concat('Former ',j.name)
+                    else j.name
+                  end as job_name,
                   j.company,
                   u.industry_id,
                   u.rating,

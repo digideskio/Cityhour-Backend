@@ -356,7 +356,12 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $url = $config->userPhoto->url;
 
             $answer = $this->_db->fetchAll("
-                select distinct(u.id),u.name,u.lastname,u.industry_id, concat ('$url', u.photo) as photo,u.phone,u.business_email,u.skype,u.rating,u.city_name,j.name as job_name, j.company as job_company
+                select distinct(u.id),u.name,u.lastname,u.industry_id, concat ('$url', u.photo) as photo,u.phone,u.business_email,u.skype,u.rating,u.city_name,
+                case
+                  when j.active = 0 then concat('Former ',j.name)
+                  else j.name
+                end as job_name,
+                j.company as job_company
                 from users u
                 left join user_jobs j on u.id = j.user_id
                 where
