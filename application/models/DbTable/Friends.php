@@ -83,7 +83,8 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                             'action' => 2
                         ));
 
-                        $text = Application_Model_Texts::push()[4];
+                        $fullName['name'] = $user['name'].' '.$user['lastname'];
+                        $text = Application_Model_Texts::push($fullName)[4];
                         (new Application_Model_DbTable_Push())->sendPush($friend_id,$text,4,array(
                             'from' => $user_id,
                             'type' => 4,

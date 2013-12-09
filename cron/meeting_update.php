@@ -31,17 +31,21 @@ foreach ($result as $row) {
 
 
 $result = $db->query("
-                        select id,user_id,place
+                        select c.id,c.user_id,c.place,u.name,u.lastname
                         from calendar c
-                        where start_time between now() + interval 85 minute and now() + interval 90 minute
-                        and type = 2
-                        and status = 2
+                        left join users u on c.user_id = u.id
+                        where c.start_time between now() + interval 85 minute and now() + interval 90 minute
+                        and c.type = 2
+                        and c.status = 2
                        ",false,true);
 
-$text2 = Application_Model_Texts::push()[8];
 foreach ($result as $row) {
     $data['place'] = $row['place'];
     $text = Application_Model_Texts::notification($data)[10];
+
+    $fullName['name'] = $row['name'].' '.$row['lastname'];
+    $text2 = Application_Model_Texts::push($fullName)[8];
+
     $text = $db->quote($text);
     $id = $row["id"];
     $user_id = $row["user_id"];

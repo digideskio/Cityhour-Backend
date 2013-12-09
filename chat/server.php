@@ -53,7 +53,8 @@ class databaseClass {
             return true;
         }
 
-        $text = Application_Model_Texts::push()[5];
+        $fullName['name'] = $user_all['name'].' '.$user_all['lastname'];
+        $text = Application_Model_Texts::push($fullName)[5];
         $data = json_encode(array(
             'from' => $from,
             'type' => 5
