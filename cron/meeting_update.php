@@ -31,7 +31,7 @@ foreach ($result as $row) {
 
 
 $result = $db->query("
-                        select c.id,c.user_id,c.place,u.name,u.lastname
+                        select c.id,c.user_id,c.place,u.name,u.lastname,c.user_id_second
                         from calendar c
                         left join users u on c.user_id = u.id
                         where c.start_time between now() + interval 85 minute and now() + interval 90 minute
@@ -43,6 +43,8 @@ foreach ($result as $row) {
     $data['place'] = $row['place'];
     $text = Application_Model_Texts::notification($data)[10];
 
+    $to = $row['user_id'];
+    $from = $row['user_id_second'];
     $che = $db->query("
             select id
             from user_friends
