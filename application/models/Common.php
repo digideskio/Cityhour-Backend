@@ -8,7 +8,7 @@ class Application_Model_Common
             Zend_Db_Table::getDefaultAdapter()->query("update users set contacts = (contacts + 1) where id in ($id)");
         }
         else {
-            Zend_Db_Table::getDefaultAdapter()->query("update users set contacts = (contacts - 1) where id in ($id)");
+            Zend_Db_Table::getDefaultAdapter()->query("update users set contacts = (contacts - 1) where id in ($id) and contacts > 0");
         }
         return true;
     }

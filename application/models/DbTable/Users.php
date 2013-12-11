@@ -41,6 +41,22 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         ");
     }
 
+    private function updateContacts($id,$status) {
+        $ids = $this->_db->fetchCol("
+            select friend_id
+            from user_friends
+            where user_id = $id
+            and status = 1
+        ");
+
+        if ($ids) {
+            $ids = implode(',',$ids);
+            Application_Model_Common::updateContacts($ids,$status);
+        }
+
+        return true;
+    }
+
     public function saveUser($data,$id) {
         $user = $this->fetchRow("id = $id")->toArray();
 
@@ -54,8 +70,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $data = array(
                 'status' => 1
             );
+            $this->updateContacts($id,false);
         }
         elseif ($data['status'] == 2 && $user['status'] != 2) {
+            $this->updateContacts($id,false);
             $this->_db->insert('deleted_users',$user);
             $data = array(
                 'email' => null,
@@ -91,14 +109,14 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             );
         }
         elseif ($user['status'] == 1 ) {
-                $data = array(
-                    'status' => 0
-                );
+            $this->updateContacts($id,true);
+            $data = array(
+                'status' => 0
+            );
         }
         else {
             return true;
         }
-
 
         $this->update($data,"id = $id");
 
@@ -543,7 +561,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $this->_db->insert('user_settings',array(
                 'user_id' => $id,
                 'name' => 'goal',
-                'value' => 1
+                'value' => 0
             ));
             $this->_db->insert('user_settings',array(
                 'user_id' => $id,

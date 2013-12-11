@@ -154,6 +154,9 @@ class Application_Model_Linkedin
                 if ($last_job) {
                     $jobs[$last_job]['current'] = 1;
                 }
+                else {
+                    $jobs[0]['current'] = 1;
+                }
             }
 
             //get Country ID
