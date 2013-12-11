@@ -13,6 +13,20 @@ class Application_Model_Common
         return true;
     }
 
+    public static function getFullname($name,$lastname,$id,$fid) {
+        $che = Zend_Db_Table::getDefaultAdapter()->fetchOne("
+            select id
+            from user_friends
+            where user_id=$id and friend_id=$fid
+            and status = 1
+            limit 1
+        ");
+        if (!$che) {
+            $lastname = trim($lastname)[0].'.';
+        }
+        return $name.' '.$lastname;
+    }
+
     public static function makeCoolDate($date,$offset) {
         if (!is_numeric($date)) {
             $date = strtotime($date);

@@ -53,7 +53,22 @@ class databaseClass {
             return true;
         }
 
-        $fullName['name'] = $user_all['name'].' '.$user_all['lastname'];
+        $che = mysql_query("
+            select id
+            from user_friends
+            where user_id=$from and friend_id=$to
+            and status = 1
+            limit 1
+        ");
+
+        if (!isset(mysql_fetch_assoc($che)['id'])) {
+            $lastname = trim($user_all['lastname'])[0].'.';
+        }
+        else {
+            $lastname = $user_all['lastname'];
+        }
+
+        $fullName['name'] = $user_all['name'].' '.$lastname;
         $text = Application_Model_Texts::push($fullName)[5];
         $data = json_encode(array(
             'from' => $from,

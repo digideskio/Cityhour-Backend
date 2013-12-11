@@ -43,7 +43,22 @@ foreach ($result as $row) {
     $data['place'] = $row['place'];
     $text = Application_Model_Texts::notification($data)[10];
 
-    $fullName['name'] = $row['name'].' '.$row['lastname'];
+    $che = $db->query("
+            select id
+            from user_friends
+            where user_id=$from and friend_id=$to
+            and status = 1
+            limit 1
+        ",true,false);
+
+    if (!isset($che['id'])) {
+        $lastname = trim($row['lastname'])[0].'.';
+    }
+    else {
+        $lastname = $row['lastname'];
+    }
+
+    $fullName['name'] = $row['name'].' '.$lastname;
     $text2 = Application_Model_Texts::push($fullName)[8];
 
     $text = $db->quote($text);

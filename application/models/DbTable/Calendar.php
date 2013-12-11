@@ -277,7 +277,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $fullName['name'] = $user['name'].' '.$user['lastname'];
+                $fullName['name'] = Application_Model_Common::getFullname($user['name'],$user['lastname'],$user['id'],$slot['user_id']);
                 $text = Application_Model_Texts::push($fullName)[2];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
@@ -414,7 +414,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $fullName['name'] = $user['name'].' '.$user['lastname'];
+                $fullName['name'] = Application_Model_Common::getFullname($user['name'],$user['lastname'],$user['id'],$slot['user_id']);
                 $text = Application_Model_Texts::push($fullName)[2];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id'],$text,2,array(
                     'from' => $user['id'],
@@ -811,7 +811,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                 'action' => 0
             ));
 
-            $fullName['name'] = $user['name'].' '.$user['lastname'];
+            $fullName['name'] = Application_Model_Common::getFullname($user['name'],$user['lastname'],$user['id'],$user_second);
             $text = Application_Model_Texts::push($fullName)[$pType];
             (new Application_Model_DbTable_Push())->sendPush($user_second,$text,$pType,array(
                 'from' => $user['id'],
@@ -989,7 +989,7 @@ class Application_Model_DbTable_Calendar extends Zend_Db_Table_Abstract
                     'action' => 1
                 ));
 
-                $fullName['name'] = $user['name'].' '.$user['lastname'];
+                $fullName['name'] = Application_Model_Common::getFullname($user['name'],$user['lastname'],$user['id'],$slot['user_id_second']);
                 $text = Application_Model_Texts::push($fullName)[1];
                 (new Application_Model_DbTable_Push())->sendPush($slot['user_id_second'],$text,1,array(
                     'from' => $user['id'],
