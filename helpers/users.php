@@ -1,115 +1,67 @@
 <?php
+require 'classes/Users.class.php';
 
-use Swagger\Annotations as SWG;
-/**
- * @SWG\Resource(
- *  resourcePath="/helpers"
- * )
- */
-
-/**
- *
- * @SWG\Model(id="GetUsersParams")
- * @SWG\Property(name="private_key",type="string")
- * @SWG\Property(name="data",type="Array")
- *
- * @SWG\Property(name="offset",type="int")
- * @SWG\Property(name="data_from",type="timestamp")
- * @SWG\Property(name="data_to",type="timestamp")
- * @SWG\Property(name="time_from",type="timestamp")
- * @SWG\Property(name="time_to",type="timestamp")
- *
- *
- * @SWG\Api(
- *   path="/users.php",
- *   @SWG\Operations(
- *     @SWG\Operation(
- *       httpMethod="POST",
- *       summary="Get Users.",
- *       responseClass="void",
- *       nickname="GetUsers",
- *       notes="",
- *       @SWG\ErrorResponses(
- *          @SWG\ErrorResponse(
- *            code="400",
- *            reason="Not all params correct."
- *          ),
- *           @SWG\ErrorResponse(
- *            code="401",
- *            reason="Have no permissions."
- *          ),
- *           @SWG\ErrorResponse(
- *            code="407",
- *            reason="Current user blocked."
- *          ),
- *			@SWG\ErrorResponse(
- *            code="410",
- *            reason="No one found."
- *          ),
- *           @SWG\ErrorResponse(
- *            code="500",
- *            reason="Server side problem."
- *          )
- *       ),
- * @SWG\Parameter(
- *           name="json",
- *           description="json",
- *           paramType="body",
- *           required="true",
- *           allowMultiple="false",
- *           dataType="GetUsersParams"
- *         )
- *     )
- *   )
- * )
- */
+//$data = '
+//{
+//    "private_key": "31934776312e9458f5eeb61a36c6227ea3b7a60b52a9823aaa4c6",
+//    "debug": true,
+//    "data_to": 1386892800,
+//    "time_to": 1386738000,
+//    "time_from": 1386820800,
+//    "offset": -18000,
+//    "data_from": 1386892800,
+//    "lat": 40.723779,
+//    "lng": -73.99128899999999,
+//      "data": [
+//      {
+//        "id": "92",
+//        "user_id": "4111"
+//      }
+//    ]
+//}
+//';
 
 
 $data = file_get_contents("php://input");
 $data = json_decode($data,true);
 $debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
-
 if ($debug) require_once '../vendor/ref/ref.php';
-require 'classes/Common.class.php';
-$cls = new Common($debug);
 
-$che = true;
-if (isset($data["private_key"])) $token = $data["private_key"]; else $che = false;
-if (isset($data["data"])) $ids = $data["data"]; else $che = false;
-if (isset($data["data_from"])) $cls->q_s = $data["data_from"]; else $che = false;
-if (isset($data["data_to"])) $cls->q_e = $data["data_to"]; else $che = false;
-if (isset($data["time_from"])) $cls->t_s = $data["time_from"]; else $che = false;
-if (isset($data["time_to"])) $cls->t_e = $data["time_to"]; else $che = false;
-if (isset($data["offset"])) $cls->offset = $data["offset"]; else $che = false;
+$cls = new Users($debug);
 
-if (!$che) $cls->answer('Not all params given',400);
-
-$cls->start();
 $cls->connect();
-$cls->getUser($data['private_key']);
+$cls->getValues($data);
+
 $slots = array();
 $first = array();
 $users = array();
 $i = 0;
 
-foreach ($ids as $row) {
-    if ($i < 25) {
-        array_push($first,$row['id']);
-    }
-    else {
-        array_push($slots,$row);
-    }
+foreach ($cls->ids as $row) {
+    if (isset($row['user_id']) && is_numeric($row['user_id']) && isset($row['id']) && is_numeric($row['id'])) {
+        if ($i < 25) {
+            array_push($first,$row['id']);
+        }
+        else {
+            array_push($slots,$row);
+        }
 
-    if (!in_array($row['user_id'],$users)) {
-        $i++;
-        array_push($users,$row['user_id']);
+        if (!in_array($row['user_id'],$users)) {
+            $i++;
+            array_push($users,$row['user_id']);
+        }
     }
 }
 
 if ($first) {
-    $cls->free = $cls->checkFree();
+    $users = $cls->getUsers($first);
+    if (!$users && is_numeric($cls->lat) && is_numeric($cls->lng)) {
+        $cls->getMoreTime();
+        $users = $cls->getUsers($first);
+    }
+
     $cls->answer(array(
-        'users' => $cls->getUsers($first),
+        'users' => $users,
         'data' => $slots
     ),200);
 }

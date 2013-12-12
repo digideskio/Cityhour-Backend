@@ -58,6 +58,7 @@ foreach ($result as $row) {
         else {
             unset($row['start_time']);
             unset($row['end_time']);
+            unset($row['dist']);
             array_push($slots,$row);
             array_push($count,$row['id']);
         }

@@ -40,6 +40,11 @@ class Common {
     /** @var int $offset Time offset */
     var $offset;
 
+    /** @var float $lat Query lat */
+    /** @var float $lng Query lng */
+    var $lat;
+    var $lng;
+
     public function start() {
         date_default_timezone_set("UTC");
         $this->b_s = '09:00:00';

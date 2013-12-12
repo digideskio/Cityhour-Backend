@@ -77,11 +77,6 @@ class Suggest extends Common {
     var $t_s;
     var $t_e;
 
-    /** @var float $lat Query lat */
-    /** @var float $lng Query lng */
-    var $lat;
-    var $lng;
-
     /** @var int $user_id Id of user */
     var $user_id;
 
