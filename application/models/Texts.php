@@ -32,11 +32,11 @@ class Application_Model_Texts
             3 => 'New meeting request', // 'Meeting request',
             4 => '$$$name$$$ accepted your meeting invite on $$$date$$$ at '.$data['place'], // 'Meeting accept',
             5 => 'Meeting reject', // Not Used
-            6 => '$$$name$$$ canceled meeting on $$$date$$$ at '.$data['place'], // 'Meeting canceled',
+            6 => '$$$name$$$ canceled your meeting on $$$date$$$ at '.$data['place'], // 'Meeting canceled',
             7 => 'Your LinkedIn contact $$$name$$$ joined CityHour', // 'User registered linkedin',
             8 => 'Your Facebook friend $$$name$$$ joined CityHour', // 'User registered facebook',
             9 => 'New meeting request', // 'Meeting request user not free',
-            10 => 'You have meeting with $$$name$$$ at '.$data['place'].' soon.', // 'Meeting come',
+            10 => 'You have a meeting with $$$name$$$ in one hour at '.$data['place'], // 'Meeting come',
             11 => 'Don’t forget to rate meeting with $$$name$$$ on $$$date$$$ at '.$data['place'], // 'Rate meeting',
             12 => 'System' // Custom
         );
@@ -44,4 +44,3 @@ class Application_Model_Texts
 
 
 }
-
