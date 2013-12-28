@@ -22,9 +22,12 @@ class Application_Model_Linkedin
         ));
         $user_id = $user['id'];
         $slot_id = $slot['id'];
+        $start_time = $slot["start_time"] + $slot["offset"];
+        $with = "";
+
         $data = "
             <share>
-              <comment>Hello Linkedin</comment>
+              <comment>I just supercharged my network and booked a meeting with $with from $start_time using the CityHour app!</comment>
               <content>
                 <title>Test share API</title>
                 <description>Test description</description>
