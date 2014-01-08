@@ -103,10 +103,10 @@ class Common {
         $uids = '';
 
         if ($this->lat && $this->lng) {
-            $order = "(3959 * acos(cos(radians($this->lat)) * cos(radians(lat)) * cos( radians(lng) - radians($this->lng)) + sin(radians($this->lat)) * sin(radians(lat))))";
+            $order = "(3959 * acos(cos(radians($this->lat)) * cos(radians(lat)) * cos( radians(lng) - radians($this->lng)) + sin(radians($this->lat)) * sin(radians(lat)))) as dist";
         }
         else {
-            $order = 'c.type, c.start_time';
+            $order = 'c.type as dist';
         }
 
         foreach ($this->free as $row) {
@@ -172,7 +172,8 @@ class Common {
                        c.offset as fp_offset,
                        c.city_name as fp_city_name,
                        c.lat as fp_lat,
-                       c.lng as fp_lng
+                       c.lng as fp_lng,
+                       $order
                 FROM   free_slots c
                        INNER JOIN (SELECT Min(start_time) AS start_time,
                                           type,
@@ -193,7 +194,7 @@ class Common {
                 $uids
                 GROUP  BY c.user_id
                 having ( fp_end_time - fp_start_time ) >= 3600
-                ORDER  BY $order asc
+                ORDER  BY c.start_time asc
             ",false,true);
 
             foreach ($find as $row) {
@@ -207,6 +208,8 @@ class Common {
 
             $result = array_merge($result,$find);
         }
+
+        $result = $this->sortByDist($result);
 
 
 		foreach($result as $num=>$res) {
@@ -609,6 +612,13 @@ class Common {
                 die();
             }
         }
+    }
+
+    public function sortByDist ($data) {
+        usort($data, function ($a, $b) {
+            return strcmp($a["dist"], $b["dist"]);
+        });
+        return $data;
     }
 
     public function sortByUser ($data) {

@@ -137,11 +137,4 @@ class Suggest extends Common {
         return $result;
     }
 
-    private function sortByDist ($data) {
-        usort($data, function ($a, $b) {
-            return strcmp($a["dist"], $b["dist"]);
-        });
-        return $data;
-    }
-
 }

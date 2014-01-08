@@ -23,6 +23,7 @@ class Application_Model_Linkedin
         $user_id = $user['id'];
         $slot_id = $slot['id'];
         $start_time = $slot["start_time"] + $slot["offset"];
+        $start_time = gmdate('m/d/Y H:i:s', (int)$start_time);
         $with = (new Application_Model_DbTable_Users)->getUser($slot['user_id_second'],$user,'id',false,false);
         $with = $with['name'].' '.substr($with['lastname'],0,1).'.';
 
