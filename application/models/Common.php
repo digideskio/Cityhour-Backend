@@ -89,6 +89,10 @@ class Application_Model_Common
             $min = new DateTime($res[0]['start_time']);
             $max = new DateTime(gmdate('Y-m-d H:i:s',time()));
             $end = $res[0]['end_time'];
+            if (!$end || !strtotime($end) || strtotime($end) < 1) {
+                $end = gmdate('Y-m-d H:i:s',time());
+            }
+
             $all = $max->diff($min);
             $month = 0;
             foreach ($res as $num => $row) {

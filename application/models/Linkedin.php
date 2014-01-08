@@ -23,14 +23,15 @@ class Application_Model_Linkedin
         $user_id = $user['id'];
         $slot_id = $slot['id'];
         $start_time = $slot["start_time"] + $slot["offset"];
-        $with = "";
+        $with = (new Application_Model_DbTable_Users)->getUser($slot['user_id_second'],$user,'id',false,false);
+        $with = $with['name'].' '.substr($with['lastname'],0,1).'.';
 
         $data = "
             <share>
               <comment>I just supercharged my network and booked a meeting with $with from $start_time using the CityHour app!</comment>
               <content>
-                <title>Test share API</title>
-                <description>Test description</description>
+                <title>Cityhour</title>
+                <description>Cityhour</description>
                 <submitted-url>http://cityhour.com/meeting/?uid=$user_id&amp;id=$slot_id</submitted-url>
                 <submitted-image-url>http://cityhour.com/site/img/logo.png</submitted-image-url>
               </content>
