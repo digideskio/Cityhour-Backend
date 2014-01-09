@@ -30,7 +30,7 @@ class Application_Model_Texts
             1 => '$$$name$$$ accepted your contact request', // 'Friends accept',
             2 => 'Friends reject', // Not Used
             3 => 'New meeting request', // 'Meeting request',
-            4 => '$$$name$$$ accepted your meeting invite on $$$date$$$ at '.$data['place'], // 'Meeting accept',
+            4 => '$$$name$$$ accepted your invitation to meet $$$date$$$ at '.$data['place'], // 'Meeting accept',
             5 => 'Meeting reject', // Not Used
             6 => '$$$name$$$ canceled your meeting on $$$date$$$ at '.$data['place'], // 'Meeting canceled',
             7 => 'Your LinkedIn contact $$$name$$$ joined CityHour', // 'User registered linkedin',
