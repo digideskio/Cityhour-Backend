@@ -1,0 +1,71 @@
+<h1>
+    <a href="/">Events</a>
+    <span class="glyphicon glyphicon-play btn btn-sm grey breadcrumbsIcon"></span>
+    <?php if ($this->name) { echo $this->name; } else { ?>Добавить event <?php } ?>
+</h1>
+
+<?php if ($this->err) { ?>
+    <div class="alert alert-danger">
+        <?php echo $this->err;?>
+    </div>
+<?php } ?>
+<?php if ($this->save) { ?>
+    <div class="alert alert-success">
+        Изменения успешно сохранены.
+    </div>
+<?php } ?>
+
+<form id="categoriesForm" enctype="application/x-www-form-urlencoded" method="post" action="">
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'user_id_second')?>">
+        <div class="grey ml10">
+            Имя с кем<span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('user_id_second') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'user_id_second')?></span>
+    </div>
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'start_time')?>">
+        <div class="grey ml10">
+            Начало <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('start_time') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'start_time')?></span>
+    </div>
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'end_time')?>">
+        <div class="grey ml10">
+            Конец <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('end_time') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'end_time')?></span>
+    </div>
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'goal')?>">
+        <div class="grey ml10">
+            Цель <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('goal') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'goal')?></span>
+    </div>
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'type')?>">
+        <div class="grey ml10">
+            Тип <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('type') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'type')?></span>
+    </div>
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'status')?>">
+        <div class="grey ml10">
+            Статус <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('status') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'status')?></span>
+    </div>
+
+
+    <div class="bottomSaveBox">
+        <div class="crudButtons">
+            <?=$this->form->getElement('ok') ?>
+            <span class="helpButtons"><a class="btn btn-lg btn-default saveBoxButton" href="/">Отмена</a></span>
+            <?php if ($this->name) { ?><span class="helpButtons"><a class="btn btn-lg btn-danger pull-right saveBoxButton mr20" href="/calendar/delete/id/<?=$this->id?>">Удалить event</a></span><?php } ?>
+        </div>
+    </div>
+
+</form>

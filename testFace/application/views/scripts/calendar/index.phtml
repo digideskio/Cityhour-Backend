@@ -1,0 +1,67 @@
+<h1>
+    Events
+    <a href="/calendar/edit/" class="btn btn-success btn-lg pull-right" style="margin-top: -7px;">Добавить event</a>
+</h1>
+
+
+<?php if ($this->err) { ?>
+    <div class="alert alert-danger">
+        <?php echo $this->err;?>
+    </div>
+<?php } ?>
+<?php if ($this->save) { ?>
+    <div class="alert alert-success">
+        Event добавлено.
+    </div>
+<?php } ?>
+
+<?php if ($this->events) { ?>
+    <table class="table myTable">
+        <thead>
+        <tr></tr>
+        <tr class="active" style="height: 50px;">
+            <th style="padding-left: 20px;">Пользователь</th>
+            <th>Начало</th>
+            <th>Конец</th>
+            <th>Цель</th>
+            <th>Тип</th>
+            <th>Статус</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach($this->events as $row) { ?>
+            <tr id="<?=$row['id']?>" data-id="<?=$row['id']?>">
+                <td style="padding-left: 20px;"><?=$row['user_id_second']?></td>
+                <td><?=$row['start_time']?></td>
+                <td><?=$row['end_time']?></td>
+                <td><?=$row['goal']?></td>
+                <td><?=$row['type']?></td>
+                <td><?=$row['status']?></td>
+                <td>
+                    <a class="btn btn-default btn-sm" href="/calendar/edit/id/<?=$row['id']?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default btn-sm" href="/calendar/delete/id/<?=$row['id']?>"><span class="glyphicon glyphicon-trash"></span></a>
+                </td>
+            </tr>
+        <?php } ?>
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+<?php } else { ?>
+    <div class="noItems">
+        <div class="noItemsIcon"><span class="glyphicon glyphicon-expand"></span></div>
+        <div class="noItemsText">Список event пуст</div>
+    </div>
+<?php } ?>
+
+<div class="addCategoryBox mt80">
+    <div class="pull-center"><a href="/calendar/edit/" class="btn btn-success btn-lg">Добавить event</a></div>
+</div>

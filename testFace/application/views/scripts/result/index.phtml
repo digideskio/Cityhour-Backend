@@ -1,0 +1,50 @@
+<h1>
+    Ожидаемый результат
+    <span class="glyphicon glyphicon-play btn btn-sm grey breadcrumbsIcon"></span>
+    <?=$this->name?>
+</h1>
+
+<?php if ($this->err) { ?>
+    <div class="alert alert-danger">
+        <?php echo $this->err;?>
+    </div>
+<?php } ?>
+<?php if ($this->save) { ?>
+    <div class="alert alert-success">
+        Изменения успешно сохранены.
+    </div>
+<?php } ?>
+
+<form id="categoriesForm" enctype="application/x-www-form-urlencoded" method="post" action="">
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'is_free')?>">
+        <div class="grey ml10">
+            Свободен ?<span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('is_free') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'is_free')?></span>
+    </div>
+
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'start_time')?>">
+        <div class="grey ml10">
+            Свободен с <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('start_time') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'start_time')?></span>
+    </div>
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'end_time')?>">
+        <div class="grey ml10">
+            Свободен до <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('end_time') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'end_time')?></span>
+    </div>
+
+
+    <div class="bottomSaveBox">
+        <div class="crudButtons">
+            <?=$this->form->getElement('ok') ?>
+            <span class="helpButtons"><a class="btn btn-lg btn-default saveBoxButton" href="/">Отмена</a></span>
+        </div>
+    </div>
+
+</form>
