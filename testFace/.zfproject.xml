@@ -30,6 +30,7 @@
         <formFile formName="User"/>
         <formFile formName="Result"/>
         <formFile formName="Event"/>
+        <formFile formName="Run"/>
       </formsDirectory>
       <layoutsDirectory>
         <layoutScriptsDirectory>

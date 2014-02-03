@@ -20,7 +20,7 @@ class IndexController extends Zend_Controller_Action
         $id = (is_numeric($id)) ? $id:0;
 
         $db = new Application_Model_DbTable_TestUsers();
-        $form = new Application_Form_Result(array('data' => (int)$id));
+        $form = new Application_Form_User(array('data' => (int)$id));
 
         $origData =  ($id) ? $db->getUser($id):array();
 

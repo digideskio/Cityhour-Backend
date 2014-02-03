@@ -1,5 +1,5 @@
 <h1>
-    <a href="/">Events</a>
+    <a href="/calendar/index/id/<?=$this->user?>">Events</a>
     <span class="glyphicon glyphicon-play btn btn-sm grey breadcrumbsIcon"></span>
     <?php if ($this->name) { echo $this->name; } else { ?>Добавить event <?php } ?>
 </h1>
@@ -44,6 +44,13 @@
         <?=$this->form->getElement('goal') ?>
         <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'goal')?></span>
     </div>
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'city')?>">
+        <div class="grey ml10">
+            Город <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('city') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'city')?></span>
+    </div>
     <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'type')?>">
         <div class="grey ml10">
             Тип <span class="red">*</span>
@@ -59,12 +66,20 @@
         <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'status')?></span>
     </div>
 
+    <div class="form-group <?=Application_Model_Common::hasErrors($this->form,'offset')?>">
+        <div class="grey ml10">
+            Зона <span class="red">*</span>
+        </div>
+        <?=$this->form->getElement('offset') ?>
+        <span class="ml10 red"><?=Application_Model_Common::renderErrors($this->form,'offset')?></span>
+    </div>
+
 
     <div class="bottomSaveBox">
         <div class="crudButtons">
             <?=$this->form->getElement('ok') ?>
-            <span class="helpButtons"><a class="btn btn-lg btn-default saveBoxButton" href="/">Отмена</a></span>
-            <?php if ($this->name) { ?><span class="helpButtons"><a class="btn btn-lg btn-danger pull-right saveBoxButton mr20" href="/calendar/delete/id/<?=$this->id?>">Удалить event</a></span><?php } ?>
+            <span class="helpButtons"><a class="btn btn-lg btn-default saveBoxButton" href="/calendar/index/id/<?=$this->user?>">Отмена</a></span>
+            <?php if ($this->name) { ?><span class="helpButtons"><a class="btn btn-lg btn-danger pull-right saveBoxButton mr20" href="/calendar/delete/id/<?=$this->id?>/uid/<?=$this->user?>">Удалить event</a></span><?php } ?>
         </div>
     </div>
 

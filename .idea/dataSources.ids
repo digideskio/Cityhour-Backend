@@ -701,8 +701,8 @@
       <column name="user_id_second" sqlType="BIGINT UNSIGNED" length="20" precision="0" nullable="true" jdbcType="-5"/>
       <column name="calendar_name" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="hash" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
-      <column name="start_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
-      <column name="end_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
+      <column name="start_time" sqlType="TIME" length="8" precision="0" nullable="true" jdbcType="92"/>
+      <column name="end_time" sqlType="TIME" length="8" precision="0" nullable="true" jdbcType="92"/>
       <column name="goal" sqlType="INT UNSIGNED" length="10" precision="0" nullable="true" jdbcType="4"/>
       <column name="goal_str" sqlType="VARCHAR" length="1000" precision="0" nullable="true" jdbcType="12"/>
       <column name="offset" sqlType="INT" length="10" precision="0" nullable="false" jdbcType="4" def="MA=="/>
@@ -721,11 +721,25 @@
       <index name="ind_hash" unique="false" columns="hash"/>
       <index name="ind_find" unique="false" columns="user_id,start_time,end_time,type,status"/>
     </table>
+    <table name="test_city" schema="" catalog="truebear" type="TABLE">
+      <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="city" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="city_name" sqlType="VARCHAR" length="200" precision="0" nullable="true" jdbcType="12"/>
+      <column name="lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="n_lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="n_lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="s_lat" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <column name="s_lng" sqlType="FLOAT" length="12" precision="0" nullable="true" jdbcType="7"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="und_city" unique="true" columns="city"/>
+    </table>
     <table name="test_result" schema="" catalog="truebear" type="TABLE">
       <column name="id" sqlType="INT UNSIGNED" length="10" precision="0" nullable="false" jdbcType="4" autoIncrement="true"/>
       <column name="user_id" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
-      <column name="start_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
-      <column name="end_time" sqlType="TIMESTAMP" length="19" precision="0" nullable="true" jdbcType="93"/>
+      <column name="start_time" sqlType="TIME" length="8" precision="0" nullable="true" jdbcType="92"/>
+      <column name="end_time" sqlType="TIME" length="8" precision="0" nullable="true" jdbcType="92"/>
+      <column name="is_free" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
       <primary-key name="PRIMARY" columns="id"/>
     </table>
     <table name="test_user_jobs" schema="" catalog="truebear" type="TABLE">
@@ -783,6 +797,7 @@
       <column name="linkedin_id" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="private_key" sqlType="VARCHAR" length="255" precision="0" nullable="true" jdbcType="12"/>
       <column name="status" sqlType="TINYINT" length="3" precision="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="order" sqlType="INT" length="10" precision="0" nullable="true" jdbcType="4"/>
       <primary-key name="PRIMARY" columns="id"/>
       <index name="unq_email" unique="true" columns="email"/>
       <index name="unq_private" unique="true" columns="private_key"/>

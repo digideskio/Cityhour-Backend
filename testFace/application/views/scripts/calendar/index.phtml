@@ -1,6 +1,8 @@
 <h1>
     Events
-    <a href="/calendar/edit/" class="btn btn-success btn-lg pull-right" style="margin-top: -7px;">Добавить event</a>
+    <span class="glyphicon glyphicon-play btn btn-sm grey breadcrumbsIcon"></span>
+    <?=$this->name?>
+    <a href="/calendar/edit/uid/<?=$this->user?>" class="btn btn-success btn-lg pull-right" style="margin-top: -7px;">Добавить event</a>
 </h1>
 
 
@@ -24,27 +26,33 @@
             <th>Начало</th>
             <th>Конец</th>
             <th>Цель</th>
+            <th>Город</th>
             <th>Тип</th>
             <th>Статус</th>
+            <th>Зона</th>
             <th></th>
         </tr>
         </thead>
         <tbody>
         <?php foreach($this->events as $row) { ?>
             <tr id="<?=$row['id']?>" data-id="<?=$row['id']?>">
-                <td style="padding-left: 20px;"><?=$row['user_id_second']?></td>
+                <td style="padding-left: 20px;"><?=$row['user']?></td>
                 <td><?=$row['start_time']?></td>
                 <td><?=$row['end_time']?></td>
-                <td><?=$row['goal']?></td>
-                <td><?=$row['type']?></td>
-                <td><?=$row['status']?></td>
+                <td><?=(new Application_Model_DbTable_Goals)->getList()[$row['goal']]?></td>
+                <td><?=$row['city_name']?></td>
+                <td><?=Application_Model_DbTable_TestCalendar::typeCalendar()[$row['type']]?></td>
+                <td><?=Application_Model_DbTable_TestCalendar::statusCalendar()[$row['status']]?></td>
+                <td><?=$row['offset']?></td>
                 <td>
-                    <a class="btn btn-default btn-sm" href="/calendar/edit/id/<?=$row['id']?>"><span class="glyphicon glyphicon-pencil"></span></a>
-                    <a class="btn btn-default btn-sm" href="/calendar/delete/id/<?=$row['id']?>"><span class="glyphicon glyphicon-trash"></span></a>
+                    <a class="btn btn-default btn-sm" href="/calendar/edit/id/<?=$row['id']?>/uid/<?=$this->user?>"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a class="btn btn-default btn-sm" href="/calendar/delete/id/<?=$row['id']?>/uid/<?=$this->user?>"><span class="glyphicon glyphicon-trash"></span></a>
                 </td>
             </tr>
         <?php } ?>
         <tr>
+            <td></td>
+            <td></td>
             <td></td>
             <td></td>
             <td></td>
@@ -63,5 +71,5 @@
 <?php } ?>
 
 <div class="addCategoryBox mt80">
-    <div class="pull-center"><a href="/calendar/edit/" class="btn btn-success btn-lg">Добавить event</a></div>
+    <div class="pull-center"><a href="/calendar/edit/uid/<?=$this->user?>" class="btn btn-success btn-lg">Добавить event</a></div>
 </div>
