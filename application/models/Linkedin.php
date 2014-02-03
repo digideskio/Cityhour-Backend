@@ -22,7 +22,7 @@ class Application_Model_Linkedin
               <content>
                 <title>Cityhour</title>
                 <description>Cityhour</description>
-                <submitted-url>https://itunes.apple.com/us/app/cityhour/id796972154?ls=1&mt=8</submitted-url>
+                <submitted-url>https://itunes.apple.com/us/app/cityhour/id796972154?ls=1</submitted-url>
                 <submitted-image-url>http://cityhour.com/site/img/logo.png</submitted-image-url>
               </content>
               <visibility>
@@ -39,7 +39,6 @@ class Application_Model_Linkedin
         $client->setRawData($data,'text/xml');
         $client->setHeaders('Content-Type', 'text/xml');
         $client->request('POST');
-
         return 200;
     }
 
