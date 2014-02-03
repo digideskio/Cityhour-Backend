@@ -240,8 +240,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         $this->_db->update('user_jobs',array(
                             'name' => $row['name'],
                             'company' => $row['company'],
-                            'current' => $jobs_input->getEscaped('current'),
-                            'active' => $jobs_input->getEscaped('active'),
+                            'current' => (int)$jobs_input->getEscaped('current'),
+                            'active' => (int)$jobs_input->getEscaped('active'),
                             'start_time' => $jobs_input->getEscaped('start_time'),
                             'end_time' => $jobs_input->getEscaped('end_time')
                         ),"id = $job_id");
@@ -251,8 +251,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                             'user_id' => $user_id,
                             'name' => $row['name'],
                             'company' => $row['company'],
-                            'current' => $jobs_input->getEscaped('current'),
-                            'active' => $jobs_input->getEscaped('active'),
+                            'current' => (int)$jobs_input->getEscaped('current'),
+                            'active' => (int)$jobs_input->getEscaped('active'),
                             'start_time' => $jobs_input->getEscaped('start_time'),
                             'end_time' => $jobs_input->getEscaped('end_time'),
                             'type' => 0
@@ -292,8 +292,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                                 'name' => $row['name'],
                                 'company' => $row['company'],
                                 'start_time' => $jobs_input->getEscaped('start_time'),
-                                'current' => $jobs_input->getEscaped('current'),
-                                'active' => $jobs_input->getEscaped('active'),
+                                'current' => (int)$jobs_input->getEscaped('current'),
+                                'active' => (int)$jobs_input->getEscaped('active'),
                                 'end_time' => $jobs_input->getEscaped('end_time')
                             ),"id = $job_id");
                         }
@@ -303,8 +303,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                                 'name' => $row['name'],
                                 'company' => $row['company'],
                                 'start_time' => $jobs_input->getEscaped('start_time'),
-                                'current' => $jobs_input->getEscaped('current'),
-                                'active' => $jobs_input->getEscaped('active'),
+                                'current' => (int)$jobs_input->getEscaped('current'),
+                                'active' => (int)$jobs_input->getEscaped('active'),
                                 'end_time' => $jobs_input->getEscaped('end_time'),
                                 'type' => 1
                             ));
@@ -486,18 +486,31 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     'start_time' => array('StringTrim','HtmlEntities'),
                     'end_time' => array('StringTrim','HtmlEntities'),
                 );
+                $current = false;
                 foreach($data['jobs'] as $num=>$row) {
                     $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
-                    $this->_db->insert('user_jobs',array(
+                    $jid = $this->_db->insert('user_jobs',array(
                         'user_id' => $id,
                         'name' => $row['name'],
                         'company' => $row['company'],
-                        'current' => $jobs_input->getEscaped('current'),
-                        'active' => $jobs_input->getEscaped('active'),
+                        'current' => (int)$jobs_input->getEscaped('current'),
+                        'active' => (int)$jobs_input->getEscaped('active'),
                         'start_time' => $jobs_input->getEscaped('start_time'),
                         'end_time' => $jobs_input->getEscaped('end_time'),
                         'type' => 0
                     ));
+
+                    if ($jobs_input->getEscaped('current')) {
+                        $current = true;
+                    }
+
+                }
+
+                if (!$current) {
+                    $this->_db->update("user_jobs",array(
+                        'current' => 1,
+                        'active' => 1
+                    ),"id = $jid");
                 }
             }
 
@@ -517,8 +530,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         'user_id' => $id,
                         'name' => $row['name'],
                         'company' => $row['company'],
-                        'current' => $jobs_input->getEscaped('current'),
-                        'active' => $jobs_input->getEscaped('active'),
+                        'current' => (int)$jobs_input->getEscaped('current'),
+                        'active' => (int)$jobs_input->getEscaped('active'),
                         'start_time' => $jobs_input->getEscaped('start_time'),
                         'end_time' => $jobs_input->getEscaped('end_time'),
                         'type' => 1
