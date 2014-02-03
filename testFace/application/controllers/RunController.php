@@ -28,7 +28,7 @@ class RunController extends Zend_Controller_Action
 
     private function runTest($formData) {
         $url = "http://meetrocket2.demo.alterplay.com/";
-        $url = "http://127.0.0.1:5555/";
+//        $url = "http://127.0.0.1:5555/";
         $url_post = $url.'findPeople.php';
         $url_update = $url.'updateAll.php';
         file_get_contents($url_update);
@@ -62,11 +62,10 @@ class RunController extends Zend_Controller_Action
         }
 
         $data = json_encode($data);
-
         $client = new Zend_Http_Client($url_post);
         $client->setMethod('POST');
         $res = $client->setRawData($data, 'application/json')->request('POST');
-        $res = json_decode($res->getRawBody(),true);
+        $res = json_decode($res->getBody(),true);
         $final = '';
         $this->view->dd = $res;
 

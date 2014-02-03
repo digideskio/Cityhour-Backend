@@ -89,14 +89,12 @@ class Application_Form_Event extends Zend_Form
             ));
 
         $validator_int = new Zend_Validate_Int();
-        $validator_max = new Zend_Validate_LessThan(25);
         $offset = new Zend_Form_Element_Text('offset');
         $offset->setRequired(false)
             ->addFilter("StripTags")
             ->addFilter('StringTrim')
-            ->setValue(2)
+            ->setValue(7200)
             ->addValidator($validator_int)
-            ->addValidator($validator_max)
             ->setAttribs(array(
                 'class' => 'form-control input-lg',
                 'placeholder' => '2'
