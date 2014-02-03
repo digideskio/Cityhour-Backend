@@ -9,13 +9,6 @@ class Application_Model_Linkedin
             return 404;
         }
 
-        if ($slot['type'] == 1) {
-
-        }
-        elseif ($slot['type'] == 2) {
-
-        }
-
         $params = http_build_query(array(
             'oauth2_access_token' => $token,
             'format' => 'json',

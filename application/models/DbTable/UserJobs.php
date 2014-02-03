@@ -14,7 +14,7 @@ class Application_Model_DbTable_UserJobs extends Zend_Db_Table_Abstract
     }
 
     public function getCurrentJob($id) {
-        return $this->fetchRow("user_id = $id and `type` = 1 and current = 1")->toArray();
+        return $this->fetchRow("user_id = $id and `type` = 0 and current = 1")->toArray();
     }
 
 }

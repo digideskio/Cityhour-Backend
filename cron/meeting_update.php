@@ -73,6 +73,6 @@ foreach ($result as $row) {
         'action' => 7
     );
     $data = json_encode($data);
-    mysql_query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$user_id','8','$text2','$data')");
-    mysql_query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','10','7','0','$id',$text)");
+    $db->query("insert into push_messages (`user_id`, `type`, `alert`, `data`) values ('$user_id','8','$text2','$data')");
+    $db->query("insert into notifications (`from`, `to`, `type`, `action`, `template`, `item`, `text`) values ('0','$user_id','10','7','0','$id',$text)");
 }
