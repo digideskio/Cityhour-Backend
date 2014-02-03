@@ -23,7 +23,7 @@ class Application_Model_Linkedin
                 <title>Cityhour</title>
                 <description>Cityhour</description>
                 <submitted-url>https://itunes.apple.com/us/app/cityhour/id796972154?ls=1</submitted-url>
-                <submitted-image-url>http://cityhour.com/site/img/logo.png</submitted-image-url>
+                <submitted-image-url>http://cityhour.com/og_image_v2.png</submitted-image-url>
               </content>
               <visibility>
                 <code>anyone</code>
