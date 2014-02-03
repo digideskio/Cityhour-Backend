@@ -1,18 +1,18 @@
 <?php
 
-// $data = '
-//    {
-//        "private_key": "31934776312e9458f5eeb61a36c6227ea3b7a60b52a9823aaa4c6",
-//        "debug": true,
-//        "data_to": 1389207600,
-//        "time_to": 1389207600,
-//        "time_from": 1389204000,
-//        "offset": -18000,
-//        "data_from": 1389204000,
-//        "lat": 40.7144,
-//        "lng": -74.006
-//    }
-// ';
+//$data = '
+//{
+//    "private_key": "2",
+//    "debug": true,
+//    "data_to": 1389207600,
+//    "time_to": 1389207600,
+//    "time_from": 1389204000,
+//    "offset": -18000,
+//    "data_from": 1389204000,
+//    "lat": 40.7144,
+//    "lng": -74.006
+//}
+//';
 
 
 $data = file_get_contents("php://input");
