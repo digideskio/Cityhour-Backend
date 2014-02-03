@@ -20,20 +20,16 @@ class Application_Model_Linkedin
             'oauth2_access_token' => $token,
             'format' => 'json',
         ));
-        $user_id = $user['id'];
-        $slot_id = $slot['id'];
-        $start_time = $slot["start_time"] + $slot["offset"];
-        $start_time = gmdate('m/d/Y H:i:s', (int)$start_time);
-        $with = (new Application_Model_DbTable_Users)->getUser($slot['user_id_second'],$user,'id',false,false);
-        $with = $with['name'].' '.substr($with['lastname'],0,1).'.';
+        $with = (new Application_Model_DbTable_UserJobs())->getCurrentJob($slot['user_id_second']);
+        $with = $with['name']." from ".$with['company'];
 
         $data = "
             <share>
-              <comment>I just supercharged my network and booked a meeting with $with from $start_time using the CityHour app!</comment>
+              <comment>I just supercharged my network and booked a meeting with $with using the CityHour app!</comment>
               <content>
                 <title>Cityhour</title>
                 <description>Cityhour</description>
-                <submitted-url>http://cityhour.com/meeting/?uid=$user_id&amp;id=$slot_id</submitted-url>
+                <submitted-url>https://itunes.apple.com/us/app/cityhour/id796972154?ls=1&mt=8</submitted-url>
                 <submitted-image-url>http://cityhour.com/site/img/logo.png</submitted-image-url>
               </content>
               <visibility>

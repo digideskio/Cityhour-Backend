@@ -282,12 +282,12 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
 
                 $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
                 $url = $config->userPhoto->url;
-
+                $name = $user['name'].' '.$user['lastname'];
                 $options = array(
-                    'name' => $user['name'].' '.$user['lastname'],
+                    'name' => $name,
                     'photo' => $url.$user['photo']
                 );
-                Application_Model_Common::sendEmail($token['emails'][0], "Download App!", null, null, null, "invite_email.phtml", $options, 'invite');
+                Application_Model_Common::sendEmail($token['emails'][0], $name." invited you to download an app", null, null, null, "invite_email.phtml", $options, 'invite');
 
                 $res = true;
             }
