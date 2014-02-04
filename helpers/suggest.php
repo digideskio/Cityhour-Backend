@@ -26,6 +26,7 @@ $cls = new Suggest($debug);
 $cls->connect();
 if ($cls->getValues($data)) {
     $result = $cls->findUsers();
+    $bad_time = false;
 }
 else {
     $now = time();
@@ -35,6 +36,7 @@ else {
     $data['time_from'] = $f;
     $data['data_to'] = $e;
     $data['time_to'] = $e;
+    $bad_time = true;
     $cls->getValues($data);
     $result = $cls->findUsers();
 }
@@ -73,6 +75,7 @@ foreach ($result as $row) {
 $slots[] = array(
     'lat' => $cls->lat,
     'lng' => $cls->lng,
+    'bad_time' => $bad_time,
 );
 $cls->answer(array(
     'users' => $cls->getUsers($first),
