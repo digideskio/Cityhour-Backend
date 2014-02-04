@@ -105,7 +105,9 @@ class Users extends Common {
 
         if ( $token && $this->ids && is_numeric($this->t_s) && is_numeric($this->t_e)  && is_numeric($this->q_s) && is_numeric($this->q_e)) {
             $this->getUser($token);
-            $this->free = $this->checkFree();
+            if (!$this->free = $this->checkFree(true)) {
+                $this->getMoreTime();
+            };
         }
     }
 

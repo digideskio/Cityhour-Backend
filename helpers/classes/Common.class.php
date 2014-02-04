@@ -616,7 +616,7 @@ class Common {
 
     public function sortByDist ($data) {
         usort($data, function ($a, $b) {
-            return strcmp($a["dist"], $b["dist"]);
+            return ($a["dist"] < $b["dist"]) ? -1:1;
         });
         return $data;
     }

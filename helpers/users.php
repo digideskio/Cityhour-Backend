@@ -2,23 +2,18 @@
 require 'classes/Users.class.php';
 
 //$data = '
-//{
-//    "private_key": "31934776312e9458f5eeb61a36c6227ea3b7a60b52a9823aaa4c6",
-//    "debug": true,
-//    "data_to": 1386892800,
-//    "time_to": 1386738000,
-//    "time_from": 1386820800,
-//    "offset": -18000,
-//    "data_from": 1386892800,
-//    "lat": 40.723779,
-//    "lng": -73.99128899999999,
-//      "data": [
-//      {
-//        "id": "92",
-//        "user_id": "4111"
-//      }
-//    ]
-//}
+//    {
+//        "private_key": "2",
+//        "debug": true,
+//        "data_to": 1389207600,
+//        "time_to": 1389207600,
+//        "time_from": 1389204000,
+//        "offset": -18000,
+//        "data_from": 1389204000,
+//        "lat": 40.7144,
+//        "lng": -74.006,
+//        "data": [{"id":"356","user_id":"27"},{"id":"205","user_id":"19"},{"id":"227","user_id":"20"},{"id":"167","user_id":"17"},{"id":"49","user_id":"1007"},{"id":"179","user_id":"18"},{"id":"34","user_id":"1006"},{"id":"1","user_id":"1000"},{"id":"287","user_id":"24"},{"id":"284","user_id":"23"},{"id":"252","user_id":"22"},{"id":"239","user_id":"21"}]
+//    }
 //';
 
 
