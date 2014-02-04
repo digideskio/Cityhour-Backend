@@ -69,6 +69,11 @@ foreach ($result as $row) {
         $enough++;
     }
 }
+
+$slots[] = array(
+    'lat' => $cls->lat,
+    'lng' => $cls->lng,
+);
 $cls->answer(array(
     'users' => $cls->getUsers($first),
     'data' => $slots,

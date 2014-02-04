@@ -3,16 +3,28 @@ require 'classes/Users.class.php';
 
 //$data = '
 //    {
-//        "private_key": "2",
+//        "private_key": "df9786cd92ab23c72c1ef7e21368991cbfcffd5452efa8e8cc5bf",
 //        "debug": true,
-//        "data_to": 1389207600,
-//        "time_to": 1389207600,
-//        "time_from": 1389204000,
-//        "offset": -18000,
-//        "data_from": 1389204000,
-//        "lat": 40.7144,
-//        "lng": -74.006,
-//        "data": [{"id":"356","user_id":"27"},{"id":"205","user_id":"19"},{"id":"227","user_id":"20"},{"id":"167","user_id":"17"},{"id":"49","user_id":"1007"},{"id":"179","user_id":"18"},{"id":"34","user_id":"1006"},{"id":"1","user_id":"1000"},{"id":"287","user_id":"24"},{"id":"284","user_id":"23"},{"id":"252","user_id":"22"},{"id":"239","user_id":"21"}]
+//        "data_to": 1391644800,
+//        "time_to": 1391464800,
+//        "time_from": 1391547600,
+//        "offset": 7200,
+//        "data_from": 1391644800,
+//        "data": [
+//        {"id":"286","user_id":"24"},
+//        {"id":"263","user_id":"22"},
+//        {"id":"237","user_id":"21"},
+//        {"id":"102","user_id":"13"},
+//        {"id":"109","user_id":"14"},
+//        {"id":"179","user_id":"18"},
+//        {"id":"156","user_id":"16"},
+//        {"id":"126","user_id":"15"},
+//        {"id":"515","user_id":"9"},
+//        {"id":"19","user_id":"10"},
+//        {"id":"327","user_id":"26"},
+//        {"id":"320","user_id":"25"},
+//        {"lat":"40.7144","lng":"-74.006"}
+//        ]
 //    }
 //';
 
@@ -45,6 +57,10 @@ foreach ($cls->ids as $row) {
             $i++;
             array_push($users,$row['user_id']);
         }
+    }
+    elseif (isset($row['lat']) && isset($row['lng']) && is_numeric($row['lat']) && is_numeric($row['lng'])) {
+        $cls->lat = $row['lat'];
+        $cls->lng = $row['lng'];
     }
 }
 
