@@ -98,6 +98,12 @@ foreach ($cls->ids as $row) {
         $cls->lng = $row['lng'];
 
         $bad_time =  (isset($row['bad_time']) && $row['bad_time']) ? true:false;
+
+        $slots[] = array(
+            'lat' => $cls->lat,
+            'lng' => $cls->lng,
+            'bad_time' => $bad_time,
+        );
     }
 }
 
