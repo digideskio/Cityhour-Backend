@@ -78,7 +78,7 @@ class Application_Model_Common
     public static function UpdateExperience($id) {
         $all = false;
         $res = Zend_Db_Table::getDefaultAdapter()->fetchAll("
-            select j.id, j.user_id, j.name, j.company, j.current, j.start_time, j.end_time
+            select j.id, j.user_id, j.name, j.company, j.current, j.start_time, j.end_time, j.active
             from user_jobs j
             where j.user_id = $id
             and j.type = 0
