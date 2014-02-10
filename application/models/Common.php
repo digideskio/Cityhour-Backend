@@ -87,7 +87,19 @@ class Application_Model_Common
 
         if ($res) {
             $min = new DateTime($res[0]['start_time']);
-            $max = new DateTime(gmdate('Y-m-d H:i:s',time()));
+            $max = 0;
+
+            foreach ($res as $row) {
+                if ($row['active'] = 1) {
+                    $max = time();
+                    break;
+                }
+                elseif (strtotime($row['end_time']) > $max) {
+                    $max = strtotime($row['end_time']);
+                }
+            }
+
+            $max = new DateTime(gmdate('Y-m-d H:i:s',$max));
             $end = $res[0]['end_time'];
             if (!$end || !strtotime($end) || strtotime($end) < 1) {
                 $end = gmdate('Y-m-d H:i:s',time());
@@ -95,7 +107,7 @@ class Application_Model_Common
 
             $all = $max->diff($min);
             $month = 0;
-            foreach ($res as $num => $row) {
+            foreach ($res as $row) {
                 if (strtotime($row['start_time']) > strtotime($end)) {
                     $min = new DateTime($row['start_time']);
                     $max = new DateTime($end);
