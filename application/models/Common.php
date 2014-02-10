@@ -90,7 +90,7 @@ class Application_Model_Common
             $max = 0;
 
             foreach ($res as $row) {
-                if ($row['active'] = 1) {
+                if ($row['active'] == 1) {
                     $max = time();
                     break;
                 }
