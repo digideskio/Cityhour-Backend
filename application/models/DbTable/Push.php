@@ -31,12 +31,18 @@ class Application_Model_DbTable_Push extends Zend_Db_Table_Abstract
     }
 
     public function checkSettings($user_id,$type) {
+        if ($type == 7 || $type == 8) {
+            return true;
+        }
+
         $settings = array(
             0 => 'incomingMeetingInviteSync',
             1 => 'incomingMeetingInviteSync',
             2 => 'incomingMeetingInviteSync',
             3 => 'newMessageSync',
             4 => 'contactRequestSync',
+            5 => 'newMessageSync',
+            6 => 'incomingMeetingInviteSync'
         );
         $settings = $settings[$type];
         $che = (int)$this->_db->fetchOne("
