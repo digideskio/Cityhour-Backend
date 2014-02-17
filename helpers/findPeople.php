@@ -2,15 +2,14 @@
 
 //$data = '
 //{
-//   "private_key": "1001",
 //   "debug": true,
-//    "data_to": 1385683200,
-//    "time_to": 1385611200,
-//    "time_from":  1385431200,
-//    "data_from": 1385683200,
-//    "offset": -28800,
-//   "goal": null,
-//   "city": "CkQ4AAAA6sHuIwMgEPiQygMt7ibp7MT7Z8Uum30tUS96g3g1zGPOjVLrAg18qU3jZRvYpiUfRYn46UlvNcNMXYMDu3VcDxIQta9uo-ahZbIJ-oAqVnU7BRoUQ3GGOIdb9gOdu7j8laCfihgMhu4"
+//    "private_key": "383b0de8fd53460e514905f23e865e894550e7f352e8e01a56344",
+//    "data_to": 1392681600,
+//    "city": "CjQuAAAA5Jlo7RUa1GksfA7tN28wBpF34fZT3v7wY8D7nR15Fqm8z6NZx6vHd5Ufp1Qz8U3VEhByHuvBMFf1GnUVFg2sm45xGhQAF3Ee6KMTEN_xIzSYpAb9ztyXIw",
+//    "time_to": 1392768000,
+//    "time_from": 1392660000,
+//    "offset": 0,
+//    "data_from": 1392681600
 //}
 //';
 

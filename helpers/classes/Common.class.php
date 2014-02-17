@@ -296,7 +296,7 @@ class Common {
             if ($this->offset > 0) {
                 $s_date = $s_date - 86400;
             }
-            elseif ($this->offset < 0) {
+            elseif ($this->offset <= 0) {
                 $e_date = $e_date + 86400;
             }
         }
