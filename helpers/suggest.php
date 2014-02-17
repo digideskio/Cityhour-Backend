@@ -1,17 +1,17 @@
 <?php
 
 //$data = '
-//    {
-//        "private_key": "2",
-//        "debug": true,
-//        "data_to": 1389207600,
-//        "time_to": 1389207600,
-//        "time_from": 1389204000,
-//        "offset": -18000,
-//        "data_from": 1389204000,
-//        "lat": 40.7144,
-//        "lng": -74.006
-//    }
+//{
+//    "debug": true,
+//    "private_key": "383b0de8fd53460e514905f23e865e894550e7f352e8e01a56344",
+//    "data_to": 1393027200,
+//    "time_to": 1392739200,
+//    "time_from": 1392566400,
+//    "offset": 28800,
+//    "data_from": 1392595200,
+//    "lat": 22.358534849368,
+//    "lng": 114.14227142777
+//}
 //';
 
 
@@ -49,6 +49,7 @@ $users = array();
 $count = array();
 $i = 0;
 $enough = 0;
+
 foreach ($result as $row) {
     if (!in_array($row['user_id'],$users)) {
         $i++;
@@ -80,5 +81,5 @@ $slots[] = array(
 $cls->answer(array(
     'users' => $cls->getUsers($first),
     'data' => $slots,
-    'count' => $cls->countUsers(array_merge($first,$count))
+    'count' => count($users)
 ),200);

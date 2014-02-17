@@ -398,6 +398,7 @@ class Common {
 
         $slots_all = array();
         $meet_slots_all = array();
+
         foreach ($time as $row) {
             $this->q_s = $row['start_time'];
             $this->q_e = $row['end_time'];
@@ -458,7 +459,6 @@ class Common {
                     )
                 );
             }
-
             $slots_all = array_merge($slots_all,$slots);
         }
         return $this->getMoreThanHourClear($slots_all,$meet_slots_all);

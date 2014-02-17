@@ -104,8 +104,13 @@ class Suggest extends Common {
         // Check params
         if ( $token != null && $token != '' && is_numeric($this->t_s) && is_numeric($this->t_e) && is_numeric($this->lat) && is_numeric($this->lng) && is_numeric($this->q_s) && is_numeric($this->q_e)) {
             $this->getUser($token);
-            if ($this->free = $this->checkFree(true)) {
+            $this->free = $this->checkFree(true);
+
+            if (!$this->free) {
                 return false;
+            }
+            else {
+                return true;
             }
         }
         else
