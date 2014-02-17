@@ -5,12 +5,12 @@
 //    "debug": true,
 //    "private_key": "383b0de8fd53460e514905f23e865e894550e7f352e8e01a56344",
 //    "data_to": 1393027200,
-//    "time_to": 1392739200,
-//    "time_from": 1392566400,
-//    "offset": 28800,
+//    "time_to": 1392786000,
+//    "time_from": 1392613200,
+//    "offset": -18000,
 //    "data_from": 1392595200,
-//    "lat": 22.358534849368,
-//    "lng": 114.14227142777
+//    "lat": 42.6289495,
+//    "lng": -78.7375289
 //}
 //';
 
@@ -24,22 +24,35 @@ require 'classes/Suggest.class.php';
 $cls = new Suggest($debug);
 
 $cls->connect();
-if ($cls->getValues($data)) {
-    $result = $cls->findUsers();
-    $bad_time = false;
-}
-else {
-    $now = time();
-    $f = $now + $cls->offset;
-    $e = $now + 172800 + $cls->offset;
-    $data['data_from'] = $f;
-    $data['time_from'] = $f;
-    $data['data_to'] = $e;
-    $data['time_to'] = $e;
-    $bad_time = true;
-    $cls->getValues($data);
-    $result = $cls->findUsers();
-}
+
+$now = time();
+$f = $now + $cls->offset;
+$e = $now + 172800 + $cls->offset;
+$data['data_from'] = $f;
+$data['time_from'] = $f;
+$data['data_to'] = $e;
+$data['time_to'] = $e;
+$bad_time = true;
+$cls->getValues($data);
+$result = $cls->findUsers();
+
+// OLD
+//if ($cls->getValues($data)) {
+//    $result = $cls->findUsers();
+//    $bad_time = false;
+//}
+//else {
+//    $now = time();
+//    $f = $now + $cls->offset;
+//    $e = $now + 172800 + $cls->offset;
+//    $data['data_from'] = $f;
+//    $data['time_from'] = $f;
+//    $data['data_to'] = $e;
+//    $data['time_to'] = $e;
+//    $bad_time = true;
+//    $cls->getValues($data);
+//    $result = $cls->findUsers();
+//}
 
 
 // Get slots
