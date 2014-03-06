@@ -33,7 +33,7 @@ foreach ($result as $row) {
 $result = $db->query("
                         select c.id,c.user_id,c.place,u.name,u.lastname,c.user_id_second
                         from calendar c
-                        left join users u on c.user_id = u.id
+                        left join users u on c.user_id_second = u.id
                         where c.start_time between now() + interval 85 minute and now() + interval 90 minute
                         and c.type = 2
                         and c.status = 2

@@ -8,15 +8,18 @@ class Application_Model_Texts
             $data['name'] = '';
         }
         return array(
-            0 => $data['name'].' invited you to a meeting', // 'Meeting request',
-            1 => $data['name'].' canceled a meeting with you', // 'Meeting canceled',
-            2 => $data['name'].' accepted your meeting invitation', // 'Meeting request accepted',
+            0 => $data['name'].' invited you to a meeting', // 'Meeting request'
+            1 => $data['name'].' canceled a meeting with you', // 'Meeting canceled'
+            2 => $data['name'].' accepted your meeting invitation', // 'Meeting request accepted'
             3 => 'New message', // Not Used
-            4 => 'You have a new contact request from '.$data['name'], // 'Friend request',
-            5 => 'You have a new message from '.$data['name'], // 'Chat message',
-            6 => $data['name'].' invited you to a meeting for a time that is already booked', // 'Meeting request user not free',
+            4 => 'You have a new contact request from '.$data['name'], // 'Friend request'
+            5 => 'You have a new message from '.$data['name'], // 'Chat message'
+            6 => $data['name'].' invited you to a meeting for a time that is already booked', // 'Meeting request user not free'
             7 => 'System', // Custom
-            8 => 'Your meeting with '.$data['name'].' is soon!' // 'Meeting come'
+            8 => 'Your meeting with '.$data['name'].' is soon!', // 'Meeting come'
+            9 => 'Your LinkedIn contact '.$data['name'].' joined CityHour', // 'User registered linkedin'
+            10 => 'Your Facebook friend '.$data['name'].' joined CityHour', // 'User registered facebook'
+            11 => $data['name'].' accepted your contact request', // 'Friends accept'
         );
     }
 

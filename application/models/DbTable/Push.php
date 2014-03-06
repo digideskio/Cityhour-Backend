@@ -31,7 +31,7 @@ class Application_Model_DbTable_Push extends Zend_Db_Table_Abstract
     }
 
     public function checkSettings($user_id,$type) {
-        if ($type == 7 || $type == 8) {
+        if ($type == 7 || $type == 8 || $type == 9 || $type == 10 || $type == 11) {
             return true;
         }
 

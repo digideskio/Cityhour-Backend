@@ -146,6 +146,17 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         return true;
                     }
 
+                    $this->insert(array(
+                        'user_id' => $user_id2,
+                        'friend_id' => $user_id,
+                        'status' => 1
+                    ));
+                    $this->insert(array(
+                        'user_id' => $user_id,
+                        'friend_id' => $user_id2,
+                        'status' => 1
+                    ));
+
                     $this->_db->insert('notifications',array(
                         'from' => $user_id,
                         'to' => $user_id2,
@@ -156,15 +167,13 @@ class Application_Model_DbTable_Friends extends Zend_Db_Table_Abstract
                         'action' => 3
                     ));
 
-                    $this->insert(array(
-                        'user_id' => $user_id2,
-                        'friend_id' => $user_id,
-                        'status' => 1
-                    ));
-                    $this->insert(array(
-                        'user_id' => $user_id,
-                        'friend_id' => $user_id2,
-                        'status' => 1
+                    $fullName['name'] = Application_Model_Common::getFullname($user['name'],$user['lastname'],$user['id'],$user_id2);
+                    $text = Application_Model_Texts::push($fullName)[11];
+                    (new Application_Model_DbTable_Push())->sendPush($user_id2,$text,11,array(
+                        'from' => $user_id,
+                        'type' => 11,
+                        'item' => $user_id,
+                        'action' => 3
                     ));
 
                     Application_Model_Common::updateContacts($user_id.','.$user_id2,true);
