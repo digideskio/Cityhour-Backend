@@ -60,15 +60,15 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     'action' => 6
                 ));
 
-
-//                $fullName['name'] = Application_Model_Common::getFullname($user['name'],$user['lastname'],$user['id'],$row['id']);
-//                $text = Application_Model_Texts::push($fullName)[9];
-//                (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,9,array(
-//                    'from' => $user['id'],
-//                    'type' => 9,
-//                    'item' => $id,
-//                    'action' => 6
-//                ));
+                $lastname = trim($user['lastname'])[0].'.';
+                $fullName = $user['name'].' '.$lastname;
+                $text = Application_Model_Texts::push($fullName)[9];
+                (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,9,array(
+                    'from' => $id,
+                    'type' => 9,
+                    'item' => $id,
+                    'action' => 6
+                ));
             }
         }
 
@@ -97,10 +97,11 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     'action' => 6
                 ));
 
-                $fullName['name'] = Application_Model_Common::getFullname($user['name'],$user['lastname'],$user['id'],$row['id']);
+                $lastname = trim($user['lastname'])[0].'.';
+                $fullName = $user['name'].' '.$lastname;
                 $text = Application_Model_Texts::push($fullName)[10];
                 (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,10,array(
-                    'from' => $user['id'],
+                    'from' => $id,
                     'type' => 10,
                     'item' => $id,
                     'action' => 6
