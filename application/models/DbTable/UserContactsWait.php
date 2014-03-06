@@ -60,15 +60,15 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                     'action' => 6
                 ));
 
-//                $lastname = trim($user['lastname'])[0].'.';
-//                $fullName = $user['name'].' '.$lastname;
-//                $text = Application_Model_Texts::push($fullName)[9];
-//                (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,9,array(
-//                    'from' => $id,
-//                    'type' => 9,
-//                    'item' => $id,
-//                    'action' => 6
-//                ));
+                $lastname = trim($user['lastname'])[0].'.';
+                $fullName = $user['name'].' '.$lastname;
+                $text = Application_Model_Texts::push($fullName)[9];
+                (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,9,array(
+                    'from' => $id,
+                    'type' => 9,
+                    'item' => $id,
+                    'action' => 6
+                ));
             }
         }
 
