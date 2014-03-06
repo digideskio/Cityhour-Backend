@@ -61,7 +61,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 ));
 
                 $lastname = trim($user['lastname'])[0].'.';
-                $fullName = $user['name'].' '.$lastname;
+                $fullName['name'] = $user['name'].' '.$lastname;
                 $text = Application_Model_Texts::push($fullName)[9];
                 (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,9,array(
                     'from' => $id,
@@ -98,7 +98,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 ));
 
                 $lastname = trim($user['lastname'])[0].'.';
-                $fullName = $user['name'].' '.$lastname;
+                $fullName['name'] = $user['name'].' '.$lastname;
                 $text = Application_Model_Texts::push($fullName)[10];
                 (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,10,array(
                     'from' => $id,
