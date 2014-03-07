@@ -78,7 +78,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $data = array(
                 'email' => null,
                 'name' => 'Deleted',
-                'lastname' => ' User',
+                'lastname' => 'User',
                 'industry_id' => null,
                 'summary' => '',
                 'photo' => '1.png',
