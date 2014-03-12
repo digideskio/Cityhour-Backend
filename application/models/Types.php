@@ -5,7 +5,7 @@ class Application_Model_Types
 
     public static function getLogin() {
         return array(
-//            1 => 'facebook',
+            1 => 'facebook',
             2 => 'linkedin'
         );
     }
@@ -16,7 +16,8 @@ class Application_Model_Types
             2 => 'linkedin',
             3 => 'address book',
             4 => 'register linkedin',
-            5 => 'email'
+            5 => 'email',
+            6 => 'register facebook'
         );
     }
 

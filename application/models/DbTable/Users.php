@@ -162,7 +162,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         ");
     }
 
-    public function updateUser($user,$data,$linkedin = false) {
+    public function updateUser($user,$data,$linkedin = false,$facebook = false) {
         $user_id = $user['id'];
 
         $userData = array();
@@ -184,16 +184,18 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         $input = new Zend_Filter_Input($filters, $validators, $data);
         $this->_db->beginTransaction();
         try {
-            if ($linkedin) {
-                $this->update(array(
+            if ($linkedin || $facebook) {
+                $clear = array(
                     'name' => '',
                     'lastname' => '',
                     'summary' => '',
                     'skype' => '',
                     'phone' => '',
-                    'industry_id' => '',
                     'country' => '',
-                ),"id = $user_id");
+                );
+                if ($linkedin) $clear['industry_id'] = '';
+
+                $this->update($clear,"id = $user_id");
 
                 $this->_db->delete('user_jobs',"user_id = $user_id and current = 0");
                 $data['business_email'] = $data['email'];
@@ -206,7 +208,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             if (isset($data['skype'])) $userData['skype'] = $input->getEscaped('skype');
             if (isset($data['phone'])) $userData['phone'] = $input->getEscaped('phone');
             if (isset($data['industry_id'])) $userData['industry_id'] = $input->getEscaped('industry_id');
-            if (isset($data['business_email']) && !$linkedin) $userData['business_email'] = $input->getEscaped('business_email'); else $userData['business_email'] = $data['business_email'];
+            if (isset($data['business_email']) && !$linkedin && !$facebook) $userData['business_email'] = $input->getEscaped('business_email'); else $userData['business_email'] = $data['business_email'];
             if (isset($data['country'])) $userData['country'] = $input->getEscaped('country');
 
             //City
@@ -601,6 +603,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 (new Application_Model_DbTable_UserContactsWait())->linkedinFriendsNotify($id,$userData);
             }
 
+            if ($userData['facebook_id']) {
+                (new Application_Model_DbTable_UserContactsWait())->facebookFriendsNotify($id,$userData);
+            }
+
             $completeness = Application_Model_Common::UpdateCompleteness($id);
             $experience = Application_Model_Common::UpdateExperience($id);
             $this->update(array(
@@ -638,7 +644,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     $id = $user['id'];
                     $this->update(array(
                         'facebook_key' => $token,
-                        'facebook_id' => $user_profile['id']
+                        'facebook_id' => $user_profile['facebook_id']
                     ),"id = $id");
 
                     return array(
@@ -648,13 +654,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 }
                 else {
                     return array(
-                        'body' => array(
-                            'name' => $user_profile['first_name'],
-                            'facebook_id' => $user_profile['uid'],
-                            'lastname' => $user_profile['last_name'],
-                            'email' => $user_profile['email'],
-                            'photo' => $user_profile['pic_big']
-                        ),
+                        'body' => $user_profile,
                         'errorCode' => '404'
                     );
                 }

@@ -118,7 +118,7 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
                 'errorCode' => '200'
             ));
         }
-        elseif ($type == 4) {
+        elseif ($type == 4 || $type == 6) {
             $db = new Application_Model_DbTable_UserContactsWait();
             $this->_helper->json->sendJson(array(
                 'body' => $db->getAll(false,$type,$token),

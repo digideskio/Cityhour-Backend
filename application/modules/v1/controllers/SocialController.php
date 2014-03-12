@@ -159,6 +159,7 @@ class V1_SocialController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="UpdateFromLinkedin")
      * @SWG\Property(name="private_key",type="string")
+     * @SWG\Property(name="type",type="int")
      *
      *
      * @SWG\Api(
@@ -166,7 +167,7 @@ class V1_SocialController extends Zend_Rest_Controller
      *   @SWG\Operations(
      *     @SWG\Operation(
      *       httpMethod="PUT",
-     *       summary="Update user info from linkedin.",
+     *       summary="Update user info from linkedin or Facebook.",
      *       responseClass="void",
      *       nickname="UpdateUserFromLinkedin",
      *       notes="",
@@ -203,7 +204,13 @@ class V1_SocialController extends Zend_Rest_Controller
         $data = Zend_Json::decode($body);
         $user = Application_Model_DbTable_Users::authorize($data['private_key']);
         $config = $this->getInvokeArg('bootstrap')->getOption('userPhoto');
-        (new Application_Model_Linkedin())->updateUser($user,$config);
+
+        if (isset($data['type']) && $data['type'] === 1) {
+            (new Application_Model_Facebook())->updateUser($user,$config);
+        } else {
+            (new Application_Model_Linkedin())->updateUser($user,$config);
+        }
+
         $this->_helper->json->sendJson(array(
             'body' => (new Application_Model_DbTable_Users())->getUser($user['id'],$user),
             'errorCode' => 200

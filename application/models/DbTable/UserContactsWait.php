@@ -75,7 +75,10 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         return true;
     }
 
-    public function facebookFriendsNotify($id,$user,$wid) {
+    public function facebookFriendsNotify($id,$user,$wid = false) {
+        if (!$wid) {
+            $wid = $user['facebook_id'];
+        }
         $res = $this->_db->fetchAll("
             select w.user_id as id
             from user_contacts_wait w
@@ -123,6 +126,19 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
     }
 
     public function getAll($user, $type, $token) {
+
+        // If registration using facebook
+        if ($type == 6 && $user == false) {
+            $facebook = new Application_Model_Facebook();
+            $res = $facebook->getFriends($token);
+
+            if (isset($res) && $res != null) {
+                return $res;
+            }
+            else {
+                return array();
+            }
+        }
 
         // If registration using linkedin
         if ($type == 4 && $user == false) {
