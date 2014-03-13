@@ -15,10 +15,7 @@ class Application_Model_DbTable_Languages extends Zend_Db_Table_Abstract
             return $id->toArray()['id'];
         }
         else {
-            $id = $this->insert(array(
-                'name' => $name
-            ));
-            return $id;
+            return false;
         }
     }
 

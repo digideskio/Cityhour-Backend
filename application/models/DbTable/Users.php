@@ -192,8 +192,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     'skype' => '',
                     'phone' => '',
                     'country' => '',
+                    'industry_id' => '',
                 );
-                if ($linkedin) $clear['industry_id'] = '';
 
                 $this->update($clear,"id = $user_id");
 

@@ -95,7 +95,9 @@ class Application_Model_Facebook
             if (isset($user_profile['languages'])) {
                 $language = new Application_Model_DbTable_Languages();
                 foreach ($user_profile['languages'] as $num => $row) {
-                    $languages[$num] = $language->getID($row['name']);
+                    if ($lng = $language->getID($row['name'])) {
+                        $languages[$num] = $lng;
+                    }
                 }
             }
 
@@ -127,7 +129,7 @@ class Application_Model_Facebook
                 'lastname' => $user_profile['last_name'],
                 'email' => $user_profile['email'],
                 'photo' => $user_profile['pic_big'],
-                'industry_id' => null,
+                'industry_id' => 200,
                 'jobs' => $jobs,
                 'summary' => $user_profile['about_me'],
                 'phone' => null,

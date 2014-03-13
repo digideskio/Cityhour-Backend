@@ -184,7 +184,9 @@ class Application_Model_Linkedin
             if (isset($user_profile['languages']['values'])) {
                 $language = new Application_Model_DbTable_Languages();
                 foreach ($user_profile['languages']['values'] as $num => $row) {
-                    $languages[$num] = $language->getID($row['language']['name']);
+                    if ($lng = $language->getID($row['language']['name'])) {
+                        $languages[$num] = $lng;
+                    }
                 }
             }
 
