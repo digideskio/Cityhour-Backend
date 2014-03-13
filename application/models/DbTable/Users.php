@@ -41,6 +41,55 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         ");
     }
 
+    public function updateUserKeys($user,$data) {
+        $user_id = $user['id'];
+
+        $validators = array(
+            '*' => array(),
+        );
+        $filters = array(
+            'facebook_key' => array('StringTrim','HtmlEntities'),
+            'linkedin_key' => array('StringTrim','HtmlEntities'),
+        );
+        $input = new Zend_Filter_Input($filters, $validators, $data);
+
+        if ($input->getEscaped('facebook_key')) $facebook_key = $input->getEscaped('facebook_key'); else $facebook_key = false;
+        if ($input->getEscaped('linkedin_key')) $linkedin_key = $input->getEscaped('linkedin_key'); else $linkedin_key = false;
+
+        $upDate = array();
+        if ($facebook_key) {
+            $db = new Application_Model_Facebook();
+            if ($res = $db->getUser($facebook_key)) {
+                $upDate['facebook_id'] = $res['facebook_id'];
+                $upDate['facebook_key'] = $facebook_key;
+            } else {
+                Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
+                        'errorCode' => '409'
+                    ));
+            }
+        } elseif ($linkedin_key) {
+            $db = new Application_Model_Linkedin();
+            if ($res = $db->getUser($linkedin_key)) {
+                $upDate['linkedin_id'] = $res['linkedin_id'];
+                $upDate['linkedin_key'] = $linkedin_key;
+            } else {
+                Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
+                        'errorCode' => '409'
+                    ));
+            }
+        }
+        if ($upDate) {
+            $this->update($upDate,"where id = $user_id");
+        } else {
+            Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
+                    'errorCode' => '400'
+                ));
+        }
+
+
+        return $this->getUser($user_id,$user);
+    }
+
     private function updateContacts($id,$status) {
         $ids = $this->_db->fetchCol("
             select friend_id
@@ -639,7 +688,9 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $facebook = new Application_Model_Facebook();
             $user_profile = $facebook->getUser($token);
             if ($user_profile) {
-                $user = $this->getUser($user_profile['email'],false,'email',true,true);
+                $user = $this->getUser($user_profile['facebook_id'],false,'facebook_id',true,true);
+                if (!$user) $user = $this->getUser($user_profile['email'],false,'email',true,true);
+
                 if ($user) {
                     $id = $user['id'];
                     $this->update(array(
@@ -678,7 +729,9 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $linkedin = new Application_Model_Linkedin();
             $user_profile = $linkedin->getUser($token);
             if ($user_profile) {
-                $user = $this->getUser($user_profile['email'],false,'email',true,true);
+                $user = $this->getUser($user_profile['linkedin_id'],false,'linkedin_id',true,true);
+                if (!$user) $user = $this->getUser($user_profile['email'],false,'email',true,true);
+
                 if ($user) {
                     $id = $user['id'];
                     $this->update(array(

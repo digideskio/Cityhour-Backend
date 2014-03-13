@@ -98,9 +98,80 @@ class V1_UserController extends Zend_Rest_Controller
         }
     }
 
+    /**
+     *
+     * @SWG\Model(id="UserKeysUpdate")
+     * @SWG\Property(name="private_key",type="string")
+     * @SWG\Property(name="facebook_key",type="string")
+     * @SWG\Property(name="linkedin_key",type="string")
+     *
+     *
+     * @SWG\Api(
+     *   path="/user/",
+     *   @SWG\Operations(
+     *     @SWG\Operation(
+     *       httpMethod="POST",
+     *       summary="User keys update.",
+     *       responseClass="void",
+     *       nickname="keysUpdate",
+     *       notes="",
+     *       @SWG\ErrorResponses(
+     *          @SWG\ErrorResponse(
+     *            code="400",
+     *            reason="Not all params correct."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="401",
+     *            reason="Have no permissions."
+     *          ),
+     *           @SWG\ErrorResponse(
+     *            code="407",
+     *            reason="User blocked."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="409",
+     *            reason="Token not correct."
+     *          )
+     *       ),
+     * @SWG\Parameter(
+     *           name="json",
+     *           description="json",
+     *           paramType="body",
+     *           required="true",
+     *           allowMultiple="false",
+     *           dataType="UserKeysUpdate"
+     *         )
+     *     )
+     *   )
+     * )
+     */
     public function postAction()
     {
         $this->getResponse()->setHttpResponseCode(200);
+        $body = $this->getRequest()->getRawBody();
+        $data = Zend_Json::decode($body);
+        if (isset($data['private_key']) && $data['private_key']) {
+            $user = Application_Model_DbTable_Users::authorize($data['private_key'],false);
+
+            $db = new Application_Model_DbTable_Users();
+            if ($res = $db->updateUserKeys($user,$data)) {
+                $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '200'
+                    ));
+            }
+            else {
+                $this->_helper->json->sendJson(array(
+                        'body' => $res,
+                        'errorCode' => '500'
+                    ));
+            }
+        }
+        else {
+            $this->_helper->json->sendJson(array(
+                    'errorCode' => '400'
+                ));
+        }
     }
 
     /**

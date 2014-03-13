@@ -78,7 +78,7 @@
                 },
                 {
                     "httpMethod": "PUT",
-                    "summary": "Update user info from linkedin.",
+                    "summary": "Update user info from linkedin or Facebook.",
                     "nickname": "UpdateUserFromLinkedin",
                     "responseClass": "void",
                     "parameters": [
@@ -127,6 +127,9 @@
             "properties": {
                 "private_key": {
                     "type": "string"
+                },
+                "type": {
+                    "type": "int"
                 }
             }
         }

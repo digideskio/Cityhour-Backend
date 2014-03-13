@@ -50,6 +50,41 @@
                     "notes": ""
                 },
                 {
+                    "httpMethod": "POST",
+                    "summary": "User keys update.",
+                    "nickname": "keysUpdate",
+                    "responseClass": "void",
+                    "parameters": [
+                        {
+                            "name": "json",
+                            "description": "json",
+                            "allowMultiple": false,
+                            "dataType": "UserKeysUpdate",
+                            "paramType": "body",
+                            "required": true
+                        }
+                    ],
+                    "errorResponses": [
+                        {
+                            "reason": "Not all params correct.",
+                            "code": 400
+                        },
+                        {
+                            "reason": "Have no permissions.",
+                            "code": 401
+                        },
+                        {
+                            "reason": "User blocked.",
+                            "code": 407
+                        },
+                        {
+                            "reason": "Token not correct.",
+                            "code": 409
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
                     "httpMethod": "PUT",
                     "summary": "Update User.",
                     "nickname": "updateUser",
@@ -84,6 +119,20 @@
         }
     ],
     "models": {
+        "UserKeysUpdate": {
+            "id": "UserKeysUpdate",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "facebook_key": {
+                    "type": "string"
+                },
+                "linkedin_key": {
+                    "type": "string"
+                }
+            }
+        },
         "updateUserParams": {
             "id": "updateUserParams",
             "properties": {
