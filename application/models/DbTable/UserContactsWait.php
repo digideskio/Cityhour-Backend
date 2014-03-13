@@ -75,6 +75,22 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         return true;
     }
 
+    public function getFacebookFriends($ids) {
+        $config = new Zend_Config_Ini(APPLICATION_PATH . '/configs/application.ini', 'production');
+        $url = $config->userPhoto->url;
+
+        $res = $this->_db->fetchAll("
+                    select u.id, concat('$url', u.photo) AS photo, u.name, u.lastname, j.name as job, j.company, 0 as status
+                    from users u
+                    LEFT JOIN user_jobs j ON u.id = j.user_id AND j.current = 1 AND j.type = 0
+                    where
+                      u.facebook_id in ($ids)
+                    group by u.id
+                    having status != 2
+                ");
+        return $res;
+    }
+
     public function facebookFriendsNotify($id,$user,$wid = false) {
         if (!$wid) {
             $wid = $user['facebook_id'];

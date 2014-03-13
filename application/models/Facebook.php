@@ -209,11 +209,12 @@ class Application_Model_Facebook
         }
 
         $res = array();
-        $db = new Application_Model_DbTable_Users();
         foreach ($friends as $row) {
-            if ($usr = $db->getUser($row['uid'],false,'facebook_id',true)) {
-                $res[]= $usr;
-            }
+            $res[]= $row['uid'];
+        }
+        if ($res) {
+            $res = implode(',',$res);
+            $res = (new Application_Model_DbTable_UserContactsWait())->getFacebookFriends($res);
         }
 
         return $res;
