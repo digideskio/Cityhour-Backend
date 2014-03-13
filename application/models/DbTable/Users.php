@@ -79,7 +79,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             }
         }
         if ($upDate) {
-            $this->update($upDate,"where id = $user_id");
+            $this->update($upDate,"id = $user_id");
         } else {
             Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
                     'errorCode' => '400'
