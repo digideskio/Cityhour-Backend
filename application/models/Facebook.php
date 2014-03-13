@@ -59,28 +59,36 @@ class Application_Model_Facebook
             //get jobs
             $jobs = array();
             $last_job = false;
+            $last_job_any = false;
             if (isset($user_profile['work'])) {
                 foreach ($user_profile['work'] as $num => $row) {
                     $start_m = (isset($row['start_date'])) ? date('Y-m-d',strtotime($row['start_date'])) : null;
                     $end_m = (isset($row['end_date'])) ? date('Y-m-d',strtotime($row['end_date'])) : null;
 
-                    $jobs[$num] = array(
-                        'name' => (isset($row['position']['name']) && $row['position']['name']) ? $row['position']['name'] : '',
-                        'company' => (isset($row['employer']['name']) && $row['employer']['name']) ? $row['employer']['name'] : '',
-                        'current' => 0,
-                        'active' => 0,
-                        'start_time' => $start_m,
-                        'end_time' => $end_m
-                    );
-                    if (!$end_m) {
-                        $last_job = $num;
-                        $jobs[$num]['active'] = 1;
+                    if ($start_m && $end_m) {
+                        $jobs[$num] = array(
+                            'name' => (isset($row['position']['name']) && $row['position']['name']) ? $row['position']['name'] : '',
+                            'company' => (isset($row['employer']['name']) && $row['employer']['name']) ? $row['employer']['name'] : '',
+                            'current' => 0,
+                            'active' => 0,
+                            'start_time' => $start_m,
+                            'end_time' => $end_m
+                        );
+                        if (!$end_m) {
+                            $last_job = $num;
+                            $jobs[$num]['active'] = 1;
+                        }
+                        $last_job_any = $num;
                     }
+
                 }
                 if ($last_job) {
                     $jobs[$last_job]['current'] = 1;
-                } else {
+                } elseif ($jobs && isset($jobs[0])) {
                     $jobs[0]['current'] = 1;
+                } elseif ($jobs) {
+                    $last_job_any = $last_job_any-1;
+                    $jobs[$last_job_any]['current'] = 1;
                 }
             }
 
