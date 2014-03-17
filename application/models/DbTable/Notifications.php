@@ -22,6 +22,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         n.template,
                         n.action,
                         n.status,
+                        c.email,
                         Unix_timestamp(n.time) AS time_when,
                         CASE
                           WHEN c.email = 0 THEN
@@ -93,6 +94,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         n.template,
                         n.action,
                         n.status,
+                        null as email,
                         Unix_timestamp(n.time)  AS time_when,
                         CASE
                           WHEN (SELECT DISTINCT( f.id )
@@ -140,6 +142,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                         n.template,
                         n.action,
                         n.status,
+                        c.email,
                         Unix_timestamp(n.time) AS time_when,
                         CASE
                           WHEN c.email = 0 THEN
@@ -200,6 +203,7 @@ class Application_Model_DbTable_Notifications extends Zend_Db_Table_Abstract
                             n.template,
                             n.action,
                             n.status,
+                            c.email,
                             Unix_timestamp(n.time) AS time_when,
                             CASE
                               WHEN c.email = 0 THEN
