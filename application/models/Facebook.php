@@ -52,9 +52,21 @@ class Application_Model_Facebook
             'access_token' => $token,
             'query'        => $fql,
         ))[0];
-        $user_profile['email'] = @$facebook->api('/me?fields=email', 'GET')['email'];
 
         if ($user_profile) {
+            $user_profile['email'] = @$facebook->api('/me?fields=email', 'GET')['email'];
+
+
+            $fql = "select is_silhouette from profile_pic where id = $user";
+            $is_photo = @$facebook->api(array(
+                    'method'       => 'fql.query',
+                    'access_token' => $token,
+                    'query'        => $fql,
+                ))[0]['is_silhouette'];
+
+            if ($is_photo) {
+                $user_profile['pic_big'] = null;
+            }
 
             //get jobs
             $jobs = array();
