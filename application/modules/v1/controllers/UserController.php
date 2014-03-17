@@ -131,6 +131,14 @@ class V1_UserController extends Zend_Rest_Controller
      *          @SWG\ErrorResponse(
      *            code="409",
      *            reason="Token not correct."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="416",
+     *            reason="User with this facebook exist."
+     *          ),
+     *          @SWG\ErrorResponse(
+     *            code="417",
+     *            reason="User with this linkedin exist."
      *          )
      *       ),
      * @SWG\Parameter(

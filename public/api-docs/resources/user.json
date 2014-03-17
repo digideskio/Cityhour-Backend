@@ -80,6 +80,14 @@
                         {
                             "reason": "Token not correct.",
                             "code": 409
+                        },
+                        {
+                            "reason": "User with this facebook exist.",
+                            "code": 416
+                        },
+                        {
+                            "reason": "User with this linkedin exist.",
+                            "code": 417
                         }
                     ],
                     "notes": ""
