@@ -61,7 +61,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $db = new Application_Model_Facebook();
             if ($res = $db->getUser($facebook_key)) {
                 $facebook_id = $this->_db->quote($res['facebook_id']);
-                $upDate['facebook_id'] = $facebook_id;
+                $upDate['facebook_id'] = $res['facebook_id'];
                 $upDate['facebook_key'] = $facebook_key;
                 if ($this->fetchRow("facebook_id = $facebook_id")) {
                     Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
@@ -77,7 +77,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $db = new Application_Model_Linkedin();
             if ($res = $db->getUser($linkedin_key)) {
                 $linkedin_id = $this->_db->quote($res['linkedin_id']);
-                $upDate['linkedin_id'] = $linkedin_id;
+                $upDate['linkedin_id'] = $res['linkedin_id'];
                 $upDate['linkedin_key'] = $linkedin_key;
                 if ($this->fetchRow("linkedin_id = $linkedin_id")) {
                     Zend_Controller_Action_HelperBroker::getStaticHelper('json')->sendJson(array(
