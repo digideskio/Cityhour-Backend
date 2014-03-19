@@ -60,7 +60,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         if ($facebook_key) {
             $db = new Application_Model_Facebook();
             if ($res = $db->getUser($facebook_key)) {
-                $facebook_id = $res['facebook_id'];
+                $facebook_id = $this->_db->quote($res['facebook_id']);
                 $upDate['facebook_id'] = $facebook_id;
                 $upDate['facebook_key'] = $facebook_key;
                 if ($this->fetchRow("facebook_id = $facebook_id")) {
@@ -76,7 +76,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         } elseif ($linkedin_key) {
             $db = new Application_Model_Linkedin();
             if ($res = $db->getUser($linkedin_key)) {
-                $linkedin_id = $res['linkedin_id'];
+                $linkedin_id = $this->_db->quote($res['linkedin_id']);
                 $upDate['linkedin_id'] = $linkedin_id;
                 $upDate['linkedin_key'] = $linkedin_key;
                 if ($this->fetchRow("linkedin_id = $linkedin_id")) {
