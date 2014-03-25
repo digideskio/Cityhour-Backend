@@ -94,6 +94,10 @@ class Application_Model_Common
                     $max = time();
                     break;
                 }
+                elseif ($row['end_time'] === null) {
+                    $max = time();
+                    break;
+                }
                 elseif (strtotime($row['end_time']) > $max) {
                     $max = strtotime($row['end_time']);
                 }

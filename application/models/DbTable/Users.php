@@ -660,11 +660,11 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                 'value' => 1
             ));
 
-            if ($userData['linkedin_id']) {
+            if (isset($userData['linkedin_id']) && $userData['linkedin_id']) {
                 (new Application_Model_DbTable_UserContactsWait())->linkedinFriendsNotify($id,$userData);
             }
 
-            if ($userData['facebook_id']) {
+            if (isset($userData['facebook_id']) && $userData['facebook_id']) {
                 (new Application_Model_DbTable_UserContactsWait())->facebookFriendsNotify($id,$userData);
             }
 
