@@ -356,7 +356,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                                 'company' => $row['company'],
                                 'start_time' => $jobs_input->getEscaped('start_time'),
                                 'current' => (int)$jobs_input->getEscaped('current'),
-                                'active' => (int)$jobs_input->getEscaped('active'),
+                                'active' => ($jobs_input->getEscaped('end_time')) ? (int)$jobs_input->getEscaped('active'):1,
                                 'end_time' => $jobs_input->getEscaped('end_time')
                             ),"id = $job_id");
                         }
@@ -367,7 +367,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                                 'company' => $row['company'],
                                 'start_time' => $jobs_input->getEscaped('start_time'),
                                 'current' => (int)$jobs_input->getEscaped('current'),
-                                'active' => (int)$jobs_input->getEscaped('active'),
+                                'active' => ($jobs_input->getEscaped('end_time')) ? (int)$jobs_input->getEscaped('active'):1,
                                 'end_time' => $jobs_input->getEscaped('end_time'),
                                 'type' => 1
                             ));
@@ -557,7 +557,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         'name' => $row['name'],
                         'company' => $row['company'],
                         'current' => (int)$jobs_input->getEscaped('current'),
-                        'active' => (int)$jobs_input->getEscaped('active'),
+                        'active' => ($jobs_input->getEscaped('end_time')) ? (int)$jobs_input->getEscaped('active'):1,
                         'start_time' => $jobs_input->getEscaped('start_time'),
                         'end_time' => $jobs_input->getEscaped('end_time'),
                         'type' => 0
