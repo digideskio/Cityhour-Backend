@@ -120,6 +120,8 @@ class Application_Model_Common
                 }
                 if (strtotime($row['end_time']) > strtotime($end)) {
                     $end = $row['end_time'];
+                } elseif (!$row['end_time']) {
+                    $end = date('Y-m-d');
                 }
             }
         }
