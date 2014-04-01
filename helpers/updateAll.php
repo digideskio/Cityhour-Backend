@@ -5,15 +5,23 @@ $debug = false;
 
 if ($debug) require_once '../vendor/ref/ref.php';
 
-require 'classes/UpdateAll.class.php';
+require 'classes/UpdateOne.class.php';
 
-$cls = new UpdateAll($debug);
+$cls = new UpdateOne($debug);
 $cls->connect();
 
-$AllData = $cls->getAllData();
-$magicSlots = $cls->makeMagic($AllData);
+$users = $cls->query("select id from users where status = 0 order by id asc",false,true);
 
-if ($cls->storeMagic($magicSlots))
-    $cls->answer('Done',200);
-else
-    $cls->answer('Server error',500);
+foreach ($users as $row) {
+    $AllData = $cls->getAllData($row['id']);
+
+    if (isset($AllData[0])) {
+        $magicSlots = $cls->makeMagic($AllData);
+        $cls->storeOneMagic($magicSlots,$row['id']);
+    }
+    else {
+        $cls->clearUserData($row['id']);
+    }
+}
+
+$cls->answer('Done',200);
