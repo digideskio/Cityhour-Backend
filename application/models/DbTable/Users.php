@@ -48,8 +48,8 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             '*' => array(),
         );
         $filters = array(
-            'facebook_key' => array('StringTrim','HtmlEntities'),
-            'linkedin_key' => array('StringTrim','HtmlEntities'),
+            'facebook_key' => array('StringTrim','StripTags'),
+            'linkedin_key' => array('StringTrim','StripTags'),
         );
         $input = new Zend_Filter_Input($filters, $validators, $data);
 
@@ -232,15 +232,15 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         );
         $filter_alnum = new Zend_Filter_Alnum(true);
         $filters = array(
-            'name' => array('StringTrim','HtmlEntities'),
-            'lastname' => array('StringTrim','HtmlEntities'),
-            'summary' => array('StringTrim','HtmlEntities'),
-            'skype' => array('StringTrim','HtmlEntities'),
-            'phone' => array('StringTrim','HtmlEntities'),
-            'industry_id' => array('StringTrim','HtmlEntities','Int'),
-            'business_email' => array('StringTrim','HtmlEntities'),
-            'city' => array('StringTrim','HtmlEntities'),
-            'country' => array('StringTrim','HtmlEntities'),
+            'name' => array('StringTrim','StripTags'),
+            'lastname' => array('StringTrim','StripTags'),
+            'summary' => array('StringTrim','StripTags'),
+            'skype' => array('StringTrim','StripTags'),
+            'phone' => array('StringTrim','StripTags'),
+            'industry_id' => array('StringTrim','StripTags','Int'),
+            'business_email' => array('StringTrim','StripTags'),
+            'city' => array('StringTrim','StripTags'),
+            'country' => array('StringTrim','StripTags'),
         );
         $input = new Zend_Filter_Input($filters, $validators, $data);
         $this->_db->beginTransaction();
@@ -263,14 +263,14 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             }
 
 
-            if (isset($data['name'])) $userData['name'] = $input->getEscaped('name');
-            if (isset($data['lastname'])) $userData['lastname'] = $input->getEscaped('lastname');
+            if (isset($data['name'])) $userData['name'] = $input->getunEscaped('name');
+            if (isset($data['lastname'])) $userData['lastname'] = $input->getunEscaped('lastname');
             if (isset($data['summary'])) $userData['summary'] = $data['summary'];
-            if (isset($data['skype'])) $userData['skype'] = $input->getEscaped('skype');
-            if (isset($data['phone'])) $userData['phone'] = $input->getEscaped('phone');
-            if (isset($data['industry_id'])) $userData['industry_id'] = $input->getEscaped('industry_id');
-            if (isset($data['business_email']) && !$linkedin && !$facebook) $userData['business_email'] = $input->getEscaped('business_email'); else $userData['business_email'] = $data['business_email'];
-            if (isset($data['country'])) $userData['country'] = $input->getEscaped('country');
+            if (isset($data['skype'])) $userData['skype'] = $input->getunEscaped('skype');
+            if (isset($data['phone'])) $userData['phone'] = $input->getunEscaped('phone');
+            if (isset($data['industry_id'])) $userData['industry_id'] = $input->getunEscaped('industry_id');
+            if (isset($data['business_email']) && !$linkedin && !$facebook) $userData['business_email'] = $input->getunEscaped('business_email'); else $userData['business_email'] = $data['business_email'];
+            if (isset($data['country'])) $userData['country'] = $input->getunEscaped('country');
 
             //City
             if ($input->getEscaped('city')) {
@@ -285,10 +285,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     '*' => array()
                 );
                 $filters = array(
-                    'current' => array('StringTrim','HtmlEntities','Int'),
-                    'active' => array('StringTrim','HtmlEntities','Int'),
-                    'start_time' => array('StringTrim','HtmlEntities'),
-                    'end_time' => array('StringTrim','HtmlEntities'),
+                    'current' => array('StringTrim','StripTags','Int'),
+                    'active' => array('StringTrim','StripTags','Int'),
+                    'start_time' => array('StringTrim','StripTags'),
+                    'end_time' => array('StringTrim','StripTags'),
                 );
 
                 $jj = $this->_db->fetchCol("select id from user_jobs where user_id = $user_id and type = 0");
@@ -336,10 +336,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                         '*' => array()
                     );
                     $filters = array(
-                        'current' => array('StringTrim','HtmlEntities','Int'),
-                        'active' => array('StringTrim','HtmlEntities','Int'),
-                        'start_time' => array('StringTrim','HtmlEntities'),
-                        'end_time' => array('StringTrim','HtmlEntities'),
+                        'current' => array('StringTrim','StripTags','Int'),
+                        'active' => array('StringTrim','StripTags','Int'),
+                        'start_time' => array('StringTrim','StripTags'),
+                        'end_time' => array('StringTrim','StripTags'),
                     );
 
                     $edu = $this->_db->fetchCol("select id from user_jobs where user_id = $user_id and type = 1");
@@ -471,37 +471,37 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
         );
         $filter_alnum = new Zend_Filter_Alnum(true);
         $filters = array(
-            'name' => array('StringTrim','HtmlEntities'),
-            'lastname' => array('StringTrim','HtmlEntities'),
-            'country' => array('StringTrim','HtmlEntities'),
-            'summary' => array('StringTrim','HtmlEntities'),
-            'skype' => array('StringTrim','HtmlEntities'),
-            'phone' => array('StringTrim','HtmlEntities'),
-            'industry_id' => array('StringTrim','HtmlEntities','Int'),
-            'offset' => array('StringTrim','HtmlEntities','Int'),
-            'city' => array('StringTrim','HtmlEntities'),
-            'facebook_key' => array('StringTrim','HtmlEntities'),
-            'facebook_id' => array('StringTrim','HtmlEntities'),
-            'linkedin_key' => array('StringTrim','HtmlEntities'),
-            'linkedin_id' => array('StringTrim','HtmlEntities'),
+            'name' => array('StringTrim','StripTags'),
+            'lastname' => array('StringTrim','StripTags'),
+            'country' => array('StringTrim','StripTags'),
+            'summary' => array('StringTrim','StripTags'),
+            'skype' => array('StringTrim','StripTags'),
+            'phone' => array('StringTrim','StripTags'),
+            'industry_id' => array('StringTrim','StripTags','Int'),
+            'offset' => array('StringTrim','StripTags','Int'),
+            'city' => array('StringTrim','StripTags'),
+            'facebook_key' => array('StringTrim','StripTags'),
+            'facebook_id' => array('StringTrim','StripTags'),
+            'linkedin_key' => array('StringTrim','StripTags'),
+            'linkedin_id' => array('StringTrim','StripTags'),
         );
         $input = new Zend_Filter_Input($filters, $validators, $data);
         $this->_db->beginTransaction();
 
         try {
             //Important
-            if ($input->getEscaped('email')) $userData['email'] = $input->getEscaped('email');
-            if ($input->getEscaped('name')) $userData['name'] = $input->getEscaped('name');
-            if ($input->getEscaped('lastname')) $userData['lastname'] = $input->getEscaped('lastname');
-            if ($input->getEscaped('industry_id')) $userData['industry_id'] = $input->getEscaped('industry_id');
+            if ($input->getEscaped('email')) $userData['email'] = $input->getunEscaped('email');
+            if ($input->getEscaped('name')) $userData['name'] = $input->getunEscaped('name');
+            if ($input->getEscaped('lastname')) $userData['lastname'] = $input->getunEscaped('lastname');
+            if ($input->getEscaped('industry_id')) $userData['industry_id'] = $input->getunEscaped('industry_id');
             $userData['private_key'] = uniqid(sha1(time()), false);
 
             //Not Important
             if ($input->getEscaped('summary')) $userData['summary'] = $data['summary'];
             if ($input->getEscaped('country')) $userData['country'] = $data['country'];
-            if ($input->getEscaped('skype')) $userData['skype'] = $input->getEscaped('skype');
-            if ($input->getEscaped('phone')) $userData['phone'] = $input->getEscaped('phone');
-            if ($input->getEscaped('business_email')) $userData['business_email'] = $input->getEscaped('business_email');
+            if ($input->getEscaped('skype')) $userData['skype'] = $input->getunEscaped('skype');
+            if ($input->getEscaped('phone')) $userData['phone'] = $input->getunEscaped('phone');
+            if ($input->getEscaped('business_email')) $userData['business_email'] = $input->getunEscaped('business_email');
             if ($input->getEscaped('facebook_key')) $userData['facebook_key'] = $input->getEscaped('facebook_key');
             if ($input->getEscaped('facebook_id')) $userData['facebook_id'] = $input->getEscaped('facebook_id');
             if ($input->getEscaped('linkedin_key')) $userData['linkedin_key'] = $input->getEscaped('linkedin_key');
@@ -544,10 +544,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     '*' => array()
                 );
                 $filters = array(
-                    'current' => array('StringTrim','HtmlEntities','Int'),
-                    'active' => array('StringTrim','HtmlEntities','Int'),
-                    'start_time' => array('StringTrim','HtmlEntities'),
-                    'end_time' => array('StringTrim','HtmlEntities'),
+                    'current' => array('StringTrim','StripTags','Int'),
+                    'active' => array('StringTrim','StripTags','Int'),
+                    'start_time' => array('StringTrim','StripTags'),
+                    'end_time' => array('StringTrim','StripTags'),
                 );
                 $current = false;
                 foreach($data['jobs'] as $num=>$row) {
@@ -582,10 +582,10 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
                     '*' => array()
                 );
                 $filters = array(
-                    'current' => array('StringTrim','HtmlEntities','Int'),
-                    'active' => array('StringTrim','HtmlEntities','Int'),
-                    'start_time' => array('StringTrim','HtmlEntities'),
-                    'end_time' => array('StringTrim','HtmlEntities'),
+                    'current' => array('StringTrim','StripTags','Int'),
+                    'active' => array('StringTrim','StripTags','Int'),
+                    'start_time' => array('StringTrim','StripTags'),
+                    'end_time' => array('StringTrim','StripTags'),
                 );
                 foreach($data['education'] as $num=>$row) {
                     $jobs_input = new Zend_Filter_Input($filters, $validators, $row);
