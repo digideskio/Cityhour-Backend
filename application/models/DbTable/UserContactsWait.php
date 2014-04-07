@@ -106,7 +106,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         ");
         if ($res) {
             foreach ($res as $num=>$row) {
-                $this->_db->insert('notifications',array(
+                $nid = $this->_db->insert('notifications',array(
                     'from' => $id,
                     'to' => $row['id'],
                     'item' => $id,
@@ -119,7 +119,7 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 $lastname = trim($user['lastname'])[0].'.';
                 $fullName['name'] = $user['name'].' '.$lastname;
                 $text = Application_Model_Texts::push($fullName)[10];
-                (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,10,array(
+                $puid = (new Application_Model_DbTable_Push())->sendPush($row['id'],$text,10,array(
                     'from' => $id,
                     'type' => 10,
                     'item' => $id,
@@ -127,7 +127,6 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
                 ));
             }
         }
-
         return true;
     }
 
