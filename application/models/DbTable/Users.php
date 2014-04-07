@@ -781,7 +781,7 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             $res['skills'] = array();
         }
         if ($res['languages'] != null && $res['languages'] != '') {
-            $res['languages'] = explode('$$$$$',$res['languages']);
+            $res['languages'] = array_values(explode('$$$$$',$res['languages']));
         }
         else {
             $res['languages'] = array();
