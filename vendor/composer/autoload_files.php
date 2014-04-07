@@ -6,6 +6,6 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    $vendorDir . '/raveren/kint/Kint.class.php',
-    $vendorDir . '/andyhu/php-ref/ref.php',
+    $vendorDir . '/mixpanel/mixpanel-php/lib/Mixpanel.php',
+    $vendorDir . '/digitalnature/php-ref/ref.php',
 );

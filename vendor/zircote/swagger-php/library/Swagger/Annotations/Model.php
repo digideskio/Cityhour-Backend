@@ -3,7 +3,7 @@ namespace Swagger\Annotations;
 
 /**
  * @license    http://www.apache.org/licenses/LICENSE-2.0
- *             Copyright [2012] [Robert Allen]
+ *             Copyright [2013] [Robert Allen]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -44,39 +44,80 @@ class Model extends AbstractAnnotation
     public $description;
 
     /**
-     * @var null|string
-     */
-    public $extends;
-
-    /**
      * @var array
      */
     public $properties = array();
 
-    protected function setNestedAnnotations($annotations)
+    /**
+     * @var array
+     */
+    public $required;
+
+    /**
+     * The PHP class connected to this model
+     * @var null|string
+     */
+    public $phpClass;
+
+    /**
+     * The superclass connected to this model.
+     * @var null|string
+     */
+    public $phpExtends;
+
+    protected static $mapAnnotations = array(
+        '\Swagger\Annotations\Property' => 'properties[]'
+    );
+
+    public function __construct(array $values = array()) {
+        parent::__construct($values);
+        // required accepts both json syntax and comma-separated syntax.
+        if (is_string($this->required)) {
+            if (strpos($this->required, '[') !== false) {
+                $this->required = $this->decode($this->required);
+            } else {
+                $this->required = preg_split('/(\s)*,(\s)*/', $this->required);
+            }
+        }
+    }
+
+    public function setNestedAnnotations($annotations)
     {
-        foreach ($annotations as $annotation) {
-            if ($annotation instanceof Property) {
-                $this->properties[] = $annotation;
-            } elseif ($annotation instanceof Properties) {
+        foreach ($annotations as $index => $annotation) {
+            if ($annotation instanceof Properties) {
                 foreach ($annotation->properties as $property) {
                     $this->properties[] = $property;
                 }
-            } else {
-                Logger::notice('Unexpected '.get_class($annotation).' in a '.get_class($this).' in '.AbstractAnnotation::$context);
+                unset($annotations[$index]);
             }
         }
+        return parent::setNestedAnnotations($annotations);
     }
 
     public function validate()
     {
         $properties = array();
+        $required = $this->required ?: array();
+        foreach ($required as $name) {
+            foreach ($this->properties as $property) {
+                if ($property->name === $name) {
+                    $property->required = true;
+                }
+            }
+        }
         foreach ($this->properties as $property) {
             if ($property->validate()) {
                 $properties[] = $property;
+                if ($property->required) {
+                    $required[] = $property->name;
+                }
             }
         }
         $this->properties = $properties;
+        if (count($required) > 0) {
+            $this->required = array_unique($required);
+            sort($this->required);
+        }
         return true;
     }
 
@@ -86,11 +127,18 @@ class Model extends AbstractAnnotation
     public function jsonSerialize()
     {
         $data = parent::jsonSerialize($this);
-        unset($data['extends']);
+        unset($data['phpClass'], $data['phpExtends']);
+        if (empty($data['required'])) {
+            unset($data['required']);
+        }
         $data['properties'] = array();
         foreach ($this->properties as $property) {
-            $data['properties'][$property->name] = $property;
+            $data['properties'][$property->name] = $property->jsonSerialize();
         }
         return $data;
+    }
+
+    public function identity() {
+        return '@SWG\Model(id="'.$this->id.'")';
     }
 }

@@ -8,6 +8,7 @@
       <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/symfony/finder" />
       <excludeFolder url="file://$MODULE_DIR$/library/swagger-php/vendor/symfony/process" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/composer" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor/digitalnature/php-ref" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/annotations" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/cache" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/doctrine/collections" />
@@ -35,6 +36,7 @@
           <root url="file://$MODULE_DIR$/vendor/composer" />
           <root url="file://$MODULE_DIR$/vendor/simukti/zf1" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/collections" />
+          <root url="file://$MODULE_DIR$/vendor/digitalnature/php-ref" />
         </CLASSES>
         <SOURCES>
           <root url="file://$MODULE_DIR$/vendor/doctrine/cache" />
@@ -48,6 +50,7 @@
           <root url="file://$MODULE_DIR$/vendor/composer" />
           <root url="file://$MODULE_DIR$/vendor/simukti/zf1" />
           <root url="file://$MODULE_DIR$/vendor/doctrine/collections" />
+          <root url="file://$MODULE_DIR$/vendor/digitalnature/php-ref" />
         </SOURCES>
       </library>
     </orderEntry>

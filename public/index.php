@@ -18,11 +18,6 @@ set_include_path(implode(PATH_SEPARATOR, array(
     get_include_path(),
 )));
 
-// Add good var_dump)
-if (APPLICATION_ENV == 'development') {
-    require '../vendor/ref/ref.php';
-}
-
 /** Zend_Application */
 require_once 'Zend/Application.php';
 

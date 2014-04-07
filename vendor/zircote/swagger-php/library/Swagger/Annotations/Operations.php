@@ -3,7 +3,7 @@ namespace Swagger\Annotations;
 
 /**
  * @license    http://www.apache.org/licenses/LICENSE-2.0
- *             Copyright [2012] [Robert Allen]
+ *             Copyright [2013] [Robert Allen]
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,18 +34,11 @@ use Swagger\Logger;
 class Operations extends AbstractAnnotation
 {
     /**
-     * @var array|Operation
+     * @var Operation[]
      */
     public $operations;
 
-    protected function setNestedAnnotations($annotations)
-    {
-        foreach ($annotations as $annotation) {
-            if ($annotation instanceof Operation) {
-                $this->operations[] = $annotation;
-            } else {
-                Logger::notice('Unexpected '.get_class($annotation).' in a '.get_class($this).' in '.AbstractAnnotation::$context);
-            }
-        }
-    }
+    protected static $mapAnnotations = array(
+        '\Swagger\Annotations\Operation' => 'operations[]'
+    );
 }

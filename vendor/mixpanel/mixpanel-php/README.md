@@ -53,7 +53,7 @@ require 'mixpanel-php/lib/Mixpanel.php';
 $mp = Mixpanel::getInstance("MIXPANEL_PROJECT_TOKEN");
 
 // track an event
-$mp->track("button clicked", array("label" => "sign-up")); // track an event
+$mp->track("button clicked", array("label" => "sign-up"));
 
 // create/update a profile for user id 12345
 $mp->people->set(12345, array(
@@ -74,6 +74,26 @@ For further examples and options checkout out the "examples" folder
 
 Changelog
 -------------
+Version 2.6.1:
+ * Fixed bug in SocketConsumer timeout
+
+Version 2.6:
+ * Updated default for `connect_timeout` in SocketConsumer to be 5
+
+Version 2.5:
+ * `timeout` option now refers to `CURLOPT_TIMEOUT` instead of `CURLOPT_CONNECTTIMEOUT` in non-forked cURL calls, it has been removed from the SocketConsumer in favor of a new `connect_timeout` option.
+ * Added a new `connect_timeout` option for CURLOPT_CONNECTTIMEOUT in non-forked cURL calls (CurlConsumer) and the socket timeout (SocketConsumer)
+ * Set default timeout (CURLOPT_TIMEOUT) to 30 seconds in non-forked cURL calls
+ * Set default connection timeoute (CURLOPT_CONNECTTIMEOUT) to 5 seconds in non-forked cURL calls
+ * We now pass cURL errors from non-forked cURL calls to `_handle_error` with the curl errno and message
+
+
+Version 2.4:
+ * Fixed a bug where passing the integer 0 for the `ip` parameter would be ignored
+
+Version 2.1 - 2.3:
+ * Broken releases
+
 Version 2.0:
  * Changed the default consumer to be 'curl' (CurlConsumer)
  * Changed the default setting of 'fork' to false in the Curl Consumer. This means that by default, events and profile updates are sent synchronously using the PHP cURL lib when using the Curl Consumer.
