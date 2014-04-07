@@ -240,7 +240,7 @@ class Application_Model_Linkedin
                 'summary' => $summary,
                 'phone' => $phone,
                 'skype' => $skype,
-                'languages' => $languages,
+                'languages' => array_values($languages),
                 'skills' => $skills,
                 'city_name' => $city,
                 'country' => $country,

@@ -154,7 +154,7 @@ class Application_Model_Facebook
                 'summary' => $user_profile['about_me'],
                 'phone' => null,
                 'skype' => null,
-                'languages' => $languages,
+                'languages' => array_values($languages),
                 'skills' => array(),
                 'city_name' => $city,
                 'country' => $country,
