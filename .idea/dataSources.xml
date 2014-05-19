@@ -6,10 +6,6 @@
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://d1.trubear.com/truebear</jdbc-url>
-      <user-name>truebear</user-name>
-      <user-password>dfd9dfdadfdfdf99df98dfdedff8dfeb</user-password>
-      <schema-pattern>truebear.*</schema-pattern>
-      <default-schemas>truebear.*</default-schemas>
       <libraries>
         <library>
           <url>file://$PROJECT_DIR$/../Mockup.io/doc/mysql_connector/mysql-connector-java-5.1.22-bin.jar</url>
@@ -21,10 +17,6 @@
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mysql://test.mockup.io:3306/truebear</jdbc-url>
-      <user-name>root</user-name>
-      <user-password>dfe3dfcbdfc7dfe7dfc5dfc9dfc1dfdfdfda</user-password>
-      <schema-pattern>truebear.*</schema-pattern>
-      <default-schemas>truebear.*</default-schemas>
       <driver-properties>
         <property name="zeroDateTimeBehavior" value="convertToNull" />
         <property name="tinyInt1isBit" value="false" />
