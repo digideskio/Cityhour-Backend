@@ -19,7 +19,7 @@ $data = file_get_contents("php://input");
 $data = json_decode($data,true);
 $debug = (isset($data["debug"]) && $data["debug"]) ? true:false;
 
-if ($debug) require_once '../vendor/ref/ref.php';
+if ($debug) require_once '../vendor/digitalnature/php-ref/ref.php';
 require 'classes/FindPeople.class.php';
 $cls = new FindPeople($debug);
 

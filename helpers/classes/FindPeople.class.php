@@ -238,6 +238,7 @@ class FindPeople extends Common {
             ",false,true);
             $result = array_merge($result,$find);
         }
+        shuffle($result);
         return $result;
     }
 
