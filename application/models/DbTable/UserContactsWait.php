@@ -251,18 +251,15 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
         else if ($type == 3) {
             $emails = array();
             $phones = array();
-            $filter_int = new Zend_Filter_Digits();
             $valid_email = new Zend_Validate_EmailAddress();
 
             if (isset($token['phones'])) {
                 foreach ($token['phones'] as $num => $row) {
-                    $phone = $filter_int->filter($row);
-                    if (is_numeric($phone)) {
-                        $phones[$num] = $phone;
-                    }
+                    $phone = $row;
+                    $phones[$num] = $this->_db->quote('%'.$phone.'%');
                 }
                 if ($phones) {
-                    $phones = "u.phone like '%".implode("%' or u.phone like '%",$phones)."%'";
+                    $phones = "u.phone like ".implode(" or u.phone like ",$phones);
                 }
                 else {
                     $phones = 'u.id = 0';
