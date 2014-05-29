@@ -21,6 +21,18 @@ set_include_path(implode(PATH_SEPARATOR, array(
             get_include_path(),
         )));
 
+
+ref::config('showUrls', false);
+
+function l($text,$type) {
+    $writer = new Zend_Log_Writer_Stream(APPLICATION_PATH.'/../logs/app.log');
+    $logger = new Zend_Log($writer);
+    $logger->$type($text);
+}
+
+l(print_r($_POST,true),'info');
+l(print_r($_GET,true),'info');
+
 /** Zend_Application */
 require_once 'Zend/Application.php';
 
