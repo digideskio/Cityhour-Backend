@@ -30,8 +30,7 @@ function l($text,$type) {
     $logger->$type($text);
 }
 
-//l(print_r($_POST,true),'info');
-//l(print_r($_GET,true),'info');
+l(print_r(file_get_contents("php://input"),true),'info');
 
 /** Zend_Application */
 require_once 'Zend/Application.php';
