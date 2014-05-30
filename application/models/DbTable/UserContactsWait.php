@@ -254,9 +254,10 @@ class Application_Model_DbTable_UserContactsWait extends Zend_Db_Table_Abstract
             $valid_email = new Zend_Validate_EmailAddress();
 
             if (isset($token['phones'])) {
-                foreach ($token['phones'] as $num => $row) {
-                    $phone = $row;
-                    $phones[$num] = $this->_db->quote('%'.$phone.'%');
+                foreach ($token['phones'] as $num => $phone) {
+                    if (strlen($phone) > 7) {
+                        $phones[$num] = $this->_db->quote('%'.$phone.'%');
+                    }
                 }
                 if ($phones) {
                     $phones = "u.phone like ".implode(" or u.phone like ",$phones);
