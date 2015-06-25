@@ -34,7 +34,7 @@ class Application_Model_DbTable_PushMessages extends Zend_Db_Table_Abstract
         ),"id in ($ids)");
 
         try {
-			$pass = '';
+			$pass = 'parol4ik';
             if (isset($tokens[0])) {
 
                 //Connect
