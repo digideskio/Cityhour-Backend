@@ -269,7 +269,13 @@ class Application_Model_DbTable_Users extends Zend_Db_Table_Abstract
             if (isset($data['skype'])) $userData['skype'] = $input->getunEscaped('skype');
             if (isset($data['phone'])) $userData['phone'] = $input->getunEscaped('phone');
             if (isset($data['industry_id'])) $userData['industry_id'] = $input->getunEscaped('industry_id');
-            if (isset($data['business_email']) && !$linkedin && !$facebook) $userData['business_email'] = $input->getunEscaped('business_email'); else $userData['business_email'] = $data['business_email'];
+            if (isset($data['business_email']) && !$linkedin && !$facebook) {
+                $userData['business_email'] = $input->getunEscaped('business_email');
+            } elseif(isset($data['business_email'])) {
+                $userData['business_email'] = $data['business_email'];
+            } else {
+                $userData['business_email'] = '';
+            }
             if (isset($data['country'])) $userData['country'] = $input->getunEscaped('country');
 
             //City
