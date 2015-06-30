@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/push"
@@ -58,29 +58,29 @@ class V1_PushController extends Zend_Rest_Controller
      * @SWG\Operation(
      *       nickname="AddPush",
      *       summary="Add push.",
-     *       httpMethod="POST",
-     *       responseClass="void",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       method="POST",
+     *       type="void",
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions"
+     *            message="Have no permissions"
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="false",
+     *           required=false,
      *           allowMultiple="false",
-     *           dataType="push"
+     *           type="push"
      *         )
      *     )
      *   )
@@ -148,16 +148,16 @@ class V1_PushController extends Zend_Rest_Controller
      * @SWG\Operation(
      *       nickname="DeletePush",
      *       summary="Delete push.",
-     *       httpMethod="DELETE",
-     *       responseClass="void",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       method="DELETE",
+     *       type="void",
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions"
+     *            message="Have no permissions"
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      *
@@ -165,17 +165,17 @@ class V1_PushController extends Zend_Rest_Controller
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         ),
      * @SWG\Parameter(
      *           name="device",
      *           description="device",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         )
      *     )
      *   )

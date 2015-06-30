@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/languages"
@@ -27,9 +27,9 @@ class V1_LanguagesController extends Zend_Rest_Controller
      *   path="/languages/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Get languages.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="GetLanguages",
      *       notes=""
      *     )

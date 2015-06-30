@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/auth"
@@ -33,23 +33,23 @@ class V1_AuthController extends Zend_Rest_Controller
      * @SWG\Property(name="name",type="string"),
      * @SWG\Property(name="lastname",type="string"),
      * @SWG\Property(name="email",type="string"),
-     * @SWG\Property(name="industry_id",type="int"),
+     * @SWG\Property(name="industry_id",type="integer"),
      * @SWG\Property(name="summary",type="string"),
-     * @SWG\Property(name="photo_id",type="int"),
+     * @SWG\Property(name="photo_id",type="integer"),
      * @SWG\Property(name="phone",type="string"),
      * @SWG\Property(name="business_email",type="string"),
      * @SWG\Property(name="skype",type="string"),
      * @SWG\Property(name="city",type="string"),
      * @SWG\Property(name="country",type="string"),
-     * @SWG\Property(name="offset",type="int"),
+     * @SWG\Property(name="offset",type="integer"),
      * @SWG\Property(name="facebook_key",type="string"),
      * @SWG\Property(name="facebook_id",type="string"),
      * @SWG\Property(name="linkedin_id",type="string"),
      * @SWG\Property(name="linkedin_key",type="string"),
      * @SWG\Property(name="skills",type="Array()"),
      * @SWG\Property(name="languages",type="Array()"),
-     * @SWG\Property(name="jobs",type="Array",items="$ref:jobsParams"),
-     * @SWG\Property(name="education",type="Array",items="$ref:educationParams")
+     * @SWG\Property(name="jobs",type="array",items="$ref:jobsParams"),
+     * @SWG\Property(name="education",type="array",items="$ref:educationParams")
      *
      *
      * @SWG\Model(id="jobsParams")
@@ -71,28 +71,28 @@ class V1_AuthController extends Zend_Rest_Controller
      *   path="/auth/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="Register.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="Register",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="402",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="300",
-     *            reason="User exist."
+     *            message="User exist."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="registerParams"
+     *           type="registerParams"
      *         )
      *     )
      *   )
@@ -143,7 +143,7 @@ class V1_AuthController extends Zend_Rest_Controller
         /**
          *
          * @SWG\Model(id="loginParams")
-         * @SWG\Property(name="type",type="int"),
+         * @SWG\Property(name="type",type="integer"),
          * @SWG\Property(name="token",type="string")
          *
          *
@@ -151,36 +151,36 @@ class V1_AuthController extends Zend_Rest_Controller
          *   path="/auth/login/",
          *   @SWG\Operations(
          *     @SWG\Operation(
-         *       httpMethod="PUT",
+         *       method="PUT",
          *       summary="Login.",
-         *       responseClass="void",
+         *       type="void",
          *       nickname="login",
          *       notes="",
-         *       @SWG\ErrorResponses(
-         *          @SWG\ErrorResponse(
+         *       @SWG\ResponseMessages(
+         *          @SWG\ResponseMessage(
          *            code="400",
-         *            reason="Invalid login type."
+         *            message="Invalid login type."
          *          ),
-         *          @SWG\ErrorResponse(
+         *          @SWG\ResponseMessage(
          *            code="409",
-         *            reason="Token not correct."
+         *            message="Token not correct."
          *          ),
-         *          @SWG\ErrorResponse(
+         *          @SWG\ResponseMessage(
          *            code="404",
-         *            reason="User not registered."
+         *            message="User not registered."
          *          ),
-         *          @SWG\ErrorResponse(
+         *          @SWG\ResponseMessage(
          *            code="405",
-         *            reason="User not found socNetwork."
+         *            message="User not found socNetwork."
          *          )
          *       ),
          * @SWG\Parameter(
          *           name="json",
          *           description="json",
          *           paramType="body",
-         *           required="true",
+         *           required=true,
          *           allowMultiple="false",
-         *           dataType="loginParams"
+         *           type="loginParams"
          *         )
          *     )
          *   )

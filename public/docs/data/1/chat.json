@@ -1,0 +1,131 @@
+{
+    "basePath": "/v1",
+    "swaggerVersion": "1.2",
+    "apiVersion": "1",
+    "resourcePath": "/chat",
+    "apis": [
+        {
+            "path": "/chat/",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get user messages.",
+                    "nickname": "GetUserMessages",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "private_key",
+                            "type": "string",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "private_key"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "from",
+                            "type": "string",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "from"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Authentication failed."
+                        },
+                        {
+                            "code": 400,
+                            "message": "Not all params given."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Get Chat Talks.",
+                    "nickname": "GetChatTalks",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "json",
+                            "type": "ChatTalks",
+                            "required": false,
+                            "allowMultiple": "false",
+                            "description": "json"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Have no permissions"
+                        },
+                        {
+                            "code": 400,
+                            "message": "Not all params given."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ]
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Delete chat.",
+                    "nickname": "DeleteChat",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "private_key",
+                            "type": "string",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "private_key"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "id",
+                            "type": "integer",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "id"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Authentication failed."
+                        },
+                        {
+                            "code": 400,
+                            "message": "Not all params given."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "ChatTalks": {
+            "id": "ChatTalks",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

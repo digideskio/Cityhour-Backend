@@ -1,0 +1,243 @@
+{
+    "basePath": "/v1",
+    "swaggerVersion": "1.2",
+    "apiVersion": "1",
+    "resourcePath": "/calendar",
+    "apis": [
+        {
+            "path": "/calendar/",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get calendar.",
+                    "nickname": "GetCalendar",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "private_key",
+                            "type": "string",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "private_key"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "id",
+                            "type": "string",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "id"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Authentication failed."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Add busy time slot to calendar.",
+                    "nickname": "slotCalendar",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "json",
+                            "type": "slotCalendarParams",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "json"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Not all params correct."
+                        },
+                        {
+                            "code": 401,
+                            "message": "Have no permissions."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Update time slot.",
+                    "nickname": "UpdateCalendar",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "json",
+                            "type": "slotCalendarUpdateParams",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "json"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Not all params correct."
+                        },
+                        {
+                            "code": 401,
+                            "message": "Have no permissions."
+                        },
+                        {
+                            "code": 404,
+                            "message": "Slot not found or U have`n right to edit it."
+                        },
+                        {
+                            "code": 408,
+                            "message": "User for meet blocked."
+                        },
+                        {
+                            "code": 407,
+                            "message": "User blocked."
+                        },
+                        {
+                            "code": 300,
+                            "message": "Request user busy."
+                        },
+                        {
+                            "code": 301,
+                            "message": "You have meeting with this user on this time."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Cancel time slot.",
+                    "nickname": "CancelTimeSlot",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "private_key",
+                            "type": "string",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "private_key"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "id",
+                            "type": "integer",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "id"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Authentication failed."
+                        },
+                        {
+                            "code": 400,
+                            "message": "Not all params given."
+                        },
+                        {
+                            "code": 404,
+                            "message": "Not found slot that you can cancel."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "slotCalendarParams": {
+            "id": "slotCalendarParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "slots": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "creteSlotParams"
+                    }
+                },
+                "calendars": {
+                    "$ref": "json"
+                }
+            }
+        },
+        "slotCalendarUpdateParams": {
+            "id": "slotCalendarUpdateParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "date_from": {
+                    "$ref": "timestamp"
+                },
+                "date_to": {
+                    "$ref": "timestamp"
+                },
+                "city": {
+                    "type": "string"
+                },
+                "foursquare_id": {
+                    "type": "string"
+                },
+                "goal": {
+                    "type": "string"
+                },
+                "rating": {
+                    "type": "string"
+                },
+                "person": {
+                    "type": "string"
+                },
+                "person_value": {
+                    "type": "string"
+                },
+                "person_name": {
+                    "type": "string"
+                }
+            }
+        },
+        "creteSlotParams": {
+            "id": "creteSlotParams",
+            "properties": {
+                "start_time": {
+                    "$ref": "timestamp"
+                },
+                "end_time": {
+                    "$ref": "timestamp"
+                },
+                "hash": {
+                    "type": "string"
+                },
+                "calendar_name": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

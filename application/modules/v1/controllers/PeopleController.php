@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/people"
@@ -28,40 +28,40 @@ class V1_PeopleController extends Zend_Rest_Controller
      *   path="/people/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Get People.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="GetPeople",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         ),
      * @SWG\Parameter(
      *           name="users",
      *           description="Users id separated by ',' ",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="timestamp"
+     *           type="timestamp"
      *         )
      *     )
      *   )

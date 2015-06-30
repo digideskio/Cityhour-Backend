@@ -1,5 +1,5 @@
 <?php
 
-$url = "/apidocs/index.html";
+$url = "/docs/index.html";
 
 header( "Location: $url" );

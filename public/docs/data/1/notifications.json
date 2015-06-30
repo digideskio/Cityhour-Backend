@@ -1,0 +1,186 @@
+{
+    "basePath": "/v1",
+    "swaggerVersion": "1.2",
+    "apiVersion": "1",
+    "resourcePath": "/notifications",
+    "apis": [
+        {
+            "path": "/notifications/",
+            "operations": [
+                {
+                    "method": "GET",
+                    "summary": "Get Notifications.",
+                    "nickname": "GetNotifications",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "private_key",
+                            "type": "string",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "private_key"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "id",
+                            "type": "integer",
+                            "required": false,
+                            "allowMultiple": "false",
+                            "description": "id"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "item",
+                            "type": "integer",
+                            "required": false,
+                            "allowMultiple": "false",
+                            "description": "item"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Authentication failed."
+                        },
+                        {
+                            "code": 400,
+                            "message": "Not all params given."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "POST",
+                    "summary": "Notification counters.",
+                    "nickname": "CountNotification",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "json",
+                            "type": "counterNotificationParams",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "json"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Not all params correct."
+                        },
+                        {
+                            "code": 401,
+                            "message": "Have no permissions."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "PUT",
+                    "summary": "Read notification.",
+                    "nickname": "ReadNotification",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "body",
+                            "name": "json",
+                            "type": "readNotificationParams",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "json"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 400,
+                            "message": "Not all params correct."
+                        },
+                        {
+                            "code": 401,
+                            "message": "Have no permissions."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                },
+                {
+                    "method": "DELETE",
+                    "summary": "Cancel meet request slot.",
+                    "nickname": "CancelMeetRequest",
+                    "type": "void",
+                    "parameters": [
+                        {
+                            "paramType": "query",
+                            "name": "private_key",
+                            "type": "string",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "private_key"
+                        },
+                        {
+                            "paramType": "query",
+                            "name": "id",
+                            "type": "integer",
+                            "required": true,
+                            "allowMultiple": "false",
+                            "description": "id"
+                        }
+                    ],
+                    "responseMessages": [
+                        {
+                            "code": 401,
+                            "message": "Authentication failed."
+                        },
+                        {
+                            "code": 400,
+                            "message": "Not all params given."
+                        },
+                        {
+                            "code": 404,
+                            "message": "Not found request that you can cancel."
+                        },
+                        {
+                            "code": 407,
+                            "message": "You blocked."
+                        }
+                    ],
+                    "notes": ""
+                }
+            ]
+        }
+    ],
+    "models": {
+        "counterNotificationParams": {
+            "id": "counterNotificationParams",
+            "properties": {
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        },
+        "readNotificationParams": {
+            "id": "readNotificationParams",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "private_key": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

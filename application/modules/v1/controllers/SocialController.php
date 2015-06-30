@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/social"
@@ -27,36 +27,36 @@ class V1_SocialController extends Zend_Rest_Controller
      *   path="/social/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Get share.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="GetSocial",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Time Slot not found)."
+     *            message="Time Slot not found)."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="uid",
      *           description="Id of user",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         ),
      * @SWG\Parameter(
      *           name="id",
      *           description="Slot id",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         )
      *     )
      *   )
@@ -93,43 +93,43 @@ class V1_SocialController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="ShareCreateParams")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="id",type="int")
+     * @SWG\Property(name="id",type="integer")
      *
      *
      * @SWG\Api(
      *   path="/social/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="Share to Social network.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="ShareToSocialNetwork",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Not found slot to share."
+     *            message="Not found slot to share."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="ShareCreateParams"
+     *           type="ShareCreateParams"
      *         )
      *     )
      *   )
@@ -159,39 +159,39 @@ class V1_SocialController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="UpdateFromLinkedin")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="type",type="int")
+     * @SWG\Property(name="type",type="integer")
      *
      *
      * @SWG\Api(
      *   path="/social/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="PUT",
+     *       method="PUT",
      *       summary="Update user info from linkedin or Facebook.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="UpdateUserFromLinkedin",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="405",
-     *            reason="User not found socNetwork."
+     *            message="User not found socNetwork."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="UpdateFromLinkedin"
+     *           type="UpdateFromLinkedin"
      *         )
      *     )
      *   )

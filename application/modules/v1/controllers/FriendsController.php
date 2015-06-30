@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/friends"
@@ -28,32 +28,32 @@ class V1_FriendsController extends Zend_Rest_Controller
      *   path="/friends/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Get Friends.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="GetFriends",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         )
      *     )
      *   )
@@ -80,7 +80,7 @@ class V1_FriendsController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Model(id="addFriendParams")
-     * @SWG\Property(name="id",type="int")
+     * @SWG\Property(name="id",type="integer")
      * @SWG\Property(name="private_key",type="string")
      *
      *
@@ -88,36 +88,36 @@ class V1_FriendsController extends Zend_Rest_Controller
      *   path="/friends/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="Add friend.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="InviteFriend",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Id not found."
+     *            message="Id not found."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="addFriendParams"
+     *           type="addFriendParams"
      *         )
      *     )
      *   )
@@ -159,8 +159,8 @@ class V1_FriendsController extends Zend_Rest_Controller
     /**
      *
      * @SWG\Model(id="AnswerFriendParams")
-     * @SWG\Property(name="id",type="int")
-     * @SWG\Property(name="status",type="int")
+     * @SWG\Property(name="id",type="integer")
+     * @SWG\Property(name="status",type="integer")
      * @SWG\Property(name="private_key",type="string")
      *
      *
@@ -168,36 +168,36 @@ class V1_FriendsController extends Zend_Rest_Controller
      *   path="/friends/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="PUT",
+     *       method="PUT",
      *       summary="Answer friend request.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="AnswerFriend",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Id not found."
+     *            message="Id not found."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="AnswerFriendParams"
+     *           type="AnswerFriendParams"
      *         )
      *     )
      *   )
@@ -235,44 +235,44 @@ class V1_FriendsController extends Zend_Rest_Controller
      *   path="/friends/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="DELETE",
+     *       method="DELETE",
      *       summary="Delete Friend.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="DeleteFriend",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="500",
-     *            reason="Server problem."
+     *            message="Server problem."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         ),
      * @SWG\Parameter(
      *           name="id",
      *           description="id",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="int"
+     *           type="integer"
      *         )
      *     )
      *   )

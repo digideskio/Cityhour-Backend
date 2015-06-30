@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/complaints"
@@ -39,36 +39,36 @@ class V1_ComplaintsController extends Zend_Rest_Controller
      *   path="/complaints/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="Add complaint.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="addComplaint",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="403",
-     *            reason="Already make complaint to this user."
+     *            message="Already make complaint to this user."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="addComplaintParams"
+     *           type="addComplaintParams"
      *         )
      *     )
      *   )
@@ -126,32 +126,32 @@ class V1_ComplaintsController extends Zend_Rest_Controller
      *   path="/complaints/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="PUT",
+     *       method="PUT",
      *       summary="Add feedback.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="addFeedback",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="addFeedbackParams"
+     *           type="addFeedbackParams"
      *         )
      *     )
      *   )

@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/logger"
@@ -38,18 +38,18 @@ class V1_LoggerController extends Zend_Rest_Controller
      *   path="/logger/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="Log error.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="LogError",
      *       notes="",
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="LogParams"
+     *           type="LogParams"
      *         )
      *     )
      *   )

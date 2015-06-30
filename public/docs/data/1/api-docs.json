@@ -1,0 +1,63 @@
+{
+    "apiVersion": "1",
+    "swaggerVersion": "1.2",
+    "apis": [
+        {
+            "path": "/auth.{format}"
+        },
+        {
+            "path": "/blocked.{format}"
+        },
+        {
+            "path": "/calendar.{format}"
+        },
+        {
+            "path": "/chat.{format}"
+        },
+        {
+            "path": "/complaints.{format}"
+        },
+        {
+            "path": "/friends.{format}"
+        },
+        {
+            "path": "/goals.{format}"
+        },
+        {
+            "path": "/industry.{format}"
+        },
+        {
+            "path": "/inviteFriends.{format}"
+        },
+        {
+            "path": "/languages.{format}"
+        },
+        {
+            "path": "/logger.{format}"
+        },
+        {
+            "path": "/meetings.{format}"
+        },
+        {
+            "path": "/notifications.{format}"
+        },
+        {
+            "path": "/people.{format}"
+        },
+        {
+            "path": "/photo.{format}"
+        },
+        {
+            "path": "/push.{format}"
+        },
+        {
+            "path": "/social.{format}"
+        },
+        {
+            "path": "/sync.{format}"
+        },
+        {
+            "path": "/user.{format}"
+        }
+    ]
+}

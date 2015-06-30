@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/helpers"
@@ -16,7 +16,7 @@ require 'Common.class.php';
  * @SWG\Property(name="private_key",type="string")
  * @SWG\Property(name="debug",type="boolean")
  *
- * @SWG\Property(name="offset",type="int")
+ * @SWG\Property(name="offset",type="integer")
  * @SWG\Property(name="data_from",type="timestamp")
  * @SWG\Property(name="data_to",type="timestamp")
  * @SWG\Property(name="time_from",type="timestamp")
@@ -30,36 +30,36 @@ require 'Common.class.php';
  *   path="/suggest.php",
  *   @SWG\Operations(
  *     @SWG\Operation(
- *       httpMethod="POST",
+ *       method="POST",
  *       summary="Suggest people.",
- *       responseClass="void",
+ *       type="void",
  *       nickname="Suggest",
  *       notes="",
- *       @SWG\ErrorResponses(
- *          @SWG\ErrorResponse(
+ *       @SWG\ResponseMessages(
+ *          @SWG\ResponseMessage(
  *            code="400",
- *            reason="Not all params correct."
+ *            message="Not all params correct."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="401",
- *            reason="Have no permissions."
+ *            message="Have no permissions."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="407",
- *            reason="Current user blocked."
+ *            message="Current user blocked."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="500",
- *            reason="Server side problem."
+ *            message="Server side problem."
  *          )
  *       ),
  * @SWG\Parameter(
  *           name="json",
  *           description="json",
  *           paramType="body",
- *           required="true",
+ *           required=true,
  *           allowMultiple="false",
- *           dataType="SuggestParams"
+ *           type="SuggestParams"
  *         )
  *     )
  *   )

@@ -1,6 +1,4 @@
 <?php
-
-use Swagger\Annotations as SWG;
 /**
  * @SWG\Resource(
  *  resourcePath="/user"
@@ -27,44 +25,44 @@ class V1_UserController extends Zend_Rest_Controller
      *   path="/user/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Get user info.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="GetUser",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="404",
-     *            reason="User not found)."
+     *            message="User not found)."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         ),
      * @SWG\Parameter(
      *           name="id",
      *           description="id",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         )
      *     )
      *   )
@@ -110,44 +108,44 @@ class V1_UserController extends Zend_Rest_Controller
      *   path="/user/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="User keys update.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="keysUpdate",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="407",
-     *            reason="User blocked."
+     *            message="User blocked."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="409",
-     *            reason="Token not correct."
+     *            message="Token not correct."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="416",
-     *            reason="User with this facebook exist."
+     *            message="User with this facebook exist."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="417",
-     *            reason="User with this linkedin exist."
+     *            message="User with this linkedin exist."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="UserKeysUpdate"
+     *           type="UserKeysUpdate"
      *         )
      *     )
      *   )
@@ -188,7 +186,7 @@ class V1_UserController extends Zend_Rest_Controller
      * @SWG\Property(name="private_key",type="string"),
      * @SWG\Property(name="name",type="string"),
      * @SWG\Property(name="lastname",type="string"),
-     * @SWG\Property(name="industry_id",type="int"),
+     * @SWG\Property(name="industry_id",type="integer"),
      * @SWG\Property(name="summary",type="string"),
      * @SWG\Property(name="phone",type="string"),
      * @SWG\Property(name="business_email",type="string"),
@@ -196,8 +194,8 @@ class V1_UserController extends Zend_Rest_Controller
      * @SWG\Property(name="city",type="string"),
      * @SWG\Property(name="skills",type="Array()"),
      * @SWG\Property(name="languages",type="Array()"),
-     * @SWG\Property(name="jobs",type="Array",items="$ref:jobsParams"),
-     * @SWG\Property(name="education",type="Array",items="$ref:educationParams")
+     * @SWG\Property(name="jobs",type="array",items="$ref:jobsParams"),
+     * @SWG\Property(name="education",type="array",items="$ref:educationParams")
      *
      *
      * @SWG\Model(id="jobsParams")
@@ -221,32 +219,32 @@ class V1_UserController extends Zend_Rest_Controller
      *   path="/user/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="PUT",
+     *       method="PUT",
      *       summary="Update User.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="updateUser",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="updateUserParams"
+     *           type="updateUserParams"
      *         )
      *     )
      *   )

@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/photo"
@@ -34,33 +34,33 @@ class V1_PhotoController extends Zend_Rest_Controller
      * @SWG\Operation(
      *       nickname="UploadPhoto",
      *       summary="Upload photo.",
-     *       httpMethod="POST",
-     *       responseClass="void",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       method="POST",
+     *       type="void",
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="412",
-     *            reason="Not image."
+     *            message="Not image."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="file",
      *           description="file",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="int"
+     *           type="integer"
      *         ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="false",
+     *           required=false,
      *           allowMultiple="false",
-     *           dataType="int"
+     *           type="integer"
      *         )
      *     )
      *   )

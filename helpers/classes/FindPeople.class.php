@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/helpers"
@@ -16,14 +16,14 @@ require 'Common.class.php';
  * @SWG\Property(name="private_key",type="string")
  * @SWG\Property(name="debug",type="boolean")
  *
- * @SWG\Property(name="offset",type="int")
+ * @SWG\Property(name="offset",type="integer")
  * @SWG\Property(name="data_from",type="timestamp")
  * @SWG\Property(name="data_to",type="timestamp")
  * @SWG\Property(name="time_from",type="timestamp")
  * @SWG\Property(name="time_to",type="timestamp")
  * @SWG\Property(name="city",type="string")
- * @SWG\Property(name="goal",type="int")
- * @SWG\Property(name="industry",type="int")
+ * @SWG\Property(name="goal",type="integer")
+ * @SWG\Property(name="industry",type="integer")
  *
  *
  *
@@ -31,48 +31,48 @@ require 'Common.class.php';
  *   path="/findPeople.php",
  *   @SWG\Operations(
  *     @SWG\Operation(
- *       httpMethod="POST",
+ *       method="POST",
  *       summary="Find People.",
- *       responseClass="void",
+ *       type="void",
  *       nickname="FindPeople",
  *       notes="",
- *       @SWG\ErrorResponses(
- *          @SWG\ErrorResponse(
+ *       @SWG\ResponseMessages(
+ *          @SWG\ResponseMessage(
  *            code="400",
- *            reason="Not all params correct."
+ *            message="Not all params correct."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="401",
- *            reason="Have no permissions."
+ *            message="Have no permissions."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="407",
- *            reason="Current user blocked."
+ *            message="Current user blocked."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="404",
- *            reason="You have`n free time. for request period."
+ *            message="You have`n free time. for request period."
  *          ),
- *			@SWG\ErrorResponse(
+ *			@SWG\ResponseMessage(
  *            code="410",
- *            reason="No one found."
+ *            message="No one found."
  *          ),
- *			@SWG\ErrorResponse(
+ *			@SWG\ResponseMessage(
  *            code="414",
- *            reason="Bad time."
+ *            message="Bad time."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="500",
- *            reason="Server side problem."
+ *            message="Server side problem."
  *          )
  *       ),
  * @SWG\Parameter(
  *           name="json",
  *           description="json",
  *           paramType="body",
- *           required="true",
+ *           required=true,
  *           allowMultiple="false",
- *           dataType="FindPeopleParams"
+ *           type="FindPeopleParams"
  *         )
  *     )
  *   )

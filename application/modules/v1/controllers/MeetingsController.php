@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/meetings"
@@ -28,60 +28,60 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *   path="/meetings/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Answer handler for email meeting request.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="AcceptEmailMeeting",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="408",
-     *            reason="User for meet blocked."
+     *            message="User for meet blocked."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="301",
-     *            reason="Request user have meeting on this time."
+     *            message="Request user have meeting on this time."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Meeting expired"
+     *            message="Meeting expired"
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="412",
-     *            reason="Time for meet expired"
+     *            message="Time for meet expired"
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="answer",
      *           description="answer",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="int"
+     *           type="integer"
      *         ),
      * @SWG\Parameter(
      *           name="sid",
      *           description="Meeting id",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="int"
+     *           type="integer"
      *         ),
      * @SWG\Parameter(
      *           name="key",
      *           description="User key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         )
      *     )
      *   )
@@ -120,8 +120,8 @@ class V1_MeetingsController extends Zend_Rest_Controller
      * @SWG\Property(name="date_to",type="timestamp")
      * @SWG\Property(name="city",type="string")
      * @SWG\Property(name="foursquare_id",type="string")
-     * @SWG\Property(name="goal",type="int")
-     * @SWG\Property(name="person",type="int")
+     * @SWG\Property(name="goal",type="integer")
+     * @SWG\Property(name="person",type="integer")
      * @SWG\Property(name="person_value",type="string")
      * @SWG\Property(name="person_name",type="string")
      *
@@ -130,52 +130,52 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *   path="/meetings/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="Add meeting or free slot.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="addMeeting",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="408",
-     *            reason="User for meet blocked."
+     *            message="User for meet blocked."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="407",
-     *            reason="User blocked."
+     *            message="User blocked."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="300",
-     *            reason="You have meeting or free slot on this time."
+     *            message="You have meeting or free slot on this time."
      *          ),
-     *			@SWG\ErrorResponse(
+     *			@SWG\ResponseMessage(
      *            code="414",
-     *            reason="Bad time."
+     *            message="Bad time."
      *          ),     *
-     *			@SWG\ErrorResponse(
+     *			@SWG\ResponseMessage(
      *            code="415",
-     *            reason="Same user."
+     *            message="Same user."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="301",
-     *            reason="You have meeting with this user on this time."
+     *            message="You have meeting with this user on this time."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="addMeetingsParams"
+     *           type="addMeetingsParams"
      *         )
      *     )
      *   )
@@ -260,8 +260,8 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="answerMeetingsParams")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="id",type="int")
-     * @SWG\Property(name="status",type="int")
+     * @SWG\Property(name="id",type="integer")
+     * @SWG\Property(name="status",type="integer")
      * @SWG\Property(name="foursqure_id",type="string")
      * @SWG\Property(name="start_time",type="string")
      *
@@ -270,48 +270,48 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *   path="/meetings/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="PUT",
+     *       method="PUT",
      *       summary="Answer on meeting request.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="addMeeting",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="408",
-     *            reason="User for meet blocked."
+     *            message="User for meet blocked."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="407",
-     *            reason="User blocked."
+     *            message="User blocked."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Right meeting not found."
+     *            message="Right meeting not found."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="300",
-     *            reason="You have meeting on this time."
+     *            message="You have meeting on this time."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="301",
-     *            reason="Request user have meeting on this time."
+     *            message="Request user have meeting on this time."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="answerMeetingsParams"
+     *           type="answerMeetingsParams"
      *         )
      *     )
      *   )
@@ -361,44 +361,44 @@ class V1_MeetingsController extends Zend_Rest_Controller
      *   path="/meetings/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="DELETE",
+     *       method="DELETE",
      *       summary="Stop meeting.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="StopMeeting",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Not found meeting that you can stop."
+     *            message="Not found meeting that you can stop."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         ),
      * @SWG\Parameter(
      *           name="id",
      *           description="id",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="int"
+     *           type="integer"
      *         )
      *     )
      *   )

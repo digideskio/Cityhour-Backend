@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/industry"
@@ -27,9 +27,9 @@ class V1_IndustryController extends Zend_Rest_Controller
      *   path="/industry/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Get industry.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="GetIndustry",
      *       notes=""
      *     )

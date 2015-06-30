@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/inviteFriends"
@@ -33,7 +33,7 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="inviteFriendsFind")
      * @SWG\Property(name="token",type="string")
-     * @SWG\Property(name="type",type="int")
+     * @SWG\Property(name="type",type="integer")
      * @SWG\Property(name="private_key",type="string")
      *
      *
@@ -41,32 +41,32 @@ class V1_InviteFriendsController extends Zend_Rest_Controller
      *   path="/invite-friends/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="Get friends from social networks.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="inviteFriends",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="inviteFriendsFind"
+     *           type="inviteFriendsFind"
      *         )
      *     )
      *   )

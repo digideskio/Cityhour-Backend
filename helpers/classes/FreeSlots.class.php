@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/helpers"
@@ -14,7 +14,7 @@ require 'Common.class.php';
  *
  * @SWG\Model(id="getFreeSlotsParams")
  * @SWG\Property(name="private_key",type="string")
- * @SWG\Property(name="user_id",type="int")
+ * @SWG\Property(name="user_id",type="integer")
  * @SWG\Property(name="debug",type="boolean")
  *
  *
@@ -22,36 +22,36 @@ require 'Common.class.php';
  *   path="/freeSlots.php",
  *   @SWG\Operations(
  *     @SWG\Operation(
- *       httpMethod="POST",
+ *       method="POST",
  *       summary="Get Free Slots.",
- *       responseClass="void",
+ *       type="void",
  *       nickname="getFreeSlots",
  *       notes="",
- *       @SWG\ErrorResponses(
- *          @SWG\ErrorResponse(
+ *       @SWG\ResponseMessages(
+ *          @SWG\ResponseMessage(
  *            code="400",
- *            reason="Not all params correct."
+ *            message="Not all params correct."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="401",
- *            reason="Have no permissions."
+ *            message="Have no permissions."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="408",
- *            reason="Request user blocked."
+ *            message="Request user blocked."
  *          ),
- *           @SWG\ErrorResponse(
+ *           @SWG\ResponseMessage(
  *            code="407",
- *            reason="Current user blocked."
+ *            message="Current user blocked."
  *          )
  *       ),
  * @SWG\Parameter(
  *           name="json",
  *           description="json",
  *           paramType="body",
- *           required="true",
+ *           required=true,
  *           allowMultiple="false",
- *           dataType="getFreeSlotsParams"
+ *           type="getFreeSlotsParams"
  *         )
  *     )
  *   )

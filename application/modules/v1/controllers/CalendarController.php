@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/calendar"
@@ -27,36 +27,36 @@ class V1_CalendarController extends Zend_Rest_Controller
      *   path="/calendar/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Get calendar.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="GetCalendar",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         ),
      * @SWG\Parameter(
      *           name="id",
      *           description="id",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         )
      *     )
      *   )
@@ -78,7 +78,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="slotCalendarParams")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="slots",type="Array",items="$ref:creteSlotParams")
+     * @SWG\Property(name="slots",type="array",items="$ref:creteSlotParams")
      * @SWG\Property(name="calendars",type="json")
      *
      * @SWG\Model(id="creteSlotParams")
@@ -92,32 +92,32 @@ class V1_CalendarController extends Zend_Rest_Controller
      *   path="/calendar/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="POST",
+     *       method="POST",
      *       summary="Add busy time slot to calendar.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="slotCalendar",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="slotCalendarParams"
+     *           type="slotCalendarParams"
      *         )
      *     )
      *   )
@@ -153,7 +153,7 @@ class V1_CalendarController extends Zend_Rest_Controller
      *
      * @SWG\Model(id="slotCalendarUpdateParams")
      * @SWG\Property(name="private_key",type="string")
-     * @SWG\Property(name="id",type="int")
+     * @SWG\Property(name="id",type="integer")
      * @SWG\Property(name="date_from",type="timestamp")
      * @SWG\Property(name="date_to",type="timestamp")
      * @SWG\Property(name="city",type="string")
@@ -169,48 +169,48 @@ class V1_CalendarController extends Zend_Rest_Controller
      *   path="/calendar/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="PUT",
+     *       method="PUT",
      *       summary="Update time slot.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="UpdateCalendar",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params correct."
+     *            message="Not all params correct."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Have no permissions."
+     *            message="Have no permissions."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Slot not found or U have`n right to edit it."
+     *            message="Slot not found or U have`n right to edit it."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="408",
-     *            reason="User for meet blocked."
+     *            message="User for meet blocked."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="407",
-     *            reason="User blocked."
+     *            message="User blocked."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="300",
-     *            reason="Request user busy."
+     *            message="Request user busy."
      *          ),
-     *           @SWG\ErrorResponse(
+     *           @SWG\ResponseMessage(
      *            code="301",
-     *            reason="You have meeting with this user on this time."
+     *            message="You have meeting with this user on this time."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="json",
      *           description="json",
      *           paramType="body",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="slotCalendarUpdateParams"
+     *           type="slotCalendarUpdateParams"
      *         )
      *     )
      *   )
@@ -305,44 +305,44 @@ class V1_CalendarController extends Zend_Rest_Controller
      *   path="/calendar/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="DELETE",
+     *       method="DELETE",
      *       summary="Cancel time slot.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="CancelTimeSlot",
      *       notes="",
-     *       @SWG\ErrorResponses(
-     *          @SWG\ErrorResponse(
+     *       @SWG\ResponseMessages(
+     *          @SWG\ResponseMessage(
      *            code="401",
-     *            reason="Authentication failed."
+     *            message="Authentication failed."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="400",
-     *            reason="Not all params given."
+     *            message="Not all params given."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="404",
-     *            reason="Not found slot that you can cancel."
+     *            message="Not found slot that you can cancel."
      *          ),
-     *          @SWG\ErrorResponse(
+     *          @SWG\ResponseMessage(
      *            code="407",
-     *            reason="You blocked."
+     *            message="You blocked."
      *          )
      *       ),
      * @SWG\Parameter(
      *           name="private_key",
      *           description="private_key",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="string"
+     *           type="string"
      *         ),
      * @SWG\Parameter(
      *           name="id",
      *           description="id",
      *           paramType="query",
-     *           required="true",
+     *           required=true,
      *           allowMultiple="false",
-     *           dataType="int"
+     *           type="integer"
      *         )
      *     )
      *   )

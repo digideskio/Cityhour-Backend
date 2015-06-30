@@ -1,6 +1,6 @@
 <?php
 
-use Swagger\Annotations as SWG;
+
 /**
  * @SWG\Resource(
  *  resourcePath="/goals"
@@ -27,9 +27,9 @@ class V1_GoalsController extends Zend_Rest_Controller
      *   path="/goals/",
      *   @SWG\Operations(
      *     @SWG\Operation(
-     *       httpMethod="GET",
+     *       method="GET",
      *       summary="Get goals.",
-     *       responseClass="void",
+     *       type="void",
      *       nickname="GetGoals",
      *       notes=""
      *     )
